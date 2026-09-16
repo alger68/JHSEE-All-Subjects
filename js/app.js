@@ -206,7 +206,11 @@ app.addEventListener('click', (event) => {
   if (action === 'exam-prev') { ensureExam().index = Math.max(0, ensureExam().index - 1); renderRoute(); }
   if (action === 'exam-next') { ensureExam().index = Math.min(ensureExam().exam.questions.length - 1, ensureExam().index + 1); renderRoute(); }
   if (action === 'exam-go') { ensureExam().index = Number(control.dataset.index); renderRoute(); }
-  if (action === 'submit-exam' && window.confirm('確定交卷嗎？交卷後才會顯示答案與解析。')) completeExam();
+  if (action === 'submit-exam') {
+    const unanswered = currentExam?.exam.questions.filter((question) => currentExam.answers[question.id] === undefined).length ?? 0;
+    const note = unanswered ? `目前還有 ${unanswered} 題未作答，` : '';
+    if (window.confirm(`${note}確定交卷嗎？交卷後才會顯示答案與解析。`)) completeExam();
+  }
 });
 
 async function boot() {
