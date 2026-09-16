@@ -53,4 +53,15 @@ describe('adventure views', () => {
     expect(html).toContain('交卷');
     expect(html).not.toContain('正確答案');
   });
+
+  it('shows submit instead of a disabled next button on the final question', () => {
+    const html = renderExam({
+      exam: { questions: [{ id: 'Q1', subject: 'math', question: '1+1?', choices: ['1', '2'] }] },
+      index: 0,
+      answers: { Q1: 1 },
+      remaining: '18:00'
+    });
+    expect(html).toContain('data-action="submit-exam"');
+    expect(html).not.toContain('data-action="exam-next"');
+  });
 });
