@@ -66,6 +66,11 @@ tests/scoring.test.js
 tests/analytics.test.js
 tests/wrong-book.test.js
 tests/router.test.js
+tests/home.test.js
+tests/exam-runner.test.js
+tests/results.test.js
+tests/writing.test.js
+tests/official.test.js
 ```
 
 ---
@@ -213,7 +218,7 @@ Validator 必須檢查 `id/subject/domain/grade/type/difficulty/sourceType/sourc
 
 - [ ] **Step 4: 加入錯誤案例測試**
 
-加入空 `stem`、choice index 超出範圍、未知 `sourceType`、重複/空 id 的單題驗證案例。
+加入空 `stem`、choice index 超出範圍、未知 `sourceType` 與空 `id` 的單題驗證案例；重複 ID 由 Task 3 的 question bank 建構階段檢查。
 
 - [ ] **Step 5: Run tests**
 
@@ -249,10 +254,17 @@ git commit -m "feat: validate question schema and provenance"
 - [ ] **Step 1: 寫 failing tests**
 
 ```js
+import { createQuestionBank } from '../js/core/question-bank.js';
+
+const base = {
+  domain:'algebra', grade:[7,8,9], type:'single-choice', difficulty:2,
+  sourceLabel:'平台自製模擬題', stem:'1+1=?', choices:['1','2','3','4'],
+  answer:1, explanation:'1+1=2', tags:['整數']
+};
 const bank = createQuestionBank([
-  { ...q1, id:'m1', subject:'math', sourceType:'mock', difficulty:1 },
-  { ...q2, id:'m2', subject:'math', sourceType:'mock', difficulty:3 },
-  { ...q3, id:'o1', subject:'math', sourceType:'official', year:115, sourceNote:'官方公布資料' }
+  { ...base, id:'m1', subject:'math', sourceType:'mock', difficulty:1 },
+  { ...base, id:'m2', subject:'math', sourceType:'mock', difficulty:3 },
+  { ...base, id:'o1', subject:'math', sourceType:'official', sourceLabel:'官方歷屆試題', year:115, sourceNote:'官方公布資料' }
 ]);
 expect(bank.filter({ subject:'math', sourceType:'mock' }).map(q => q.id)).toEqual(['m1','m2']);
 expect(bank.filter({ sourceType:'official' }).map(q => q.id)).toEqual(['o1']);
@@ -265,7 +277,7 @@ Expected: FAIL。
 
 - [ ] **Step 3: 實作 bank**
 
-`createQuestionBank` 建構時驗證全部題目；不合法題目存入 `diagnostics` 並排除，不讓整個 bank crash。`pick()` 必須接受 injected `rng`，確保測試可重現。
+`createQuestionBank` 建構時驗證全部題目並檢查重複 ID；不合法題目存入 `diagnostics` 並排除，不讓整個 bank crash。`pick()` 必須接受 injected `rng`，確保測試可重現。
 
 - [ ] **Step 4: 建立每科 3–5 題示範 mock JSON**
 
@@ -483,6 +495,7 @@ git commit -m "feat: add wrong-answer review model"
 **Files:**
 - Create: `js/ui/home.js`
 - Create: `js/ui/practice.js`
+- Create: `tests/home.test.js`
 - Modify: `js/app.js`
 - Modify: `css/base.css`
 - Modify: `css/components.css`
@@ -530,8 +543,8 @@ git commit -m "feat: add CBT dashboard and subject entry points"
 - Create: `js/subjects/english.js`
 - Create: `js/subjects/math.js`
 - Create: `js/subjects/registry.js`
-- Modify: `css/exam.css`
 - Create: `tests/exam-runner.test.js`
+- Modify: `css/exam.css`
 
 **Interfaces:**
 - Consumes: exam session、subject registry
@@ -706,26 +719,39 @@ git commit -m "feat: isolate official exam archive"
 - Modify: `README.md`
 
 **Interfaces:**
-- Produces: GitHub Actions workflow，push 到 `main` 時先 `npm ci && npm test`，通過後部署靜態站。
+- Produces: GitHub Actions workflow，push 到 `main` 時先 `npm ci && npm test`，通過後只打包網站必要檔案到 `_site/` 再部署。
 
 - [ ] **Step 1: 建立 workflow**
 
-Workflow permissions 使用 `contents: read`, `pages: write`, `id-token: write`；步驟為 checkout → setup-node → npm ci → npm test → configure-pages → upload-pages-artifact → deploy-pages。
+Workflow permissions 使用 `contents: read`, `pages: write`, `id-token: write`；步驟為 checkout → setup-node → `npm ci` → `npm test` → 建立 `_site` → configure-pages → upload-pages-artifact → deploy-pages。
 
-- [ ] **Step 2: 建立 `404.html`**
+- [ ] **Step 2: 建立乾淨的 Pages artifact**
 
-因網站採 hash routing，`404.html` 可導回 repository base path，避免直接輸入 GitHub Pages 路徑時卡死。
+Workflow 內使用：
 
-- [ ] **Step 3: README 補上本機測試與部署說明**
+```bash
+mkdir -p _site/assets
+cp index.html 404.html _site/
+cp -R css js data _site/
+if [ -d assets ]; then cp -R assets/. _site/assets/; fi
+```
+
+`actions/upload-pages-artifact` 的 `path` 必須指定 `_site`，不得上傳 repository root 或 `node_modules`。
+
+- [ ] **Step 3: 建立 `404.html`**
+
+因網站採 hash routing，`404.html` 導回 GitHub Pages repository base path；正常 SPA route 一律使用 hash，不依賴 server rewrite。
+
+- [ ] **Step 4: README 補上本機測試與部署說明**
 
 包含 `npm install`, `npm test`，以及 GitHub Settings → Pages → Source 設為 GitHub Actions 的必要操作。
 
-- [ ] **Step 4: 執行完整測試**
+- [ ] **Step 5: 執行完整測試**
 
 Run: `npm test`
 Expected: 全部 PASS。
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add .github/workflows/pages.yml 404.html README.md
