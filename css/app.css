@@ -199,6 +199,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-
 .answer-sheet > div button.current { outline: 2px solid var(--subject); }
 .answer-sheet > div button.answered { background: color-mix(in srgb, var(--subject) 25%, #1c224d); }
 .submit-button { width: 100%; min-height: 50px; margin-top: 16px; border: 0; border-radius: 13px; background: var(--gold); color: #14182f; font-weight: 950; }
+.exam-submit-sticky { position: fixed; z-index: 30; left: 14px; right: 14px; bottom: max(14px, env(safe-area-inset-bottom)); display: none; padding: 8px; border: 1px solid rgba(255,209,102,.35); border-radius: 16px; background: rgba(10,14,39,.96); box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+.exam-submit-sticky .submit-button { margin: 0; }
 .notice { padding: 12px; border-radius: 12px; background: rgba(255,209,102,.1); color: #ffe29a !important; font-size: .85rem; }
 .review-list { display: grid; gap: 8px; margin: 22px 0; text-align: left; }
 .review-list article { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 14px; border-radius: 14px; background: var(--surface); }
@@ -221,6 +223,11 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-
   .world-grid { grid-template-columns: repeat(2, 1fr); }
   .world-card:last-child { grid-column: 1 / -1; }
   .dashboard-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 899px) {
+  .exam-submit-sticky { display: block; }
+  .exam-page { padding-bottom: 112px; }
 }
 
 @media (min-width: 900px) {
