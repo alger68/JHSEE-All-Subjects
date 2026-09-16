@@ -42,7 +42,9 @@ export function renderWorld({ subject, levelProgress: progress = {} }) {
     <ol class="level-path">
       ${item.levels.map((level, index) => {
         const id = `${subject}-${index + 1}`; const unlocked = index === 0 || progress[id]?.cleared;
-        return `<li class="level-node ${unlocked ? '' : 'locked'}"><span class="path-line"></span><a ${unlocked ? `href="#/battle/${subject}/${id}"` : 'aria-disabled="true"'}><b>${unlocked ? index + 1 : '🔒'}</b><div><small>LEVEL ${index + 1}</small><h3>${level}</h3><p>${index === 0 ? '5 題・約 3 分鐘' : '後續關卡即將開放'}</p></div><span>${progress[id]?.stars ? '★'.repeat(progress[id].stars) : '›'}</span></a></li>`;
+        const cleared = Boolean(progress[id]?.cleared);
+        const status = cleared ? '已完成・再次挑戰' : unlocked ? '5 題・約 3 分鐘' : '完成上一關後解鎖';
+        return `<li class="level-node ${unlocked ? '' : 'locked'}"><span class="path-line"></span><a ${unlocked ? `href="#/battle/${subject}/${id}"` : 'aria-disabled="true"'} aria-label="${level}，${status}"><b>${unlocked ? index + 1 : '🔒'}</b><div><small>LEVEL ${index + 1}</small><h3>${level}</h3><p>${status}</p></div><span>${progress[id]?.stars ? '★'.repeat(progress[id].stars) : '›'}</span></a></li>`;
       }).join('')}
       <li class="level-node boss-node"><span class="path-line"></span><a href="#/boss/${subject}"><b>👹</b><div><small>BOSS BATTLE</small><h3>${item.boss}</h3><p>10 題綜合挑戰・80% 擊敗</p></div><span>⚔</span></a></li>
     </ol>${nav('worlds')}
