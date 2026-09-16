@@ -17,4 +17,11 @@ describe('V1 question content', () => {
   it('has globally unique ids', () => {
     expect(new Set(questions.map((question) => question.id)).size).toBe(questions.length);
   });
+
+  it('classifies every question for adaptive exam analysis', async () => {
+    const { createQuestionBank } = await import('../js/core/question-bank.js');
+    const bank = createQuestionBank(questions);
+    expect(bank.all().every((question) => question.examAligned === true)).toBe(true);
+    expect(bank.all().every((question) => question.examProfile?.domain && question.examProfile?.type && question.examProfile?.competency)).toBe(true);
+  });
 });
