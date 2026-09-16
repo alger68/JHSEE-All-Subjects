@@ -9,7 +9,7 @@ describe('V1 question content', () => {
   it('contains at least six valid original questions per subject', () => {
     for (const subject of ['chinese', 'english', 'math', 'science', 'social']) {
       const items = questions.filter((question) => question.subject === subject);
-      expect(items.length).toBeGreaterThanOrEqual(6);
+      expect(items.length).toBeGreaterThanOrEqual(10);
       expect(items.every((question) => validateQuestion(question).ok)).toBe(true);
     }
   });
