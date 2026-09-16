@@ -1,3 +1,5 @@
+import { classifyQuestion } from './exam-blueprint.js';
+
 const REQUIRED_FIELDS = [
   'id', 'subject', 'chapter', 'topic', 'grade', 'difficulty', 'question',
   'choices', 'answer', 'explanation', 'hint1', 'hint2', 'source', 'tags'
@@ -34,7 +36,7 @@ export function createQuestionBank(input) {
       continue;
     }
     ids.add(question.id);
-    questions.push(Object.freeze({ ...question }));
+    questions.push(Object.freeze(classifyQuestion(question)));
   }
 
   const filter = (criteria = {}) => questions.filter((question) => Object.entries(criteria).every(([key, value]) => {
