@@ -145,6 +145,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-
 .feedback.correct { border-color: rgba(84,224,164,.55); }
 .feedback.wrong { border-color: rgba(255,107,129,.55); }
 .feedback p { color: #d4daf5; line-height: 1.6; }
+.feedback small { display: block; margin: 8px 0 12px; color: var(--muted); }
 .feedback button { width: 100%; min-height: 48px; border: 0; border-radius: 13px; background: var(--subject); color: #11152f; font-weight: 900; }
 
 .result-page { width: min(640px, calc(100% - 30px)); margin: 0 auto; padding: 52px 0 80px; text-align: center; }
