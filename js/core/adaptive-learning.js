@@ -336,6 +336,39 @@ export function buildAdaptivePractice(questions, count, {
   return chosen.slice(0, count);
 }
 
+export function targetDifficulty(profile, currentDifficulty = 3) {
+  const attempts = profile?.attemptsLast7Days ?? 0;
+  const recentAccuracy = attempts
+    ? ((profile.attemptsLast7Days - (profile.wrongLast7Days ?? 0)) / attempts)
+    : 0.75;
+  let target = clamp(Number(currentDifficulty) || 3, 1, 5);
+  if ((profile?.consecutiveWrong ?? 0) >= 3 || recentAccuracy < 0.5) target -= 1;
+  else if (recentAccuracy >= 0.8 && (profile?.mastery ?? 0) >= 70) target += 1;
+  return clamp(target, 1, 5);
+}
+
+export function generationBrief(profile, sourceQuestion = null) {
+  const mode = practiceMode(profile);
+  return {
+    subject: profile?.subject ?? sourceQuestion?.subject ?? 'unknown',
+    domain: profile?.domain ?? sourceQuestion?.examProfile?.domain ?? sourceQuestion?.domain ?? '一般',
+    coreSkill: profile?.competency ?? sourceQuestion?.examProfile?.competency ?? sourceQuestion?.competency ?? '核心概念',
+    subSkill: profile?.subSkill ?? sourceQuestion?.questionType ?? sourceQuestion?.topic ?? '核心概念',
+    mastery: profile?.mastery ?? 60,
+    priority: profile?.priorityScore ?? 40,
+    consecutiveWrong: profile?.consecutiveWrong ?? 0,
+    practiceMode: mode,
+    targetDifficulty: targetDifficulty(profile, sourceQuestion?.difficulty ?? 3),
+    requirements: [
+      '保持相同核心能力，但改用不同情境與表面形式',
+      '不得只替換人名、數字或關鍵名詞',
+      '選項必須只有一個最佳答案，錯誤選項要對應合理迷思',
+      '提供答案、解析、核心能力與錯因標籤',
+      mode === 'diagnostic' ? '優先拆解底層能力，產生3至5題短診斷組' : '產生可用於近遷移與會考情境練習的變形題'
+    ]
+  };
+}
+
 export function adaptiveDashboard(skills = {}, subjectWeights = null, today = '') {
   const ranked = Object.values(refreshPriorities(skills, today))
     .sort((a, b) => (b.priorityScore ?? 0) - (a.priorityScore ?? 0));
