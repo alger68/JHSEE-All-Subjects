@@ -135,4 +135,24 @@ describe('generate-question HTTP handler', () => {
     expect(payload.questions).toHaveLength(2);
     expect(payload.meta.model).toBe('gpt-5.6-luna');
   });
+  it('retries once when model output fails QA', async () => {
+    let calls=0;
+    const fetchImpl=async()=>{
+      calls+=1;
+      const questions=calls===1
+        ? [{...generated('bad'),competency:'錯誤能力'},generated('bad2')]
+        : [generated('good1'),generated('good2')];
+      return new Response(JSON.stringify({
+        output:[{type:'message',content:[{type:'output_text',text:JSON.stringify({questions})}]}]
+      }),{status:200,headers:{'content-type':'application/json'}});
+    };
+    const handler=createGenerateQuestionHandler({fetchImpl,env:{OPENAI_API_KEY:'test-key'}});
+    const response=await handler(new Request('https://example.test/api/generate-question',{
+      method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({brief,count:2})
+    }));
+    expect(response.status).toBe(200);
+    expect(calls).toBe(2);
+  });
+
 });
