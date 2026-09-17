@@ -29,7 +29,7 @@ const generated = (id='ai-1') => ({
   competency: '上下文推論',
   difficulty: 2,
   passage: 'Mia planned to walk home, but dark clouds gathered. Her teacher offered her an umbrella. Mia thanked her and waited by the school gate until the rain became lighter.',
-  question: 'Why did Mia probably wait by the school gate?',
+  question: `Why did Mia probably wait by the school gate? ${id}`,
   choices: [
     'She wanted the rain to become weaker.',
     'She forgot where her home was.',
