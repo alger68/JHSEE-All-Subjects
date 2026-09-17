@@ -314,6 +314,49 @@ it('updates the eligible count and blocks empty filter combinations without rese
   expect(document.querySelector('[data-action="start-practice"]').disabled).toBe(false);
   expect(document.querySelector('#practice-type').value).toBe('資料分析');
 });
+
+it('starts one continuous revenge session for all wrong questions',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[
+    {questionId:'CHI-WORD-001',mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false},
+    {questionId:'CHI-WORD-002',mastery:1,wrongCount:2,nextReview:'2026-09-18',resolved:false}
+  ]}));
+  window.history.replaceState(null,'','#/revenge');await boot();
+  const start=document.querySelector('[data-action="start-revenge-session"]');
+  expect(start).not.toBeNull();expect(start.textContent).toContain('2');
+  start.click();
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.kind).toBe('review');expect(session.questionIds).toEqual(['CHI-WORD-001','CHI-WORD-002']);
+  expect(document.querySelectorAll('[data-action="exam-go"]')).toHaveLength(2);
+  expect(document.querySelector('[data-exam-progress]').textContent).toContain('0 / 2');
+});
+
+it('advances to the next revenge question after recording an answer',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[
+    {questionId:'CHI-WORD-001',mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false},
+    {questionId:'CHI-WORD-002',mastery:1,wrongCount:2,nextReview:'2026-09-18',resolved:false}
+  ]}));
+  window.history.replaceState(null,'','#/revenge');await boot();
+  document.querySelector('[data-action="start-revenge-session"]').click();
+  const first=document.querySelector('[data-action="exam-answer"]');first.click();
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.index).toBe(1);expect(session.answers['CHI-WORD-001']).toBe(0);
+  expect(document.querySelector('[data-exam-progress]').textContent).toContain('1 / 2');
+  expect(document.querySelector('[data-action="exam-prev"]')).not.toBeNull();
+});
+
+it('does not create blank or unclickable revenge entries for stale question ids',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[
+    {questionId:'CHI-WORD-001',mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false},
+    {questionId:'old-question-2',mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false},
+    {questionId:'old-question-3',mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false}
+  ]}));
+  window.history.replaceState(null,'','#/revenge');await boot();
+  expect(document.querySelector('[data-action="start-revenge-session"]').textContent).toContain('1');
+  expect(document.querySelectorAll('[data-action="start-revenge"]')).toHaveLength(1);
+  expect(document.body.textContent).toContain('2 筆題目資料目前無法載入');
+  expect(document.querySelectorAll('.review-list article h3')).toHaveLength(3);
+  expect([...document.querySelectorAll('.review-list article h3')].slice(1).every(node=>node.textContent.trim())).toBe(true);
+});
 it('can include all original questions with an accurate live count',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
   const focus=document.querySelector('#practice-focus');focus.value='all';focus.dispatchEvent(new Event('change',{bubbles:true}));

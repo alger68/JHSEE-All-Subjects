@@ -71,6 +71,9 @@ function ensureExam() {
 
 const sessionQuestions = (session) => (session?.questionIds??[]).map(id=>questionMap.get(id)).filter(Boolean);
 const paperFor = (session) => OFFICIAL_PAPERS.find(p=>p.id===session?.paperId);
+const reviewEntries = () => state.wrongQuestions
+  .map((entry) => ({ ...entry, ...questionMap.get(entry.questionId), available: questionMap.has(entry.questionId) }))
+  .sort((a,b)=>String(a.nextReview??'').localeCompare(String(b.nextReview??'')));
 const renderReport = (result) => result
   ? renderSessionResults({result,questions:result.items.map(x=>questionMap.get(x.id)).filter(Boolean),paper:paperFor(result),wrongQuestions:state.wrongQuestions})
   : '<div class="app-shell"><h1>此份完整報告已不在最近 10 份紀錄中</h1><a href="#/exam-center">返回會考中心</a></div>';
@@ -128,7 +131,7 @@ function routes() {
       return renderBattle({ subject, battle, question, feedback });
     },
     '#/results': () => state.lastResult ? renderResults(state.lastResult) : '<p>尚無挑戰結果。</p>',
-    '#/revenge': () => renderRevenge({ date:taipeiDate(), items: state.wrongQuestions.map((entry) => ({ ...entry, ...questionMap.get(entry.questionId) })) }),
+    '#/revenge': () => renderRevenge({ date:taipeiDate(), items: reviewEntries() }),
     '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3)),
     '#/profile': () => renderProfile({ player: state.player }),
     '#/exam': () => {
@@ -187,8 +190,15 @@ function handleBattleAnswer(choice) {
 
 function startRevenge(questionId) {
   const question = questionMap.get(questionId);
-  if (!question) return;
+  if (!question) { showToast('這題資料目前無法載入，請重新整理後再試。'); return; }
   startSession([question],{title:'單題複習',kind:'review',paperId:question.paperId,durationMinutes:10});
+}
+
+function startRevengeSession() {
+  const entries=reviewEntries().filter(item=>item.available);
+  const questions=entries.map(item=>questionMap.get(item.questionId)).filter(Boolean);
+  if (!questions.length) { showToast('目前沒有可作答的錯題。'); return; }
+  startSession(questions,{title:`錯題復仇・${questions.length} 題`,kind:'review',durationMinutes:Math.min(180,Math.max(10,questions.length*10))});
 }
 
 function completeExam() {
@@ -272,6 +282,7 @@ app.addEventListener('click', (event) => {
     else renderRoute();
   }
   if (action === 'start-revenge') startRevenge(control.dataset.id);
+  if (action === 'start-revenge-session') startRevengeSession();
   if (action === 'claim-chest') {
     const claimed = claimDailyChest(state.dailyQuest, taipeiDate());
     state.dailyQuest = claimed.quest;
@@ -311,6 +322,9 @@ app.addEventListener('click', (event) => {
     if(!guardSession()) return;
     const s=state.activeExam,qs=sessionQuestions(s);
     state.activeExam=answerSession(s,qs,qs[s.index].id,Number(control.dataset.choice),Date.now());
+    if (state.activeExam.kind==='review' && state.activeExam.index < state.activeExam.questionIds.length-1) {
+      state.activeExam.index += 1;
+    }
     save(); renderRoute(false);
   }
   if(action==='exam-uncertain'||action==='practice-hint') {
