@@ -71,5 +71,6 @@ Vercel 環境變數請依 `.env.example` 設定：
 - `AI_QUESTION_MODEL`：預設 `gpt-5.6-luna`。
 - `AI_ALLOWED_ORIGINS`：允許呼叫 API 的前端來源，預設 `https://alger68.github.io`。
 - `AI_MAX_OUTPUT_TOKENS`：每次生成的輸出上限，預設 2400。
+- `AI_RATE_LIMIT_PER_MINUTE`：單一 Function instance 每個 client 每分鐘最多生成請求數，預設 6；正式公開服務另建議在 Vercel Firewall 對 `/api/generate-question` 設 IP rate limit。
 
 部署後，Vercel 網站本身會自動使用同網域的 `/api/generate-question`。若仍以 GitHub Pages 為主要入口，請把 Vercel 專案根網址填入 `js/config/ai-service.js` 的 `deployedService`，GitHub Pages 就會跨網域呼叫 Vercel API。
