@@ -295,14 +295,14 @@ function practiceSelection(shuffle=false) {
     .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
   state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,PERSONAL_DIAGNOSTIC);
-  const pool=buildAdaptivePractice(candidates,candidates.length,{
+  const pool=buildAdaptivePractice(candidates,Math.min(10,candidates.length),{
     skills:state.adaptiveSkills,
     subjectWeights:state.adaptiveSubjectWeights,
     today:taipeiDate(),
     diagnostic:PERSONAL_DIAGNOSTIC,
     rng:shuffle?Math.random:()=>0.5
   });
-  return {subject,grade,type,focus,pool};
+  return {subject,grade,type,focus,pool,matchCount:candidates.length};
 }
 
 app.addEventListener('click', (event) => {
@@ -352,7 +352,7 @@ app.addEventListener('click', (event) => {
     save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
-    startSession(pool.slice(0,10),{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}練習`,kind:'practice',durationMinutes:20});
+    startSession(pool,{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}練習`,kind:'practice',durationMinutes:20});
   }
   if (action === 'exam-answer') {
     if(!guardSession()) return;
@@ -419,8 +419,9 @@ app.addEventListener('input',(event)=>{
 app.addEventListener('change',(event)=>{
   if(event.target.matches('[data-paper-page-select]'))changePaperPage(Number(event.target.value));
   if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
-    const count=practiceSelection().pool.length;
-    document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${Math.min(10,count)} 題`:'符合條件 0 題，請調整篩選條件。';
+    const selection=practiceSelection();
+    const count=selection.matchCount;
+    document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${selection.pool.length} 題`:'符合條件 0 題，請調整篩選條件。';
     document.querySelector('[data-action="start-practice"]').disabled=count===0;
   }
   const id=event.target.dataset.wrongReason;
