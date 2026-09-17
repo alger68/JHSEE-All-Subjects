@@ -56,6 +56,17 @@ describe('AI question service contracts', () => {
     expect(result.value.count).toBe(5);
   });
 
+
+  it('preserves zero mastery and zero priority instead of replacing them with defaults', () => {
+    const result=validateGenerateRequest({
+      brief:{...brief,mastery:0,priority:0},
+      count:1
+    });
+    expect(result.ok).toBe(true);
+    expect(result.value.brief.mastery).toBe(0);
+    expect(result.value.brief.priority).toBe(0);
+  });
+
   it('builds a prompt that preserves the target skill while forbidding superficial copies', () => {
     const prompt = buildGenerationPrompt(brief, { question: 'Why did Ben leave?', passage: 'Old source text' }, 3);
     expect(prompt).toContain('上下文推論');
