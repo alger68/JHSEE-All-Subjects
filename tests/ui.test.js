@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { renderAnalysis, renderBattle, renderExam, renderLobby, renderWorld } from '../js/ui/views.js';
 import { createPlayer } from '../js/core/game-state.js';
+import { PERSONAL_DIAGNOSTIC } from '../js/core/personalization.js';
 
 describe('adventure views', () => {
   it('renders player state and all five subject worlds in the lobby', () => {
@@ -39,6 +40,14 @@ describe('adventure views', () => {
 
   it('renders an honest insufficient-data analysis state', () => {
     expect(renderAnalysis({ subjects: {}, topics: {} })).toContain('還沒有足夠資料');
+  });
+
+  it('renders the diagnosed weak-point plan even before local answer data exists', () => {
+    const html = renderAnalysis({ subjects: {}, topics: {} }, { diagnostic: PERSONAL_DIAGNOSTIC });
+    expect(html).toContain('宥廷・第一次模考診斷');
+    expect(html).toContain('英文閱讀');
+    expect(html).toContain('自然理化');
+    expect(html).toContain('每天 1 篇會考式閱讀');
   });
 
   it('renders a quick exam without revealing answers', () => {

@@ -1,5 +1,6 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
+import { PERSONAL_DIAGNOSTIC, prioritizeQuestions } from './core/personalization.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
 import { createSession, answerSession, remainingSeconds, finishSession, validateSession } from './core/exam-session.js';
 import { OFFICIAL_PAPERS, getOfficialQuestions } from './config/official-papers.js';
@@ -132,7 +133,7 @@ function routes() {
     },
     '#/results': () => state.lastResult ? renderResults(state.lastResult) : '<p>尚無挑戰結果。</p>',
     '#/revenge': () => renderRevenge({ date:taipeiDate(), items: reviewEntries() }),
-    '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3)),
+    '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3), { diagnostic: PERSONAL_DIAGNOSTIC }),
     '#/profile': () => renderProfile({ player: state.player }),
     '#/exam': () => {
       const session = ensureExam();
@@ -141,7 +142,7 @@ function routes() {
     '#/exam-check': () => state.activeExam
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
       : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports}),
-    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length}),
+    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:PERSONAL_DIAGNOSTIC}),
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
     '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
@@ -265,8 +266,8 @@ function practiceSelection(shuffle=false) {
   const criteria={};
   if(subject!=='all')criteria.subject=subject;
   if(focus!=='all')criteria.examAligned=focus!=='basic';
-  const pool=(shuffle?bank.pick(criteria,bank.all().length):bank.filter(criteria))
-    .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
+  const pool=prioritizeQuestions(bank.filter(criteria)
+    .filter(q=>q.grade<=grade&&(!type||q.questionType===type)), PERSONAL_DIAGNOSTIC);
   return {subject,grade,type,focus,pool};
 }
 

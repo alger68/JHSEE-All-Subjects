@@ -1,5 +1,6 @@
 import { SUBJECT_ORDER, SUBJECTS } from '../config/subjects.js';
 import { levelProgress } from '../core/game-state.js';
+import { diagnosticCards } from '../core/personalization.js';
 import { questionMaterial, reasonSelect } from './exam-views.js';
 
 const escapeHtml = (value) => String(value ?? '')
@@ -79,12 +80,13 @@ export function renderRevenge({ items = [], date = '' }) {
   return `<div class="app-shell"><header class="page-header"><a href="#/exam-center">←</a><div><span class="eyebrow">SPACED REVIEW</span><h1>錯題與不確定題複習</h1></div></header><p class="notice">今天到期 ${due} 題・共 ${items.length} 題。先自行作答，再看解析；同一天重做不會重複增加熟練度。熟悉的題目也會安排之後再確認。</p>${missingNotice}${sessionButton}${items.length?`<section class="review-list">${sorted.map(item=>{const valid=item.available!==false;return `<article class="${valid?'':'review-missing'}"><b>${valid?(['🔴','🟠','🟡','🟢'][item.mastery]??'🔴'):'⚠️'}</b><div><h3>${escapeHtml(item.topic??item.questionId)}</h3><p>${valid?`${item.source==='official'?'官方原題':'原創練習'}・熟練度 ${item.mastery}/3・答錯 ${item.wrongCount} 次${item.uncertainCount?`・不確定 ${item.uncertainCount} 次`:''}`:'題目資料目前無法載入，無法開始作答'}</p><p>${item.nextReview<=date?'今天到期':'下次複習：'+escapeHtml(item.nextReview)}</p>${valid?`${reasonSelect(item.questionId,item.reason)}<button class="primary-button" data-action="start-revenge" data-id="${escapeHtml(item.questionId)}">${item.nextReview<=date?'開始到期複習':'提前練習'}</button>`:'<span class="muted">請重新整理頁面後再試</span>'}</div></article>`;}).join('')}</section>`:'<section class="empty-state"><span>✨</span><h2>目前沒有待複習題目</h2><p>答錯或標記不確定的題目會出現在這裡。</p><a href="#/exam-center">選擇練習</a></section>'}${nav('revenge')}</div>`;
 }
 
-export function renderAnalysis(summary) {
+export function renderAnalysis(summary, { diagnostic = null } = {}) {
   const subjectRows = SUBJECT_ORDER.filter((id) => summary.subjects[id]).map((id) => {
     const stat = summary.subjects[id]; const item = SUBJECTS[id];
     return `<article style="--subject:${item.color}"><span>${item.icon}</span><div><h3>${item.name}</h3><div class="progress"><i style="width:${stat.accuracy}%"></i></div><p>${stat.status === 'insufficient-data' ? '資料不足' : `正確率 ${stat.accuracy}%`}</p></div><strong>${stat.accuracy}%</strong></article>`;
   }).join('');
-  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">ABILITY SCAN</span><h1>能力分析</h1></div><span></span></header>${subjectRows ? `<section class="analysis-list">${subjectRows}</section>` : '<section class="empty-state"><span>📊</span><h2>還沒有足夠資料</h2><p>完成每科至少 3 題後，這裡會開始顯示強項與弱點。</p><a href="#/">開始第一場冒險</a></section>'}${nav('analysis')}</div>`;
+  const diagnosticPanel = diagnostic ? `<section class="diagnostic-panel"><div class="section-heading"><div><span class="eyebrow">PERSONAL DIAGNOSTIC</span><h2>${escapeHtml(diagnostic.student)}・${escapeHtml(diagnostic.source)}診斷</h2></div></div><p class="muted">推薦順序：英文閱讀 → 自然理化 → 數學非選 → 歷史／公民。每天先處理弱點，再用錯題復習確認。</p><div class="diagnostic-list">${diagnosticCards(diagnostic).map((card) => `<article><div><strong>${escapeHtml(card.label)}</strong><span>${escapeHtml(card.result)}</span></div><b>${escapeHtml(card.priority)}</b><p>${escapeHtml(card.recommendation)}</p></article>`).join('')}</div></section>` : '';
+  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">ABILITY SCAN</span><h1>能力分析</h1></div><span></span></header>${subjectRows ? `<section class="analysis-list">${subjectRows}</section>` : '<section class="empty-state"><span>📊</span><h2>還沒有足夠資料</h2><p>完成每科至少 3 題後，這裡會開始顯示強項與弱點。</p><a href="#/">開始第一場冒險</a></section>'}${diagnosticPanel}${nav('analysis')}</div>`;
 }
 
 export function renderProfile({ player }) {

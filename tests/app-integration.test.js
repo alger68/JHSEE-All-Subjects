@@ -296,6 +296,13 @@ it('defaults short practice to explicitly reviewed CAP-oriented questions',async
   expect(session.questionIds.every(id=>practice.some(q=>q.id===id))).toBe(true);
   expect(session.title).toContain('會考導向');
 });
+it('starts the default practice with 宥廷 diagnosed weak points first',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  const ids=JSON.parse(localStorage.getItem(key)).activeExam.questionIds;
+  expect(ids.slice(0,5).every(id=>id.startsWith('CAP-P-english-'))).toBe(true);
+  expect(ids.slice(5,8).every(id=>id.startsWith('CAP-P-science-'))).toBe(true);
+});
 it('allows a separate basic practice without mixing reviewed contextual questions',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
   document.querySelector('#practice-focus').value='basic';
