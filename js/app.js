@@ -4,6 +4,7 @@ import { answerBattle, createBattle, finishBattle } from './core/battle.js';
 import { createSession, answerSession, remainingSeconds, finishSession, validateSession } from './core/exam-session.js';
 import { OFFICIAL_PAPERS, getOfficialQuestions } from './config/official-papers.js';
 import { clock, renderExamCenter, renderPaperSetup, renderSession, renderSessionResults } from './ui/exam-views.js';
+import { renderExamCheck } from './ui/exam-check.js';
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
@@ -78,6 +79,7 @@ function renderRoute(scroll = true) {
     const match = router.resolve(window.location.hash || '#/');
     app.innerHTML = match.handler(match.params);
     if (scroll === true) window.scrollTo({ top: 0, behavior: 'instant' });
+    if (match.route === '#/exam-check') app.querySelector('h1')?.focus({ preventScroll: true });
   } catch (error) {
     console.error(error);
     app.innerHTML = '<section class="fatal-state"><span>🛠️</span><h1>冒險暫時中斷</h1><p>請重新整理頁面或返回首頁。原有學習紀錄仍保存在這台裝置。</p><a href="#/">返回首頁</a></section>';
@@ -110,6 +112,9 @@ function routes() {
       const session = ensureExam();
       return renderSession({session,questions:sessionQuestions(session),paper:paperFor(session),remaining:remainingSeconds(session,Date.now())});
     },
+    '#/exam-check': () => state.activeExam
+      ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
+      : renderExamCenter({papers:OFFICIAL_PAPERS,practiceCount:bank.all().length,reports:state.examReports}),
     '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,practiceCount:bank.all().length}),
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
@@ -269,9 +274,21 @@ app.addEventListener('click', (event) => {
   }
   if (action === 'submit-exam') {
     if(!guardSession())return;
-    const unanswered = sessionQuestions(state.activeExam).filter(q=>state.activeExam.answers[q.id]===undefined).length;
-    const note = unanswered ? `目前還有 ${unanswered} 題未作答，` : '';
-    if (window.confirm(`${note}確定交卷嗎？交卷後才會顯示答案與解析。`)) completeExam();
+    window.location.hash='#/exam-check'; renderRoute();
+  }
+  if (action === 'return-exam' || action === 'check-question') {
+    if(!guardSession())return;
+    if(action==='check-question') {
+      const index=Number(control.dataset.index);
+      if(!Number.isInteger(index)||index<0||index>=state.activeExam.questionIds.length)return;
+      state.activeExam.index=index; save();
+    }
+    window.location.hash='#/exam'; renderRoute();
+  }
+  if (action === 'confirm-submit-exam') {
+    if(!guardSession()||window.location.hash!=='#/exam-check'||control.dataset.sessionId!==state.activeExam.id)return;
+    control.disabled=true;
+    completeExam();
   }
 });
 
