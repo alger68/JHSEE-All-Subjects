@@ -1,6 +1,6 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
-import { PERSONAL_DIAGNOSTIC } from './core/personalization.js';
+import { PERSONAL_DIAGNOSTIC, prioritizeQuestions } from './core/personalization.js';
 import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
 import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
 import { AI_SERVICE_URL } from './config/ai-service.js';
@@ -298,13 +298,16 @@ function practiceSelection(shuffle=false) {
     .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
   state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,PERSONAL_DIAGNOSTIC);
-  const pool=buildAdaptivePractice(candidates,Math.min(10,candidates.length),{
-    skills:state.adaptiveSkills,
-    subjectWeights:state.adaptiveSubjectWeights,
-    today:taipeiDate(),
-    diagnostic:PERSONAL_DIAGNOSTIC,
-    rng:shuffle?Math.random:()=>0.5
-  });
+  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
+  const pool=hasAdaptiveData
+    ? buildAdaptivePractice(candidates,Math.min(10,candidates.length),{
+        skills:state.adaptiveSkills,
+        subjectWeights:state.adaptiveSubjectWeights,
+        today:taipeiDate(),
+        diagnostic:PERSONAL_DIAGNOSTIC,
+        rng:shuffle?Math.random:()=>0.5
+      })
+    : prioritizeQuestions(candidates,PERSONAL_DIAGNOSTIC).slice(0,10);
   return {subject,grade,type,focus,pool,matchCount:candidates.length};
 }
 
