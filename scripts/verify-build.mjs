@@ -11,3 +11,14 @@ for (const bank of ['questions', 'cap-practice']) {
   assert.deepEqual(JSON.parse(readFileSync(`dist/assets/${asset}`, 'utf8')), JSON.parse(readFileSync(`data/${bank}.json`, 'utf8')));
 }
 console.log('Built question banks verified: 85 original questions available.');
+const official=JSON.parse(readFileSync('data/official-115-layout.json','utf8'));
+let pageCount=0;
+for(const layout of Object.values(official))for(const page of layout.pages) {
+  const source=readFileSync(`public/${page.src}`),deployed=readFileSync(`dist/${page.src}`);
+  assert.ok(source.length>1000,`Empty official page ${page.src}`);
+  assert.ok(deployed.equals(source),`Missing or altered deployed official page ${page.src}`);
+  pageCount++;
+}
+const audio='official/115/listening/full-exam.mp3';
+assert.ok(readFileSync(`dist/${audio}`).equals(readFileSync(`public/${audio}`)),'Official listening audio missing or altered');
+console.log(`Built official reader verified: ${pageCount} original pages, 235 question regions and listening audio.`);

@@ -12,6 +12,31 @@ body { margin: 0; min-width: 320px; min-height: 100vh; }
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 #app { min-height: 100vh; }
+.paper-mode-setup { display:grid; gap:12px; border:1px solid var(--line); border-radius:14px; padding:16px; margin:22px 0; }
+.paper-mode-setup label { display:block; cursor:pointer; }
+.paper-mode-setup small { display:block; color:var(--muted); margin:6px 0 0 24px; }
+.official-view-controls,.reader-tools { display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin:14px 0; }
+.official-view-controls button,.reader-tools button,.reader-tools select { min-height:44px; border:1px solid var(--line); border-radius:10px; padding:9px 12px; background:#202749; color:#fff; }
+.official-view-controls button[aria-pressed="true"] { background:var(--subject,var(--cyan)); color:#11152f; font-weight:800; }
+.reader-tools button:disabled { opacity:.4; cursor:default; }
+.reader-tools .muted { flex:1 1 180px; font-size:.8rem; }
+.paper-image-scroll { max-width:100%; overflow:auto; border-radius:10px; border:1px solid #c6cbda; background:#fff; overscroll-behavior-x:contain; }
+.paper-image-content { padding:12px; background:#fff; color:#171b2c; }
+.zoomed .paper-image-content { min-width:800px; }
+.original-region { background:#fff; padding:8px 0; }
+.original-region svg,.paper-image-content > img { display:block; width:100%; height:auto; }
+.original-region svg { overflow:hidden; }
+.official-question-material,.whole-paper-reader,.exam-question,.review-list article>div { min-width:0; }
+.official-shared { margin-bottom:12px; padding-bottom:12px; border-bottom:2px solid #dbe2eb; }
+.official-shared summary { color:#263b62; font-weight:700; margin-bottom:10px; }
+.official-manual,.official-formula { margin:20px 0; }
+.official-manual>.original-region,.official-formula>.original-region { border-radius:10px; padding:12px; margin-top:12px; }
+.official-source { width:min(1100px,100%); margin:18px auto; color:var(--muted); }
+.official-source summary,.official-manual summary,.official-formula summary,.report-original summary,.official-shared summary { cursor:pointer; min-height:44px; padding:10px 0; }
+#official-listening-player { width:min(1100px,calc(100% - 36px)); margin:18px auto 0; padding:16px; border:1px solid var(--line); border-radius:16px; background:var(--surface); }
+.official-audio h2 { margin:0; font-size:1.1rem; }
+.official-audio audio { display:block; width:100%; }
+.report-original { margin-top:12px; }
 
 :root {
   --bg: #080b1d;

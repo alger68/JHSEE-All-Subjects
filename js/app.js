@@ -5,6 +5,7 @@ import { createSession, answerSession, remainingSeconds, finishSession, validate
 import { OFFICIAL_PAPERS, getOfficialQuestions } from './config/official-papers.js';
 import { clock, renderExamCenter, renderPaperSetup, renderSession, renderSessionResults } from './ui/exam-views.js';
 import { renderExamCheck } from './ui/exam-check.js';
+import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './ui/official-reader.js';
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
@@ -77,13 +78,35 @@ const renderReport = (result) => result
 function renderRoute(scroll = true) {
   try {
     const match = router.resolve(window.location.hash || '#/');
+    const preserved = new Map([...app.querySelectorAll('[data-preserve]')].map(node=>[node.dataset.preserve,node]));
     app.innerHTML = match.handler(match.params);
+    for (const replacement of app.querySelectorAll('[data-preserve]')) {
+      const previous=preserved.get(replacement.dataset.preserve);
+      if(previous) replacement.replaceWith(previous);
+    }
+    syncOfficialAudio();
     if (scroll === true) window.scrollTo({ top: 0, behavior: 'instant' });
     if (match.route === '#/exam-check') app.querySelector('h1')?.focus({ preventScroll: true });
   } catch (error) {
     console.error(error);
     app.innerHTML = '<section class="fatal-state"><span>🛠️</span><h1>冒險暫時中斷</h1><p>請重新整理頁面或返回首頁。原有學習紀錄仍保存在這台裝置。</p><a href="#/">返回首頁</a></section>';
   }
+}
+
+// The audio player lives outside the re-rendered application. Answering,
+// jumping questions and the submission check never detach or restart it.
+function syncOfficialAudio() {
+  const session=state.activeExam,paper=paperFor(session);
+  let dock=document.getElementById('official-listening-player');
+  if(paper?.section!=='listening') {
+    const audio=dock?.querySelector('audio');if(audio&&!audio.paused)audio.pause();
+    dock?.remove();return;
+  }
+  if(dock?.dataset.sessionId===session.id)return;
+  const previousAudio=dock?.querySelector('audio');if(previousAudio&&!previousAudio.paused)previousAudio.pause();
+  dock?.remove();dock=document.createElement('aside');
+  dock.id='official-listening-player';dock.dataset.sessionId=session.id;
+  dock.innerHTML=renderOfficialAudio(paper,session);app.before(dock);
 }
 
 function routes() {
@@ -204,6 +227,10 @@ function completeExam() {
 function startSession(questions,options) {
   if (state.activeExam&&!window.confirm('已有尚未交卷的測驗。確定放棄它並開始新的練習嗎？')) return;
   state.activeExam=createSession(questions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
+  if(options.paperId) {
+    state.activeExam.paperMode=options.paperMode==='whole'?'whole':'question';
+    state.activeExam.paperPage=1;
+  }
   save(); window.location.hash='#/exam'; renderRoute();
 }
 
@@ -256,7 +283,23 @@ app.addEventListener('click', (event) => {
   }
   if(action==='start-paper') {
     const paper=OFFICIAL_PAPERS.find(p=>p.id===control.dataset.id);
-    if(paper) startSession(getOfficialQuestions(paper),{title:paper.title,kind:paper.section==='writing'?'official-writing':'official',paperId:paper.id,durationMinutes:paper.durationMinutes});
+    if(paper) startSession(getOfficialQuestions(paper),{title:paper.title,kind:paper.section==='writing'?'official-writing':'official',paperId:paper.id,durationMinutes:paper.durationMinutes,paperMode:document.querySelector('input[name="paper-mode"]:checked')?.value});
+  }
+  if(action==='paper-zoom') {
+    const reader=control.closest('.official-question-material,.whole-paper-reader');
+    const zoomed=reader?.classList.toggle('zoomed');
+    control.setAttribute('aria-pressed',String(Boolean(zoomed)));
+    control.textContent=zoomed?'縮回頁寬':'放大閱讀';return;
+  }
+  if(action==='paper-mode') {
+    if(!guardSession())return;
+    const s=state.activeExam,layout=officialLayout(paperFor(s));if(!layout)return;
+    s.paperMode=control.dataset.mode==='whole'?'whole':'question';
+    if(s.paperMode==='whole')s.paperPage=layout.questions[sessionQuestions(s)[s.index]?.number-1]?.region.page??layout.manual[0]?.page??1;
+    save();renderRoute(false);
+  }
+  if(action==='paper-page-prev'||action==='paper-page-next') {
+    changePaperPage((state.activeExam?.paperPage??1)+(action==='paper-page-next'?1:-1));
   }
   if(action==='start-practice') {
     const {subject,grade,type,focus,pool}=practiceSelection(true);
@@ -303,11 +346,28 @@ app.addEventListener('click', (event) => {
   }
 });
 
+function changePaperPage(page) {
+  if(!guardSession())return;
+  const s=state.activeExam,layout=officialLayout(paperFor(s));
+  if(!layout||!Number.isInteger(page))return;
+  s.paperPage=Math.max(1,Math.min(layout.pages.length,page));save();renderRoute(false);
+}
+
+app.addEventListener('toggle',(event)=>{
+  const details=event.target;
+  if(!details.matches('.report-original')||!details.open)return;
+  const slot=details.querySelector('[data-original-slot]');if(!slot||slot.childElementCount)return;
+  const paper=OFFICIAL_PAPERS.find(p=>p.id===details.dataset.originalPaper);
+  const question=getOfficialQuestions(paper).find(q=>q.number===Number(details.dataset.originalNumber));
+  if(question)slot.innerHTML=renderOfficialQuestion(paper,question);
+},true);
+
 app.addEventListener('input',(event)=>{
   const id=event.target.dataset.examNote;
   if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
 });
 app.addEventListener('change',(event)=>{
+  if(event.target.matches('[data-paper-page-select]'))changePaperPage(Number(event.target.value));
   if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
     const count=practiceSelection().pool.length;
     document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${Math.min(10,count)} 題`:'符合條件 0 題，請調整篩選條件。';

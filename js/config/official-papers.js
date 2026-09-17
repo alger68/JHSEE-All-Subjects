@@ -1,4 +1,4 @@
-// Official source and final answer ruling verified 2026-09-17. Text stays on the original site.
+// Official source and final answer ruling verified 2026-09-17. Original-page images and question regions are available in the in-site reader.
 const drive = (id) => `https://drive.google.com/file/d/${id}/view`;
 export const OFFICIAL_SOURCE = 'https://cap.rcpet.edu.tw/exam/115/115exam.html';
 export const OFFICIAL_ANSWER = drive('1fxfOLQPMdCEMSuziD1qsQZg3vVOGt8df');

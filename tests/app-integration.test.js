@@ -18,6 +18,87 @@ afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubA
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
+it('shows official question images in-site and preserves answers, zoom and deadline across reader modes',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-math');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  expect(document.querySelector('[data-official-question="1"]')).not.toBeNull();
+  expect(document.querySelector('iframe')).toBeNull();
+  document.querySelector('[data-action="paper-zoom"]').click();
+  const reader=document.querySelector('.official-question-material');
+  document.querySelector('[data-choice="2"]').click();
+  expect(document.querySelector('.official-question-material')).toBe(reader);
+  expect(reader.classList.contains('zoomed')).toBe(true);
+  const before=JSON.parse(localStorage.getItem(key)).activeExam;
+  document.querySelector('[data-mode="whole"]').click();
+  expect(document.querySelector('[data-paper-page]').textContent).toContain('2 / 14');
+  document.querySelector('[data-action="paper-page-next"]').click();
+  expect(document.querySelector('[data-paper-page]').textContent).toContain('3 / 14');
+  document.querySelector('[data-mode="question"]').click();
+  const after=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(after.startedAt).toBe(before.startedAt);expect(after.answers).toEqual(before.answers);
+  expect(after.index).toBe(0);expect(after.paperMode).toBe('question');
+  document.querySelector('[data-action="exam-next"]').click();
+  expect(document.querySelector('[data-official-question="2"]')).not.toBeNull();
+});
+it('keeps whole-paper preferences and page after reload, with the selected question intact',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-english');await boot();
+  document.querySelector('input[value="whole"]').checked=true;
+  document.querySelector('[data-action="start-paper"]').click();
+  const select=document.querySelector('[data-paper-page-select]');select.value='12';select.dispatchEvent(new Event('change',{bubbles:true}));
+  document.querySelector('[data-choice="1"]').click();
+  const startedAt=JSON.parse(localStorage.getItem(key)).activeExam.startedAt;
+  disconnect();document.body.innerHTML='<main id="app"></main>';vi.resetModules();vi.setSystemTime(startedAt+1000);await boot();
+  expect(document.querySelector('[data-paper-page]').textContent).toContain('12 / 15');
+  expect(document.querySelector('[data-choice="1"]').getAttribute('aria-pressed')).toBe('true');
+});
+it('keeps the same listening audio element while answering, changing question and checking submission',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-listening');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  const audio=document.querySelector('audio');expect(audio).not.toBeNull();
+  audio.currentTime=90;
+  document.querySelector('[data-choice="1"]').click();
+  document.querySelector('[data-action="exam-next"]').click();
+  document.querySelector('[data-action="submit-exam"]').click();
+  expect(document.querySelector('audio')).toBe(audio);expect(audio.currentTime).toBe(90);
+  document.querySelector('[data-action="return-exam"]').click();
+  expect(document.querySelector('audio')).toBe(audio);
+  submitExam();expect(document.querySelector('audio')).toBeNull();
+});
+it('stops the old listening audio when replacing an unfinished listening session',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-listening');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  const oldAudio=document.querySelector('audio');Object.defineProperty(oldAudio,'paused',{value:false});
+  const pause=vi.spyOn(oldAudio,'pause').mockImplementation(()=>{});
+  await go('#/paper/cap115-listening');document.querySelector('[data-action="start-paper"]').click();
+  expect(pause).toHaveBeenCalledOnce();expect(document.querySelector('audio')).not.toBe(oldAudio);
+});
+it('includes original math manual questions and writing prompt before the draft fields',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-math');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  expect(document.querySelectorAll('.official-manual svg')).toHaveLength(2);
+  expect(document.querySelector('.official-formula svg')).not.toBeNull();
+  submitExam();await go('#/paper/cap115-writing');document.querySelector('[data-action="start-paper"]').click();
+  expect(document.querySelector('.official-manual[open] svg')).not.toBeNull();
+});
+it('loads original result questions only when opened and keeps the writing prompt in archived reports',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-english');await boot();
+  document.querySelector('[data-action="start-paper"]').click();submitExam();
+  expect(document.querySelectorAll('.report-original svg')).toHaveLength(0);
+  const details=document.querySelector('[data-original-number="35"]');details.open=true;details.dispatchEvent(new Event('toggle'));
+  expect(details.querySelector('[data-official-question="35"]')).not.toBeNull();
+  expect(details.querySelector('.official-shared')).not.toBeNull();
+  await go('#/paper/cap115-writing');document.querySelector('[data-action="start-paper"]').click();
+  const input=document.querySelector('[data-exam-note="writing"]');input.value='草稿';input.dispatchEvent(new Event('input',{bubbles:true}));submitExam();
+  expect(document.querySelector('.official-manual svg')).not.toBeNull();
+});
+it('keeps manual prompts in the report even when the student answered only on paper',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-math');await boot();
+  document.querySelector('[data-action="start-paper"]').click();submitExam();
+  expect(document.querySelectorAll('.official-manual svg')).toHaveLength(2);
+  expect(document.body.textContent).toContain('未填寫文字草稿');
+  await go('#/paper/cap115-writing');document.querySelector('[data-action="start-paper"]').click();submitExam();
+  expect(document.querySelectorAll('.official-manual svg')).toHaveLength(1);
+});
 it('keeps the actual question node and scroll stable while countdown advances',async()=>{
   await boot(); const node=document.querySelector('.question-card'); expect(node).not.toBeNull();
   window.scrollTo.mockClear();
