@@ -204,3 +204,39 @@ it('does not start a new exam when an old check URL is opened after submission',
   expect(JSON.parse(localStorage.getItem(key)).activeExam).toBeNull();
   expect(document.body.textContent).toContain('會考與補強中心');
 });
+it('defaults short practice to explicitly reviewed CAP-oriented questions',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  expect(document.querySelector('#practice-focus')?.value).toBe('aligned');
+  expect(document.body.textContent).toContain('會考導向 30 題');
+  expect(document.body.textContent).toContain('基礎補強 55 題');
+  document.querySelector('[data-action="start-practice"]').click();
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds).toHaveLength(10);
+  expect(session.questionIds.every(id=>practice.some(q=>q.id===id))).toBe(true);
+  expect(session.title).toContain('會考導向');
+});
+it('allows a separate basic practice without mixing reviewed contextual questions',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('#practice-focus').value='basic';
+  document.querySelector('[data-action="start-practice"]').click();
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds.every(id=>questions.some(q=>q.id===id))).toBe(true);
+  expect(session.title).toContain('基礎補強');
+});
+it('updates the eligible count and blocks empty filter combinations without resetting filters',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('#practice-focus').value='basic';
+  const type=document.querySelector('#practice-type');type.value='資料分析';type.dispatchEvent(new Event('change',{bubbles:true}));
+  expect(document.querySelector('[data-practice-matches]').textContent).toContain('0 題');
+  expect(document.querySelector('[data-action="start-practice"]').disabled).toBe(true);
+  document.querySelector('#practice-focus').value='aligned';document.querySelector('#practice-focus').dispatchEvent(new Event('change',{bubbles:true}));
+  expect(document.querySelector('[data-action="start-practice"]').disabled).toBe(false);
+  expect(document.querySelector('#practice-type').value).toBe('資料分析');
+});
+it('can include all original questions with an accurate live count',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  const focus=document.querySelector('#practice-focus');focus.value='all';focus.dispatchEvent(new Event('change',{bubbles:true}));
+  expect(document.querySelector('[data-practice-matches]').textContent).toContain('85 題');
+  document.querySelector('[data-action="start-practice"]').click();
+  expect(JSON.parse(localStorage.getItem(key)).activeExam.title).toContain('全部原創');
+});

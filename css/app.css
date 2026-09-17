@@ -54,6 +54,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-
 select,textarea { width:100%; color:var(--text,#f7f8ff); background:#141b3d; border:1px solid #606988; border-radius:10px; padding:12px; }
 select:focus-visible,textarea:focus-visible { outline:3px solid var(--cyan); outline-offset:2px; }
 button.primary-button { width:100%; border:0; padding:12px; cursor:pointer; }
+button.primary-button:disabled { opacity:.5; cursor:not-allowed; }
 .setup-list { padding-left:24px; line-height:1.9; }
 .setup-list li { margin:12px 0; }
 .exam-top-actions { position:sticky; top:0; z-index:10; background:#101630; border:1px solid var(--line); border-radius:14px; display:flex; align-items:center; gap:16px; justify-content:space-between; width:min(1100px,100%); margin:0 auto 16px; padding:10px 14px; }

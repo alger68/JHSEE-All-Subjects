@@ -114,8 +114,8 @@ function routes() {
     },
     '#/exam-check': () => state.activeExam
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
-      : renderExamCenter({papers:OFFICIAL_PAPERS,practiceCount:bank.all().length,reports:state.examReports}),
-    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,practiceCount:bank.all().length}),
+      : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports}),
+    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length}),
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
     '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
@@ -220,6 +220,19 @@ function updateExamClock() {
   if(timer) timer.textContent=`⏱ ${clock(remainingSeconds(state.activeExam,Date.now()))}`;
 }
 
+function practiceSelection(shuffle=false) {
+  const subject=document.querySelector('#practice-subject').value;
+  const grade=Number(document.querySelector('#practice-grade').value);
+  const type=document.querySelector('#practice-type').value;
+  const focus=document.querySelector('#practice-focus').value;
+  const criteria={};
+  if(subject!=='all')criteria.subject=subject;
+  if(focus!=='all')criteria.examAligned=focus!=='basic';
+  const pool=(shuffle?bank.pick(criteria,bank.all().length):bank.filter(criteria))
+    .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
+  return {subject,grade,type,focus,pool};
+}
+
 app.addEventListener('click', (event) => {
   const control = event.target.closest('[data-action]');
   if (!control) return;
@@ -246,12 +259,10 @@ app.addEventListener('click', (event) => {
     if(paper) startSession(getOfficialQuestions(paper),{title:paper.title,kind:paper.section==='writing'?'official-writing':'official',paperId:paper.id,durationMinutes:paper.durationMinutes});
   }
   if(action==='start-practice') {
-    const subject=document.querySelector('#practice-subject').value;
-    const grade=Number(document.querySelector('#practice-grade').value);
-    const type=document.querySelector('#practice-type').value;
-    const pool=bank.pick(subject==='all'?{}:{subject},bank.all().length).filter(q=>q.grade<=grade&&(!type||q.questionType===type));
+    const {subject,grade,type,focus,pool}=practiceSelection(true);
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
-    startSession(pool.slice(0,10),{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}原創練習`,kind:'practice',durationMinutes:20});
+    const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
+    startSession(pool.slice(0,10),{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}練習`,kind:'practice',durationMinutes:20});
   }
   if (action === 'exam-answer') {
     if(!guardSession()) return;
@@ -297,6 +308,11 @@ app.addEventListener('input',(event)=>{
   if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
 });
 app.addEventListener('change',(event)=>{
+  if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
+    const count=practiceSelection().pool.length;
+    document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${Math.min(10,count)} 題`:'符合條件 0 題，請調整篩選條件。';
+    document.querySelector('[data-action="start-practice"]').disabled=count===0;
+  }
   const id=event.target.dataset.wrongReason;
   if(id) {state.wrongQuestions=setWrongReason(state.wrongQuestions,id,event.target.value);save();}
 });
