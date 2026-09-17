@@ -55,13 +55,17 @@ function normalizeBrief(brief){
   const subSkill=clean(brief.subSkill,160)||coreSkill;
   const practiceMode=clean(brief.practiceMode,40);
   if(!SUBJECTS.has(subject)||!domain||!coreSkill||!MODES.has(practiceMode))return null;
+  const mastery=Number(brief.mastery);
+  const priority=Number(brief.priority);
+  const consecutiveWrong=Number(brief.consecutiveWrong);
+  const targetDifficulty=Number(brief.targetDifficulty);
   return {
     subject,domain,coreSkill,subSkill,
-    mastery:clamp(Number(brief.mastery)||60,0,100),
-    priority:clamp(Number(brief.priority)||40,0,100),
-    consecutiveWrong:clamp(Number(brief.consecutiveWrong)||0,0,20),
+    mastery:clamp(Number.isFinite(mastery)?mastery:60,0,100),
+    priority:clamp(Number.isFinite(priority)?priority:40,0,100),
+    consecutiveWrong:clamp(Number.isFinite(consecutiveWrong)?consecutiveWrong:0,0,20),
     practiceMode,
-    targetDifficulty:clamp(Number(brief.targetDifficulty)||3,1,5),
+    targetDifficulty:clamp(Number.isFinite(targetDifficulty)?targetDifficulty:3,1,5),
     requirements:Array.isArray(brief.requirements)?brief.requirements.map(x=>clean(x,240)).filter(Boolean).slice(0,8):[]
   };
 }
