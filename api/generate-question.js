@@ -73,11 +73,33 @@ async function callOpenAi(fetchImpl,env,value,request){
 }
 
 export function createGenerateQuestionHandler({fetchImpl=fetch,env=process.env}={}){
+  const rateBuckets=new Map();
+  const rateLimit=Math.max(1,Math.min(60,Number(env.AI_RATE_LIMIT_PER_MINUTE)||6));
   return async function handler(request){
     const cors=corsHeaders(request,env);
     if(request.method==='OPTIONS')return new Response(null,{status:204,headers:cors});
     if(request.method!=='POST')return json({error:'method_not_allowed'},405,{...cors,allow:'POST, OPTIONS'});
     if(!env.OPENAI_API_KEY)return json({error:'ai_service_not_configured'},503,cors);
+
+    const forwarded=request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+    const client=forwarded||request.headers.get('x-real-ip')||'unknown';
+    const minute=Math.floor(Date.now()/60000);
+    const bucketKey=`${client}:${minute}`;
+    const used=(rateBuckets.get(bucketKey)??0)+1;
+    rateBuckets.set(bucketKey,used);
+    if(rateBuckets.size>1000){
+      for(const key of rateBuckets.keys()){
+        if(!key.endsWith(`:${minute}`))rateBuckets.delete(key);
+      }
+    }
+    if(used>rateLimit){
+      return json({error:'rate_limited'},429,{
+        ...cors,
+        'retry-after':'60',
+        'x-ratelimit-limit':String(rateLimit),
+        'x-ratelimit-remaining':'0'
+      });
+    }
 
     const length=Number(request.headers.get('content-length')||0);
     if(length>32768)return json({error:'request_too_large'},413,cors);
