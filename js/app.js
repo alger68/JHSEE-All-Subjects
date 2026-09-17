@@ -1,7 +1,9 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
 import { PERSONAL_DIAGNOSTIC } from './core/personalization.js';
-import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, recordAdaptiveAttempt, refreshPriorities } from './core/adaptive-learning.js';
+import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
+import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
+import { AI_SERVICE_URL } from './config/ai-service.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
 import { createSession, answerSession, remainingSeconds, finishSession, validateSession } from './core/exam-session.js';
 import { OFFICIAL_PAPERS, getOfficialQuestions } from './config/official-papers.js';
@@ -230,6 +232,7 @@ function completeExam() {
         selectedChoice: item.choice,
         hinted: Boolean(item.hinted),
         uncertain: Boolean(item.uncertain),
+        errorReason: !item.correct ? (question.errorTags?.[item.choice] ?? null) : null,
         sourceKind: session.kind === 'review' ? 'review' : question.source === 'official' ? 'official' : 'practice',
         date: taipeiDate()
       });
@@ -305,7 +308,7 @@ function practiceSelection(shuffle=false) {
   return {subject,grade,type,focus,pool,matchCount:candidates.length};
 }
 
-app.addEventListener('click', (event) => {
+app.addEventListener('click', async (event) => {
   const control = event.target.closest('[data-action]');
   if (!control) return;
   const action = control.dataset.action;
@@ -351,8 +354,37 @@ app.addEventListener('click', (event) => {
     const {subject,grade,type,focus,pool}=practiceSelection(true);
     save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
+    let sessionPool=pool;
+    let aiUsed=false;
+    const dashboard=adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate());
+    const profile=dashboard.topSkills.find((item)=>subject==='all'||item.subject===subject);
+    if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
+      const sourceQuestion=pool.find((question)=>skillIdentity(question).key===profile.key)??pool[0];
+      const count=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+      showToast(`正在生成 ${profile.competency} 的針對性變形題…`);
+      const generated=await requestAiQuestions({
+        endpoint:AI_SERVICE_URL,
+        brief:generationBrief(profile,sourceQuestion),
+        sourceQuestion,
+        count
+      });
+      if(generated?.length) {
+        aiUsed=true;
+        const known=new Map((state.generatedQuestions??[]).map((q)=>[q.id,q]));
+        for(const q of generated) {
+          known.set(q.id,q);
+          questionMap.set(q.id,q);
+        }
+        state.generatedQuestions=[...known.values()].slice(-50);
+        sessionPool=mergeAiWithFallback(generated,pool,Math.min(10,pool.length));
+        save();
+        showToast(`已加入 ${generated.length} 題 AI 弱點變形題。`);
+      } else {
+        showToast('AI 變形題暫時不可用，已自動改用既有題庫。');
+      }
+    }
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
-    startSession(pool,{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}練習`,kind:'practice',durationMinutes:20});
+    startSession(sessionPool,{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiUsed?'＋AI弱點':''}練習`,kind:'practice',durationMinutes:20});
   }
   if (action === 'exam-answer') {
     if(!guardSession()) return;
@@ -435,7 +467,7 @@ async function boot() {
     const responses = await Promise.all(bankUrls.map(url=>fetch(url)));
     if(responses.some(r=>!r.ok))throw new Error('Question bank request failed');
     bank = createQuestionBank((await Promise.all(responses.map(r=>r.json()))).flat());
-    questionMap=new Map([...bank.all(),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
