@@ -6,6 +6,7 @@ import {
   qaGeneratedQuestions,
   validateGenerateRequest
 } from '../api/lib/question-service.js';
+import { createGenerateQuestionHandler } from '../api/generate-question.js';
 
 const brief = {
   subject: 'english',
@@ -89,5 +90,49 @@ describe('AI question service contracts', () => {
     const result = qaGeneratedQuestions({ questions: [generated('a'), generated('b')] }, brief, 2);
     expect(result.ok).toBe(true);
     expect(result.questions).toHaveLength(2);
+  });
+});
+
+
+describe('generate-question HTTP handler', () => {
+  it('returns 405 for non-POST methods', async () => {
+    const handler=createGenerateQuestionHandler({fetchImpl:async()=>{ throw new Error('should not call'); },env:{OPENAI_API_KEY:'x'}});
+    const response=await handler(new Request('https://example.test/api/generate-question',{method:'GET'}));
+    expect(response.status).toBe(405);
+  });
+
+  it('returns 503 when the OpenAI key is not configured', async () => {
+    const handler=createGenerateQuestionHandler({fetchImpl:async()=>{ throw new Error('should not call'); },env:{}});
+    const response=await handler(new Request('https://example.test/api/generate-question',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({brief,count:2})
+    }));
+    expect(response.status).toBe(503);
+  });
+
+  it('returns QA-approved questions from a structured Responses API payload', async () => {
+    const fetchImpl=async (_url,options) => {
+      const body=JSON.parse(options.body);
+      expect(body.model).toBeTruthy();
+      expect(body.text.format.type).toBe('json_schema');
+      return new Response(JSON.stringify({
+        output:[{
+          type:'message',
+          content:[{type:'output_text',text:JSON.stringify({questions:[generated('x'),generated('y')]})}]
+        }],
+        usage:{input_tokens:123,output_tokens:456}
+      }),{status:200,headers:{'content-type':'application/json'}});
+    };
+    const handler=createGenerateQuestionHandler({fetchImpl,env:{OPENAI_API_KEY:'test-key',AI_QUESTION_MODEL:'gpt-5.6-luna'}});
+    const response=await handler(new Request('https://example.test/api/generate-question',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({brief,count:2})
+    }));
+    expect(response.status).toBe(200);
+    const payload=await response.json();
+    expect(payload.questions).toHaveLength(2);
+    expect(payload.meta.model).toBe('gpt-5.6-luna');
   });
 });
