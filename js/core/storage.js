@@ -14,6 +14,7 @@ export function defaultState() {
     adaptiveSkills: {},
     answerHistory: [],
     adaptiveSubjectWeights: null,
+    generatedQuestions: [],
     attempts: [],
     examReports: [],
     settings: { sound: true, reducedMotion: false },
