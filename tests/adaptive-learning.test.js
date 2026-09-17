@@ -3,9 +3,11 @@ import {
   adaptiveDashboard,
   buildAdaptivePractice,
   calculateSubjectWeights,
+  generationBrief,
   practiceMode,
   recordAdaptiveAttempt,
-  skillIdentity
+  skillIdentity,
+  targetDifficulty
 } from '../js/core/adaptive-learning.js';
 
 const q = (id, subject='english', competency='上下文推論', difficulty=3) => ({
@@ -26,6 +28,23 @@ const q = (id, subject='english', competency='上下文推論', difficulty=3) =>
   examAligned:true,
   examProfile:{domain:'閱讀理解',type:'推論題',competency},
   questionType:'推論題'
+
+  it('builds a targeted generation brief from repeated weakness', () => {
+    const question=q('gen1');
+    let state={skills:{},history:[]};
+    for(let i=0;i<3;i+=1){
+      const r=recordAdaptiveAttempt(state.skills,state.history,question,{correct:false,date:`2026-09-${18+i}`,sourceKind:'practice'});
+      state={skills:r.skills,history:r.history};
+    }
+    const profile=state.skills[skillIdentity(question).key];
+    const brief=generationBrief(profile,question);
+    expect(brief.coreSkill).toBe('上下文推論');
+    expect(brief.practiceMode).toBe('remediation');
+    expect(brief.targetDifficulty).toBeLessThanOrEqual(question.difficulty);
+    expect(targetDifficulty(profile,question.difficulty)).toBe(brief.targetDifficulty);
+    expect(brief.requirements.length).toBeGreaterThanOrEqual(4);
+  });
+
 });
 
 describe('adaptive learning engine', () => {
