@@ -1,16 +1,18 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
-import { createExam, submitExam } from './core/exam.js';
+import { createSession, answerSession, remainingSeconds, finishSession, validateSession } from './core/exam-session.js';
+import { OFFICIAL_PAPERS, getOfficialQuestions } from './config/official-papers.js';
+import { clock, renderExamCenter, renderPaperSetup, renderSession, renderSessionResults } from './ui/exam-views.js';
 import { rewardPlayer } from './core/game-state.js';
-import { recordWrong, reviewWrong } from './core/mastery.js';
+import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { createRouter } from './router.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
-  renderAnalysis, renderBattle, renderExam, renderExamResults, renderLobby,
+  renderAnalysis, renderBattle, renderLobby,
   renderProfile, renderResults, renderRevenge, renderWorld
 } from './ui/views.js';
 
@@ -20,7 +22,7 @@ let state = store.load();
 let bank;
 let router;
 let feedback = null;
-let currentExam = null;
+let questionMap = new Map();
 let toastTimer;
 
 function showToast(message) {
@@ -57,24 +59,28 @@ function ensureBattle(subject, levelId, mode) {
   return battle;
 }
 
-function remainingTime(exam) {
-  const seconds = Math.max(0, Math.ceil((exam.startedAt + exam.durationMinutes * 60_000 - Date.now()) / 1000));
-  return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
-}
-
 function ensureExam() {
-  if (!currentExam) currentExam = { exam: createExam(pickQuickExam(bank, 2), { durationMinutes: 20 }), index: 0, answers: {} };
-  return currentExam;
+  if (!state.activeExam) {
+    state.activeExam = createSession(pickQuickExam(bank, 2), { title:'五科基礎短練習',kind:'quick-exam',durationMinutes:20,attemptNumber:1+(state.examAttemptCounts?.['五科基礎短練習']??0) });
+    save();
+  }
+  return state.activeExam;
 }
 
-function renderRoute() {
+const sessionQuestions = (session) => (session?.questionIds??[]).map(id=>questionMap.get(id)).filter(Boolean);
+const paperFor = (session) => OFFICIAL_PAPERS.find(p=>p.id===session?.paperId);
+const renderReport = (result) => result
+  ? renderSessionResults({result,questions:result.items.map(x=>questionMap.get(x.id)).filter(Boolean),paper:paperFor(result),wrongQuestions:state.wrongQuestions})
+  : '<div class="app-shell"><h1>此份完整報告已不在最近 10 份紀錄中</h1><a href="#/exam-center">返回會考中心</a></div>';
+
+function renderRoute(scroll = true) {
   try {
     const match = router.resolve(window.location.hash || '#/');
     app.innerHTML = match.handler(match.params);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (scroll === true) window.scrollTo({ top: 0, behavior: 'instant' });
   } catch (error) {
     console.error(error);
-    app.innerHTML = '<section class="fatal-state"><span>🛠️</span><h1>冒險暫時中斷</h1><p>請重新整理頁面。如果問題持續發生，可先重設瀏覽器中的本站資料。</p><a href="#/">返回首頁</a></section>';
+    app.innerHTML = '<section class="fatal-state"><span>🛠️</span><h1>冒險暫時中斷</h1><p>請重新整理頁面或返回首頁。原有學習紀錄仍保存在這台裝置。</p><a href="#/">返回首頁</a></section>';
   }
 }
 
@@ -97,14 +103,17 @@ function routes() {
       return renderBattle({ subject, battle, question, feedback });
     },
     '#/results': () => state.lastResult ? renderResults(state.lastResult) : '<p>尚無挑戰結果。</p>',
-    '#/revenge': () => renderRevenge({ items: state.wrongQuestions.filter((entry) => !entry.resolved).map((entry) => ({ ...entry, ...bank.getById(entry.questionId) })) }),
+    '#/revenge': () => renderRevenge({ date:taipeiDate(), items: state.wrongQuestions.map((entry) => ({ ...entry, ...questionMap.get(entry.questionId) })) }),
     '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3)),
     '#/profile': () => renderProfile({ player: state.player }),
     '#/exam': () => {
       const session = ensureExam();
-      return renderExam({ ...session, remaining: remainingTime(session.exam) });
+      return renderSession({session,questions:sessionQuestions(session),paper:paperFor(session),remaining:remainingSeconds(session,Date.now())});
     },
-    '#/exam-results': () => state.lastExamResult ? renderExamResults(state.lastExamResult) : renderAnalysis(summarizeSkills(state.skillStats, 3))
+    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,practiceCount:bank.all().length}),
+    '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
+    '#/exam-results': () => renderReport(state.lastExamResult),
+    '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
   };
 }
 
@@ -149,32 +158,61 @@ function handleBattleAnswer(choice) {
 }
 
 function startRevenge(questionId) {
-  const question = bank.getById(questionId);
+  const question = questionMap.get(questionId);
   if (!question) return;
-  const levelId = `revenge-${question.id}`;
-  state.activeRun = { kind: 'revenge', subject: question.subject, levelId, battle: createBattle([question], 'normal') };
-  feedback = null;
-  save();
-  window.location.hash = `#/battle/${question.subject}/${levelId}`;
+  startSession([question],{title:'單題複習',kind:'review',paperId:question.paperId,durationMinutes:10});
 }
 
 function completeExam() {
-  if (!currentExam) return;
-  const result = submitExam(currentExam.exam, currentExam.answers);
+  const session=state.activeExam;
+  if (!session || session.status !== 'active') return;
+  const result = {...finishSession(session,sessionQuestions(session),Date.now()),notes:{...session.notes},sessionId:session.id};
+  state.activeExam=null;
+  ensureDailyQuest();
   for (const item of result.items) {
-    const question = bank.getById(item.id);
+    const question = questionMap.get(item.id);
     if (!question) continue;
-    state.skillStats = updateSkillStats(state.skillStats, question, item.correct);
-    state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
-    if (!item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
+    if (question.source!=='official') state.skillStats = updateSkillStats(state.skillStats, question, item.correct);
+    if (item.choice!==undefined) state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
+    if (session.kind==='review') {
+      state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
+        ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
+        : reviewWrong(state.wrongQuestions,item.id,item.correct,taipeiDate());
+      state.dailyQuest=updateDailyQuest(state.dailyQuest,{type:'revenge'},taipeiDate());
+    } else if (!item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
+    else if (item.uncertain||item.hinted) state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
   }
-  state.player.totalAnswered += result.total;
-  state.player = rewardPlayer(state.player, { exp: result.correct * 20 + (result.total - result.correct) * 5, coins: result.correct * 5 });
-  state.attempts = [...state.attempts, { subject: 'all', mode: 'quick-exam', accuracy: result.accuracy, at: new Date().toISOString() }].slice(-50);
+  state.player.totalAnswered += result.items.filter(i=>i.choice!==undefined).length;
+  const answeredWrong=result.items.filter(item=>item.choice!==undefined&&!item.correct).length;
+  state.player = rewardPlayer(state.player, { exp: result.correct * 20 + answeredWrong * 5, coins: result.correct * 5 });
+  state.examAttemptCounts ??= {};
+  const attemptKey=session.paperId??session.title;
+  if(session.kind!=='review') state.examAttemptCounts[attemptKey]=(state.examAttemptCounts[attemptKey]??0)+1;
+  state.attempts = [...state.attempts, { title:session.title, subject:paperFor(session)?.subject??'all',kind:session.kind,paperId:session.paperId,attemptNumber:session.attemptNumber,hintCount:result.items.filter(i=>i.hinted).length, accuracy: result.accuracy, at: new Date().toISOString() }].slice(-50);
   state.lastExamResult = result;
-  currentExam = null;
+  state.examReports = [...state.examReports,result].slice(-10);
   save();
   window.location.hash = '#/exam-results';
+  renderRoute();
+}
+
+function startSession(questions,options) {
+  if (state.activeExam&&!window.confirm('已有尚未交卷的測驗。確定放棄它並開始新的練習嗎？')) return;
+  state.activeExam=createSession(questions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
+  save(); window.location.hash='#/exam'; renderRoute();
+}
+
+function guardSession() {
+  if(!state.activeExam) return false;
+  if(remainingSeconds(state.activeExam,Date.now())===0) { completeExam(); showToast('時間到，已自動交卷。'); return false; }
+  return true;
+}
+
+function updateExamClock() {
+  if(!state.activeExam) return;
+  if(!guardSession()) return;
+  const timer=document.querySelector('[data-exam-timer]');
+  if(timer) timer.textContent=`⏱ ${clock(remainingSeconds(state.activeExam,Date.now()))}`;
 }
 
 app.addEventListener('click', (event) => {
@@ -198,37 +236,73 @@ app.addEventListener('click', (event) => {
   if (action === 'reset-progress' && window.confirm('確定重設全部學習進度嗎？此動作無法復原。')) {
     state = store.reset(); ensureDailyQuest(); renderRoute(); showToast('進度已重設。');
   }
-  if (action === 'exam-answer') {
-    const session = ensureExam();
-    session.answers[session.exam.questions[session.index].id] = Number(control.dataset.choice);
-    renderRoute();
+  if(action==='start-paper') {
+    const paper=OFFICIAL_PAPERS.find(p=>p.id===control.dataset.id);
+    if(paper) startSession(getOfficialQuestions(paper),{title:paper.title,kind:paper.section==='writing'?'official-writing':'official',paperId:paper.id,durationMinutes:paper.durationMinutes});
   }
-  if (action === 'exam-prev') { ensureExam().index = Math.max(0, ensureExam().index - 1); renderRoute(); }
-  if (action === 'exam-next') { ensureExam().index = Math.min(ensureExam().exam.questions.length - 1, ensureExam().index + 1); renderRoute(); }
-  if (action === 'exam-go') { ensureExam().index = Number(control.dataset.index); renderRoute(); }
+  if(action==='start-practice') {
+    const subject=document.querySelector('#practice-subject').value;
+    const grade=Number(document.querySelector('#practice-grade').value);
+    const type=document.querySelector('#practice-type').value;
+    const pool=bank.pick(subject==='all'?{}:{subject},bank.all().length).filter(q=>q.grade<=grade&&(!type||q.questionType===type));
+    if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
+    startSession(pool.slice(0,10),{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}原創練習`,kind:'practice',durationMinutes:20});
+  }
+  if (action === 'exam-answer') {
+    if(!guardSession()) return;
+    const s=state.activeExam,qs=sessionQuestions(s);
+    state.activeExam=answerSession(s,qs,qs[s.index].id,Number(control.dataset.choice),Date.now());
+    save(); renderRoute(false);
+  }
+  if(action==='exam-uncertain'||action==='practice-hint') {
+    if(!guardSession()) return;
+    const s=state.activeExam,q=sessionQuestions(s)[s.index]; if(!q)return;
+    if(action==='exam-uncertain') s.uncertain[q.id]=!s.uncertain[q.id];
+    else if(!paperFor(s)&&s.kind!=='quick-exam') s.hinted[q.id]=1;
+    save(); renderRoute(false);
+  }
+  if (['exam-prev','exam-next','exam-go'].includes(action)) {
+    if(!guardSession())return;
+    const s=state.activeExam;
+    const next=action==='exam-go'?Number(control.dataset.index):s.index+(action==='exam-next'?1:-1);
+    s.index=Math.max(0,Math.min(s.questionIds.length-1,next)); save(); renderRoute();
+  }
   if (action === 'submit-exam') {
-    const unanswered = currentExam?.exam.questions.filter((question) => currentExam.answers[question.id] === undefined).length ?? 0;
+    if(!guardSession())return;
+    const unanswered = sessionQuestions(state.activeExam).filter(q=>state.activeExam.answers[q.id]===undefined).length;
     const note = unanswered ? `目前還有 ${unanswered} 題未作答，` : '';
     if (window.confirm(`${note}確定交卷嗎？交卷後才會顯示答案與解析。`)) completeExam();
   }
 });
 
+app.addEventListener('input',(event)=>{
+  const id=event.target.dataset.examNote;
+  if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
+});
+app.addEventListener('change',(event)=>{
+  const id=event.target.dataset.wrongReason;
+  if(id) {state.wrongQuestions=setWrongReason(state.wrongQuestions,id,event.target.value);save();}
+});
+
 async function boot() {
   app.innerHTML = '<section class="loading-state"><span>✦</span><h1>正在展開冒險地圖…</h1></section>';
   try {
-    const response = await fetch(new URL('../data/questions.json', import.meta.url));
-    if (!response.ok) throw new Error(`Question bank request failed: ${response.status}`);
-    bank = createQuestionBank(await response.json());
+    const bankUrls = [new URL('../data/questions.json',import.meta.url), new URL('../data/cap-practice.json',import.meta.url)];
+    const responses = await Promise.all(bankUrls.map(url=>fetch(url)));
+    if(responses.some(r=>!r.ok))throw new Error('Question bank request failed');
+    bank = createQuestionBank((await Promise.all(responses.map(r=>r.json()))).flat());
+    questionMap=new Map([...bank.all(),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     router = createRouter(routes());
-    window.addEventListener('hashchange', renderRoute);
-    setInterval(() => {
-      if (window.location.hash === '#/exam' && currentExam) {
-        if (remainingTime(currentExam.exam) === '00:00') completeExam();
-        else renderRoute();
-      }
-    }, 1000);
+    if(state.activeExam&&!validateSession(state.activeExam,sessionQuestions(state.activeExam))) {
+      state.recoveredExam=state.activeExam;state.activeExam=null;save();showToast('上一份測驗資料不完整，已保留備份。請重新選卷。');
+      if(window.location.hash==='#/exam')window.location.hash='#/exam-center';
+    }
+    window.addEventListener('hashchange', () => {updateExamClock();renderRoute();});
+    window.addEventListener('visibilitychange',updateExamClock);
+    setInterval(updateExamClock,1000);
+    updateExamClock();
     renderRoute();
   } catch (error) {
     console.error(error);

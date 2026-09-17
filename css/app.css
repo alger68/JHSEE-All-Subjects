@@ -41,6 +41,56 @@ body {
 a { color: inherit; text-decoration: none; }
 button { color: inherit; }
 button:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+.study-intro { margin: 26px 0; line-height: 1.8; max-width: 760px; }
+.muted { color: var(--muted); line-height: 1.7; }
+.paper-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr)); gap:16px; }
+.paper-card,.practice-panel { border:1px solid var(--line); border-radius:22px; background:var(--surface); padding:22px; margin:16px 0; }
+.paper-card { margin:0; display:flex; flex-direction:column; }
+.paper-card h3 { font-size:1.2rem; margin-bottom:6px; }
+.paper-card .primary-button { margin-top:auto; }
+.practice-panel>p { line-height:1.8; }
+.practice-filters { display:flex; flex-wrap:wrap; gap:14px; }
+.practice-filters label { flex:1 1 180px; display:grid; gap:8px; }
+select,textarea { width:100%; color:var(--text,#f7f8ff); background:#141b3d; border:1px solid #606988; border-radius:10px; padding:12px; }
+select:focus-visible,textarea:focus-visible { outline:3px solid var(--cyan); outline-offset:2px; }
+button.primary-button { width:100%; border:0; padding:12px; cursor:pointer; }
+.setup-list { padding-left:24px; line-height:1.9; }
+.setup-list li { margin:12px 0; }
+.exam-top-actions { position:sticky; top:0; z-index:10; background:#101630; border:1px solid var(--line); border-radius:14px; display:flex; align-items:center; gap:16px; justify-content:space-between; width:min(1100px,100%); margin:0 auto 16px; padding:10px 14px; }
+.exam-top-actions .submit-button { width:auto; min-width:110px; margin:0; padding:0 18px; }
+.exam-header { flex-wrap:wrap; }
+.exam-header h1 { font-size:clamp(1.1rem,4vw,1.5rem); }
+.exam-header>strong { white-space:nowrap; }
+.paper-access { width:min(1100px,100%); margin:0 auto 18px; color:var(--muted); line-height:1.7; }
+.paper-access a { display:inline-flex; padding:12px 18px; margin:0; }
+.uncertain-button { border:1px solid var(--line); border-radius:12px; background:transparent; padding:12px; margin:14px 8px 0 0; min-height:46px; }
+.uncertain-button.marked { border-color:var(--gold); color:var(--gold); }
+.passage { white-space:pre-wrap; line-height:1.9; padding:18px; margin:16px 0; background:#0f1735; border-left:3px solid var(--cyan); border-radius:10px; overflow-wrap:anywhere; }
+.table-scroll { overflow-x:auto; margin:16px 0; }
+.table-scroll table { width:100%; border-collapse:collapse; }
+.table-scroll th,.table-scroll td { border:1px solid #596280; text-align:left; padding:12px; }
+.table-scroll th { background:#273053; }
+.manual-notes { border-top:1px solid var(--line); margin-top:24px; padding-top:18px; }
+.manual-notes label { display:block; margin:20px 0; }
+.manual-notes textarea { display:block; resize:vertical; line-height:1.8; margin-top:8px; }
+.reason-label { display:block; margin-top:12px; color:var(--muted); }
+.reason-label select { display:block; margin-top:8px; max-width:350px; }
+.attempt-list { list-style:none; padding:0; }
+.attempt-list li { display:flex; flex-wrap:wrap; gap:10px; padding:14px 0; border-bottom:1px solid var(--line); }
+.attempt-list li strong { flex:1 1 200px; }
+.attempt-list small { color:var(--muted); }
+.exam-page .answer-sheet { min-width:0; }
+.exam-page .question-card { min-width:0; }
+.exam-controls .submit-button { margin:0; width:auto; min-width:100px; background:var(--gold); }
+.review-list h3 { margin:4px 0; }
+.review-list p { overflow-wrap:anywhere; }
+@media(max-width:480px) {
+  .exam-header { gap:10px; }
+  .exam-header>strong { margin-left:auto; }
+  .paper-card,.practice-panel { padding:18px; }
+  .question-card.exam-question { padding:20px; }
+  .review-list article { grid-template-columns:30px minmax(0,1fr); gap:8px; }
+}
 .app-shell { width: min(1120px, 100%); margin: 0 auto; padding: 24px 18px calc(112px + env(safe-area-inset-bottom)); }
 .eyebrow { color: var(--cyan); font-size: .75rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
 .topbar, .page-header, .battle-top, .exam-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }

@@ -12,8 +12,11 @@ export function defaultState() {
     wrongQuestions: [],
     skillStats: {},
     attempts: [],
+    examReports: [],
     settings: { sound: true, reducedMotion: false },
-    activeRun: null
+    activeRun: null,
+    activeExam: null,
+    examAttemptCounts: {}
   };
 }
 

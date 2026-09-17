@@ -7,10 +7,24 @@ export const EXAM_BLUEPRINT = {
   social: { label: '社會', domains: ['臺灣與世界歷史', '地理環境與區域', '公民與社會', '圖表與資料判讀', '公共議題思辨'], types: ['史料判讀', '地圖判讀', '制度理解', '資料分析', '情境思辨'] }
 };
 
+const UNCLASSIFIED_PROFILE = Object.freeze({ domain: '未分類', type: '未分類', competency: '未分類' });
+
 export function classifyQuestion(question) {
-  if (!EXAM_BLUEPRINT[question.subject]) return { ...question, examAligned: false };
-  const tags = question.tags ?? [];
-  const type = question.questionType ?? (tags.some((tag) => ['閱讀', '推論', '主旨', '文意理解'].includes(tag)) ? '閱讀理解' : tags.some((tag) => ['生活應用', '統計', '比例', '函數'].includes(tag)) ? '情境應用' : '概念理解');
-  const competency = question.competency ?? (tags.some((tag) => ['閱讀', '推論', '主旨', '文意理解', '論證'].includes(tag)) ? '閱讀理解與推論' : tags.some((tag) => ['生活應用', '統計', '比例', '函數'].includes(tag)) ? '情境轉化與解題' : '核心概念理解');
-  return { ...question, examAligned: true, examProfile: { domain: question.domain ?? question.chapter, type, competency } };
+  const hasReviewedMetadata = question?.examAligned === true
+    && Boolean(EXAM_BLUEPRINT[question.subject])
+    && [question.domain, question.questionType, question.competency, question.alignmentBasis]
+      .every((value) => typeof value === 'string' && value.trim().length > 0)
+    && question.reviewStatus === 'reviewed';
+  if (!hasReviewedMetadata) {
+    return { ...question, examAligned: false, examProfile: { ...UNCLASSIFIED_PROFILE } };
+  }
+  return {
+    ...question,
+    examAligned: true,
+    examProfile: {
+      domain: question.domain,
+      type: question.questionType,
+      competency: question.competency
+    }
+  };
 }
