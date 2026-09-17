@@ -166,4 +166,22 @@ describe('generate-question HTTP handler', () => {
     expect(calls).toBe(2);
   });
 
+  it('rate limits repeated generation requests from the same client', async () => {
+    const fetchImpl=async()=>new Response(JSON.stringify({
+      output:[{type:'message',content:[{type:'output_text',text:JSON.stringify({questions:[generated('limited')]})}]}]
+    }),{status:200,headers:{'content-type':'application/json'}});
+    const handler=createGenerateQuestionHandler({
+      fetchImpl,
+      env:{OPENAI_API_KEY:'test-key',AI_RATE_LIMIT_PER_MINUTE:'2'}
+    });
+    const makeRequest=()=>new Request('https://example.test/api/generate-question',{
+      method:'POST',
+      headers:{'content-type':'application/json','x-forwarded-for':'203.0.113.10'},
+      body:JSON.stringify({brief,count:1})
+    });
+    expect((await handler(makeRequest())).status).toBe(200);
+    expect((await handler(makeRequest())).status).toBe(200);
+    expect((await handler(makeRequest())).status).toBe(429);
+  });
+
 });
