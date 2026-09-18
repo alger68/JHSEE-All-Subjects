@@ -4753,5 +4753,693 @@
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-18",
     "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-012",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "閱讀理解",
+    "topic": "港口與貿易",
+    "competency": "擷取與統整文本訊息",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某19世紀港口開放後，外商設立洋行，茶葉與樟腦出口增加，附近也出現倉庫、碼頭工人與運輸業。",
+    "question": "這段資料最能說明港口開放帶來什麼變化？",
+    "choices": [
+      "對外貿易擴張並帶動相關產業",
+      "農業與商業完全停止",
+      "所有居民都改成外國人",
+      "港口城市不再需要交通運輸"
+    ],
+    "answer": 0,
+    "explanation": "資料同時提到出口增加與洋行、倉庫、運輸等活動發展，顯示對外貿易擴張並帶動相關產業。",
+    "hint1": "找出出口與工作機會之間的連結。",
+    "hint2": "不是只有一種商品增加，而是整個港口周邊活動變多。",
+    "source": "original",
+    "tags": [
+      "港口與貿易",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-013",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境應用",
+    "topic": "權力分立",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某國制度中，立法機關制定法律，行政機關依法執行，法院可在個案中依法審判。",
+    "question": "這種安排最主要反映哪一項原則？",
+    "choices": [
+      "不同政府權力分工並相互制衡",
+      "所有權力集中在單一機關",
+      "法院負責制定全部法律",
+      "行政機關可以不受法律約束"
+    ],
+    "answer": 0,
+    "explanation": "立法、行政、司法分別負責不同功能，核心在權力分工與制衡。",
+    "hint1": "注意三個機關分別做不同事情。",
+    "hint2": "題目沒有說哪一個機關擁有全部權力。",
+    "source": "original",
+    "tags": [
+      "權力分立",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-014",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "氣候判讀",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "甲、乙兩地年平均氣溫與年雨量如下。",
+    "question": "依資料，下列敘述何者最恰當？",
+    "choices": [
+      "甲地較暖且年雨量較多",
+      "乙地一定位於沙漠",
+      "甲地人口一定較多",
+      "兩地農業型態一定完全相同"
+    ],
+    "answer": 0,
+    "explanation": "甲地年均溫24°C高於乙地15°C，年雨量2200 mm也高於900 mm；其他選項超出資料。",
+    "hint1": "只用表格能直接比較的項目。",
+    "hint2": "溫度和雨量不能直接決定人口或全部產業。",
+    "table": {
+      "headers": [
+        "地區",
+        "年均溫",
+        "年雨量"
+      ],
+      "rows": [
+        [
+          "甲",
+          "24°C",
+          "2200 mm"
+        ],
+        [
+          "乙",
+          "15°C",
+          "900 mm"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "氣候判讀",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-015",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "推論",
+    "topic": "資料可信度",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲資料來自某商品公司的廣告，聲稱使用者滿意度達98%，但未說明調查方式。乙資料來自公開研究報告，列出樣本數、抽樣方式與問卷題目。",
+    "question": "若要比較兩份資料的可信度，首先應注意什麼？",
+    "choices": [
+      "調查方法與樣本資訊是否透明",
+      "哪一份字體較大",
+      "哪一份顏色較鮮豔",
+      "哪一份在社群上轉發較多"
+    ],
+    "answer": 0,
+    "explanation": "資料是否可檢驗，關鍵之一是樣本與方法是否公開透明；版面與轉發數不能取代方法資訊。",
+    "hint1": "想想什麼資訊能讓別人重複檢查。",
+    "hint2": "可信度和調查方法比廣告外觀更有關。",
+    "source": "original",
+    "tags": [
+      "資料可信度",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-016",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "推論",
+    "topic": "工業化影響",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某城市在工廠增加後，大量人口從鄉村移入，住宅區向外擴張，鐵路貨運量也上升。",
+    "question": "這些現象最可能共同反映什麼？",
+    "choices": [
+      "工業化帶動都市化與交通需求",
+      "農村人口完全消失",
+      "工廠增加會使城市人口下降",
+      "鐵路只服務觀光客"
+    ],
+    "answer": 0,
+    "explanation": "工廠吸引人口移入、住宅擴張與貨運增加，都是工業化和都市化常見的連動現象。",
+    "hint1": "把人口、住宅、貨運三種變化一起看。",
+    "hint2": "它們都和生產活動集中在城市有關。",
+    "source": "original",
+    "tags": [
+      "工業化影響",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-017",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "情境應用",
+    "topic": "人口移動",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "甲地就業機會少、青年外移；乙地新設產業園區並增加住宅與交通建設。",
+    "question": "若其他條件相近，哪一項人口變化最合理？",
+    "choices": [
+      "乙地可能吸引較多就業人口移入",
+      "甲地青年人口一定快速增加",
+      "乙地人口一定全部來自海外",
+      "兩地人口移動與就業完全無關"
+    ],
+    "answer": 0,
+    "explanation": "就業機會增加通常形成吸引人口的拉力，因此乙地較可能有就業人口移入。",
+    "hint1": "注意哪一地出現新的就業機會。",
+    "hint2": "人口移動常和推力、拉力因素有關。",
+    "source": "original",
+    "tags": [
+      "人口移動",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-018",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "閱讀理解",
+    "topic": "權利與責任",
+    "competency": "擷取與統整文本訊息",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "社區公共空間供居民共同使用。住戶可依規定使用，但也應避免深夜製造噪音、任意堆放私人物品，以免影響其他人。",
+    "question": "這段文字最主要強調什麼？",
+    "choices": [
+      "行使權利時也需尊重他人與共同規範",
+      "公共空間只能由少數人使用",
+      "有權使用就不必遵守任何規定",
+      "住戶應把所有私人物品放在公共區域"
+    ],
+    "answer": 0,
+    "explanation": "文字同時提到居民有使用權，也要避免影響他人，強調權利與責任並存。",
+    "hint1": "看「可使用」後面又補充了哪些限制。",
+    "hint2": "核心不是禁止使用，而是如何使用。",
+    "source": "original",
+    "tags": [
+      "權利與責任",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-019",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "資料分析",
+    "topic": "時間順序",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某歷史事件時間如下。",
+    "question": "依年代先後，正確順序為何？",
+    "choices": [
+      "甲→乙→丙",
+      "乙→甲→丙",
+      "丙→甲→乙",
+      "乙→丙→甲"
+    ],
+    "answer": 1,
+    "explanation": "乙為1895年、甲為1914年、丙為1945年，因此順序是乙→甲→丙。",
+    "hint1": "把年份由小到大排列。",
+    "hint2": "不要先看事件名稱，先看年代。",
+    "table": {
+      "headers": [
+        "事件",
+        "年代"
+      ],
+      "rows": [
+        [
+          "甲",
+          "1914"
+        ],
+        [
+          "乙",
+          "1895"
+        ],
+        [
+          "丙",
+          "1945"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "時間順序",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-020",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "閱讀理解",
+    "topic": "季風與降雨",
+    "competency": "擷取與統整文本訊息",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某地夏季盛行由海洋吹向陸地的風，帶來大量水氣，因此夏季降雨明顯較多；冬季則相對乾燥。",
+    "question": "這段文字主要說明哪一項氣候特徵？",
+    "choices": [
+      "季風方向與水氣來源影響季節降雨",
+      "所有季節降雨量完全相同",
+      "降雨只由海拔高度決定",
+      "冬季一定比夏季炎熱"
+    ],
+    "answer": 0,
+    "explanation": "文字指出夏季風從海洋帶入水氣，造成夏季多雨，說明季風和水氣來源會影響季節性降雨。",
+    "hint1": "找出風向、水氣和降雨的因果關係。",
+    "hint2": "題目比較的是季節差異。",
+    "source": "original",
+    "tags": [
+      "季風與降雨",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-021",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "資料分析",
+    "topic": "政策評估",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某市試辦夜間公車三個月，記錄如下。",
+    "question": "若只依這些資料，哪一項結論最合理？",
+    "choices": [
+      "搭乘人次增加，但成本也上升，需進一步評估效益",
+      "政策已證明完全沒有成本",
+      "所有市民都使用夜間公車",
+      "只要搭乘增加就不必考慮任何支出"
+    ],
+    "answer": 0,
+    "explanation": "資料同時顯示搭乘人次由1200增至2100，月成本也由18萬增至24萬，因此需同時考量使用成長與成本。",
+    "hint1": "政策評估通常不只看單一指標。",
+    "hint2": "把人次和成本兩欄一起看。",
+    "table": {
+      "headers": [
+        "項目",
+        "試辦前",
+        "試辦後"
+      ],
+      "rows": [
+        [
+          "月搭乘人次",
+          "1200",
+          "2100"
+        ],
+        [
+          "月成本",
+          "18萬元",
+          "24萬元"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "政策評估",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-022",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "推論",
+    "topic": "公共決策",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "學校討論是否延長圖書館開放時間。學生會蒐集使用需求，行政單位估算人力與經費，再由相關會議討論方案。",
+    "question": "這個過程最能反映哪一種公共決策方式？",
+    "choices": [
+      "蒐集資訊並考量不同條件後討論",
+      "完全不需要任何資料",
+      "只由單一學生自行決定",
+      "先決定結果再禁止討論"
+    ],
+    "answer": 0,
+    "explanation": "題幹呈現需求調查、成本評估與會議討論，反映先蒐集資訊再綜合評估的決策過程。",
+    "hint1": "找出做決定前有哪些準備。",
+    "hint2": "它包含多方資料與討論。",
+    "source": "original",
+    "tags": [
+      "公共決策",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-023",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "閱讀理解",
+    "topic": "殖民經濟",
+    "competency": "擷取與統整文本訊息",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某殖民政府修築鐵路與港口，並鼓勵大量生產特定經濟作物出口到宗主國。當地農業生產結構也逐漸改變。",
+    "question": "這段資料主要反映哪一種現象？",
+    "choices": [
+      "殖民統治與出口導向經濟相互連動",
+      "殖民政府完全停止基礎建設",
+      "經濟作物與海外市場毫無關係",
+      "當地農業完全不受政策影響"
+    ],
+    "answer": 0,
+    "explanation": "基礎建設與特定作物出口都服務對外運輸與市場需求，反映殖民統治下的出口導向經濟。",
+    "hint1": "把鐵路、港口和出口作物放在同一脈絡看。",
+    "hint2": "基礎建設是為了支援什麼經濟活動？",
+    "source": "original",
+    "tags": [
+      "殖民經濟",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-024",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "扶養比概念",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲、乙兩地人口結構如下。",
+    "question": "若只看扶養負擔的潛在壓力，哪一地較可能面臨較高高齡扶養需求？",
+    "choices": [
+      "甲地",
+      "乙地",
+      "兩地一定完全相同",
+      "無法由任何人口資料判斷"
+    ],
+    "answer": 0,
+    "explanation": "甲地65歲以上人口占25%，高於乙地10%，因此高齡扶養需求的潛在壓力較高。",
+    "hint1": "比較65歲以上人口比例。",
+    "hint2": "題目問的是高齡扶養需求，不是總人口。",
+    "table": {
+      "headers": [
+        "地區",
+        "0–14歲",
+        "15–64歲",
+        "65歲以上"
+      ],
+      "rows": [
+        [
+          "甲",
+          "10%",
+          "65%",
+          "25%"
+        ],
+        [
+          "乙",
+          "18%",
+          "72%",
+          "10%"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "扶養比概念",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-025",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境應用",
+    "topic": "契約與消費",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "小安網購商品後發現實物與網頁標示規格不同。他保留訂單、商品頁截圖與客服對話。",
+    "question": "下列哪一項行動最適合處理爭議？",
+    "choices": [
+      "保存證據並透過合法申訴或協商管道處理",
+      "先刪除所有紀錄",
+      "公開無關人員的個人資料",
+      "自行拿走商家其他商品抵償"
+    ],
+    "answer": 0,
+    "explanation": "保存交易證據並透過合法管道協商或申訴，有助於釐清契約內容與主張權益。",
+    "hint1": "先想哪些資料能證明交易內容。",
+    "hint2": "處理爭議要兼顧合法性與證據。",
+    "source": "original",
+    "tags": [
+      "契約與消費",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-026",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "推論",
+    "topic": "全球供應鏈",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某電子產品的晶片在甲地生產、螢幕在乙地製造，最後在丙地組裝，再銷往多國市場。",
+    "question": "這種生產方式最能反映什麼？",
+    "choices": [
+      "產業分工跨越不同地區形成供應鏈",
+      "所有零件都必須在同一城市製造",
+      "國際運輸對生產完全不重要",
+      "產品只會在丙地銷售"
+    ],
+    "answer": 0,
+    "explanation": "不同零件在不同地區生產、再跨地組裝與銷售，正是跨區域分工與供應鏈的特徵。",
+    "hint1": "注意生產步驟分散在甲、乙、丙。",
+    "hint2": "這不是單一地點完成全部生產。",
+    "source": "original",
+    "tags": [
+      "全球供應鏈",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-027",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "推論",
+    "topic": "歷史延續與變遷",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "某老市場在百年前是農產品交易場所，後來增建冷藏設備與停車空間，近年又加入網路訂購與宅配服務，但仍保留每天清晨批發交易。",
+    "question": "這段資料最能說明什麼？",
+    "choices": [
+      "市場功能在變化中仍保留部分傳統",
+      "市場百年來完全沒有改變",
+      "網路服務出現後實體交易立即消失",
+      "冷藏設備使農產品不再交易"
+    ],
+    "answer": 0,
+    "explanation": "設備與服務方式持續改變，但清晨批發交易仍保留，呈現變遷與延續同時存在。",
+    "hint1": "找出哪些部分改變、哪些部分保留。",
+    "hint2": "歷史變化不一定代表全部舊功能消失。",
+    "source": "original",
+    "tags": [
+      "歷史延續與變遷",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-028",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "情境應用",
+    "topic": "區位判斷",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某冷鏈物流中心需要大量高速公路運輸，且每天有許多大型貨車進出。甲地位於市中心巷弄內；乙地靠近交流道並有大片工業用地。",
+    "question": "若只考慮交通與貨運需求，較適合設在哪裡？",
+    "choices": [
+      "乙地",
+      "甲地",
+      "兩地完全相同",
+      "一定要設在山頂"
+    ],
+    "answer": 0,
+    "explanation": "靠近交流道且有較大用地的乙地，更符合大型貨車與高速公路運輸需求。",
+    "hint1": "題目已限定只考慮交通與貨運。",
+    "hint2": "大型貨車需要什麼樣的道路與空間？",
+    "source": "original",
+    "tags": [
+      "區位判斷",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-029",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "資料分析",
+    "topic": "抽樣代表性",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某校想調查全校學生對午餐的意見。甲組只在籃球隊練習後訪問20名球員；乙組依各年級人數比例隨機抽取200名學生。",
+    "question": "哪一組調查較適合用來推估全校意見？",
+    "choices": [
+      "乙組，樣本較大且涵蓋各年級",
+      "甲組，因受訪者彼此認識",
+      "甲組，因只訪問同一社團較方便",
+      "兩組一定完全一樣"
+    ],
+    "answer": 0,
+    "explanation": "乙組樣本較大，且依各年級比例隨機抽樣，代表性通常比單一球隊樣本更好。",
+    "hint1": "比較樣本來源是否涵蓋目標母體。",
+    "hint2": "方便取樣不等於代表性好。",
+    "source": "original",
+    "tags": [
+      "抽樣代表性",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-030",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "閱讀理解",
+    "topic": "程序保障",
+    "competency": "擷取與統整文本訊息",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某制度規定，當事人在受到不利處分前，應有機會知道主要理由並提出說明；作成決定後，也提供一定的申訴管道。",
+    "question": "這類規定主要在保障什麼？",
+    "choices": [
+      "程序上的陳述與救濟機會",
+      "任何人都可不遵守規則",
+      "所有決定都不能被作成",
+      "只有機關能表達意見"
+    ],
+    "answer": 0,
+    "explanation": "知道理由、提出說明與事後申訴，都屬於程序保障與救濟機會。",
+    "hint1": "注意題目強調的是作成決定前後的程序。",
+    "hint2": "重點不是結果一定如何，而是當事人能否參與與救濟。",
+    "source": "original",
+    "tags": [
+      "程序保障",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
   }
 ]
