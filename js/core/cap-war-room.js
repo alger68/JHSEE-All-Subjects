@@ -20,6 +20,7 @@ export function normalizeMockExamRecord(input={}){
     date,
     title:clean(input.title)||'模擬考',
     grades,
+    errors:normalizeMockErrorImport(input.errors),
     note:clean(input.note,500)
   };
 }
@@ -88,4 +89,76 @@ export function buildMockAdjustedDiagnostic(baseDiagnostic,records=[]){
     source:`${baseDiagnostic?.source??'初始'}＋最新模考`,
     subjectWeights:room.studyWeights
   };
+}
+
+
+export function normalizeMockErrorImport(input={}){
+  const result={};
+  for(const subject of SUBJECT_ORDER){
+    const row=input?.[subject]??{};
+    result[subject]={
+      wrong:Math.max(0,Math.min(99,Math.round(Number(row.wrong)||0))),
+      topics:Array.isArray(row.topics)
+        ? [...new Set(row.topics.map(value=>clean(value,80)).filter(Boolean))].slice(0,8)
+        : []
+    };
+  }
+  return result;
+}
+
+export function buildSevenDayRepairPlan(room,startDate){
+  const date=normalizeDate(startDate);
+  if(!date||!room?.latest)return [];
+  const priorities=(room.prioritySubjects??[]).slice(0,5);
+  const tasks=[];
+  for(let day=0;day<7;day+=1){
+    const d=new Date(`${date}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate()+day);
+    const iso=d.toISOString().slice(0,10);
+    const daily=[];
+    const primary=priorities[day%Math.max(1,Math.min(3,priorities.length))];
+    const secondary=priorities[(day+1)%Math.max(1,priorities.length)];
+    for(const target of [primary,secondary]){
+      if(!target)continue;
+      const errorInfo=room.latest.errors?.[target.subject]??{wrong:0,topics:[]};
+      daily.push({
+        subject:target.subject,
+        level:target.level,
+        wrong:errorInfo.wrong,
+        topic:errorInfo.topics[day%Math.max(1,errorInfo.topics.length)]??null,
+        questionTarget:target===primary?10:5,
+        mode:target.weakness>=5?'repair':'maintain'
+      });
+    }
+    tasks.push({date:iso,tasks:daily});
+  }
+  return tasks;
+}
+
+export function buildCoverageReport(questions=[],history=[]){
+  const coverage={};
+  for(const subject of SUBJECT_ORDER){
+    const required=[...new Set(
+      questions
+        .filter(q=>q?.subject===subject&&q?.examAligned)
+        .map(q=>q?.examProfile?.competency||q?.competency||q?.topic)
+        .filter(Boolean)
+    )].sort();
+    const practiced=new Set(
+      history
+        .filter(item=>item?.subject===subject)
+        .map(item=>item?.competency)
+        .filter(Boolean)
+    );
+    const covered=required.filter(item=>practiced.has(item));
+    const missing=required.filter(item=>!practiced.has(item));
+    coverage[subject]={
+      total:required.length,
+      covered:covered.length,
+      percent:required.length?Math.round(covered.length/required.length*100):0,
+      coveredSkills:covered,
+      missingSkills:missing
+    };
+  }
+  return coverage;
 }
