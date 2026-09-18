@@ -528,3 +528,46 @@ it('navigates English official reading groups without making later questions loo
   expect(current.textContent).toContain('題組 40–43・目前第 43 題');
   expect(document.querySelectorAll('[data-action="exam-answer"]')).toHaveLength(4);
 });
+
+
+it('fresh user five-subject practice is mixed and contains no duplicate questions',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.activeExam.questionIds).toHaveLength(10);
+  expect(new Set(state.activeExam.questionIds).size).toBe(10);
+  const all=[...questions,...practice];
+  const subjects=state.activeExam.questionIds.map(id=>all.find(q=>q.id===id)?.subject);
+  const counts=Object.fromEntries(['english','science','math','social','chinese'].map(subject=>[
+    subject,subjects.filter(value=>value===subject).length
+  ]));
+  expect(counts).toEqual({english:3,science:2,math:2,social:2,chinese:1});
+});
+
+for(const [paperId,count] of [
+  ['cap115-chinese',42],
+  ['cap115-english',43],
+  ['cap115-listening',21],
+  ['cap115-math',25],
+  ['cap115-social',54],
+  ['cap115-science',50]
+]){
+  it(`fresh user can open the full official paper ${paperId} through its final question`,async()=>{
+    window.history.replaceState(null,'',`#/paper/${paperId}`);await boot();
+    document.querySelector('[data-action="start-paper"]').click();
+    const state=JSON.parse(localStorage.getItem(key));
+    expect(state.activeExam.questionIds).toHaveLength(count);
+    expect(new Set(state.activeExam.questionIds).size).toBe(count);
+    const last=[...document.querySelectorAll('[data-action="exam-go"]')].at(-1);
+    expect(last).not.toBeUndefined();
+    last.click();
+    expect(document.querySelector(`[data-official-question="${count}"]`)).not.toBeNull();
+  });
+}
+
+it('fresh user can open the official writing paper and save a draft',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-writing');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  expect(document.querySelector('[data-exam-note="writing"]')).not.toBeNull();
+  expect(document.querySelector('.official-manual[open] svg')).not.toBeNull();
+});
