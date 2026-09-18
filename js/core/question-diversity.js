@@ -29,15 +29,14 @@ export function preferFreshQuestions(questions=[],recentIds=new Set(),skills={},
     else if(!recentIds.has(q.id))fresh.push(q);
     else recent.push(q);
   }
-  const result=[],seen=new Set();
-  const add=(pool)=>{
-    for(const q of pool){
-      if(result.length>=count)break;
-      if(!q?.id||seen.has(q.id))continue;
-      seen.add(q.id);result.push(q);
-    }
-  };
-  add(due);add(fresh);add(recent);
+  const primary=[...due,...fresh];
+  if(primary.length>=Math.min(count,questions.length))return primary;
+  const result=[...primary],seen=new Set(primary.map(q=>q.id));
+  for(const q of recent){
+    if(result.length>=Math.min(count,questions.length))break;
+    if(!q?.id||seen.has(q.id))continue;
+    seen.add(q.id);result.push(q);
+  }
   return result;
 }
 
