@@ -644,3 +644,83 @@ it('deletes only the selected mock exam record and falls back to the newest rema
   expect(document.querySelector('#mock-title').value).toBe('第一次模考');
   expect(document.querySelector('[data-mock-grade="english"]').value).toBe('B');
 });
+
+
+it('starts adaptive practice immediately while AI questions load in the background',async()=>{
+  const source=practice.find(q=>q.subject==='english'&&q.examAligned);
+  const domain=source.examProfile?.domain??source.domain??source.chapter;
+  const competency=source.examProfile?.competency??source.competency??source.questionType;
+  const skillKey=`english::${domain}::${competency}`;
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    adaptiveSkills:{
+      [skillKey]:{
+        subject:'english',domain,competency,
+        subSkill:source.questionType??competency,
+        mastery:10,attempts:2,correct:0,wrong:2,
+        consecutiveCorrect:0,consecutiveWrong:2,
+        attemptsLast7Days:2,wrongLast7Days:2,
+        wrongInMockExam:0,nextReviewDate:'2026-09-17',
+        diagnosticRequired:false,reviewStage:0
+      }
+    },
+    answerHistory:[],
+    aiUsage:{date:'2026-09-17',count:0,limit:12}
+  }));
+
+  let resolveAi;
+  vi.stubGlobal('fetch',vi.fn((url)=>{
+    const value=String(url);
+    if(value.includes('/api/generate-question')) {
+      return new Promise(resolve=>{
+        resolveAi=()=>resolve(new Response(JSON.stringify({
+          questions:[{
+            id:'ai-fast-background-1',
+            subject:'english',
+            domain,
+            questionType:source.questionType??'推論',
+            competency,
+            difficulty:source.difficulty??3,
+            passage:'A fresh background-generated passage.',
+            question:'What is the best inference?',
+            choices:['A new reason','A wrong detail','Another wrong detail','An unrelated detail'],
+            answer:0,
+            explanation:'The first choice follows the passage.',
+            hint1:'Use the passage.',
+            hint2:'Choose the supported inference.',
+            errorTags:['correct','detail','over inference','irrelevant'],
+            source:'ai_generated',
+            chapter:domain,
+            topic:competency,
+            grade:9,
+            examAligned:true,
+            examProfile:{domain,type:source.questionType??'推論',competency},
+            aiGenerated:true,
+            aiPracticeMode:'near-transfer'
+          }]
+        }),{status:200,headers:{'content-type':'application/json'}}));
+      });
+    }
+    return Promise.resolve({
+      ok:true,
+      json:async()=>value.includes('cap-practice')?practice:questions
+    });
+  }));
+
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  document.querySelector('#practice-subject').value='english';
+  document.querySelector('[data-action="start-practice"]').click();
+
+  const immediate=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(immediate).not.toBeNull();
+  expect(window.location.hash).toBe('#/exam');
+  expect(typeof resolveAi).toBe('function');
+  expect(immediate.questionIds).not.toContain('ai-fast-background-1');
+
+  resolveAi();
+  await vi.advanceTimersByTimeAsync(1);
+  const after=JSON.parse(localStorage.getItem(key));
+  expect(after.generatedQuestions.some(q=>q.id==='ai-fast-background-1')).toBe(true);
+  expect(after.activeExam.questionIds).toContain('ai-fast-background-1');
+});
