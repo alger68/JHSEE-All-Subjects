@@ -578,3 +578,35 @@ it('fresh user can open the official writing paper and save a draft',async()=>{
   expect(document.querySelector('[data-exam-note="writing"]')).not.toBeNull();
   expect(document.querySelector('.official-manual[open] svg')).not.toBeNull();
 });
+
+
+it('keeps saved mock grades visible and updates the latest record instead of resetting to A++',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  const grades={chinese:'A',english:'B',math:'A+',science:'A',social:'B++'};
+  document.querySelector('#mock-date').value='2026-09-18';
+  document.querySelector('#mock-title').value='第一次模考';
+  for(const [subject,level] of Object.entries(grades)) {
+    document.querySelector(`[data-mock-grade="${subject}"]`).value=level;
+  }
+  document.querySelector('[data-action="save-mock-exam"]').click();
+
+  let saved=JSON.parse(localStorage.getItem(key)).mockExamRecords;
+  expect(saved).toHaveLength(1);
+  expect(saved[0].grades).toEqual(grades);
+  expect(document.querySelector('[data-mock-grade="english"]').value).toBe('B');
+  expect(document.querySelector('[data-mock-grade="math"]').value).toBe('A+');
+  expect(document.querySelector('#mock-title').value).toBe('第一次模考');
+  expect(document.querySelector('#mock-record-id').value).toBe(saved[0].id);
+
+  document.querySelector('[data-mock-grade="english"]').value='A';
+  document.querySelector('[data-action="save-mock-exam"]').click();
+  saved=JSON.parse(localStorage.getItem(key)).mockExamRecords;
+  expect(saved).toHaveLength(1);
+  expect(saved[0].grades.english).toBe('A');
+  expect(document.querySelector('[data-mock-grade="english"]').value).toBe('A');
+
+  document.querySelector('[data-action="new-mock-exam"]').click();
+  expect(document.querySelector('#mock-record-id').value).toBe('');
+  expect(document.querySelector('[data-mock-grade="english"]').value).toBe('');
+  expect(document.querySelector('[data-action="save-mock-exam"]').textContent).toContain('儲存這次模考');
+});
