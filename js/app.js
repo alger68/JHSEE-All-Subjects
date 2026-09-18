@@ -14,6 +14,7 @@ import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
 import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
+import { buildEnglishSpeechText, getEnglishSpeechRate, setEnglishSpeechRate, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
@@ -105,6 +106,7 @@ const renderReport = (result) => result
   : '<div class="app-shell"><h1>此份完整報告已不在最近 10 份紀錄中</h1><a href="#/exam-center">返回會考中心</a></div>';
 
 function renderRoute(scroll = true) {
+  stopEnglishSpeech();
   try {
     const match = router.resolve(window.location.hash || '#/');
     const preserved = new Map([...app.querySelectorAll('[data-preserve]')].map(node=>[node.dataset.preserve,node]));
@@ -150,7 +152,7 @@ function routes() {
     '#/battle/:subject/:levelId': ({ subject, levelId }) => {
       const battle = ensureBattle(subject, levelId, 'normal');
       const question = battle.questions[Math.min(battle.index, battle.questions.length - 1)];
-      return renderBattle({ subject, battle, question, feedback });
+      return renderBattle({ subject, battle, question, feedback, ttsRate:getEnglishSpeechRate() });
     },
     '#/boss/:subject': ({ subject }) => {
       const battle = ensureBattle(subject, `${subject}-boss`, 'boss');
@@ -182,7 +184,7 @@ function routes() {
     }),
     '#/exam': () => {
       const session = ensureExam();
-      return renderSession({session,questions:sessionQuestions(session),paper:paperFor(session),remaining:remainingSeconds(session,Date.now())});
+      return renderSession({session,questions:sessionQuestions(session),paper:paperFor(session),remaining:remainingSeconds(session,Date.now()),ttsRate:getEnglishSpeechRate()});
     },
     '#/exam-check': () => state.activeExam
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
@@ -510,6 +512,26 @@ app.addEventListener('click', async (event) => {
   const control = event.target.closest('[data-action]');
   if (!control) return;
   const action = control.dataset.action;
+  if (['tts-full','tts-question','tts-choices','tts-stop'].includes(action)) {
+    event.preventDefault();
+    if(action==='tts-stop') {
+      stopEnglishSpeech();
+      return;
+    }
+    const q=questionMap.get(control.dataset.id);
+    if(!q||q.subject!=='english') {
+      showToast('這題目前沒有可朗讀的英文文字。');
+      return;
+    }
+    const mode=action==='tts-question'?'question':action==='tts-choices'?'choices':'full';
+    const result=speakEnglish(buildEnglishSpeechText(q,mode),{rate:getEnglishSpeechRate()});
+    if(!result.ok) {
+      showToast(result.reason==='unsupported'
+        ? '這個瀏覽器目前不支援英文朗讀，請改用 Chrome、Edge 或 Safari。'
+        : '這一段目前沒有可朗讀的內容。');
+    }
+    return;
+  }
   if (action === 'answer') handleBattleAnswer(Number(control.dataset.choice));
   if (action === 'next') {
     const battle = state.activeRun?.battle;
@@ -703,6 +725,12 @@ app.addEventListener('input',(event)=>{
   if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
 });
 app.addEventListener('change',async(event)=>{
+  if(event.target.matches('[data-english-tts-rate]')) {
+    const rate=setEnglishSpeechRate(event.target.value);
+    stopEnglishSpeech();
+    showToast(`英文朗讀速度已設為 ${rate}×。`);
+    return;
+  }
   if(event.target.matches('#ai-daily-limit')) {
     const limit=Math.max(0,Math.min(50,Number(event.target.value)||0));
     const today=taipeiDate();
