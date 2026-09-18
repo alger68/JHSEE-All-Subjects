@@ -17,7 +17,6 @@ describe('application model helpers', () => {
     expect(questions).toHaveLength(10);
     expect(new Set(questions.map((question) => question.subject)).size).toBe(5);
   });
-
   it('selects questions from the matching level instead of mixing a whole subject', () => {
     const bank = {
       all: () => [

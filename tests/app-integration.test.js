@@ -18,6 +18,7 @@ afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubA
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
+
 it('starts each world level with its own chapter question pool',async()=>{
   window.history.replaceState(null,'','#/battle/english/english-2');await boot();
   let run=JSON.parse(localStorage.getItem(key)).activeRun;

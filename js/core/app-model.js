@@ -33,7 +33,6 @@ export function pickLevelQuestions(bank, subject, levelNumber, count = 5, rng = 
     question.subject === subject && (!chapter || question.chapter === chapter)
   );
   if (!pool.length) return bank.pick({ subject }, count, rng);
-
   const shuffled = [...pool];
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
     const swap = Math.floor(rng() * (index + 1));
