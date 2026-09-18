@@ -2045,5 +2045,633 @@
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-18",
     "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依公共議題相關學習內容編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-012",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "語意理解",
+    "competency": "理解語句在篇章中的作用",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "子路問政。子曰：「先之，勞之。」請益。曰：「無倦。」",
+    "question": "依文意，孔子對從政者的主要期許是什麼？",
+    "choices": [
+      "先以身作則並持續努力",
+      "凡事交由部屬自行決定",
+      "只要制定規則即可",
+      "避免親自參與繁重工作"
+    ],
+    "answer": 0,
+    "explanation": "「先之」強調先帶頭示範，「勞之」與「無倦」強調持續投入，因此核心是以身作則且不懈怠。",
+    "hint1": "把「先之」和「無倦」一起解讀。",
+    "hint2": "想想領導者應先做什麼、又要維持多久。",
+    "source": "original",
+    "tags": [
+      "語意理解",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-013",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "人物動機",
+    "competency": "根據細節推論人物想法",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "媽媽把剛烤好的餅乾分成三盒：一盒放桌上，一盒裝進書包，最後一盒貼上「明天再開」的紙條。小瑜看了笑說：「原來你早就知道我會忍不住。」",
+    "question": "從這段文字可推知，媽媽貼紙條最可能是為了什麼？",
+    "choices": [
+      "提醒小瑜別一次吃完",
+      "告訴小瑜餅乾已經壞了",
+      "要求小瑜明天帶去學校",
+      "區分三盒餅乾的口味"
+    ],
+    "answer": 0,
+    "explanation": "紙條寫「明天再開」，加上小瑜提到「忍不住」，可推知媽媽是在幫忙控制一次吃太多。",
+    "hint1": "注意小瑜最後一句話提供的線索。",
+    "hint2": "「忍不住」和哪個行為最有關？",
+    "source": "original",
+    "tags": [
+      "人物動機",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-014",
+    "subject": "chinese",
+    "chapter": "生活文本",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "公告條件",
+    "competency": "整合多項規則解決問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "校園影印服務：黑白每張2元，彩色每張8元。學生證內餘額至少20元才能啟動機器；完成後依實際張數扣款。每次最多印30張。",
+    "question": "小維卡片餘額24元，想印6張黑白。下列敘述何者正確？",
+    "choices": [
+      "可啟動機器，印完後剩12元",
+      "因總費用未滿20元所以不能印",
+      "最多只能印2張",
+      "必須先儲值到30元"
+    ],
+    "answer": 0,
+    "explanation": "啟動條件是餘額至少20元，24元符合；6張黑白共12元，因此印完剩12元。",
+    "hint1": "分清楚「啟動條件」和「實際扣款」。",
+    "hint2": "不要把20元誤當成最低消費。",
+    "source": "original",
+    "tags": [
+      "公告條件",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-015",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "觀點比較",
+    "competency": "比較兩段文字的立場差異",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲：校園種樹能降低夏季地表溫度，也能提供遮蔭。乙：若樹種選擇不當，根系可能破壞鋪面，落葉維護也需要人力。",
+    "question": "下列何者最能說明甲、乙兩段文字的關係？",
+    "choices": [
+      "甲談效益，乙補充執行成本與風險",
+      "甲反對種樹，乙支持種樹",
+      "兩者都認為校園不應有任何植物",
+      "乙證明甲提出的效益完全不存在"
+    ],
+    "answer": 0,
+    "explanation": "甲說明種樹的好處；乙沒有否定好處，而是補充可能的風險與維護成本。",
+    "hint1": "先判斷乙有沒有否定甲的核心主張。",
+    "hint2": "一段談好處，一段談限制時，常是補充關係。",
+    "source": "original",
+    "tags": [
+      "觀點比較",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-016",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "比例判讀",
+    "competency": "根據表格做有限度結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某班調查到校方式如下。",
+    "question": "哪一項結論最符合表中資料？",
+    "choices": [
+      "步行與騎車的人數合計多於搭公車",
+      "搭公車的人一定住得最遠",
+      "全校學生都偏好步行",
+      "騎車者的通勤時間一定最短"
+    ],
+    "answer": 0,
+    "explanation": "步行12人、騎車10人，合計22人，多於搭公車18人。其他選項都需要表格未提供的距離、全校或時間資料。",
+    "hint1": "只使用表格中真正提供的資訊。",
+    "hint2": "先做可以直接計算的人數比較。",
+    "table": {
+      "headers": [
+        "方式",
+        "人數"
+      ],
+      "rows": [
+        [
+          "步行",
+          12
+        ],
+        [
+          "騎車",
+          10
+        ],
+        [
+          "公車",
+          18
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "比例判讀",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-017",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "段落結構",
+    "competency": "辨識段落功能",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "第一段介紹老街近年的遊客增加；第二段描述店家因人潮延長營業時間；第三段則指出垃圾量增加與居民作息受影響，並提出分流與清潔方案。",
+    "question": "第三段在全文中的主要作用是什麼？",
+    "choices": [
+      "提出發展後衍生的問題與改善方向",
+      "重複第一段的遊客數量",
+      "說明老街最早的歷史年代",
+      "證明延長營業完全沒有好處"
+    ],
+    "answer": 0,
+    "explanation": "第三段從前兩段的發展現象轉入負面影響，並提出改善方案，因此功能是補充問題與解方。",
+    "hint1": "看第三段新增了哪些資訊類型。",
+    "hint2": "它不只描述現象，還提出了什麼？",
+    "source": "original",
+    "tags": [
+      "段落結構",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-018",
+    "subject": "chinese",
+    "chapter": "生活文本",
+    "domain": "生活文本",
+    "questionType": "推論",
+    "topic": "廣告語意",
+    "competency": "判斷宣傳語的隱含訴求",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "「不是每杯飲料都需要更多糖，真正需要的是更清楚的味道。」——某無糖茶廣告",
+    "question": "這句廣告語最主要想傳達哪一種訴求？",
+    "choices": [
+      "少糖也能保有飲品特色",
+      "糖越多味道一定越好",
+      "所有人都不應喝任何甜飲",
+      "無糖茶完全沒有味道"
+    ],
+    "answer": 0,
+    "explanation": "廣告把「更多糖」和「更清楚的味道」做對比，訴求是不靠增加糖分也能呈現風味。",
+    "hint1": "注意句子中的對比。",
+    "hint2": "廣告並沒有說所有甜味都不好。",
+    "source": "original",
+    "tags": [
+      "廣告語意",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-019",
+    "subject": "chinese",
+    "chapter": "文學閱讀",
+    "domain": "文學閱讀",
+    "questionType": "推論",
+    "topic": "意象情感",
+    "competency": "由意象推論情緒",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "傍晚，站牌旁只剩一張被雨打濕的時刻表。遠處車燈一亮，他立刻站直；車子轉進另一條街後，他又把背包放回腳邊。",
+    "question": "這段描寫最能表現人物何種心情？",
+    "choices": [
+      "反覆期待又落空",
+      "因為遲到而十分憤怒",
+      "對搭車完全沒有興趣",
+      "準備離開城市的興奮"
+    ],
+    "answer": 0,
+    "explanation": "人物看到車燈就站直，車未到又放下背包，呈現期待與落空反覆出現。",
+    "hint1": "觀察兩次動作前後的變化。",
+    "hint2": "車燈出現與消失各帶來什麼反應？",
+    "source": "original",
+    "tags": [
+      "意象情感",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-020",
+    "subject": "chinese",
+    "chapter": "書信與訊息",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "訊息目的",
+    "competency": "辨識訊息中的行動要求",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "班長訊息：明天自然課要到實驗室。第一節下課後，請各組組長到器材室領護目鏡；其他同學直接到三樓實驗室集合，不必回原教室。",
+    "question": "一般組員第一節下課後應該怎麼做？",
+    "choices": [
+      "直接到三樓實驗室集合",
+      "先到器材室領護目鏡",
+      "回原教室等組長通知",
+      "到操場集合"
+    ],
+    "answer": 0,
+    "explanation": "領護目鏡的任務只交給組長；其他同學被明確要求直接到三樓實驗室集合。",
+    "hint1": "先分辨訊息對「組長」和「其他同學」的不同要求。",
+    "hint2": "你是一般組員，不是組長。",
+    "source": "original",
+    "tags": [
+      "訊息目的",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-021",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "資料分析",
+    "topic": "證據範圍",
+    "competency": "評估標題是否超出資料",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "校刊調查120名受訪學生對「每週一天無作業日」的看法：支持68人、反對32人、無意見20人。",
+    "question": "下列哪個標題最符合這份資料能支持的範圍？",
+    "choices": [
+      "受訪學生中，支持者超過半數",
+      "全市學生一致支持無作業日",
+      "無作業日已證明能提升成績",
+      "所有反對者都因補習太多"
+    ],
+    "answer": 0,
+    "explanation": "68/120超過一半，因此能說受訪者中支持者過半；其他標題都擴大到未調查的人或加入不存在的原因與成績資料。",
+    "hint1": "留意調查對象只有120名受訪學生。",
+    "hint2": "不要把態度調查說成成效證明。",
+    "source": "original",
+    "tags": [
+      "證據範圍",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-022",
+    "subject": "chinese",
+    "chapter": "語文運用",
+    "domain": "語文運用",
+    "questionType": "閱讀理解",
+    "topic": "語句銜接",
+    "competency": "判斷句子最適位置",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "①城市增設自行車道後，騎車人口明顯增加。②部分路段也因此出現尖峰壅塞。③市府開始調整號誌並增設轉向標線。④半年後，事故件數逐漸下降。\n待插入句：「但新的使用需求也帶來新的管理問題。」",
+    "question": "這句話最適合放在哪兩句之間？",
+    "choices": [
+      "①與②之間",
+      "②與③之間",
+      "③與④之間",
+      "④之後"
+    ],
+    "answer": 0,
+    "explanation": "插入句中的「但」承接①的正面增加，並引出②的壅塞問題，因此放在①與②之間最順。",
+    "hint1": "先找出「但」前後應形成的轉折。",
+    "hint2": "哪一句是正面發展，下一句開始談問題？",
+    "source": "original",
+    "tags": [
+      "語句銜接",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-023",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "推論",
+    "topic": "因果判讀",
+    "competency": "由行動推論原因",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "農夫夜歸，見橋板鬆動，遂停步取石墊之。同行者曰：「急歸可也，何必多事？」農夫曰：「吾今得過，後人未必。」",
+    "question": "農夫停下修橋最主要的原因是什麼？",
+    "choices": [
+      "擔心後來的人遇到危險",
+      "想延誤同行者回家的時間",
+      "希望證明自己力氣很大",
+      "認為橋板越鬆越方便"
+    ],
+    "answer": 0,
+    "explanation": "「吾今得過，後人未必」直接說明他考慮的是後來使用橋的人可能無法安全通過。",
+    "hint1": "最後一句就是關鍵。",
+    "hint2": "他關心的對象不只自己。",
+    "source": "original",
+    "tags": [
+      "因果判讀",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-024",
+    "subject": "chinese",
+    "chapter": "媒體識讀",
+    "domain": "跨文本與論證",
+    "questionType": "資料分析",
+    "topic": "來源可信度",
+    "competency": "比較資料來源品質",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲：匿名帳號貼文：「大家都說這款藥草能治感冒。」乙：醫院衛教文章說明目前缺乏足夠臨床證據，並列出研究來源與注意事項。",
+    "question": "若要判斷該藥草是否具有治療效果，哪一項做法較恰當？",
+    "choices": [
+      "優先檢視乙所引用的研究證據",
+      "只看甲貼文的按讚數",
+      "因甲寫得較簡短所以一定正確",
+      "兩種來源完全沒有差異"
+    ],
+    "answer": 0,
+    "explanation": "乙提供研究來源與證據限制，可進一步核查；匿名貼文與按讚數不能取代可檢驗的研究證據。",
+    "hint1": "比較資料是否能被追溯與檢驗。",
+    "hint2": "人氣不等於證據品質。",
+    "source": "original",
+    "tags": [
+      "來源可信度",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-025",
+    "subject": "chinese",
+    "chapter": "程序文本",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "流程判讀",
+    "competency": "依流程選擇下一步",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "圖書預約流程：①登入帳號→②確認館藏狀態→③若可借，直接到館借閱；若已借出，按「預約」→④收到到館通知後三日內領取。",
+    "question": "小恩登入後發現想借的書顯示「借出中」，下一步最適合做什麼？",
+    "choices": [
+      "按下預約",
+      "直接到館架上找書",
+      "等待三日後再登入",
+      "先登出帳號"
+    ],
+    "answer": 0,
+    "explanation": "流程明確指出書籍已借出時應按「預約」，等收到到館通知後再領取。",
+    "hint1": "先找流程中的分支條件。",
+    "hint2": "「借出中」對應哪一條路徑？",
+    "source": "original",
+    "tags": [
+      "流程判讀",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-026",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "比喻理解",
+    "competency": "理解比喻在情境中的意義",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "老師看著大家修改了三次仍不理想的報告，說：「現在不是把牆再漆一次，而是要先看看地基歪在哪裡。」",
+    "question": "老師最可能想表達什麼？",
+    "choices": [
+      "應先找出根本問題再修改",
+      "報告必須改成建築主題",
+      "只要增加裝飾就能提高品質",
+      "第三次修改後不必再檢查"
+    ],
+    "answer": 0,
+    "explanation": "「牆漆」比喻表面修改，「地基」比喻根本問題；老師提醒大家先找出核心錯誤。",
+    "hint1": "把建築詞語換成「表面」與「根本」。",
+    "hint2": "老師反對的是哪種只改外表的做法？",
+    "source": "original",
+    "tags": [
+      "比喻理解",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-027",
+    "subject": "chinese",
+    "chapter": "論證閱讀",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "論證漏洞",
+    "competency": "辨識以偏概全",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "小哲說：「我問了班上三位同學，他們都不喜歡晨間閱讀，所以全校學生一定都不喜歡。」",
+    "question": "小哲的推論主要有什麼問題？",
+    "choices": [
+      "樣本太少，不能代表全校",
+      "沒有把三位同學的姓名公開",
+      "沒有計算閱讀時間的平均數",
+      "沒有先證明晨間閱讀一定有效"
+    ],
+    "answer": 0,
+    "explanation": "只詢問三位同學就推論全校，是樣本代表性不足造成的以偏概全。",
+    "hint1": "比較「三位」和「全校」的範圍。",
+    "hint2": "問題出在推論範圍被放大。",
+    "source": "original",
+    "tags": [
+      "論證漏洞",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-028",
+    "subject": "chinese",
+    "chapter": "生活文本",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "時程整合",
+    "competency": "根據多項時間限制做決策",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "社團成果展彩排：舞台組15:30報到、表演組16:00報到。器材室15:20–15:50開放領取麥克風，表演組每組需由一名代表先領器材。",
+    "question": "表演組代表若要同時完成報到與領麥克風，最適合何時到校？",
+    "choices": [
+      "15:40",
+      "16:10",
+      "15:10",
+      "16:30"
+    ],
+    "answer": 0,
+    "explanation": "15:40時器材室仍開放，可先領麥克風，之後在16:00完成表演組報到。",
+    "hint1": "要同時滿足器材室開放與16:00報到。",
+    "hint2": "先找唯一落在領器材時段、又不會錯過報到的時間。",
+    "source": "original",
+    "tags": [
+      "時程整合",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-029",
+    "subject": "chinese",
+    "chapter": "跨文本閱讀",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "共同主題",
+    "competency": "統整兩段文本共同焦點",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲文描述社區將廢棄空地改成菜園後，居民開始共同輪值照顧。乙文介紹校園把閒置角落改成閱讀區，學生自發整理書籍與維護環境。",
+    "question": "甲、乙兩文最主要的共同點是什麼？",
+    "choices": [
+      "空間改造促成使用者共同參與",
+      "都在討論農業技術",
+      "都強調空間必須收費",
+      "都主張只有專業人員能維護"
+    ],
+    "answer": 0,
+    "explanation": "兩段都先描述閒置空間被重新利用，接著出現居民或學生共同維護，焦點在空間改造與參與。",
+    "hint1": "找出兩段都出現的「空間變化」和「人的行動」。",
+    "hint2": "不要只抓到其中一篇的菜園或閱讀。",
+    "source": "original",
+    "tags": [
+      "共同主題",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-030",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "摘要判斷",
+    "competency": "選擇最完整且不過度的摘要",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "研究團隊觀察到，校園午間播放輕音樂後，圖書館入館人數增加。但研究者提醒，同期也延長了開放時間，因此不能直接認定音樂就是唯一原因。",
+    "question": "下列哪一項最適合作為這段文字的摘要？",
+    "choices": [
+      "入館人數增加，但原因可能不只音樂",
+      "播放音樂已證明能使所有學生愛上閱讀",
+      "延長開放時間一定是唯一原因",
+      "研究顯示圖書館不應播放任何音樂"
+    ],
+    "answer": 0,
+    "explanation": "文字同時呈現入館人數增加與因果判斷的限制，最完整的摘要應保留這兩層意思。",
+    "hint1": "摘要要同時包含「現象」與「研究限制」。",
+    "hint2": "避免把相關現象說成已證明的唯一因果。",
+    "source": "original",
+    "tags": [
+      "摘要判斷",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
   }
 ]
