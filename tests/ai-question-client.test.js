@@ -37,11 +37,13 @@ describe('AI question client',()=>{
     const result=await requestAiQuestions({
       endpoint:'https://example.test',
       brief,
+      avoidQuestions:[{question:'old q',passage:'old p'}],
       count:2,
       fetchImpl:async(_url,options)=>{
         const body=JSON.parse(options.body);
         expect(body.count).toBe(2);
         expect(body.brief.coreSkill).toBe('上下文推論');
+        expect(body.avoidQuestions).toEqual([{question:'old q',passage:'old p'}]);
         return new Response(JSON.stringify({questions:[q('ai1'),q('ai2')]}),{status:200,headers:{'content-type':'application/json'}});
       }
     });

@@ -11,6 +11,7 @@ export async function requestAiQuestions({
   endpoint,
   brief,
   sourceQuestion=null,
+  avoidQuestions=[],
   count=3,
   fetchImpl=fetch,
   timeoutMs=12000
@@ -23,7 +24,7 @@ export async function requestAiQuestions({
     const response=await fetchImpl(url,{
       method:'POST',
       headers:{'content-type':'application/json'},
-      body:JSON.stringify({brief,sourceQuestion,count}),
+      body:JSON.stringify({brief,sourceQuestion,avoidQuestions,count}),
       signal:controller.signal
     });
     if(!response.ok)return null;

@@ -182,8 +182,9 @@ it('offers a grade and question-type filtered original practice, with material v
   document.querySelector('#practice-type').value='情境應用';
   document.querySelector('[data-action="start-practice"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
-  expect(session.questionIds).toHaveLength(2);
-  expect(session.questionIds.every(id=>['CAP-P-math-001','CAP-P-math-006'].includes(id))).toBe(true);
+  const expected=practice.filter(q=>q.subject==='math'&&q.grade<=7&&q.questionType==='情境應用').map(q=>q.id);
+  expect(session.questionIds).toHaveLength(expected.length);
+  expect(session.questionIds.every(id=>expected.includes(id))).toBe(true);
   expect(document.querySelector('.passage')).not.toBeNull();
 });
 it('a correct but uncertain review does not increase the wrong-answer count',async()=>{
@@ -298,7 +299,7 @@ it('does not start a new exam when an old check URL is opened after submission',
 it('defaults short practice to explicitly reviewed CAP-oriented questions',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
   expect(document.querySelector('#practice-focus')?.value).toBe('aligned');
-  expect(document.body.textContent).toContain('會考導向 30 題');
+  expect(document.body.textContent).toContain('會考導向 55 題');
   expect(document.body.textContent).toContain('基礎補強 55 題');
   document.querySelector('[data-action="start-practice"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
@@ -383,7 +384,7 @@ it('does not create blank or unclickable revenge entries for stale question ids'
 it('can include all original questions with an accurate live count',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
   const focus=document.querySelector('#practice-focus');focus.value='all';focus.dispatchEvent(new Event('change',{bubbles:true}));
-  expect(document.querySelector('[data-practice-matches]').textContent).toContain('85 題');
+  expect(document.querySelector('[data-practice-matches]').textContent).toContain('110 題');
   document.querySelector('[data-action="start-practice"]').click();
   expect(JSON.parse(localStorage.getItem(key)).activeExam.title).toContain('全部原創');
 });

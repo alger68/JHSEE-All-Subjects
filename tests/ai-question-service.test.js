@@ -22,23 +22,34 @@ const brief = {
   requirements: ['保持相同核心能力，但改用不同情境']
 };
 
-const generated = (id='ai-1') => ({
+const generated = (id='ai-1',variant='rain') => ({
   id,
   subject: 'english',
   domain: '閱讀理解',
   questionType: '推論題',
   competency: '上下文推論',
   difficulty: 2,
-  passage: 'Mia planned to walk home, but dark clouds gathered. Her teacher offered her an umbrella. Mia thanked her and waited by the school gate until the rain became lighter.',
-  question: `Why did Mia probably wait by the school gate? ${id}`,
-  choices: [
+  passage: variant==='rain'
+    ? 'Mia planned to walk home, but dark clouds gathered. Her teacher offered her an umbrella. Mia thanked her and waited by the school gate until the rain became lighter.'
+    : 'Leo checked the library notice before school. The new schedule showed that Friday closing time had moved from 5 p.m. to 7 p.m. He decided to finish his group project there after basketball practice.',
+  question: variant==='rain'
+    ? `Why did Mia probably wait by the school gate? ${id}`
+    : `Why did Leo decide to work at the library after practice? ${id}`,
+  choices: variant==='rain' ? [
     'She wanted the rain to become weaker.',
     'She forgot where her home was.',
     'She needed to return the umbrella immediately.',
     'She was waiting for another class to begin.'
+  ] : [
+    'The library would stay open later on Friday.',
+    'Basketball practice had been cancelled.',
+    'His group had moved the project to Saturday.',
+    'The library no longer allowed group work.'
   ],
   answer: 0,
-  explanation: 'The passage says she waited until the rain became lighter, so the best inference is that she wanted safer or easier conditions before walking home.',
+  explanation: variant==='rain'
+    ? 'The passage says she waited until the rain became lighter, so the best inference is that she wanted safer or easier conditions before walking home.'
+    : 'The later Friday closing time gives Leo enough time to work there after basketball practice.',
   hint1: 'Compare the reason she waited with what changed afterward.',
   hint2: 'Use information from more than one sentence.',
   errorTags: ['single_sentence_bias', 'keyword_matching', 'over_inference', 'irrelevant_detail']
@@ -52,9 +63,15 @@ describe('AI question service contracts', () => {
   });
 
   it('accepts a bounded request and clamps question count', () => {
-    const result = validateGenerateRequest({ brief, count: 9, sourceQuestion: { question: 'old' } });
+    const result = validateGenerateRequest({
+      brief,
+      count:9,
+      sourceQuestion:{question:'old'},
+      avoidQuestions:[{question:'recent one',passage:'recent passage'}]
+    });
     expect(result.ok).toBe(true);
     expect(result.value.count).toBe(5);
+    expect(result.value.avoidQuestions).toEqual([{question:'recent one',passage:'recent passage'}]);
   });
 
 
@@ -69,11 +86,18 @@ describe('AI question service contracts', () => {
   });
 
   it('builds a prompt that preserves the target skill while forbidding superficial copies', () => {
-    const prompt = buildGenerationPrompt(brief, { question: 'Why did Ben leave?', passage: 'Old source text' }, 3);
+    const prompt = buildGenerationPrompt(
+      brief,
+      { question: 'Why did Ben leave?', passage: 'Old source text' },
+      3,
+      [{question:'A recent question',passage:'A recent passage'}]
+    );
     expect(prompt).toContain('上下文推論');
     expect(prompt).toContain('remediation');
     expect(prompt).toContain('不得只替換');
     expect(prompt).toContain('3');
+    expect(prompt).toContain('最近已做過');
+    expect(prompt).toContain('同一批題目彼此也必須明顯不同');
   });
 
   it('defines a strict schema for four-choice questions', () => {
@@ -99,9 +123,31 @@ describe('AI question service contracts', () => {
   });
 
   it('accepts a unique set aligned to the requested core skill', () => {
-    const result = qaGeneratedQuestions({ questions: [generated('a'), generated('b')] }, brief, 2);
+    const result = qaGeneratedQuestions({ questions: [generated('a','rain'), generated('b','library')] }, brief, 2);
     expect(result.ok).toBe(true);
     expect(result.questions).toHaveLength(2);
+  });
+
+  it('rejects a question that is too similar to recent history',()=>{
+    const old=generated('old','rain');
+    const fresh={...generated('new','rain'),question:'Why did Mia wait at the school gate until the rain got lighter?'};
+    const result=qaGeneratedQuestions(
+      {questions:[fresh]},
+      brief,
+      1,
+      null,
+      [{question:old.question,passage:old.passage}]
+    );
+    expect(result.ok).toBe(false);
+    expect(result.error).toMatch(/recent history|similar/);
+  });
+
+  it('rejects an AI batch whose passages are effectively the same template',()=>{
+    const a=generated('a','rain');
+    const b={...generated('b','rain'),question:'What most likely explains Mia staying at school for a while? b'};
+    const result=qaGeneratedQuestions({questions:[a,b]},brief,2);
+    expect(result.ok).toBe(false);
+    expect(result.error).toContain('passages within batch');
   });
 });
 
@@ -138,7 +184,7 @@ describe('generate-question HTTP handler', () => {
       return new Response(JSON.stringify({
         output:[{
           type:'message',
-          content:[{type:'output_text',text:JSON.stringify({questions:[generated('x'),generated('y')]})}]
+          content:[{type:'output_text',text:JSON.stringify({questions:[generated('x','rain'),generated('y','library')]})}]
         }],
         usage:{input_tokens:123,output_tokens:456}
       }),{status:200,headers:{'content-type':'application/json'}});
@@ -160,7 +206,7 @@ describe('generate-question HTTP handler', () => {
       calls+=1;
       const questions=calls===1
         ? [{...generated('bad'),competency:'錯誤能力'},generated('bad2')]
-        : [generated('good1'),generated('good2')];
+        : [generated('good1','rain'),generated('good2','library')];
       return new Response(JSON.stringify({
         output:[{type:'message',content:[{type:'output_text',text:JSON.stringify({questions})}]}]
       }),{status:200,headers:{'content-type':'application/json'}});
