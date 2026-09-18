@@ -1,7 +1,7 @@
 import { SUBJECT_ORDER, SUBJECTS } from '../config/subjects.js';
 import { levelProgress } from '../core/game-state.js';
 import { diagnosticCards } from '../core/personalization.js';
-import { questionMaterial, reasonSelect } from './exam-views.js';
+import { questionMaterial, reasonSelect, renderEnglishTtsControls } from './exam-views.js';
 
 const escapeHtml = (value) => String(value ?? '')
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
@@ -53,7 +53,7 @@ export function renderWorld({ subject, levelProgress: progress = {} }) {
   </div>`;
 }
 
-export function renderBattle({ subject, battle, question, feedback }) {
+export function renderBattle({ subject, battle, question, feedback, ttsRate=1 }) {
   const item = SUBJECTS[subject] ?? SUBJECTS.math;
   const levelName = item.levels.find((level) => level === question?.chapter) ?? item.levels[0];
   const total = battle.questions.length;
@@ -62,7 +62,7 @@ export function renderBattle({ subject, battle, question, feedback }) {
   return `<div class="battle-screen" style="--subject:${item.color}">
     <header class="battle-top"><a href="#/world/${subject}" aria-label="離開戰鬥">×</a><div><small>${battle.mode === 'boss' ? 'BOSS BATTLE' : item.world}</small><strong>問題 ${Math.min(battle.index + 1, total)} / ${total}</strong></div><span class="combo">🔥 ×${battle.combo}</span></header>
     <section class="enemy-stage"><div class="enemy-name"><span>${battle.mode === 'boss' ? item.boss : levelName + '怪物'}</span><b>${battle.enemyHp} HP</b></div><div class="hp-bar enemy"><i style="width:${Math.max(0, (battle.enemyHp / enemyMax) * 100)}%"></i></div><div class="monster ${feedback?.correct === true ? 'hit' : ''}">${battle.mode === 'boss' ? '🐲' : item.monster}</div><div class="player-hp" aria-label="玩家生命 ${battle.playerHp} 點">${hp}</div></section>
-    <main class="question-card"><div class="question-meta"><span>${escapeHtml(question.topic ?? item.name)}</span><span>${escapeHtml(question.examProfile?.type ?? '原創基礎練習')}・難度 ${'◆'.repeat(question.difficulty ?? 1)}</span></div>${questionMaterial(question)}<h1>${escapeHtml(question.question)}</h1><div class="choices">${question.choices.map((choice, index) => `<button type="button" class="choice" data-action="answer" data-choice="${index}" aria-label="選項 ${String.fromCharCode(65 + index)}：${escapeHtml(choice)}"><b>${String.fromCharCode(65 + index)}</b><span>${escapeHtml(choice)}</span></button>`).join('')}</div>${feedback ? `<div class="feedback ${feedback.correct ? 'correct' : 'wrong'}"><strong>${feedback.correct ? '⚔️ Critical！答對了' : '✕ 還差一點'}</strong><p>${escapeHtml(feedback.explanation)}</p><small>核心能力：${escapeHtml(question.examProfile?.competency ?? '核心概念理解')}</small><button type="button" data-action="next">${battle.index >= total ? '查看結算' : '下一題'} →</button></div>` : ''}</main>
+    <main class="question-card"><div class="question-meta"><span>${escapeHtml(question.topic ?? item.name)}</span><span>${escapeHtml(question.examProfile?.type ?? '原創基礎練習')}・難度 ${'◆'.repeat(question.difficulty ?? 1)}</span></div>${renderEnglishTtsControls(question,ttsRate)}${questionMaterial(question)}<h1>${escapeHtml(question.question)}</h1><div class="choices">${question.choices.map((choice, index) => `<button type="button" class="choice" data-action="answer" data-choice="${index}" aria-label="選項 ${String.fromCharCode(65 + index)}：${escapeHtml(choice)}"><b>${String.fromCharCode(65 + index)}</b><span>${escapeHtml(choice)}</span></button>`).join('')}</div>${feedback ? `<div class="feedback ${feedback.correct ? 'correct' : 'wrong'}"><strong>${feedback.correct ? '⚔️ Critical！答對了' : '✕ 還差一點'}</strong><p>${escapeHtml(feedback.explanation)}</p><small>核心能力：${escapeHtml(question.examProfile?.competency ?? '核心概念理解')}</small><button type="button" data-action="next">${battle.index >= total ? '查看結算' : '下一題'} →</button></div>` : ''}</main>
   </div>`;
 }
 
