@@ -145,4 +145,4 @@ export async function OPTIONS(request){
   return liveHandler(new Request(request.url,{method:'OPTIONS',headers:request.headers}));
 }
 
-export default liveHandler;
+export default { fetch: liveHandler };
