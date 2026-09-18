@@ -74,3 +74,5 @@ Vercel 環境變數請依 `.env.example` 設定：
 - `AI_RATE_LIMIT_PER_MINUTE`：單一 Function instance 每個 client 每分鐘最多生成請求數，預設 6；正式公開服務另建議在 Vercel Firewall 對 `/api/generate-question` 設 IP rate limit。
 
 部署後，Vercel 網站本身會自動使用同網域的 `/api/generate-question`。若仍以 GitHub Pages 為主要入口，請把 Vercel 專案根網址填入 `js/config/ai-service.js` 的 `deployedService`，GitHub Pages 就會跨網域呼叫 Vercel API。
+
+<!-- deployment-trigger: ai-remediation-loop -->
