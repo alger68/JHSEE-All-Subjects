@@ -500,3 +500,31 @@ it('stores a mock exam in the CAP war room and updates adaptive study weights',a
   expect(state.adaptiveSubjectWeights.english).toBeGreaterThan(state.adaptiveSubjectWeights.chinese);
   expect(document.body.textContent).toContain('下一週讀書比例');
 });
+
+
+it('navigates English official reading groups without making later questions look duplicated',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-english');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  expect(document.querySelector('[data-official-question="1"]')).not.toBeNull();
+
+  document.querySelector('[data-action="exam-go"][data-index="19"]').click();
+  let current=document.querySelector('[data-official-question="20"]');
+  expect(current).not.toBeNull();
+  expect(current.querySelector('.official-shared')?.hasAttribute('open')).toBe(true);
+  const q20=current.querySelector('.official-current-question svg')?.getAttribute('viewBox');
+
+  document.querySelector('[data-action="exam-next"]').click();
+  current=document.querySelector('[data-official-question="21"]');
+  expect(current).not.toBeNull();
+  expect(current.textContent).toContain('題組 20–21・目前第 21 題');
+  expect(current.querySelector('.official-shared')?.hasAttribute('open')).toBe(false);
+  const q21=current.querySelector('.official-current-question svg')?.getAttribute('viewBox');
+  expect(q21).not.toBe(q20);
+  expect(document.querySelectorAll('[data-action="exam-answer"]')).toHaveLength(4);
+
+  document.querySelector('[data-action="exam-go"][data-index="42"]').click();
+  current=document.querySelector('[data-official-question="43"]');
+  expect(current).not.toBeNull();
+  expect(current.textContent).toContain('題組 40–43・目前第 43 題');
+  expect(document.querySelectorAll('[data-action="exam-answer"]')).toHaveLength(4);
+});
