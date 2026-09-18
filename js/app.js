@@ -16,7 +16,7 @@ import { createQuestionBank } from './core/question-bank.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
-import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord } from './core/cap-war-room.js';
+import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, buildCoverageReport } from './core/cap-war-room.js';
 import { createRouter } from './router.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
@@ -35,6 +35,8 @@ let toastTimer;
 
 const currentDiagnostic=()=>buildMockAdjustedDiagnostic(PERSONAL_DIAGNOSTIC,state.mockExamRecords??[]);
 const currentMockWarRoom=()=>buildMockWarRoom(state.mockExamRecords??[],PERSONAL_DIAGNOSTIC.subjectWeights);
+const currentRepairPlan=()=>buildSevenDayRepairPlan(currentMockWarRoom(),taipeiDate());
+const currentCoverage=()=>buildCoverageReport(bank?.all?.()??[],state.answerHistory??[]);
 
 function showToast(message) {
   document.querySelector('.toast')?.remove();
@@ -172,8 +174,8 @@ function routes() {
     },
     '#/exam-check': () => state.activeExam
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
-      : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports,mockWarRoom:currentMockWarRoom()}),
-    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:currentDiagnostic(),adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate()),mockWarRoom:currentMockWarRoom()}),
+      : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports,mockWarRoom:currentMockWarRoom(),repairPlan:currentRepairPlan(),coverage:currentCoverage()}),
+    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:currentDiagnostic(),adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate()),mockWarRoom:currentMockWarRoom(),repairPlan:currentRepairPlan(),coverage:currentCoverage()}),
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
     '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
@@ -492,10 +494,19 @@ app.addEventListener('click', async (event) => {
       subject,
       document.querySelector(`[data-mock-grade="${subject}"]`)?.value
     ]));
+    const errors=normalizeMockErrorImport(Object.fromEntries(['chinese','english','math','science','social'].map(subject=>[
+      subject,
+      {
+        wrong:Number(document.querySelector(`[data-mock-wrong="${subject}"]`)?.value||0),
+        topics:String(document.querySelector(`[data-mock-topics="${subject}"]`)?.value||'')
+          .split(/[,，、]/).map(value=>value.trim()).filter(Boolean)
+      }
+    ])));
     const record=normalizeMockExamRecord({
       date:document.querySelector('#mock-date')?.value||taipeiDate(),
       title:document.querySelector('#mock-title')?.value||'模擬考',
-      grades
+      grades,
+      errors
     });
     if(!record){showToast('模考資料不完整，請確認五科等級。');return;}
     state.mockExamRecords=[...(state.mockExamRecords??[]),record]
