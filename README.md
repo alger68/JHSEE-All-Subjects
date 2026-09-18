@@ -51,3 +51,26 @@ npm run build
 ```
 
 建置也會檢查兩份題庫、84 張官方原頁影像與聽力音檔是否確實輸出到部署資產，防止本機可用、上線後找不到題庫。推送到 `main` 後，GitHub Actions 會先執行測試與建置，再部署 GitHub Pages。
+
+
+## AI 弱點變形題（Vercel）
+
+Adaptive Engine 已可選配 Vercel Functions 後端產生針對性變形題。瀏覽器不持有 OpenAI API Key；只送出科目、核心能力、熟練度、Priority、訓練模式，以及一題既有題作為「不可複製」的能力參考。
+
+- 僅在已有核心能力資料且 Priority >= 50 時嘗試 AI 生成。
+- Priority 50–69 產生 2 題、70+ 產生 3 題、診斷模式產生 4 題。
+- 後端每次最多接受 5 題，並限制輸出 token；預設使用 `gpt-5.6-luna`。
+- 使用 Responses API Structured Outputs（JSON Schema）固定題目格式，再做第二層本地 QA：科目、領域、核心能力、難度、四選一、唯一 ID、不可原題複製等。
+- 第一次生成未通過 QA 時自動重試一次；仍失敗則回傳錯誤。
+- 前端 API 失敗、超時或未設定時，直接使用原有 Adaptive 題庫，不阻斷學習。
+- AI 題最近保留 50 題在 LocalStorage，可正常進入錯題與間隔複習；錯誤選項的 errorTags 會寫入錯因紀錄。
+
+Vercel 環境變數請依 `.env.example` 設定：
+
+- `OPENAI_API_KEY`：必要，僅放 Vercel。
+- `AI_QUESTION_MODEL`：預設 `gpt-5.6-luna`。
+- `AI_ALLOWED_ORIGINS`：允許呼叫 API 的前端來源，預設 `https://alger68.github.io`。
+- `AI_MAX_OUTPUT_TOKENS`：每次生成的輸出上限，預設 2400。
+- `AI_RATE_LIMIT_PER_MINUTE`：單一 Function instance 每個 client 每分鐘最多生成請求數，預設 6；正式公開服務另建議在 Vercel Firewall 對 `/api/generate-question` 設 IP rate limit。
+
+部署後，Vercel 網站本身會自動使用同網域的 `/api/generate-question`。若仍以 GitHub Pages 為主要入口，請把 Vercel 專案根網址填入 `js/config/ai-service.js` 的 `deployedService`，GitHub Pages 就會跨網域呼叫 Vercel API。

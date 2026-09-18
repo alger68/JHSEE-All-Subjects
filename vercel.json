@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/generate-question.js": {
+      "maxDuration": 30,
+      "supportsCancellation": true
+    }
+  }
+}
