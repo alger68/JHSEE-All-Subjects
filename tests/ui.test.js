@@ -38,6 +38,14 @@ describe('adventure views', () => {
     expect(html).toContain('aria-label="選項 A：1"');
   });
 
+  it('labels a battle with the chapter-specific level name', () => {
+    const html = renderBattle({
+      subject: 'english', battle: { index: 0, playerHp: 5, enemyHp: 100, combo: 0, mode: 'normal', questions: [{}] },
+      question: { chapter: 'Grammar Ridge', question: 'Choose the correct form.', choices: ['A', 'B'] }, feedback: null
+    });
+    expect(html).toContain('Grammar Ridge怪物');
+  });
+
   it('renders an honest insufficient-data analysis state', () => {
     expect(renderAnalysis({ subjects: {}, topics: {} })).toContain('還沒有足夠資料');
   });

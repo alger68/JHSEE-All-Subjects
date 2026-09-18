@@ -1,9 +1,6 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
-import { daysUntil, makeBossQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
+import { daysUntil, makeBossQuestions, pickLevelQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
 import { PERSONAL_DIAGNOSTIC, prioritizeQuestions } from './core/personalization.js';
-import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
-import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
-import { AI_SERVICE_URL } from './config/ai-service.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
 import { createSession, answerSession, remainingSeconds, finishSession, validateSession } from './core/exam-session.js';
 import { OFFICIAL_PAPERS, getOfficialQuestions } from './config/official-papers.js';
@@ -57,7 +54,10 @@ function ensureDailyQuest() {
 function ensureBattle(subject, levelId, mode) {
   const active = state.activeRun;
   if (active?.subject === subject && active?.levelId === levelId && active?.battle?.status === 'active') return active.battle;
-  const questions = mode === 'boss' ? makeBossQuestions(bank, subject, 10) : bank.pick({ subject }, 5);
+  const levelNumber = Number(String(levelId).split('-').at(-1));
+  const questions = mode === 'boss'
+    ? makeBossQuestions(bank, subject, 10)
+    : pickLevelQuestions(bank, subject, levelNumber, 5);
   const battle = createBattle(questions, mode);
   state.activeRun = { kind: mode, subject, levelId, battle };
   feedback = null;
@@ -136,7 +136,7 @@ function routes() {
     },
     '#/results': () => state.lastResult ? renderResults(state.lastResult) : '<p>尚無挑戰結果。</p>',
     '#/revenge': () => renderRevenge({ date:taipeiDate(), items: reviewEntries() }),
-    '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3), { diagnostic: PERSONAL_DIAGNOSTIC, adaptive: adaptiveDashboard(state.adaptiveSkills, state.adaptiveSubjectWeights, taipeiDate()) }),
+    '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3), { diagnostic: PERSONAL_DIAGNOSTIC }),
     '#/profile': () => renderProfile({ player: state.player }),
     '#/exam': () => {
       const session = ensureExam();
@@ -145,7 +145,7 @@ function routes() {
     '#/exam-check': () => state.activeExam
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
       : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports}),
-    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:PERSONAL_DIAGNOSTIC,adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate())}),
+    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:PERSONAL_DIAGNOSTIC}),
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
     '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
@@ -181,17 +181,6 @@ function handleBattleAnswer(choice) {
   state.player.totalAnswered += 1;
   state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
   state.skillStats = updateSkillStats(state.skillStats, question, answer.correct);
-  {
-    const adaptive = recordAdaptiveAttempt(state.adaptiveSkills, state.answerHistory, question, {
-      correct: answer.correct,
-      selectedChoice: choice,
-      sourceKind: active.kind === 'revenge' ? 'review' : 'practice',
-      date: taipeiDate()
-    });
-    state.adaptiveSkills = adaptive.skills;
-    state.answerHistory = adaptive.history;
-    state.adaptiveSubjectWeights = calculateSubjectWeights(state.adaptiveSkills, state.adaptiveSubjectWeights, PERSONAL_DIAGNOSTIC);
-  }
   if (active.kind === 'revenge') {
     state.wrongQuestions = reviewWrong(state.wrongQuestions, question.id, answer.correct, taipeiDate());
     state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'revenge' }, taipeiDate());
@@ -226,21 +215,7 @@ function completeExam() {
     const question = questionMap.get(item.id);
     if (!question) continue;
     if (question.source!=='official') state.skillStats = updateSkillStats(state.skillStats, question, item.correct);
-    if (item.choice!==undefined) {
-      const adaptive = recordAdaptiveAttempt(state.adaptiveSkills, state.answerHistory, question, {
-        correct: item.correct,
-        selectedChoice: item.choice,
-        hinted: Boolean(item.hinted),
-        uncertain: Boolean(item.uncertain),
-        errorReason: !item.correct ? (question.errorTags?.[item.choice] ?? null) : null,
-        sourceKind: session.kind === 'review' ? 'review' : question.source === 'official' ? 'official' : 'practice',
-        date: taipeiDate()
-      });
-      state.adaptiveSkills = adaptive.skills;
-      state.answerHistory = adaptive.history;
-      state.adaptiveSubjectWeights = calculateSubjectWeights(state.adaptiveSkills, state.adaptiveSubjectWeights, PERSONAL_DIAGNOSTIC);
-      state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
-    }
+    if (item.choice!==undefined) state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
     if (session.kind==='review') {
       state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
         ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
@@ -294,24 +269,12 @@ function practiceSelection(shuffle=false) {
   const criteria={};
   if(subject!=='all')criteria.subject=subject;
   if(focus!=='all')criteria.examAligned=focus!=='basic';
-  const candidates=bank.filter(criteria)
-    .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
-  state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
-  state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,PERSONAL_DIAGNOSTIC);
-  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
-  const pool=hasAdaptiveData
-    ? buildAdaptivePractice(candidates,Math.min(10,candidates.length),{
-        skills:state.adaptiveSkills,
-        subjectWeights:state.adaptiveSubjectWeights,
-        today:taipeiDate(),
-        diagnostic:PERSONAL_DIAGNOSTIC,
-        rng:shuffle?Math.random:()=>0.5
-      })
-    : prioritizeQuestions(candidates,PERSONAL_DIAGNOSTIC).slice(0,10);
-  return {subject,grade,type,focus,pool,matchCount:candidates.length};
+  const pool=prioritizeQuestions(bank.filter(criteria)
+    .filter(q=>q.grade<=grade&&(!type||q.questionType===type)), PERSONAL_DIAGNOSTIC);
+  return {subject,grade,type,focus,pool};
 }
 
-app.addEventListener('click', async (event) => {
+app.addEventListener('click', (event) => {
   const control = event.target.closest('[data-action]');
   if (!control) return;
   const action = control.dataset.action;
@@ -355,39 +318,9 @@ app.addEventListener('click', async (event) => {
   }
   if(action==='start-practice') {
     const {subject,grade,type,focus,pool}=practiceSelection(true);
-    save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
-    let sessionPool=pool;
-    let aiUsed=false;
-    const dashboard=adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate());
-    const profile=dashboard.topSkills.find((item)=>subject==='all'||item.subject===subject);
-    if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
-      const sourceQuestion=pool.find((question)=>skillIdentity(question).key===profile.key)??pool[0];
-      const count=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
-      showToast(`正在生成 ${profile.competency} 的針對性變形題…`);
-      const generated=await requestAiQuestions({
-        endpoint:AI_SERVICE_URL,
-        brief:generationBrief(profile,sourceQuestion),
-        sourceQuestion,
-        count
-      });
-      if(generated?.length) {
-        aiUsed=true;
-        const known=new Map((state.generatedQuestions??[]).map((q)=>[q.id,q]));
-        for(const q of generated) {
-          known.set(q.id,q);
-          questionMap.set(q.id,q);
-        }
-        state.generatedQuestions=[...known.values()].slice(-50);
-        sessionPool=mergeAiWithFallback(generated,pool,Math.min(10,pool.length));
-        save();
-        showToast(`已加入 ${generated.length} 題 AI 弱點變形題。`);
-      } else {
-        showToast('AI 變形題暫時不可用，已自動改用既有題庫。');
-      }
-    }
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
-    startSession(sessionPool,{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiUsed?'＋AI弱點':''}練習`,kind:'practice',durationMinutes:20});
+    startSession(pool.slice(0,10),{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}練習`,kind:'practice',durationMinutes:20});
   }
   if (action === 'exam-answer') {
     if(!guardSession()) return;
@@ -454,9 +387,8 @@ app.addEventListener('input',(event)=>{
 app.addEventListener('change',(event)=>{
   if(event.target.matches('[data-paper-page-select]'))changePaperPage(Number(event.target.value));
   if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
-    const selection=practiceSelection();
-    const count=selection.matchCount;
-    document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${selection.pool.length} 題`:'符合條件 0 題，請調整篩選條件。';
+    const count=practiceSelection().pool.length;
+    document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${Math.min(10,count)} 題`:'符合條件 0 題，請調整篩選條件。';
     document.querySelector('[data-action="start-practice"]').disabled=count===0;
   }
   const id=event.target.dataset.wrongReason;
@@ -470,12 +402,9 @@ async function boot() {
     const responses = await Promise.all(bankUrls.map(url=>fetch(url)));
     if(responses.some(r=>!r.ok))throw new Error('Question bank request failed');
     bank = createQuestionBank((await Promise.all(responses.map(r=>r.json()))).flat());
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    questionMap=new Map([...bank.all(),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
-    state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
-    state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,PERSONAL_DIAGNOSTIC);
-    save();
     router = createRouter(routes());
     if(state.activeExam&&!validateSession(state.activeExam,sessionQuestions(state.activeExam))) {
       state.recoveredExam=state.activeExam;state.activeExam=null;save();showToast('上一份測驗資料不完整，已保留備份。請重新選卷。');

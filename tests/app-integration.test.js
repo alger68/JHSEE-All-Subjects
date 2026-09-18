@@ -18,6 +18,15 @@ afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubA
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
+it('starts each world level with its own chapter question pool',async()=>{
+  window.history.replaceState(null,'','#/battle/english/english-2');await boot();
+  let run=JSON.parse(localStorage.getItem(key)).activeRun;
+  expect(run.battle.questions).toHaveLength(5);
+  expect(run.battle.questions.every(question=>question.chapter==='Grammar Ridge')).toBe(true);
+  await go('#/battle/english/english-3');
+  run=JSON.parse(localStorage.getItem(key)).activeRun;
+  expect(run.battle.questions.every(question=>question.chapter==='Reading Sky')).toBe(true);
+});
 it('shows official question images in-site and preserves answers, zoom and deadline across reader modes',async()=>{
   window.history.replaceState(null,'','#/paper/cap115-math');await boot();
   document.querySelector('[data-action="start-paper"]').click();
