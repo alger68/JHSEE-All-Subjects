@@ -14,7 +14,10 @@ export function renderRegion(paper,region,label) {
 export function renderOfficialQuestion(paper,question) {
   const q=officialLayout(paper)?.questions[question?.number-1];
   if(!q) return '<p>請使用整份題本查看這題。</p>';
-  return `<section class="official-question-material" data-official-question="${q.number}" data-preserve="question-${paper.id}-${q.number}"><div class="reader-tools"><span class="muted">官方原題・文章、圖表與選項完整保留</span><button type="button" data-action="paper-zoom" aria-pressed="false">放大閱讀</button></div><div class="paper-image-scroll" tabindex="0" aria-label="題目影像，可放大並左右捲動"><div class="paper-image-content">${q.shared.length?`<details class="official-shared" open><summary>共用文章與圖表（第 ${q.group} 題）</summary>${q.shared.map(r=>renderRegion(paper,r,`${paper.title} 第 ${q.group} 題共用材料`)).join('')}</details>`:''}${renderRegion(paper,q.region,`${paper.title} 第 ${q.number} 題，含全部選項`)}</div></div></section>`;
+  const groupStart=Number(String(q.group??'').split('–')[0])||q.number;
+  const sharedOpen=!q.group||q.number===groupStart;
+  const groupLabel=q.group?`題組 ${q.group}・目前第 ${q.number} 題`:`第 ${q.number} 題`;
+  return `<section class="official-question-material" data-official-question="${q.number}" data-preserve="question-${paper.id}-${q.number}"><div class="reader-tools"><span class="muted">${escape(groupLabel)}・官方原題</span><button type="button" data-action="paper-zoom" aria-pressed="false">放大閱讀</button></div><div class="paper-image-scroll" tabindex="0" aria-label="題目影像，可放大並左右捲動"><div class="paper-image-content">${q.shared.length?`<details class="official-shared" ${sharedOpen?'open':''}><summary>共用文章與圖表（題組 ${q.group}）${sharedOpen?'':'・需要時點此展開'}</summary>${q.shared.map(r=>renderRegion(paper,r,`${paper.title} 第 ${q.group} 題共用材料`)).join('')}</details>`:''}<div class="official-current-question"><strong>${escape(groupLabel)}</strong>${renderRegion(paper,q.region,`${paper.title} 第 ${q.number} 題，含全部選項`)}</div></div></div></section>`;
 }
 
 export function renderPaperReader(paper,session={}) {
