@@ -610,3 +610,37 @@ it('keeps saved mock grades visible and updates the latest record instead of res
   expect(document.querySelector('[data-mock-grade="english"]').value).toBe('');
   expect(document.querySelector('[data-action="save-mock-exam"]').textContent).toContain('儲存這次模考');
 });
+
+
+it('deletes only the selected mock exam record and falls back to the newest remaining record',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  const setGrades=(english)=>{
+    const values={chinese:'A',english,math:'A+',science:'A',social:'B++'};
+    for(const [subject,level] of Object.entries(values)) document.querySelector(`[data-mock-grade="${subject}"]`).value=level;
+  };
+
+  document.querySelector('#mock-date').value='2026-09-10';
+  document.querySelector('#mock-title').value='第一次模考';
+  setGrades('B');
+  document.querySelector('[data-action="save-mock-exam"]').click();
+
+  document.querySelector('[data-action="new-mock-exam"]').click();
+  document.querySelector('#mock-date').value='2026-09-18';
+  document.querySelector('#mock-title').value='第二次模考';
+  setGrades('A');
+  document.querySelector('[data-action="save-mock-exam"]').click();
+
+  let saved=JSON.parse(localStorage.getItem(key)).mockExamRecords;
+  expect(saved).toHaveLength(2);
+  const second=saved.find(item=>item.title==='第二次模考');
+  expect(second).toBeTruthy();
+
+  document.querySelector(`[data-action="delete-mock-exam"][data-id="${second.id}"]`).click();
+
+  saved=JSON.parse(localStorage.getItem(key)).mockExamRecords;
+  expect(saved).toHaveLength(1);
+  expect(saved[0].title).toBe('第一次模考');
+  expect(saved[0].grades.english).toBe('B');
+  expect(document.querySelector('#mock-title').value).toBe('第一次模考');
+  expect(document.querySelector('[data-mock-grade="english"]').value).toBe('B');
+});

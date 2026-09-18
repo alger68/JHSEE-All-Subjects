@@ -429,3 +429,19 @@ button.primary-button:disabled { opacity:.5; cursor:not-allowed; }
   .english-tts label { width:100%; justify-content:space-between; }
   .english-tts select { min-width:110px; }
 }
+
+
+/* Mock exam history actions */
+.attempt-list li .mock-delete-button {
+  min-height:34px;
+  padding:0 10px;
+  border:1px solid rgba(255,107,129,.38);
+  border-radius:10px;
+  background:rgba(255,107,129,.08);
+  color:#ff9dad;
+  font-weight:800;
+  cursor:pointer;
+}
+.attempt-list li .mock-delete-button:hover {
+  background:rgba(255,107,129,.16);
+}
