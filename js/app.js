@@ -15,6 +15,7 @@ import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongR
 import { createQuestionBank } from './core/question-bank.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
+import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, pickDiagnosticQuestions } from './core/learning-cycle.js';
 import { createRouter } from './router.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
@@ -139,8 +140,18 @@ function routes() {
     },
     '#/results': () => state.lastResult ? renderResults(state.lastResult) : '<p>尚無挑戰結果。</p>',
     '#/revenge': () => renderRevenge({ date:taipeiDate(), items: reviewEntries() }),
-    '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3), { diagnostic: PERSONAL_DIAGNOSTIC, adaptive: adaptiveDashboard(state.adaptiveSkills, state.adaptiveSubjectWeights, taipeiDate()) }),
-    '#/profile': () => renderProfile({ player: state.player }),
+    '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3), {
+      diagnostic: PERSONAL_DIAGNOSTIC,
+      adaptive: adaptiveDashboard(state.adaptiveSkills, state.adaptiveSubjectWeights, taipeiDate()),
+      trend: buildSevenDayTrend(state.answerHistory, taipeiDate()),
+      parentSummary: buildParentSummary({history:state.answerHistory,skills:state.adaptiveSkills,today:taipeiDate(),aiUsage:state.aiUsage})
+    }),
+    '#/profile': () => renderProfile({
+      player: state.player,
+      aiUsage: state.aiUsage?.date===taipeiDate()?state.aiUsage:{date:taipeiDate(),count:0,limit:state.aiUsage?.limit??12},
+      cycleCount: state.learningCycles?.length??0,
+      currentCycleStartedOn: state.currentCycleStartedOn
+    }),
     '#/exam': () => {
       const session = ensureExam();
       return renderSession({session,questions:sessionQuestions(session),paper:paperFor(session),remaining:remainingSeconds(session,Date.now())});
@@ -236,7 +247,7 @@ function completeExam() {
         hinted: Boolean(item.hinted),
         uncertain: Boolean(item.uncertain),
         errorReason: !item.correct ? (question.errorTags?.[item.choice] ?? null) : null,
-        sourceKind: session.kind === 'review' ? 'review' : question.source === 'official' ? 'official' : 'practice',
+        sourceKind: session.kind === 'review' ? 'review' : session.kind === 'diagnostic' ? 'mock' : question.source === 'official' ? 'official' : 'practice',
         date: taipeiDate()
       });
       state.adaptiveSkills = adaptive.skills;
@@ -292,7 +303,8 @@ async function startAiRemediation(result=state.lastExamResult) {
   }
 
   const {question:sourceQuestion,profile}=target;
-  const count=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+  const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+  const count=Math.max(1,aiAllowance(state.aiUsage,taipeiDate(),wanted));
   const sameSkill=bank.all()
     .filter(question=>skillIdentity(question).key===profile.key&&!sourceQuestions.some(source=>source.id===question.id));
   const sameSubject=bank.all()
@@ -300,16 +312,18 @@ async function startAiRemediation(result=state.lastExamResult) {
   const fallback=[...sameSkill,...sameSubject];
 
   showToast(`正在建立 ${profile.competency} 的 AI 弱點驗收…`);
-  const generated=AI_SERVICE_URL
+  const allowed=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+  const generated=AI_SERVICE_URL&&allowed>0
     ? await requestAiQuestions({
         endpoint:AI_SERVICE_URL,
         brief:generationBrief(profile,sourceQuestion),
         sourceQuestion,
-        count
+        count:allowed
       })
     : null;
 
   if(generated?.length) {
+    state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
     const known=new Map((state.generatedQuestions??[]).map(question=>[question.id,question]));
     for(const question of generated) {
       known.set(question.id,question);
@@ -330,6 +344,22 @@ async function startAiRemediation(result=state.lastExamResult) {
     title:`AI 弱點驗收・${profile.competency}`,
     kind:'review',
     durationMinutes:Math.max(10,count*4)
+  });
+}
+
+function startDiagnostic() {
+  const questions=pickDiagnosticQuestions(bank.all().filter(q=>q.examAligned),25);
+  if(questions.length<25) {
+    showToast('目前題庫不足 25 題診斷題，請稍後再試。');
+    return;
+  }
+  state=applyResetMode(state,'adaptive',taipeiDate());
+  state.currentCycleStartedOn=state.currentCycleStartedOn??taipeiDate();
+  save();
+  startSession(questions,{
+    title:'五科 25 題重新診斷',
+    kind:'diagnostic',
+    durationMinutes:50
   });
 }
 
@@ -401,8 +431,15 @@ app.addEventListener('click', async (event) => {
     state.player = rewardPlayer(state.player, claimed.reward);
     save(); renderRoute(); showToast('寶箱開啟：+150 EXP、+100 金幣！');
   }
-  if (action === 'reset-progress' && window.confirm('確定重設全部學習進度嗎？此動作無法復原。')) {
-    state = store.reset(); ensureDailyQuest(); renderRoute(); showToast('進度已重設。');
+  if (action === 'reset-adaptive' && window.confirm('只重置 AI／自適應記憶？歷屆成績、錯題與玩家進度會保留。')) {
+    state=applyResetMode(state,'adaptive',taipeiDate()); save(); renderRoute(); showToast('AI／自適應記憶已重新開始。');
+  }
+  if (action === 'start-new-cycle' && window.confirm('建立新的學習週期？目前弱點與錯題會封存，歷屆報告與玩家進度保留。')) {
+    state=applyResetMode(state,'new-cycle',taipeiDate()); save(); renderRoute(); showToast('新的學習週期已建立。');
+  }
+  if (action === 'start-diagnostic') startDiagnostic();
+  if (action === 'reset-progress' && window.confirm('確定完整重設全部學習進度嗎？此動作無法復原。')) {
+    state = store.reset(); ensureDailyQuest(); renderRoute(); showToast('全部進度已重設。');
   }
   if(action==='start-paper') {
     const paper=OFFICIAL_PAPERS.find(p=>p.id===control.dataset.id);
@@ -434,27 +471,33 @@ app.addEventListener('click', async (event) => {
     const profile=dashboard.topSkills.find((item)=>subject==='all'||item.subject===subject);
     if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
       const sourceQuestion=pool.find((question)=>skillIdentity(question).key===profile.key)??pool[0];
-      const count=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
-      showToast(`正在生成 ${profile.competency} 的針對性變形題…`);
-      const generated=await requestAiQuestions({
-        endpoint:AI_SERVICE_URL,
-        brief:generationBrief(profile,sourceQuestion),
-        sourceQuestion,
-        count
-      });
-      if(generated?.length) {
-        aiUsed=true;
-        const known=new Map((state.generatedQuestions??[]).map((q)=>[q.id,q]));
-        for(const q of generated) {
-          known.set(q.id,q);
-          questionMap.set(q.id,q);
+      const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+      const count=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+      if(count>0) {
+        showToast(`正在生成 ${profile.competency} 的針對性變形題…`);
+        const generated=await requestAiQuestions({
+          endpoint:AI_SERVICE_URL,
+          brief:generationBrief(profile,sourceQuestion),
+          sourceQuestion,
+          count
+        });
+        if(generated?.length) {
+          aiUsed=true;
+          state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
+          const known=new Map((state.generatedQuestions??[]).map((q)=>[q.id,q]));
+          for(const q of generated) {
+            known.set(q.id,q);
+            questionMap.set(q.id,q);
+          }
+          state.generatedQuestions=[...known.values()].slice(-50);
+          sessionPool=mergeAiWithFallback(generated,pool,Math.min(10,pool.length));
+          save();
+          showToast(`已加入 ${generated.length} 題 AI 弱點變形題。`);
+        } else {
+          showToast('AI 變形題暫時不可用，已自動改用既有題庫。');
         }
-        state.generatedQuestions=[...known.values()].slice(-50);
-        sessionPool=mergeAiWithFallback(generated,pool,Math.min(10,pool.length));
-        save();
-        showToast(`已加入 ${generated.length} 題 AI 弱點變形題。`);
       } else {
-        showToast('AI 變形題暫時不可用，已自動改用既有題庫。');
+        showToast('今日 AI 題目額度已用完，改用本地題庫。');
       }
     }
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
