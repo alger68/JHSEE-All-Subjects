@@ -4077,5 +4077,681 @@
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-18",
     "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-012",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "情境應用",
+    "topic": "合力",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個箱子受到向右30 N與向左18 N的水平力，其他水平方向力忽略。",
+    "question": "箱子受到的水平合力為何？",
+    "choices": [
+      "向右12 N",
+      "向左12 N",
+      "向右48 N",
+      "合力為0"
+    ],
+    "answer": 0,
+    "explanation": "相反方向的力要相減，30－18＝12 N，方向朝較大的右方。",
+    "hint1": "先判斷兩力方向是否相同。",
+    "hint2": "相反方向時，用較大力減較小力。",
+    "source": "original",
+    "tags": [
+      "合力",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-013",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "閱讀理解",
+    "topic": "熱傳播",
+    "competency": "理解科學敘述",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "金屬湯匙一端放入熱湯後，過一會兒握柄也變熱。湯匙本身沒有被火直接加熱。",
+    "question": "這個現象主要與哪一種熱傳播方式有關？",
+    "choices": [
+      "傳導",
+      "對流",
+      "輻射",
+      "蒸發"
+    ],
+    "answer": 0,
+    "explanation": "熱能沿金屬由高溫端傳到低溫端，主要是固體中的熱傳導。",
+    "hint1": "熱是沿著同一支金屬湯匙移動。",
+    "hint2": "固體內部直接傳遞熱能通常稱為什麼？",
+    "source": "original",
+    "tags": [
+      "熱傳播",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-014",
+    "subject": "science",
+    "chapter": "科學探究",
+    "domain": "科學探究與資料判讀",
+    "questionType": "資料分析",
+    "topic": "光照與距離",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "學生把相同光源放在不同距離，測得照度如下。",
+    "question": "依資料，下列敘述何者最合理？",
+    "choices": [
+      "距離增加時，照度有下降趨勢",
+      "距離越遠照度一定線性增加",
+      "30 cm時照度最高",
+      "資料證明所有光源都遵守完全相同關係"
+    ],
+    "answer": 0,
+    "explanation": "表中距離由10、20、30 cm增加時，照度由900、240、110 lux下降，可支持本實驗中有下降趨勢。",
+    "hint1": "先看兩欄數值隨距離的方向變化。",
+    "hint2": "結論不要超出本次光源與條件。",
+    "table": {
+      "headers": [
+        "距離(cm)",
+        "照度(lux)"
+      ],
+      "rows": [
+        [
+          10,
+          900
+        ],
+        [
+          20,
+          240
+        ],
+        [
+          30,
+          110
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "光照與距離",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-015",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "情境應用",
+    "topic": "酸鹼指示劑",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某無色溶液使藍色石蕊試紙變紅。",
+    "question": "下列哪一項最合理？",
+    "choices": [
+      "此溶液呈酸性",
+      "此溶液一定是純水",
+      "此溶液一定呈強鹼性",
+      "石蕊試紙可直接量出精確pH"
+    ],
+    "answer": 0,
+    "explanation": "藍色石蕊遇酸會變紅，因此可判斷溶液呈酸性，但不能由此得到精確pH。",
+    "hint1": "回想酸對藍色石蕊的影響。",
+    "hint2": "試紙能判斷性質，不代表能量出精確數值。",
+    "source": "original",
+    "tags": [
+      "酸鹼指示劑",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-016",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "閱讀理解",
+    "topic": "呼吸作用",
+    "competency": "擷取與統整科學文本訊息",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "人體細胞進行呼吸作用時，會利用氧分解養分並釋放能量，同時產生二氧化碳和水。",
+    "question": "依此敘述，下列何者正確？",
+    "choices": [
+      "呼吸作用會產生可供細胞利用的能量",
+      "呼吸作用只發生在肺部",
+      "二氧化碳是呼吸作用需要吸收的主要原料",
+      "水完全不可能由呼吸作用產生"
+    ],
+    "answer": 0,
+    "explanation": "文字明確指出細胞利用氧分解養分、釋放能量，並產生二氧化碳與水。",
+    "hint1": "直接找敘述中的「釋放」與「產生」。",
+    "hint2": "呼吸作用發生在細胞，不只肺部。",
+    "source": "original",
+    "tags": [
+      "呼吸作用",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-017",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "推論",
+    "topic": "遺傳機率",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某性狀由一對基因控制，A為顯性、a為隱性。兩親本基因型皆為Aa。",
+    "question": "子代出現aa的機率是多少？",
+    "choices": [
+      "1/4",
+      "1/2",
+      "3/4",
+      "一定不會"
+    ],
+    "answer": 0,
+    "explanation": "Aa×Aa的可能組合為AA、Aa、Aa、aa，因此aa占1/4。",
+    "hint1": "列出兩個親本各能提供A或a。",
+    "hint2": "用2×2組合表會最清楚。",
+    "source": "original",
+    "tags": [
+      "遺傳機率",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-018",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "推論",
+    "topic": "板塊邊界",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某地區沿狹長帶狀分布許多地震震央，附近也有海溝與火山島弧。",
+    "question": "此區最可能位於何種地質環境？",
+    "choices": [
+      "板塊交界附近",
+      "穩定大陸內部且遠離板塊邊界",
+      "沒有地殼活動的區域",
+      "只受季風影響的區域"
+    ],
+    "answer": 0,
+    "explanation": "地震帶、海溝與火山島弧常和板塊交界的隱沒作用有關。",
+    "hint1": "把地震、海溝、島弧三個線索一起看。",
+    "hint2": "這些都是板塊活動常見的地形與現象。",
+    "source": "original",
+    "tags": [
+      "板塊邊界",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-019",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "閱讀理解",
+    "topic": "季節成因",
+    "competency": "理解科學敘述",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "地球公轉時，自轉軸方向大致保持不變，且自轉軸與公轉軌道面不是垂直。",
+    "question": "造成中緯度地區一年中季節變化的主要原因是什麼？",
+    "choices": [
+      "地軸傾斜配合地球公轉",
+      "地球每天自轉一次",
+      "月球繞地球公轉",
+      "地球與太陽距離每天劇烈改變"
+    ],
+    "answer": 0,
+    "explanation": "地軸傾斜加上公轉，使不同時期太陽照射角度與日照長短改變，形成季節。",
+    "hint1": "題幹特別強調地軸方向與公轉。",
+    "hint2": "季節不是由一天一次的自轉造成。",
+    "source": "original",
+    "tags": [
+      "季節成因",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-020",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "閱讀理解",
+    "topic": "聲音傳播",
+    "competency": "擷取與統整科學文本訊息",
+    "grade": 8,
+    "difficulty": 2,
+    "passage": "太空人在月球表面若彼此隔著真空，不能像在地球空氣中直接靠喊話溝通。",
+    "question": "最主要的原因是什麼？",
+    "choices": [
+      "聲音需要介質傳播",
+      "月球完全沒有重力",
+      "真空會讓所有光消失",
+      "人的聲帶在月球一定無法振動"
+    ],
+    "answer": 0,
+    "explanation": "聲音是機械波，需要物質介質傳遞；真空缺乏足夠介質，所以聲音不能直接傳過去。",
+    "hint1": "想想聲音在空氣、水和固體中如何傳播。",
+    "hint2": "問題關鍵是「真空」。",
+    "source": "original",
+    "tags": [
+      "聲音傳播",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-021",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "資料分析",
+    "topic": "電功率",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某電器正常工作時電壓為110 V，電流為2 A。",
+    "question": "其電功率約為多少？",
+    "choices": [
+      "55 W",
+      "108 W",
+      "220 W",
+      "440 W"
+    ],
+    "answer": 2,
+    "explanation": "電功率P＝VI＝110×2＝220 W。",
+    "hint1": "使用P＝VI。",
+    "hint2": "電壓乘電流就是功率。",
+    "source": "original",
+    "tags": [
+      "電功率",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-022",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "資料分析",
+    "topic": "質量守恆",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "在密閉容器中，使甲、乙兩物質完全反應生成丙。反應前甲12 g、乙18 g。",
+    "question": "若反應後只有丙，丙的質量應為多少？",
+    "choices": [
+      "6 g",
+      "18 g",
+      "30 g",
+      "36 g"
+    ],
+    "answer": 2,
+    "explanation": "密閉系統中遵守質量守恆，反應前總質量12＋18＝30 g，所以產物總質量30 g。",
+    "hint1": "先算反應前總質量。",
+    "hint2": "密閉容器可避免物質逸散造成量測差異。",
+    "source": "original",
+    "tags": [
+      "質量守恆",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-023",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "閱讀理解",
+    "topic": "細胞功能",
+    "competency": "理解結構與功能關係",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "植物葉肉細胞含有許多葉綠體，可吸收光能進行光合作用；根部多數細胞則通常缺乏葉綠體。",
+    "question": "哪一項最能解釋這種差異？",
+    "choices": [
+      "葉片較常接受光照，需進行光合作用",
+      "根部細胞不需要能量",
+      "所有根部細胞都沒有細胞膜",
+      "葉綠體只負責儲存遺傳物質"
+    ],
+    "answer": 0,
+    "explanation": "葉綠體與光合作用有關，葉片暴露於光線、主要進行光合作用，因此葉肉細胞葉綠體較多。",
+    "hint1": "從葉綠體的功能去連結器官所在環境。",
+    "hint2": "根部仍需要能量，只是功能不同。",
+    "source": "original",
+    "tags": [
+      "細胞功能",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-024",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "推論",
+    "topic": "食物網影響",
+    "competency": "根據已知證據進行推論",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "某湖泊中，小魚吃浮游動物，大魚吃小魚。若短期內小魚數量明顯減少，其他條件近似不變。",
+    "question": "最可能直接受到影響的是什麼？",
+    "choices": [
+      "大魚可獲得的食物減少",
+      "浮游動物立刻全部消失",
+      "湖水一定立即乾涸",
+      "所有生物數量完全不變"
+    ],
+    "answer": 0,
+    "explanation": "大魚直接以小魚為食，小魚減少會先使大魚食物來源減少；其餘選項是過度推論。",
+    "hint1": "先找和小魚有直接攝食關係的生物。",
+    "hint2": "題目問「直接」影響。",
+    "source": "original",
+    "tags": [
+      "食物網影響",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-025",
+    "subject": "science",
+    "chapter": "科學探究",
+    "domain": "科學探究與資料判讀",
+    "questionType": "情境應用",
+    "topic": "控制變因",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "學生要比較不同肥料是否影響同種植物兩週後的高度。",
+    "question": "下列哪一項最應保持相同？",
+    "choices": [
+      "植物品種、光照與水量",
+      "肥料種類",
+      "兩週後的植物高度",
+      "實驗組名稱"
+    ],
+    "answer": 0,
+    "explanation": "肥料種類是自變因，植物高度是應變因；植物品種、光照與水量等應控制一致。",
+    "hint1": "先分辨「要改的」和「要保持一樣的」。",
+    "hint2": "被研究的肥料種類不能保持相同。",
+    "source": "original",
+    "tags": [
+      "控制變因",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-026",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "推論",
+    "topic": "浮力",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "同一物體先完全浸沒在水中，再完全浸沒在密度較大的鹽水中，物體體積不變。",
+    "question": "在鹽水中受到的浮力通常如何？",
+    "choices": [
+      "較大",
+      "較小",
+      "相同且一定為零",
+      "無法受到浮力"
+    ],
+    "answer": 0,
+    "explanation": "完全浸沒時排開液體體積相同，而鹽水密度較大，因此排開液體的重量較大，浮力較大。",
+    "hint1": "浮力與排開液體的重量有關。",
+    "hint2": "體積相同時，再比較液體密度。",
+    "source": "original",
+    "tags": [
+      "浮力",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-027",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "情境應用",
+    "topic": "透鏡成像",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "用凸透鏡把遠處景物清楚成像在白紙上。",
+    "question": "若把白紙拿走，只用眼睛看原來白紙的位置，最合理的說法是什麼？",
+    "choices": [
+      "原本形成的是可投影在白紙上的實像",
+      "凸透鏡完全不會折射光",
+      "遠處景物一定形成虛像且不能投影",
+      "拿走白紙後透鏡焦距會變成零"
+    ],
+    "answer": 0,
+    "explanation": "能清楚投影在白紙上的影像就是實像；白紙只是承接影像，不是造成折射的原因。",
+    "hint1": "能否投影到屏幕是判斷實像的重要線索。",
+    "hint2": "白紙拿走不會改變透鏡本身。",
+    "source": "original",
+    "tags": [
+      "透鏡成像",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-028",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "資料分析",
+    "topic": "天氣變化",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某地連續三小時觀測如下。",
+    "question": "下列哪一項描述最符合資料？",
+    "choices": [
+      "氣壓上升、氣溫下降，降雨後轉弱",
+      "氣溫持續升高且氣壓下降",
+      "氣壓與氣溫都完全不變",
+      "雨量越大氣溫一定越高"
+    ],
+    "answer": 0,
+    "explanation": "三小時中氣壓1004→1009→1013上升，氣溫27→24→22下降，雨量由大轉小，符合選項A。",
+    "hint1": "分別看氣壓、氣溫與雨量的趨勢。",
+    "hint2": "不要只看其中一欄。",
+    "table": {
+      "headers": [
+        "時間",
+        "氣溫(°C)",
+        "氣壓(hPa)",
+        "雨量(mm/h)"
+      ],
+      "rows": [
+        [
+          "14:00",
+          27,
+          1004,
+          12
+        ],
+        [
+          "15:00",
+          24,
+          1009,
+          6
+        ],
+        [
+          "16:00",
+          22,
+          1013,
+          1
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "天氣變化",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-029",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "資料分析",
+    "topic": "反應速率",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "學生用相同質量的碳酸鈣和相同濃度酸反應，只改變碳酸鈣顆粒大小。",
+    "question": "依表中完成反應時間，哪一組反應最快？",
+    "choices": [
+      "粉末",
+      "小顆粒",
+      "大顆粒",
+      "三組完全相同"
+    ],
+    "answer": 0,
+    "explanation": "其他條件相同時，完成時間越短代表反應越快；粉末只需35秒，因此最快。",
+    "hint1": "比較的是完成反應所需時間。",
+    "hint2": "時間越短，反應速率越快。",
+    "table": {
+      "headers": [
+        "形態",
+        "完成時間"
+      ],
+      "rows": [
+        [
+          "粉末",
+          "35秒"
+        ],
+        [
+          "小顆粒",
+          "68秒"
+        ],
+        [
+          "大顆粒",
+          "120秒"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "反應速率",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-030",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "情境應用",
+    "topic": "能量轉換",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "太陽能板為行動電源充電，之後行動電源再讓小風扇轉動。",
+    "question": "主要能量轉換順序最合理的是哪一項？",
+    "choices": [
+      "光能→電能→化學能→電能→動能",
+      "化學能→光能→核能→動能",
+      "動能→光能→電能→位能",
+      "熱能→核能→聲能→電能"
+    ],
+    "answer": 0,
+    "explanation": "太陽能板先把光能轉成電能，充電時儲為化學能，放電後再變成電能，最後馬達讓風扇具有動能。",
+    "hint1": "依序看太陽能板、電池、馬達三個階段。",
+    "hint2": "行動電源儲存能量時主要以化學能形式存在。",
+    "source": "original",
+    "tags": [
+      "能量轉換",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
   }
 ]
