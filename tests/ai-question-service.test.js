@@ -6,7 +6,8 @@ import {
   qaGeneratedQuestions,
   validateGenerateRequest
 } from '../api/lib/question-service.js';
-import vercelHandler, { createGenerateQuestionHandler } from '../api/generate-question.js';
+import vercelHandler from '../api/generate-question.js';
+import { createGenerateQuestionHandler } from '../api/lib/generate-handler.js';
 
 const brief = {
   subject: 'english',
