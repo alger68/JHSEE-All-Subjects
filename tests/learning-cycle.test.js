@@ -6,7 +6,9 @@ import {
   buildSevenDayTrend,
   buildParentSummary,
   buildErrorReasonStats,
-  pickDiagnosticQuestions
+  pickDiagnosticQuestions,
+  buildDiagnosticBaseline,
+  compareLearningCycles
 } from '../js/core/learning-cycle.js';
 
 const q=(id,subject)=>({id,subject,examAligned:true,difficulty:3});
@@ -104,4 +106,35 @@ it('aggregates automatic and manual error reasons for reporting',()=>{
   );
   expect(stats[0]).toMatchObject({label:'忽略關鍵線索',count:2});
   expect(stats.some(item=>item.label==='計算失誤')).toBe(true);
+});
+
+
+it('builds a five-subject diagnostic baseline from a completed diagnostic',()=>{
+  const lookup=new Map([
+    ['e1',{subject:'english'}],['e2',{subject:'english'}],
+    ['m1',{subject:'math'}],['s1',{subject:'science'}],['c1',{subject:'chinese'}],['g1',{subject:'social'}]
+  ]);
+  const result={items:[
+    {id:'e1',correct:true,choice:0},{id:'e2',correct:false,choice:1},
+    {id:'m1',correct:true,choice:0},{id:'s1',correct:false,choice:1},
+    {id:'c1',correct:true,choice:0},{id:'g1',correct:true,choice:0}
+  ]};
+  const baseline=buildDiagnosticBaseline(result,lookup,'2026-09-18');
+  expect(baseline.subjects.english).toMatchObject({correct:1,total:2,accuracy:50});
+  expect(baseline.subjects.math.accuracy).toBe(100);
+  expect(baseline.total).toBe(6);
+});
+
+it('compares the latest archived cycle with the current adaptive mastery',()=>{
+  const previous={adaptiveSkills:{
+    a:{subject:'english',mastery:40},
+    b:{subject:'science',mastery:50}
+  }};
+  const current={
+    a:{subject:'english',mastery:70},
+    b:{subject:'science',mastery:60}
+  };
+  const comparison=compareLearningCycles([previous],current);
+  expect(comparison.english).toMatchObject({before:40,after:70,delta:30});
+  expect(comparison.science.delta).toBe(10);
 });
