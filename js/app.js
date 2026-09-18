@@ -592,6 +592,21 @@ app.addEventListener('click', async (event) => {
     if(saveButton)saveButton.textContent='儲存這次模考';
     showToast('已開啟新模考表單，請重新選擇五科等級。');
   }
+  if (action === 'delete-mock-exam') {
+    const id=String(control.dataset.id||'').trim();
+    const record=(state.mockExamRecords??[]).find(item=>item.id===id);
+    if(!record)return;
+    if(!window.confirm(`確定刪除「${record.title}・${record.date}」這筆模考紀錄嗎？`))return;
+    state.mockExamRecords=(state.mockExamRecords??[]).filter(item=>item.id!==id);
+    state.adaptiveSubjectWeights=calculateSubjectWeights(
+      state.adaptiveSkills,
+      state.adaptiveSubjectWeights,
+      currentDiagnostic()
+    );
+    save();
+    renderRoute(false);
+    showToast('指定的模考紀錄已刪除，戰情權重已重新計算。');
+  }
   if (action === 'claim-chest') {
     const claimed = claimDailyChest(state.dailyQuest, taipeiDate());
     state.dailyQuest = claimed.quest;
