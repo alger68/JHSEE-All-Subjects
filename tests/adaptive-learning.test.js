@@ -123,6 +123,7 @@ describe('adaptive learning engine', () => {
     expect(brief.practiceMode).toBe('remediation');
     expect(brief.targetDifficulty).toBeLessThanOrEqual(question.difficulty);
     expect(targetDifficulty(profile,question.difficulty)).toBe(brief.targetDifficulty);
-    expect(brief.requirements.length).toBeGreaterThanOrEqual(4);
+    expect(brief.requirements.length).toBeGreaterThanOrEqual(5);
+    expect(brief.requirements.some(item=>item.includes('刺激形式'))).toBe(true);
   });
 });
