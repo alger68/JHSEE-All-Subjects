@@ -2,7 +2,11 @@ name: Remote AI smoke test
 
 on:
   push:
-    branches: [qa/remote-ai-smoke]
+    branches: [main]
+    paths:
+      - docs/remote-ai-smoke-trigger.txt
+      - .github/workflows/remote-ai-smoke.yml
+  workflow_dispatch:
 
 permissions:
   contents: read
