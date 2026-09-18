@@ -381,3 +381,55 @@ it('can include all original questions with an accurate live count',async()=>{
   document.querySelector('[data-action="start-practice"]').click();
   expect(JSON.parse(localStorage.getItem(key)).activeExam.title).toContain('全部原創');
 });
+
+
+it('starts AI weakness validation from a completed report and stores generated questions',async()=>{
+  window.history.replaceState(null,'','#/exam-center');
+  fetch.mockImplementation(async (url,options={})=>{
+    if(String(url).includes('/api/generate-question')){
+      const {brief}=JSON.parse(options.body);
+      const generated={
+        id:'ai-remediation-1',
+        subject:brief.subject,
+        domain:brief.domain,
+        questionType:brief.subSkill||'推論題',
+        competency:brief.coreSkill,
+        difficulty:brief.targetDifficulty,
+        passage:'新的驗收情境。',
+        question:'這是一題新的弱點驗收題？',
+        choices:['A','B','C','D'],
+        answer:1,
+        explanation:'驗收解析',
+        hint1:'提示一',
+        hint2:'提示二',
+        errorTags:['錯因A','錯因B','錯因C','錯因D'],
+        source:'ai_generated',
+        chapter:brief.domain,
+        topic:brief.coreSkill,
+        grade:9,
+        tags:['ai-generated','remediation'],
+        examAligned:true,
+        examProfile:{domain:brief.domain,type:brief.subSkill||'推論題',competency:brief.coreSkill},
+        aiGenerated:true,
+        aiPracticeMode:brief.practiceMode
+      };
+      return new Response(JSON.stringify({questions:[generated]}),{status:200,headers:{'content-type':'application/json'}});
+    }
+    return {ok:true,json:async()=>String(url).includes('cap-practice')?practice:questions};
+  });
+  await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  const first=[...questions,...practice].find(q=>q.id===session.questionIds[0]);
+  const wrongChoice=(Number(first.answer)+1)%4;
+  document.querySelector(`[data-action="exam-answer"][data-choice="${wrongChoice}"]`).click();
+  submitExam();
+  expect(document.querySelector('[data-action="start-ai-remediation"]')).not.toBeNull();
+  document.querySelector('[data-action="start-ai-remediation"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.generatedQuestions.some(q=>q.id==='ai-remediation-1')).toBe(true);
+  expect(state.activeExam.kind).toBe('review');
+  expect(state.activeExam.title).toContain('AI 弱點驗收');
+  expect(state.activeExam.questionIds).toContain('ai-remediation-1');
+});
