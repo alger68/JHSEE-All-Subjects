@@ -16,6 +16,7 @@ import { createQuestionBank } from './core/question-bank.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
+import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord } from './core/cap-war-room.js';
 import { createRouter } from './router.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
@@ -31,6 +32,9 @@ let router;
 let feedback = null;
 let questionMap = new Map();
 let toastTimer;
+
+const currentDiagnostic=()=>buildMockAdjustedDiagnostic(PERSONAL_DIAGNOSTIC,state.mockExamRecords??[]);
+const currentMockWarRoom=()=>buildMockWarRoom(state.mockExamRecords??[],PERSONAL_DIAGNOSTIC.subjectWeights);
 
 function showToast(message) {
   document.querySelector('.toast')?.remove();
@@ -98,6 +102,7 @@ function renderRoute(scroll = true) {
     syncOfficialAudio();
     if (scroll === true) window.scrollTo({ top: 0, behavior: 'instant' });
     if (match.route === '#/exam-check') app.querySelector('h1')?.focus({ preventScroll: true });
+    const mockDate=app.querySelector('#mock-date');if(mockDate&&!mockDate.value)mockDate.value=taipeiDate();
   } catch (error) {
     console.error(error);
     app.innerHTML = '<section class="fatal-state"><span>🛠️</span><h1>冒險暫時中斷</h1><p>請重新整理頁面或返回首頁。原有學習紀錄仍保存在這台裝置。</p><a href="#/">返回首頁</a></section>';
@@ -141,7 +146,7 @@ function routes() {
     '#/results': () => state.lastResult ? renderResults(state.lastResult) : '<p>尚無挑戰結果。</p>',
     '#/revenge': () => renderRevenge({ date:taipeiDate(), items: reviewEntries() }),
     '#/analysis': () => renderAnalysis(summarizeSkills(state.skillStats, 3), {
-      diagnostic: PERSONAL_DIAGNOSTIC,
+      diagnostic: currentDiagnostic(),
       adaptive: adaptiveDashboard(state.adaptiveSkills, state.adaptiveSubjectWeights, taipeiDate()),
       trend: buildSevenDayTrend(state.answerHistory, taipeiDate()),
       errorReasons: buildErrorReasonStats(state.answerHistory,state.wrongQuestions),
@@ -167,8 +172,8 @@ function routes() {
     },
     '#/exam-check': () => state.activeExam
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
-      : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports}),
-    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:PERSONAL_DIAGNOSTIC,adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate())}),
+      : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports,mockWarRoom:currentMockWarRoom()}),
+    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:currentDiagnostic(),adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate()),mockWarRoom:currentMockWarRoom()}),
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
     '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
@@ -213,7 +218,7 @@ function handleBattleAnswer(choice) {
     });
     state.adaptiveSkills = adaptive.skills;
     state.answerHistory = adaptive.history;
-    state.adaptiveSubjectWeights = calculateSubjectWeights(state.adaptiveSkills, state.adaptiveSubjectWeights, PERSONAL_DIAGNOSTIC);
+    state.adaptiveSubjectWeights = calculateSubjectWeights(state.adaptiveSkills, state.adaptiveSubjectWeights, currentDiagnostic());
   }
   if (active.kind === 'revenge') {
     state.wrongQuestions = reviewWrong(state.wrongQuestions, question.id, answer.correct, taipeiDate());
@@ -261,7 +266,7 @@ function completeExam() {
       });
       state.adaptiveSkills = adaptive.skills;
       state.answerHistory = adaptive.history;
-      state.adaptiveSubjectWeights = calculateSubjectWeights(state.adaptiveSkills, state.adaptiveSubjectWeights, PERSONAL_DIAGNOSTIC);
+      state.adaptiveSubjectWeights = calculateSubjectWeights(state.adaptiveSkills, state.adaptiveSubjectWeights, currentDiagnostic());
       state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
     }
     if (session.kind==='review') {
@@ -454,17 +459,17 @@ function practiceSelection(shuffle=false) {
   const candidates=bank.filter(criteria)
     .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
-  state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,PERSONAL_DIAGNOSTIC);
+  state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
   const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
   const pool=hasAdaptiveData
     ? buildAdaptivePractice(candidates,Math.min(10,candidates.length),{
         skills:state.adaptiveSkills,
         subjectWeights:state.adaptiveSubjectWeights,
         today:taipeiDate(),
-        diagnostic:PERSONAL_DIAGNOSTIC,
+        diagnostic:currentDiagnostic(),
         rng:shuffle?Math.random:()=>0.5
       })
-    : prioritizeQuestions(candidates,PERSONAL_DIAGNOSTIC).slice(0,10);
+    : prioritizeQuestions(candidates,currentDiagnostic()).slice(0,10);
   return {subject,grade,type,focus,pool,matchCount:candidates.length};
 }
 
@@ -482,6 +487,27 @@ app.addEventListener('click', async (event) => {
   if (action === 'start-revenge') startRevenge(control.dataset.id);
   if (action === 'start-revenge-session') startRevengeSession();
   if (action === 'start-ai-remediation') await startAiRemediation();
+  if (action === 'save-mock-exam') {
+    const grades=Object.fromEntries(['chinese','english','math','science','social'].map(subject=>[
+      subject,
+      document.querySelector(`[data-mock-grade="${subject}"]`)?.value
+    ]));
+    const record=normalizeMockExamRecord({
+      date:document.querySelector('#mock-date')?.value||taipeiDate(),
+      title:document.querySelector('#mock-title')?.value||'模擬考',
+      grades
+    });
+    if(!record){showToast('模考資料不完整，請確認五科等級。');return;}
+    state.mockExamRecords=[...(state.mockExamRecords??[]),record]
+      .sort((a,b)=>a.date.localeCompare(b.date))
+      .slice(-20);
+    state.adaptiveSubjectWeights=calculateSubjectWeights(
+      state.adaptiveSkills,
+      state.adaptiveSubjectWeights,
+      currentDiagnostic()
+    );
+    save();renderRoute(false);showToast('模考已加入戰情中心，後續出題權重已更新。');
+  }
   if (action === 'claim-chest') {
     const claimed = claimDailyChest(state.dailyQuest, taipeiDate());
     state.dailyQuest = claimed.quest;
@@ -680,7 +706,7 @@ async function boot() {
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
-    state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,PERSONAL_DIAGNOSTIC);
+    state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
     save();
     router = createRouter(routes());
     if(state.activeExam&&!validateSession(state.activeExam,sessionQuestions(state.activeExam))) {
