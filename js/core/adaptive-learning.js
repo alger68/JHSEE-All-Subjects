@@ -347,8 +347,24 @@ export function targetDifficulty(profile, currentDifficulty = 3) {
   return clamp(target, 1, 5);
 }
 
+const VARIATION_FORMS=Object.freeze({
+  chinese:['生活短文','公告或書信','跨文本比較','圖表搭配文字','文言短句','觀點論證'],
+  english:['short article','notice or email','dialogue','schedule or table','chart with text','real-life message'],
+  math:['生活情境','資料表格','幾何敘述','函數關係','機率實驗','跨步驟推理'],
+  science:['實驗紀錄','數據表格','生活現象','裝置或流程','科學短文','圖表判讀'],
+  social:['史料片段','地圖或區域描述','統計資料','公共議題','新聞摘要','制度情境']
+});
+
+function variationForm(profile,sourceQuestion){
+  const subject=profile?.subject??sourceQuestion?.subject??'english';
+  const forms=VARIATION_FORMS[subject]??VARIATION_FORMS.english;
+  const seed=(profile?.attempts??0)+(profile?.wrong??0)+String(sourceQuestion?.id??'').split('').reduce((sum,ch)=>sum+ch.charCodeAt(0),0);
+  return forms[Math.abs(seed)%forms.length];
+}
+
 export function generationBrief(profile, sourceQuestion = null) {
   const mode = practiceMode(profile);
+  const preferredForm=variationForm(profile,sourceQuestion);
   return {
     subject: profile?.subject ?? sourceQuestion?.subject ?? 'unknown',
     domain: profile?.domain ?? sourceQuestion?.examProfile?.domain ?? sourceQuestion?.domain ?? '一般',
@@ -361,6 +377,7 @@ export function generationBrief(profile, sourceQuestion = null) {
     targetDifficulty: targetDifficulty(profile, sourceQuestion?.difficulty ?? 3),
     requirements: [
       '保持相同核心能力，但改用不同情境與表面形式',
+      `本輪優先使用「${preferredForm}」作為刺激形式；同批其他題要再換不同形式`,
       '不得只替換人名、數字或關鍵名詞',
       '選項必須只有一個最佳答案，錯誤選項要對應合理迷思',
       '提供答案、解析、核心能力與錯因標籤',
