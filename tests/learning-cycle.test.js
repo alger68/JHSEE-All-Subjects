@@ -5,6 +5,7 @@ import {
   recordAiUsage,
   buildSevenDayTrend,
   buildParentSummary,
+  buildErrorReasonStats,
   pickDiagnosticQuestions
 } from '../js/core/learning-cycle.js';
 
@@ -83,4 +84,24 @@ describe('learning cycle controls',()=>{
       expect(picked.filter(item=>item.subject===subject)).toHaveLength(5);
     }
   });
+});
+
+
+it('preserves the current daily AI usage when adaptive memory is reset',()=>{
+  const state={aiUsage:{date:'2026-09-18',count:7,limit:12},adaptiveSkills:{x:{mastery:20}},answerHistory:[{}]};
+  expect(applyResetMode(state,'adaptive','2026-09-18').aiUsage).toEqual({date:'2026-09-18',count:7,limit:12});
+  expect(applyResetMode(state,'new-cycle','2026-09-18').aiUsage).toEqual({date:'2026-09-18',count:7,limit:12});
+});
+
+it('aggregates automatic and manual error reasons for reporting',()=>{
+  const stats=buildErrorReasonStats(
+    [
+      {correct:false,errorReason:'忽略關鍵線索'},
+      {correct:false,errorReason:'忽略關鍵線索'},
+      {correct:true,errorReason:null}
+    ],
+    [{questionId:'q1',reason:'calculation'}]
+  );
+  expect(stats[0]).toMatchObject({label:'忽略關鍵線索',count:2});
+  expect(stats.some(item=>item.label==='計算失誤')).toBe(true);
 });

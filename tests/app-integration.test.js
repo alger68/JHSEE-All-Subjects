@@ -433,3 +433,51 @@ it('starts AI weakness validation from a completed report and stores generated q
   expect(state.activeExam.title).toContain('AI 弱點驗收');
   expect(state.activeExam.questionIds).toContain('ai-remediation-1');
 });
+
+
+it('mixes up to five AI questions into the 25-question re-diagnosis and records quota',async()=>{
+  window.history.replaceState(null,'','#/profile');
+  fetch.mockImplementation(async (url,options={})=>{
+    const target=String(url);
+    if(target.includes('/api/generate-question')){
+      const {brief}=JSON.parse(options.body);
+      const generated={
+        id:`diag-ai-${brief.subject}`,
+        subject:brief.subject,
+        domain:brief.domain,
+        questionType:brief.subSkill||'診斷題',
+        competency:brief.coreSkill,
+        difficulty:brief.targetDifficulty,
+        passage:'重新診斷 AI 情境。',
+        question:`${brief.subject} AI 診斷題？`,
+        choices:['A','B','C','D'],
+        answer:1,
+        explanation:'診斷解析',
+        hint1:'提示一',
+        hint2:'提示二',
+        errorTags:['錯因A','錯因B','錯因C','錯因D'],
+        source:'ai_generated',
+        chapter:brief.domain,
+        topic:brief.coreSkill,
+        grade:9,
+        tags:['ai-generated','diagnostic'],
+        examAligned:true,
+        examProfile:{domain:brief.domain,type:brief.subSkill||'診斷題',competency:brief.coreSkill},
+        aiGenerated:true,
+        aiPracticeMode:'diagnostic'
+      };
+      return new Response(JSON.stringify({questions:[generated]}),{status:200,headers:{'content-type':'application/json'}});
+    }
+    return {ok:true,json:async()=>target.includes('cap-practice')?practice:questions};
+  });
+  await boot();
+  document.querySelector('[data-action="start-diagnostic"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.activeExam.kind).toBe('diagnostic');
+  expect(state.activeExam.questionIds).toHaveLength(25);
+  expect(state.activeExam.questionIds.filter(id=>id.startsWith('diag-ai-'))).toHaveLength(5);
+  expect(state.generatedQuestions.filter(q=>q.id.startsWith('diag-ai-'))).toHaveLength(5);
+  expect(state.aiUsage.count).toBe(5);
+  expect(state.activeExam.title).toContain('AI＋本地');
+});

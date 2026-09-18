@@ -1,3 +1,5 @@
+import { REVIEW_REASONS } from './mastery.js';
+
 const SUBJECTS=['chinese','english','math','science','social'];
 
 const dateAt=(date)=>new Date(`${date}T00:00:00Z`);
@@ -16,7 +18,7 @@ export function applyResetMode(state={},mode='adaptive',today=''){
       answerHistory:[],
       adaptiveSubjectWeights:null,
       generatedQuestions:[],
-      aiUsage:{date:today,count:0,limit:base.aiUsage?.limit??12}
+      aiUsage:base.aiUsage??{date:today,count:0,limit:12}
     };
   }
   if(mode==='new-cycle'){
@@ -37,7 +39,7 @@ export function applyResetMode(state={},mode='adaptive',today=''){
       adaptiveSubjectWeights:null,
       generatedQuestions:[],
       wrongQuestions:[],
-      aiUsage:{date:today,count:0,limit:base.aiUsage?.limit??12}
+      aiUsage:base.aiUsage??{date:today,count:0,limit:12}
     };
   }
   return base;
@@ -78,7 +80,25 @@ export function buildSevenDayTrend(history=[],today){
   return result;
 }
 
-export function buildParentSummary({history=[],skills={},today,aiUsage={}}={}){
+export function buildErrorReasonStats(history=[],wrongQuestions=[]){
+  const counts=new Map();
+  for(const item of history){
+    if(item?.correct||!item?.errorReason)continue;
+    const label=String(item.errorReason);
+    counts.set(label,(counts.get(label)??0)+1);
+  }
+  for(const item of wrongQuestions){
+    if(!item?.reason)continue;
+    const label=REVIEW_REASONS[item.reason]??String(item.reason);
+    counts.set(label,(counts.get(label)??0)+1);
+  }
+  return [...counts.entries()]
+    .map(([label,count])=>({label,count}))
+    .sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label))
+    .slice(0,8);
+}
+
+export function buildParentSummary({history=[],skills={},today,aiUsage={},wrongQuestions=[]}={}){
   const answeredToday=history.filter(item=>item?.date===today).length;
   const ranked=Object.values(skills??{}).sort((a,b)=>(b.priorityScore??0)-(a.priorityScore??0));
   const topWeak=ranked.filter(item=>(item.priorityScore??0)>=50).slice(0,3);
@@ -89,7 +109,7 @@ export function buildParentSummary({history=[],skills={},today,aiUsage={}}={}){
     : answeredToday
       ? '目前沒有明顯高優先弱點，可進行混合維持練習。'
       : '今天尚未作答，建議先完成一回 10 題短練習。';
-  return {answeredToday,topWeak,dueCount,aiRemaining:remaining,nextAction};
+  return {answeredToday,topWeak,dueCount,aiRemaining:remaining,nextAction,errorReasons:buildErrorReasonStats(history,wrongQuestions)};
 }
 
 export function pickDiagnosticQuestions(questions=[],count=25){
