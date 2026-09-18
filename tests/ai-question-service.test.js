@@ -180,6 +180,8 @@ describe('generate-question HTTP handler', () => {
     const fetchImpl=async (_url,options) => {
       const body=JSON.parse(options.body);
       expect(body.model).toBeTruthy();
+      expect(body.reasoning).toEqual({effort:'none'});
+      expect(body.text.verbosity).toBe('low');
       expect(body.text.format.type).toBe('json_schema');
       return new Response(JSON.stringify({
         output:[{

@@ -42,8 +42,10 @@ function openAiBody({brief,count,sourceQuestion,avoidQuestions},env){
       },
       {role:'user',content:buildGenerationPrompt(brief,sourceQuestion,count,avoidQuestions)}
     ],
+    reasoning:{effort:(env.AI_REASONING_EFFORT||'none')},
     max_output_tokens:maxOutput,
     text:{
+      verbosity:'low',
       format:{
         type:'json_schema',
         name:'jhsee_adaptive_questions',
