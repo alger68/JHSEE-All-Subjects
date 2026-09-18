@@ -10,7 +10,7 @@ for (const bank of ['questions', 'cap-practice']) {
   assert.ok(bundle.includes(asset), `Bundle does not reference ${asset}`);
   assert.deepEqual(JSON.parse(readFileSync(`dist/assets/${asset}`, 'utf8')), JSON.parse(readFileSync(`data/${bank}.json`, 'utf8')));
 }
-console.log('Built question banks verified: 110 original questions available.');
+console.log('Built question banks verified: 205 original questions available.');
 const official=JSON.parse(readFileSync('data/official-115-layout.json','utf8'));
 let pageCount=0;
 for(const layout of Object.values(official))for(const page of layout.pages) {

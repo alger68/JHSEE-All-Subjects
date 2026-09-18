@@ -2045,5 +2045,3401 @@
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-18",
     "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依公共議題相關學習內容編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-012",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "語意理解",
+    "competency": "理解語句在篇章中的作用",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "子路問政。子曰：「先之，勞之。」請益。曰：「無倦。」",
+    "question": "依文意，孔子對從政者的主要期許是什麼？",
+    "choices": [
+      "先以身作則並持續努力",
+      "凡事交由部屬自行決定",
+      "只要制定規則即可",
+      "避免親自參與繁重工作"
+    ],
+    "answer": 0,
+    "explanation": "「先之」強調先帶頭示範，「勞之」與「無倦」強調持續投入，因此核心是以身作則且不懈怠。",
+    "hint1": "把「先之」和「無倦」一起解讀。",
+    "hint2": "想想領導者應先做什麼、又要維持多久。",
+    "source": "original",
+    "tags": [
+      "語意理解",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-013",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "人物動機",
+    "competency": "根據細節推論人物想法",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "媽媽把剛烤好的餅乾分成三盒：一盒放桌上，一盒裝進書包，最後一盒貼上「明天再開」的紙條。小瑜看了笑說：「原來你早就知道我會忍不住。」",
+    "question": "從這段文字可推知，媽媽貼紙條最可能是為了什麼？",
+    "choices": [
+      "提醒小瑜別一次吃完",
+      "告訴小瑜餅乾已經壞了",
+      "要求小瑜明天帶去學校",
+      "區分三盒餅乾的口味"
+    ],
+    "answer": 0,
+    "explanation": "紙條寫「明天再開」，加上小瑜提到「忍不住」，可推知媽媽是在幫忙控制一次吃太多。",
+    "hint1": "注意小瑜最後一句話提供的線索。",
+    "hint2": "「忍不住」和哪個行為最有關？",
+    "source": "original",
+    "tags": [
+      "人物動機",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-014",
+    "subject": "chinese",
+    "chapter": "生活文本",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "公告條件",
+    "competency": "整合多項規則解決問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "校園影印服務：黑白每張2元，彩色每張8元。學生證內餘額至少20元才能啟動機器；完成後依實際張數扣款。每次最多印30張。",
+    "question": "小維卡片餘額24元，想印6張黑白。下列敘述何者正確？",
+    "choices": [
+      "可啟動機器，印完後剩12元",
+      "因總費用未滿20元所以不能印",
+      "最多只能印2張",
+      "必須先儲值到30元"
+    ],
+    "answer": 0,
+    "explanation": "啟動條件是餘額至少20元，24元符合；6張黑白共12元，因此印完剩12元。",
+    "hint1": "分清楚「啟動條件」和「實際扣款」。",
+    "hint2": "不要把20元誤當成最低消費。",
+    "source": "original",
+    "tags": [
+      "公告條件",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-015",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "觀點比較",
+    "competency": "比較兩段文字的立場差異",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲：校園種樹能降低夏季地表溫度，也能提供遮蔭。乙：若樹種選擇不當，根系可能破壞鋪面，落葉維護也需要人力。",
+    "question": "下列何者最能說明甲、乙兩段文字的關係？",
+    "choices": [
+      "甲談效益，乙補充執行成本與風險",
+      "甲反對種樹，乙支持種樹",
+      "兩者都認為校園不應有任何植物",
+      "乙證明甲提出的效益完全不存在"
+    ],
+    "answer": 0,
+    "explanation": "甲說明種樹的好處；乙沒有否定好處，而是補充可能的風險與維護成本。",
+    "hint1": "先判斷乙有沒有否定甲的核心主張。",
+    "hint2": "一段談好處，一段談限制時，常是補充關係。",
+    "source": "original",
+    "tags": [
+      "觀點比較",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-016",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "比例判讀",
+    "competency": "根據表格做有限度結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某班調查到校方式如下。",
+    "question": "哪一項結論最符合表中資料？",
+    "choices": [
+      "步行與騎車的人數合計多於搭公車",
+      "搭公車的人一定住得最遠",
+      "全校學生都偏好步行",
+      "騎車者的通勤時間一定最短"
+    ],
+    "answer": 0,
+    "explanation": "步行12人、騎車10人，合計22人，多於搭公車18人。其他選項都需要表格未提供的距離、全校或時間資料。",
+    "hint1": "只使用表格中真正提供的資訊。",
+    "hint2": "先做可以直接計算的人數比較。",
+    "table": {
+      "headers": [
+        "方式",
+        "人數"
+      ],
+      "rows": [
+        [
+          "步行",
+          12
+        ],
+        [
+          "騎車",
+          10
+        ],
+        [
+          "公車",
+          18
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "比例判讀",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-017",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "段落結構",
+    "competency": "辨識段落功能",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "第一段介紹老街近年的遊客增加；第二段描述店家因人潮延長營業時間；第三段則指出垃圾量增加與居民作息受影響，並提出分流與清潔方案。",
+    "question": "第三段在全文中的主要作用是什麼？",
+    "choices": [
+      "提出發展後衍生的問題與改善方向",
+      "重複第一段的遊客數量",
+      "說明老街最早的歷史年代",
+      "證明延長營業完全沒有好處"
+    ],
+    "answer": 0,
+    "explanation": "第三段從前兩段的發展現象轉入負面影響，並提出改善方案，因此功能是補充問題與解方。",
+    "hint1": "看第三段新增了哪些資訊類型。",
+    "hint2": "它不只描述現象，還提出了什麼？",
+    "source": "original",
+    "tags": [
+      "段落結構",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-018",
+    "subject": "chinese",
+    "chapter": "生活文本",
+    "domain": "生活文本",
+    "questionType": "推論",
+    "topic": "廣告語意",
+    "competency": "判斷宣傳語的隱含訴求",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "「不是每杯飲料都需要更多糖，真正需要的是更清楚的味道。」——某無糖茶廣告",
+    "question": "這句廣告語最主要想傳達哪一種訴求？",
+    "choices": [
+      "少糖也能保有飲品特色",
+      "糖越多味道一定越好",
+      "所有人都不應喝任何甜飲",
+      "無糖茶完全沒有味道"
+    ],
+    "answer": 0,
+    "explanation": "廣告把「更多糖」和「更清楚的味道」做對比，訴求是不靠增加糖分也能呈現風味。",
+    "hint1": "注意句子中的對比。",
+    "hint2": "廣告並沒有說所有甜味都不好。",
+    "source": "original",
+    "tags": [
+      "廣告語意",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-019",
+    "subject": "chinese",
+    "chapter": "文學閱讀",
+    "domain": "文學閱讀",
+    "questionType": "推論",
+    "topic": "意象情感",
+    "competency": "由意象推論情緒",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "傍晚，站牌旁只剩一張被雨打濕的時刻表。遠處車燈一亮，他立刻站直；車子轉進另一條街後，他又把背包放回腳邊。",
+    "question": "這段描寫最能表現人物何種心情？",
+    "choices": [
+      "反覆期待又落空",
+      "因為遲到而十分憤怒",
+      "對搭車完全沒有興趣",
+      "準備離開城市的興奮"
+    ],
+    "answer": 0,
+    "explanation": "人物看到車燈就站直，車未到又放下背包，呈現期待與落空反覆出現。",
+    "hint1": "觀察兩次動作前後的變化。",
+    "hint2": "車燈出現與消失各帶來什麼反應？",
+    "source": "original",
+    "tags": [
+      "意象情感",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-020",
+    "subject": "chinese",
+    "chapter": "書信與訊息",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "訊息目的",
+    "competency": "辨識訊息中的行動要求",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "班長訊息：明天自然課要到實驗室。第一節下課後，請各組組長到器材室領護目鏡；其他同學直接到三樓實驗室集合，不必回原教室。",
+    "question": "一般組員第一節下課後應該怎麼做？",
+    "choices": [
+      "直接到三樓實驗室集合",
+      "先到器材室領護目鏡",
+      "回原教室等組長通知",
+      "到操場集合"
+    ],
+    "answer": 0,
+    "explanation": "領護目鏡的任務只交給組長；其他同學被明確要求直接到三樓實驗室集合。",
+    "hint1": "先分辨訊息對「組長」和「其他同學」的不同要求。",
+    "hint2": "你是一般組員，不是組長。",
+    "source": "original",
+    "tags": [
+      "訊息目的",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-021",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "資料分析",
+    "topic": "證據範圍",
+    "competency": "評估標題是否超出資料",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "校刊調查120名受訪學生對「每週一天無作業日」的看法：支持68人、反對32人、無意見20人。",
+    "question": "下列哪個標題最符合這份資料能支持的範圍？",
+    "choices": [
+      "受訪學生中，支持者超過半數",
+      "全市學生一致支持無作業日",
+      "無作業日已證明能提升成績",
+      "所有反對者都因補習太多"
+    ],
+    "answer": 0,
+    "explanation": "68/120超過一半，因此能說受訪者中支持者過半；其他標題都擴大到未調查的人或加入不存在的原因與成績資料。",
+    "hint1": "留意調查對象只有120名受訪學生。",
+    "hint2": "不要把態度調查說成成效證明。",
+    "source": "original",
+    "tags": [
+      "證據範圍",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-022",
+    "subject": "chinese",
+    "chapter": "語文運用",
+    "domain": "語文運用",
+    "questionType": "閱讀理解",
+    "topic": "語句銜接",
+    "competency": "判斷句子最適位置",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "①城市增設自行車道後，騎車人口明顯增加。②部分路段也因此出現尖峰壅塞。③市府開始調整號誌並增設轉向標線。④半年後，事故件數逐漸下降。\n待插入句：「但新的使用需求也帶來新的管理問題。」",
+    "question": "這句話最適合放在哪兩句之間？",
+    "choices": [
+      "①與②之間",
+      "②與③之間",
+      "③與④之間",
+      "④之後"
+    ],
+    "answer": 0,
+    "explanation": "插入句中的「但」承接①的正面增加，並引出②的壅塞問題，因此放在①與②之間最順。",
+    "hint1": "先找出「但」前後應形成的轉折。",
+    "hint2": "哪一句是正面發展，下一句開始談問題？",
+    "source": "original",
+    "tags": [
+      "語句銜接",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-023",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "推論",
+    "topic": "因果判讀",
+    "competency": "由行動推論原因",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "農夫夜歸，見橋板鬆動，遂停步取石墊之。同行者曰：「急歸可也，何必多事？」農夫曰：「吾今得過，後人未必。」",
+    "question": "農夫停下修橋最主要的原因是什麼？",
+    "choices": [
+      "擔心後來的人遇到危險",
+      "想延誤同行者回家的時間",
+      "希望證明自己力氣很大",
+      "認為橋板越鬆越方便"
+    ],
+    "answer": 0,
+    "explanation": "「吾今得過，後人未必」直接說明他考慮的是後來使用橋的人可能無法安全通過。",
+    "hint1": "最後一句就是關鍵。",
+    "hint2": "他關心的對象不只自己。",
+    "source": "original",
+    "tags": [
+      "因果判讀",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-024",
+    "subject": "chinese",
+    "chapter": "媒體識讀",
+    "domain": "跨文本與論證",
+    "questionType": "資料分析",
+    "topic": "來源可信度",
+    "competency": "比較資料來源品質",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲：匿名帳號貼文：「大家都說這款藥草能治感冒。」乙：醫院衛教文章說明目前缺乏足夠臨床證據，並列出研究來源與注意事項。",
+    "question": "若要判斷該藥草是否具有治療效果，哪一項做法較恰當？",
+    "choices": [
+      "優先檢視乙所引用的研究證據",
+      "只看甲貼文的按讚數",
+      "因甲寫得較簡短所以一定正確",
+      "兩種來源完全沒有差異"
+    ],
+    "answer": 0,
+    "explanation": "乙提供研究來源與證據限制，可進一步核查；匿名貼文與按讚數不能取代可檢驗的研究證據。",
+    "hint1": "比較資料是否能被追溯與檢驗。",
+    "hint2": "人氣不等於證據品質。",
+    "source": "original",
+    "tags": [
+      "來源可信度",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-025",
+    "subject": "chinese",
+    "chapter": "程序文本",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "流程判讀",
+    "competency": "依流程選擇下一步",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "圖書預約流程：①登入帳號→②確認館藏狀態→③若可借，直接到館借閱；若已借出，按「預約」→④收到到館通知後三日內領取。",
+    "question": "小恩登入後發現想借的書顯示「借出中」，下一步最適合做什麼？",
+    "choices": [
+      "按下預約",
+      "直接到館架上找書",
+      "等待三日後再登入",
+      "先登出帳號"
+    ],
+    "answer": 0,
+    "explanation": "流程明確指出書籍已借出時應按「預約」，等收到到館通知後再領取。",
+    "hint1": "先找流程中的分支條件。",
+    "hint2": "「借出中」對應哪一條路徑？",
+    "source": "original",
+    "tags": [
+      "流程判讀",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-026",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "比喻理解",
+    "competency": "理解比喻在情境中的意義",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "老師看著大家修改了三次仍不理想的報告，說：「現在不是把牆再漆一次，而是要先看看地基歪在哪裡。」",
+    "question": "老師最可能想表達什麼？",
+    "choices": [
+      "應先找出根本問題再修改",
+      "報告必須改成建築主題",
+      "只要增加裝飾就能提高品質",
+      "第三次修改後不必再檢查"
+    ],
+    "answer": 0,
+    "explanation": "「牆漆」比喻表面修改，「地基」比喻根本問題；老師提醒大家先找出核心錯誤。",
+    "hint1": "把建築詞語換成「表面」與「根本」。",
+    "hint2": "老師反對的是哪種只改外表的做法？",
+    "source": "original",
+    "tags": [
+      "比喻理解",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-027",
+    "subject": "chinese",
+    "chapter": "論證閱讀",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "論證漏洞",
+    "competency": "辨識以偏概全",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "小哲說：「我問了班上三位同學，他們都不喜歡晨間閱讀，所以全校學生一定都不喜歡。」",
+    "question": "小哲的推論主要有什麼問題？",
+    "choices": [
+      "樣本太少，不能代表全校",
+      "沒有把三位同學的姓名公開",
+      "沒有計算閱讀時間的平均數",
+      "沒有先證明晨間閱讀一定有效"
+    ],
+    "answer": 0,
+    "explanation": "只詢問三位同學就推論全校，是樣本代表性不足造成的以偏概全。",
+    "hint1": "比較「三位」和「全校」的範圍。",
+    "hint2": "問題出在推論範圍被放大。",
+    "source": "original",
+    "tags": [
+      "論證漏洞",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-028",
+    "subject": "chinese",
+    "chapter": "生活文本",
+    "domain": "生活文本",
+    "questionType": "情境應用",
+    "topic": "時程整合",
+    "competency": "根據多項時間限制做決策",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "社團成果展彩排：舞台組15:30報到、表演組16:00報到。器材室15:20–15:50開放領取麥克風，表演組每組需由一名代表先領器材。",
+    "question": "表演組代表若要同時完成報到與領麥克風，最適合何時到校？",
+    "choices": [
+      "15:40",
+      "16:10",
+      "15:10",
+      "16:30"
+    ],
+    "answer": 0,
+    "explanation": "15:40時器材室仍開放，可先領麥克風，之後在16:00完成表演組報到。",
+    "hint1": "要同時滿足器材室開放與16:00報到。",
+    "hint2": "先找唯一落在領器材時段、又不會錯過報到的時間。",
+    "source": "original",
+    "tags": [
+      "時程整合",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-029",
+    "subject": "chinese",
+    "chapter": "跨文本閱讀",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "共同主題",
+    "competency": "統整兩段文本共同焦點",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲文描述社區將廢棄空地改成菜園後，居民開始共同輪值照顧。乙文介紹校園把閒置角落改成閱讀區，學生自發整理書籍與維護環境。",
+    "question": "甲、乙兩文最主要的共同點是什麼？",
+    "choices": [
+      "空間改造促成使用者共同參與",
+      "都在討論農業技術",
+      "都強調空間必須收費",
+      "都主張只有專業人員能維護"
+    ],
+    "answer": 0,
+    "explanation": "兩段都先描述閒置空間被重新利用，接著出現居民或學生共同維護，焦點在空間改造與參與。",
+    "hint1": "找出兩段都出現的「空間變化」和「人的行動」。",
+    "hint2": "不要只抓到其中一篇的菜園或閱讀。",
+    "source": "original",
+    "tags": [
+      "共同主題",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-chinese-030",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "摘要判斷",
+    "competency": "選擇最完整且不過度的摘要",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "研究團隊觀察到，校園午間播放輕音樂後，圖書館入館人數增加。但研究者提醒，同期也延長了開放時間，因此不能直接認定音樂就是唯一原因。",
+    "question": "下列哪一項最適合作為這段文字的摘要？",
+    "choices": [
+      "入館人數增加，但原因可能不只音樂",
+      "播放音樂已證明能使所有學生愛上閱讀",
+      "延長開放時間一定是唯一原因",
+      "研究顯示圖書館不應播放任何音樂"
+    ],
+    "answer": 0,
+    "explanation": "文字同時呈現入館人數增加與因果判斷的限制，最完整的摘要應保留這兩層意思。",
+    "hint1": "摘要要同時包含「現象」與「研究限制」。",
+    "hint2": "避免把相關現象說成已證明的唯一因果。",
+    "source": "original",
+    "tags": [
+      "摘要判斷",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-012",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "擷取與統整文本訊息",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Some students think a study break wastes time. However, short breaks can help the brain stay focused. A five-minute walk, a glass of water, or looking away from the screen may make it easier to return to a difficult task.",
+    "question": "What is the main idea of the passage?",
+    "choices": [
+      "Short breaks can help students return to study with better focus.",
+      "Students should stop studying whenever work becomes difficult.",
+      "Walking is the only useful kind of break.",
+      "Screen time always improves concentration."
+    ],
+    "answer": 0,
+    "explanation": "The passage explains that brief, simple breaks may help students refocus and continue difficult work.",
+    "hint1": "Look at the idea repeated in both the first and last sentences.",
+    "hint2": "The passage is about the purpose of short breaks, not one specific activity.",
+    "source": "original",
+    "tags": [
+      "Main idea",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-013",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Message inference",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "Text message from Ken: “I’m still at the station. The 4:10 train was canceled, and the next one leaves at 4:45. Please start the meeting without me. I’ll join as soon as I arrive.”",
+    "question": "What can we infer about Ken?",
+    "choices": [
+      "He will probably be late for the meeting.",
+      "He has decided not to attend the meeting.",
+      "The meeting was canceled because of the train.",
+      "He arrived before everyone else."
+    ],
+    "answer": 0,
+    "explanation": "Ken says the earlier train was canceled and asks others to start without him, so he expects to arrive late.",
+    "hint1": "Use both the train times and his request about the meeting.",
+    "hint2": "Why would he ask them to start without him?",
+    "source": "original",
+    "tags": [
+      "Message inference",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-014",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Schedule matching",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Four workshops are offered on Saturday. Mia is free only after 10:30 and must leave by 13:00.",
+    "question": "Which workshop can Mia attend from beginning to end?",
+    "choices": [
+      "Robotics",
+      "Cooking",
+      "Photography",
+      "Drama"
+    ],
+    "answer": 2,
+    "explanation": "Photography runs from 11:00 to 12:30, fully inside Mia's available time. The others either start too early or end after 13:00.",
+    "hint1": "Compare both start and end times with Mia's free period.",
+    "hint2": "The whole workshop must fit between 10:30 and 13:00.",
+    "table": {
+      "headers": [
+        "Workshop",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Robotics",
+          "09:30–11:00"
+        ],
+        [
+          "Cooking",
+          "10:00–11:30"
+        ],
+        [
+          "Photography",
+          "11:00–12:30"
+        ],
+        [
+          "Drama",
+          "12:00–13:30"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Schedule matching",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-015",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "情境應用",
+    "topic": "Notice rules",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Library Notice\nStudy rooms may be booked for 30 or 60 minutes. A group must have at least three students. Food is not allowed. Bookings end at 7:00 p.m.",
+    "question": "Which group follows all the rules?",
+    "choices": [
+      "Two students book a room for 60 minutes.",
+      "Four students book a room for 45 minutes.",
+      "Three students book a room for 30 minutes and bring only water.",
+      "Five students book a room at 7:30 p.m."
+    ],
+    "answer": 2,
+    "explanation": "A group of three meets the minimum size and 30 minutes is an allowed booking length. The notice forbids food, not water.",
+    "hint1": "Check group size, booking length, and time.",
+    "hint2": "One choice satisfies every rule, not just one.",
+    "source": "original",
+    "tags": [
+      "Notice rules",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-016",
+    "subject": "english",
+    "chapter": "Vocabulary Bay",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Word in context",
+    "competency": "依上下文理解語詞",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "The museum guide asked visitors to keep their voices low because a recording was in progress. Most people became quiet immediately, but one child continued speaking loudly until his father gently reminded him.",
+    "question": "What does “in progress” most likely mean?",
+    "choices": [
+      "happening now",
+      "already canceled",
+      "ready to be sold",
+      "difficult to understand"
+    ],
+    "answer": 0,
+    "explanation": "The request for silence is needed because the recording is happening at that moment.",
+    "hint1": "Look at why visitors are asked to be quiet.",
+    "hint2": "The phrase describes the current status of the recording.",
+    "source": "original",
+    "tags": [
+      "Word in context",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-017",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Purpose inference",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "Dear parents,\nBecause of the expected heavy rain tomorrow afternoon, the school sports day will end at 1:30 instead of 3:30. Students should still bring lunch, but afternoon club activities are canceled. Buses will leave at 1:50.",
+    "question": "Why was this message most likely sent?",
+    "choices": [
+      "To explain changes to tomorrow's schedule",
+      "To invite parents to join a new sports club",
+      "To announce that the sports day will move to another school",
+      "To ask students to bring extra sports equipment"
+    ],
+    "answer": 0,
+    "explanation": "The message lists changes caused by expected heavy rain: an earlier ending time, canceled clubs, and earlier buses.",
+    "hint1": "Focus on what information has changed.",
+    "hint2": "Several schedule details are being updated for tomorrow.",
+    "source": "original",
+    "tags": [
+      "Purpose inference",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-018",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Price comparison",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "Leo needs exactly two notebooks and one pen. He has NT$100.",
+    "question": "Which store is the cheapest choice that Leo can afford?",
+    "choices": [
+      "Store A",
+      "Store B",
+      "Store C",
+      "None of them"
+    ],
+    "answer": 1,
+    "explanation": "Store A costs 35×2+25=95. Store B costs 30×2+20=80. Store C costs 40×2+15=95. Store B is cheapest.",
+    "hint1": "Calculate the total for the same shopping list at each store.",
+    "hint2": "Compare total cost, not the price of just one item.",
+    "table": {
+      "headers": [
+        "Store",
+        "Notebook",
+        "Pen"
+      ],
+      "rows": [
+        [
+          "A",
+          "35",
+          "25"
+        ],
+        [
+          "B",
+          "30",
+          "20"
+        ],
+        [
+          "C",
+          "40",
+          "15"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Price comparison",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-019",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Sequence",
+    "competency": "擷取與統整文本訊息",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "First, wash the strawberries and remove the leaves. Next, cut them into small pieces. Then mix them with yogurt. Finally, keep the mixture in the refrigerator for thirty minutes before serving.",
+    "question": "What should be done just before the mixture is put in the refrigerator?",
+    "choices": [
+      "Wash the strawberries",
+      "Remove the leaves",
+      "Mix the fruit with yogurt",
+      "Serve the dessert"
+    ],
+    "answer": 2,
+    "explanation": "The order says to mix the strawberries with yogurt and then refrigerate the mixture.",
+    "hint1": "Follow the sequence words: first, next, then, finally.",
+    "hint2": "Find the step immediately before refrigeration.",
+    "source": "original",
+    "tags": [
+      "Sequence",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-020",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Character feeling",
+    "competency": "根據已知證據進行推論",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Jill looked at the stage from behind the curtain. She checked her notes for the third time, took a long breath, and rubbed her cold hands together. When her name was called, she smiled and walked forward.",
+    "question": "How did Jill most likely feel before going on stage?",
+    "choices": [
+      "nervous",
+      "angry",
+      "bored",
+      "sleepy"
+    ],
+    "answer": 0,
+    "explanation": "Repeatedly checking notes, taking a long breath, and having cold hands are clues that Jill was nervous.",
+    "hint1": "Use her actions as emotional clues.",
+    "hint2": "Which feeling best matches checking notes again and taking a deep breath?",
+    "source": "original",
+    "tags": [
+      "Character feeling",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-021",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "情境應用",
+    "topic": "Travel planning",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "Eva must arrive at the science center by 10:20. It takes 15 minutes to walk from the bus stop to the center.",
+    "question": "Which is the latest bus Eva can take?",
+    "choices": [
+      "Bus A",
+      "Bus B",
+      "Bus C",
+      "Bus D"
+    ],
+    "answer": 1,
+    "explanation": "She needs to reach the bus stop by 10:05 to allow 15 minutes to walk. Bus B arrives at 10:02; Bus C arrives at 10:12, which is too late.",
+    "hint1": "Work backward from 10:20 by 15 minutes.",
+    "hint2": "Use arrival time, not departure time.",
+    "table": {
+      "headers": [
+        "Bus",
+        "Arrives at stop"
+      ],
+      "rows": [
+        [
+          "A",
+          "09:50"
+        ],
+        [
+          "B",
+          "10:02"
+        ],
+        [
+          "C",
+          "10:12"
+        ],
+        [
+          "D",
+          "10:18"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Travel planning",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-022",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "資料分析",
+    "topic": "Claim and evidence",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "A class tested whether paper towels absorb the same amount of water. Each sheet was the same size. Brand X absorbed 18 mL on average, Brand Y 24 mL, and Brand Z 21 mL.",
+    "question": "Which conclusion is best supported by the data?",
+    "choices": [
+      "Brand Y absorbed the most water in this test.",
+      "Brand Y is always the best paper towel for every use.",
+      "Brand X is the cheapest brand.",
+      "Brand Z is made from stronger material."
+    ],
+    "answer": 0,
+    "explanation": "The only measured result is water absorption in this test, and Brand Y has the highest average. Price, strength, and all-use superiority were not measured.",
+    "hint1": "Choose a conclusion that stays within the measured data.",
+    "hint2": "Do not add information about price or material.",
+    "source": "original",
+    "tags": [
+      "Claim and evidence",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-023",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Reference",
+    "competency": "擷取與統整文本訊息",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Mr. Lee placed the old bicycle beside the new one. The old bicycle had a broken light, but its brakes still worked well. He decided to repair it and give it to his cousin.",
+    "question": "What does “it” in the last sentence refer to?",
+    "choices": [
+      "the old bicycle",
+      "the new bicycle",
+      "the broken light",
+      "the brake"
+    ],
+    "answer": 0,
+    "explanation": "The item being repaired and given away is the old bicycle, which was just described as having a broken light but working brakes.",
+    "hint1": "Ask what object can logically be repaired and given to a cousin.",
+    "hint2": "Follow the main object across the sentences.",
+    "source": "original",
+    "tags": [
+      "Reference",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-024",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Speaker intention",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "A: Are you coming to the movie at seven?\nB: I wish I could, but my science project is due tomorrow morning and I still need to finish the charts.",
+    "question": "What does B most likely mean?",
+    "choices": [
+      "B probably cannot go to the movie.",
+      "B has already finished the project.",
+      "B wants A to make the charts.",
+      "B thinks the movie starts tomorrow."
+    ],
+    "answer": 0,
+    "explanation": "B says the project is due soon and still unfinished, which explains why B likely cannot attend the movie.",
+    "hint1": "Notice the phrase “I wish I could, but...”",
+    "hint2": "The unfinished project creates a time conflict.",
+    "source": "original",
+    "tags": [
+      "Speaker intention",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-025",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Survey reading",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "A school surveyed 100 students about the place they most often study after school.",
+    "question": "Which statement is supported by the survey?",
+    "choices": [
+      "More students study at home than at the library.",
+      "Exactly half of the students study at school.",
+      "No students study in cafés.",
+      "Library is the most common study place."
+    ],
+    "answer": 0,
+    "explanation": "Home has 46 students and library has 24, so more students study at home. The other statements do not match the table.",
+    "hint1": "Compare the numbers directly.",
+    "hint2": "Only choose what the table clearly shows.",
+    "table": {
+      "headers": [
+        "Place",
+        "Students"
+      ],
+      "rows": [
+        [
+          "Home",
+          46
+        ],
+        [
+          "Library",
+          24
+        ],
+        [
+          "School",
+          20
+        ],
+        [
+          "Café",
+          10
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Survey reading",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-026",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "情境應用",
+    "topic": "Email action",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "From: Coach Lin\nPlease bring your team shirt on Friday. If you ordered a new size, pick it up from Room 205 before 3:30. Practice begins at 4:00 in the gym. Do not wear outdoor shoes on the court.",
+    "question": "Sam ordered a new shirt. What should he do before practice?",
+    "choices": [
+      "Pick up the shirt from Room 205 before 3:30.",
+      "Wait until after practice to get the shirt.",
+      "Go directly to the gym at 4:30.",
+      "Wear his outdoor shoes on the court."
+    ],
+    "answer": 0,
+    "explanation": "The email specifically tells students who ordered a new size to pick it up from Room 205 before 3:30.",
+    "hint1": "Find the sentence that applies only to students with a new size.",
+    "hint2": "Sam belongs to the group mentioned in that condition.",
+    "source": "original",
+    "tags": [
+      "Email action",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-027",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Cause and effect",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "After the city added more shaded seats near the bus terminal, people spent less time standing in direct sunlight. During the following summer, the number of heat-related first-aid cases at the terminal fell.",
+    "question": "Which is the most reasonable inference?",
+    "choices": [
+      "The shaded seating may have helped reduce heat exposure.",
+      "The city completely eliminated hot weather.",
+      "Everyone stopped using the bus terminal.",
+      "Shade is the only possible cause of every health change."
+    ],
+    "answer": 0,
+    "explanation": "The timing and mechanism make it reasonable that shade reduced heat exposure, but the passage does not prove it was the only cause.",
+    "hint1": "Look for a cautious conclusion, not an absolute one.",
+    "hint2": "The word “may” fits the evidence better than “only.”",
+    "source": "original",
+    "tags": [
+      "Cause and effect",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-028",
+    "subject": "english",
+    "chapter": "Vocabulary Bay",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Context meaning",
+    "competency": "依上下文理解語詞",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "The trail was closed after the storm because several trees had fallen across the path. Park workers said the area would remain inaccessible until the trees were removed.",
+    "question": "What does “inaccessible” most likely mean?",
+    "choices": [
+      "not able to be entered or used",
+      "free for everyone to visit",
+      "easy to repair",
+      "open only at night"
+    ],
+    "answer": 0,
+    "explanation": "Fallen trees block the path, so the area cannot be entered or used until they are removed.",
+    "hint1": "Use the fallen trees as the clue.",
+    "hint2": "The word describes whether people can reach the area.",
+    "source": "original",
+    "tags": [
+      "Context meaning",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-029",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "資料分析",
+    "topic": "Experimental result",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "Students placed equal ice cubes in three cups and recorded how long each took to melt. Cup A was metal, Cup B was glass, and Cup C was foam. Room conditions were the same.",
+    "question": "Which statement is best supported by the results?",
+    "choices": [
+      "In this test, the ice in the metal cup melted fastest.",
+      "Metal always makes every cold object melt in exactly six minutes.",
+      "Foam is the heaviest material.",
+      "Glass cannot transfer heat."
+    ],
+    "answer": 0,
+    "explanation": "Six minutes is the shortest melting time, so the metal cup was fastest in this test. The other choices make claims not supported by the data.",
+    "hint1": "Compare the melting times and keep the conclusion limited to this test.",
+    "hint2": "A shorter time means faster melting.",
+    "table": {
+      "headers": [
+        "Cup",
+        "Material",
+        "Melting time"
+      ],
+      "rows": [
+        [
+          "A",
+          "Metal",
+          "6 min"
+        ],
+        [
+          "B",
+          "Glass",
+          "10 min"
+        ],
+        [
+          "C",
+          "Foam",
+          "18 min"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Experimental result",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-030",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "情境應用",
+    "topic": "Multiple conditions",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "Volunteer Day Rules\n• Volunteers must be at least 13.\n• Outdoor teams work from 9:00 to 12:00.\n• Indoor teams work from 13:00 to 16:00.\n• Anyone with a morning class may join only an indoor team.",
+    "question": "Which student can join an outdoor team?",
+    "choices": [
+      "Amy, 12, free all day",
+      "Ben, 14, with a class from 8:00 to 10:00",
+      "Cara, 15, free from 8:30 to 12:30",
+      "Dan, 13, free only after 13:30"
+    ],
+    "answer": 2,
+    "explanation": "Cara is at least 13 and available for the full outdoor shift. Ben has a morning class, so the rules limit him to an indoor team.",
+    "hint1": "Check age, class restriction, and the full shift time.",
+    "hint2": "Only one student satisfies all conditions for the outdoor team.",
+    "source": "original",
+    "tags": [
+      "Multiple conditions",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-012",
+    "subject": "math",
+    "chapter": "比例與比例式",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "配方比例",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "做4杯飲料需要果汁300 mL與水500 mL，且每杯容量相同。若配方比例不變，要做10杯。",
+    "question": "需要多少果汁？",
+    "choices": [
+      "600 mL",
+      "750 mL",
+      "800 mL",
+      "1250 mL"
+    ],
+    "answer": 1,
+    "explanation": "10杯是4杯的2.5倍，因此果汁量為300×2.5＝750 mL。",
+    "hint1": "先算杯數放大幾倍。",
+    "hint2": "配方比例不變，所以所有材料都乘同一倍率。",
+    "source": "original",
+    "tags": [
+      "配方比例",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-013",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "一次方程式",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "計程車起跳價85元，之後每公里加收20元。小明搭乘後共付225元，不考慮其他加價。",
+    "question": "起跳後共行駛多少公里？",
+    "choices": [
+      "5公里",
+      "6公里",
+      "7公里",
+      "8公里"
+    ],
+    "answer": 2,
+    "explanation": "225－85＝140，140÷20＝7，所以起跳後行駛7公里。",
+    "hint1": "先扣掉固定起跳價。",
+    "hint2": "剩下的金額才是按公里計費。",
+    "source": "original",
+    "tags": [
+      "一次方程式",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-014",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "中位數",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "五位學生完成一段路跑的時間如下。",
+    "question": "這組資料的中位數是多少？",
+    "choices": [
+      "11.8分鐘",
+      "12.0分鐘",
+      "12.4分鐘",
+      "13.0分鐘"
+    ],
+    "answer": 1,
+    "explanation": "排序後為10.8、11.5、12.0、12.4、13.3，中間第三個數為12.0。",
+    "hint1": "先把資料由小到大排列。",
+    "hint2": "五筆資料的中位數是第3筆。",
+    "table": {
+      "headers": [
+        "學生",
+        "時間(分鐘)"
+      ],
+      "rows": [
+        [
+          "甲",
+          12.4
+        ],
+        [
+          "乙",
+          10.8
+        ],
+        [
+          "丙",
+          13.3
+        ],
+        [
+          "丁",
+          12
+        ],
+        [
+          "戊",
+          11.5
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "中位數",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-015",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "直角三角形",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個直角三角形的兩股長分別為6公分與8公分。",
+    "question": "斜邊長是多少公分？",
+    "choices": [
+      "9",
+      "10",
+      "12",
+      "14"
+    ],
+    "answer": 1,
+    "explanation": "依畢氏定理，斜邊平方＝6²＋8²＝36＋64＝100，所以斜邊為10。",
+    "hint1": "斜邊是直角所對的邊。",
+    "hint2": "使用a²＋b²＝c²。",
+    "source": "original",
+    "tags": [
+      "直角三角形",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-016",
+    "subject": "math",
+    "chapter": "百分率",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "折扣比較",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "一件外套原價1600元。甲店打8折；乙店先減200元，再打9折。",
+    "question": "哪一家較便宜，便宜多少？",
+    "choices": [
+      "甲店便宜20元",
+      "乙店便宜20元",
+      "甲店便宜60元",
+      "兩店同價"
+    ],
+    "answer": 1,
+    "explanation": "甲店1600×0.8＝1280；乙店(1600－200)×0.9＝1260，所以乙店便宜20元。",
+    "hint1": "分別計算兩店最後價格。",
+    "hint2": "注意乙店是先減200再打9折。",
+    "source": "original",
+    "tags": [
+      "折扣比較",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-017",
+    "subject": "math",
+    "chapter": "整數運算",
+    "domain": "數與數線",
+    "questionType": "閱讀理解",
+    "topic": "溫度變化",
+    "competency": "理解數值正負與變化",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "清晨氣溫為－3°C，中午升高8°C，晚上又下降5°C。",
+    "question": "晚上氣溫是多少？",
+    "choices": [
+      "0°C",
+      "2°C",
+      "－5°C",
+      "－10°C"
+    ],
+    "answer": 0,
+    "explanation": "－3＋8－5＝0，所以晚上是0°C。",
+    "hint1": "依時間順序做加減。",
+    "hint2": "升高用加，下降用減。",
+    "source": "original",
+    "tags": [
+      "溫度變化",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-018",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "機率模型",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個袋中有相同大小的球如下。",
+    "question": "隨機取1球，取到藍球的機率是多少？",
+    "choices": [
+      "1/5",
+      "2/5",
+      "1/2",
+      "3/5"
+    ],
+    "answer": 1,
+    "explanation": "共有5球，其中藍球2球，所以機率為2/5。",
+    "hint1": "先算總球數。",
+    "hint2": "有利結果數÷全部可能結果數。",
+    "table": {
+      "headers": [
+        "顏色",
+        "球數"
+      ],
+      "rows": [
+        [
+          "紅",
+          2
+        ],
+        [
+          "藍",
+          2
+        ],
+        [
+          "綠",
+          1
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "機率模型",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-019",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "內角關係",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個三角形的三內角分別為x°、2x°、3x°。",
+    "question": "最大的內角是多少度？",
+    "choices": [
+      "60°",
+      "90°",
+      "100°",
+      "120°"
+    ],
+    "answer": 1,
+    "explanation": "x＋2x＋3x＝180，所以6x＝180，x＝30；最大角3x＝90。",
+    "hint1": "三角形內角和為180°。",
+    "hint2": "先求x，再找最大角。",
+    "source": "original",
+    "tags": [
+      "內角關係",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-020",
+    "subject": "math",
+    "chapter": "函數",
+    "domain": "函數",
+    "questionType": "資料分析",
+    "topic": "一次函數",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某影印店的總費用與張數呈一次關係。",
+    "question": "若印20張，費用是多少？",
+    "choices": [
+      "50元",
+      "55元",
+      "60元",
+      "65元"
+    ],
+    "answer": 0,
+    "explanation": "從5張20元到10張30元可知每多5張增加10元，即每張2元；固定費用10元，所以20張為10＋40＝50元。此計算顯示正確應為50元。",
+    "hint1": "先找每增加1張的費用。",
+    "hint2": "再用其中一筆資料找固定費用。",
+    "table": {
+      "headers": [
+        "張數",
+        "費用(元)"
+      ],
+      "rows": [
+        [
+          5,
+          20
+        ],
+        [
+          10,
+          30
+        ],
+        [
+          15,
+          40
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "一次函數",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-021",
+    "subject": "math",
+    "chapter": "數列",
+    "domain": "代數與方程式",
+    "questionType": "推論",
+    "topic": "等差規律",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某圖形排列的方格數依序為5、8、11、14、……",
+    "question": "第10個圖形有多少個方格？",
+    "choices": [
+      "29",
+      "30",
+      "32",
+      "35"
+    ],
+    "answer": 2,
+    "explanation": "這是首項5、公差3的等差數列，第10項＝5＋9×3＝32。",
+    "hint1": "相鄰兩項差多少？",
+    "hint2": "第10項比第1項多9個公差。",
+    "source": "original",
+    "tags": [
+      "等差規律",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-022",
+    "subject": "math",
+    "chapter": "比例與比例式",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "地圖比例尺",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "地圖比例尺為1：50,000。地圖上兩地距離6公分。",
+    "question": "實際距離是多少公里？",
+    "choices": [
+      "0.3公里",
+      "3公里",
+      "30公里",
+      "300公里"
+    ],
+    "answer": 1,
+    "explanation": "6×50,000＝300,000公分＝3,000公尺＝3公里。",
+    "hint1": "先換算實際公分數。",
+    "hint2": "100,000公分＝1公里。",
+    "source": "original",
+    "tags": [
+      "地圖比例尺",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-023",
+    "subject": "math",
+    "chapter": "比例與比例式",
+    "domain": "數與比例",
+    "questionType": "閱讀理解",
+    "topic": "濃度比例",
+    "competency": "理解比例敘述",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "果汁原液與水以2：3混合，共調成750 mL飲料。",
+    "question": "其中原液有多少mL？",
+    "choices": [
+      "250",
+      "300",
+      "350",
+      "450"
+    ],
+    "answer": 1,
+    "explanation": "總份數5份，每份750÷5＝150 mL，原液2份＝300 mL。",
+    "hint1": "先算總共有幾份。",
+    "hint2": "原液占2/5。",
+    "source": "original",
+    "tags": [
+      "濃度比例",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-024",
+    "subject": "math",
+    "chapter": "不等式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "最低門檻",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "遊樂園團體票規定：至少20人才能購買，每人票價450元。某班目前有17人確定參加。",
+    "question": "至少還需要幾人參加才能買團體票？",
+    "choices": [
+      "2人",
+      "3人",
+      "4人",
+      "5人"
+    ],
+    "answer": 1,
+    "explanation": "至少需要20人，目前17人，所以還需20－17＝3人。",
+    "hint1": "注意條件是「至少20人」。",
+    "hint2": "算20與17的差。",
+    "source": "original",
+    "tags": [
+      "最低門檻",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-025",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "平均數",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某生四次小考成績為72、80、84、92分。",
+    "question": "平均成績是多少？",
+    "choices": [
+      "80分",
+      "82分",
+      "84分",
+      "86分"
+    ],
+    "answer": 1,
+    "explanation": "(72＋80＋84＋92)÷4＝328÷4＝82。",
+    "hint1": "先求總分。",
+    "hint2": "總分除以次數。",
+    "source": "original",
+    "tags": [
+      "平均數",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-026",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "情境應用",
+    "topic": "圓周長",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "圓形花圃半徑為7公尺，取π＝22/7。",
+    "question": "沿花圃外圍繞一圈長多少公尺？",
+    "choices": [
+      "22",
+      "44",
+      "49",
+      "154"
+    ],
+    "answer": 1,
+    "explanation": "圓周長＝2πr＝2×22/7×7＝44公尺。",
+    "hint1": "題目問外圍一圈，是圓周長。",
+    "hint2": "使用2πr。",
+    "source": "original",
+    "tags": [
+      "圓周長",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-027",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "推論",
+    "topic": "周長建模",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "一個長方形長比寬多4公分，周長為32公分。",
+    "question": "這個長方形的寬是多少公分？",
+    "choices": [
+      "4",
+      "6",
+      "8",
+      "10"
+    ],
+    "answer": 1,
+    "explanation": "設寬x，長x＋4。2[x＋(x＋4)]＝32，得4x＋8＝32，x＝6。",
+    "hint1": "先用一個未知數表示長與寬。",
+    "hint2": "周長公式是2(長＋寬)。",
+    "source": "original",
+    "tags": [
+      "周長建模",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-028",
+    "subject": "math",
+    "chapter": "座標幾何",
+    "domain": "幾何與圖形",
+    "questionType": "閱讀理解",
+    "topic": "座標距離",
+    "competency": "理解座標差",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "平面上A點座標為(－2,3)，B點座標為(4,3)。",
+    "question": "A、B兩點距離是多少？",
+    "choices": [
+      "2",
+      "4",
+      "6",
+      "8"
+    ],
+    "answer": 2,
+    "explanation": "兩點y座標相同，水平距離為4－(－2)＝6。",
+    "hint1": "y座標相同，所以只比較x座標。",
+    "hint2": "負數相減要注意符號。",
+    "source": "original",
+    "tags": [
+      "座標距離",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-029",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "推論",
+    "topic": "補事件",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "抽獎箱中，中獎機率為0.28。",
+    "question": "不中獎的機率是多少？",
+    "choices": [
+      "0.28",
+      "0.62",
+      "0.72",
+      "1.28"
+    ],
+    "answer": 2,
+    "explanation": "中獎與不中獎互為補事件，所以不中獎機率＝1－0.28＝0.72。",
+    "hint1": "兩種結果合計機率為1。",
+    "hint2": "用1減去中獎機率。",
+    "source": "original",
+    "tags": [
+      "補事件",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-030",
+    "subject": "math",
+    "chapter": "多步驟情境",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "分段優惠",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "書店活動：三本書原價分別為280、320、400元。結帳先打9折，再用一張滿800折50元的折價券。",
+    "question": "最後應付多少元？",
+    "choices": [
+      "800元",
+      "850元",
+      "900元",
+      "950元"
+    ],
+    "answer": 1,
+    "explanation": "原價總和1000元，9折後900元，仍滿800元，再折50元，最後850元。",
+    "hint1": "先算三本原價總和。",
+    "hint2": "優惠順序是先9折，再判斷是否滿800。",
+    "source": "original",
+    "tags": [
+      "分段優惠",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-012",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "情境應用",
+    "topic": "合力",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個箱子受到向右30 N與向左18 N的水平力，其他水平方向力忽略。",
+    "question": "箱子受到的水平合力為何？",
+    "choices": [
+      "向右12 N",
+      "向左12 N",
+      "向右48 N",
+      "合力為0"
+    ],
+    "answer": 0,
+    "explanation": "相反方向的力要相減，30－18＝12 N，方向朝較大的右方。",
+    "hint1": "先判斷兩力方向是否相同。",
+    "hint2": "相反方向時，用較大力減較小力。",
+    "source": "original",
+    "tags": [
+      "合力",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-013",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "閱讀理解",
+    "topic": "熱傳播",
+    "competency": "理解科學敘述",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "金屬湯匙一端放入熱湯後，過一會兒握柄也變熱。湯匙本身沒有被火直接加熱。",
+    "question": "這個現象主要與哪一種熱傳播方式有關？",
+    "choices": [
+      "傳導",
+      "對流",
+      "輻射",
+      "蒸發"
+    ],
+    "answer": 0,
+    "explanation": "熱能沿金屬由高溫端傳到低溫端，主要是固體中的熱傳導。",
+    "hint1": "熱是沿著同一支金屬湯匙移動。",
+    "hint2": "固體內部直接傳遞熱能通常稱為什麼？",
+    "source": "original",
+    "tags": [
+      "熱傳播",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-014",
+    "subject": "science",
+    "chapter": "科學探究",
+    "domain": "科學探究與資料判讀",
+    "questionType": "資料分析",
+    "topic": "光照與距離",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "學生把相同光源放在不同距離，測得照度如下。",
+    "question": "依資料，下列敘述何者最合理？",
+    "choices": [
+      "距離增加時，照度有下降趨勢",
+      "距離越遠照度一定線性增加",
+      "30 cm時照度最高",
+      "資料證明所有光源都遵守完全相同關係"
+    ],
+    "answer": 0,
+    "explanation": "表中距離由10、20、30 cm增加時，照度由900、240、110 lux下降，可支持本實驗中有下降趨勢。",
+    "hint1": "先看兩欄數值隨距離的方向變化。",
+    "hint2": "結論不要超出本次光源與條件。",
+    "table": {
+      "headers": [
+        "距離(cm)",
+        "照度(lux)"
+      ],
+      "rows": [
+        [
+          10,
+          900
+        ],
+        [
+          20,
+          240
+        ],
+        [
+          30,
+          110
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "光照與距離",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-015",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "情境應用",
+    "topic": "酸鹼指示劑",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某無色溶液使藍色石蕊試紙變紅。",
+    "question": "下列哪一項最合理？",
+    "choices": [
+      "此溶液呈酸性",
+      "此溶液一定是純水",
+      "此溶液一定呈強鹼性",
+      "石蕊試紙可直接量出精確pH"
+    ],
+    "answer": 0,
+    "explanation": "藍色石蕊遇酸會變紅，因此可判斷溶液呈酸性，但不能由此得到精確pH。",
+    "hint1": "回想酸對藍色石蕊的影響。",
+    "hint2": "試紙能判斷性質，不代表能量出精確數值。",
+    "source": "original",
+    "tags": [
+      "酸鹼指示劑",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-016",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "閱讀理解",
+    "topic": "呼吸作用",
+    "competency": "擷取與統整科學文本訊息",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "人體細胞進行呼吸作用時，會利用氧分解養分並釋放能量，同時產生二氧化碳和水。",
+    "question": "依此敘述，下列何者正確？",
+    "choices": [
+      "呼吸作用會產生可供細胞利用的能量",
+      "呼吸作用只發生在肺部",
+      "二氧化碳是呼吸作用需要吸收的主要原料",
+      "水完全不可能由呼吸作用產生"
+    ],
+    "answer": 0,
+    "explanation": "文字明確指出細胞利用氧分解養分、釋放能量，並產生二氧化碳與水。",
+    "hint1": "直接找敘述中的「釋放」與「產生」。",
+    "hint2": "呼吸作用發生在細胞，不只肺部。",
+    "source": "original",
+    "tags": [
+      "呼吸作用",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-017",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "推論",
+    "topic": "遺傳機率",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某性狀由一對基因控制，A為顯性、a為隱性。兩親本基因型皆為Aa。",
+    "question": "子代出現aa的機率是多少？",
+    "choices": [
+      "1/4",
+      "1/2",
+      "3/4",
+      "一定不會"
+    ],
+    "answer": 0,
+    "explanation": "Aa×Aa的可能組合為AA、Aa、Aa、aa，因此aa占1/4。",
+    "hint1": "列出兩個親本各能提供A或a。",
+    "hint2": "用2×2組合表會最清楚。",
+    "source": "original",
+    "tags": [
+      "遺傳機率",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-018",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "推論",
+    "topic": "板塊邊界",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某地區沿狹長帶狀分布許多地震震央，附近也有海溝與火山島弧。",
+    "question": "此區最可能位於何種地質環境？",
+    "choices": [
+      "板塊交界附近",
+      "穩定大陸內部且遠離板塊邊界",
+      "沒有地殼活動的區域",
+      "只受季風影響的區域"
+    ],
+    "answer": 0,
+    "explanation": "地震帶、海溝與火山島弧常和板塊交界的隱沒作用有關。",
+    "hint1": "把地震、海溝、島弧三個線索一起看。",
+    "hint2": "這些都是板塊活動常見的地形與現象。",
+    "source": "original",
+    "tags": [
+      "板塊邊界",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-019",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "閱讀理解",
+    "topic": "季節成因",
+    "competency": "理解科學敘述",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "地球公轉時，自轉軸方向大致保持不變，且自轉軸與公轉軌道面不是垂直。",
+    "question": "造成中緯度地區一年中季節變化的主要原因是什麼？",
+    "choices": [
+      "地軸傾斜配合地球公轉",
+      "地球每天自轉一次",
+      "月球繞地球公轉",
+      "地球與太陽距離每天劇烈改變"
+    ],
+    "answer": 0,
+    "explanation": "地軸傾斜加上公轉，使不同時期太陽照射角度與日照長短改變，形成季節。",
+    "hint1": "題幹特別強調地軸方向與公轉。",
+    "hint2": "季節不是由一天一次的自轉造成。",
+    "source": "original",
+    "tags": [
+      "季節成因",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-020",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "閱讀理解",
+    "topic": "聲音傳播",
+    "competency": "擷取與統整科學文本訊息",
+    "grade": 8,
+    "difficulty": 2,
+    "passage": "太空人在月球表面若彼此隔著真空，不能像在地球空氣中直接靠喊話溝通。",
+    "question": "最主要的原因是什麼？",
+    "choices": [
+      "聲音需要介質傳播",
+      "月球完全沒有重力",
+      "真空會讓所有光消失",
+      "人的聲帶在月球一定無法振動"
+    ],
+    "answer": 0,
+    "explanation": "聲音是機械波，需要物質介質傳遞；真空缺乏足夠介質，所以聲音不能直接傳過去。",
+    "hint1": "想想聲音在空氣、水和固體中如何傳播。",
+    "hint2": "問題關鍵是「真空」。",
+    "source": "original",
+    "tags": [
+      "聲音傳播",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-021",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "資料分析",
+    "topic": "電功率",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某電器正常工作時電壓為110 V，電流為2 A。",
+    "question": "其電功率約為多少？",
+    "choices": [
+      "55 W",
+      "108 W",
+      "220 W",
+      "440 W"
+    ],
+    "answer": 2,
+    "explanation": "電功率P＝VI＝110×2＝220 W。",
+    "hint1": "使用P＝VI。",
+    "hint2": "電壓乘電流就是功率。",
+    "source": "original",
+    "tags": [
+      "電功率",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-022",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "資料分析",
+    "topic": "質量守恆",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "在密閉容器中，使甲、乙兩物質完全反應生成丙。反應前甲12 g、乙18 g。",
+    "question": "若反應後只有丙，丙的質量應為多少？",
+    "choices": [
+      "6 g",
+      "18 g",
+      "30 g",
+      "36 g"
+    ],
+    "answer": 2,
+    "explanation": "密閉系統中遵守質量守恆，反應前總質量12＋18＝30 g，所以產物總質量30 g。",
+    "hint1": "先算反應前總質量。",
+    "hint2": "密閉容器可避免物質逸散造成量測差異。",
+    "source": "original",
+    "tags": [
+      "質量守恆",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-023",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "閱讀理解",
+    "topic": "細胞功能",
+    "competency": "理解結構與功能關係",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "植物葉肉細胞含有許多葉綠體，可吸收光能進行光合作用；根部多數細胞則通常缺乏葉綠體。",
+    "question": "哪一項最能解釋這種差異？",
+    "choices": [
+      "葉片較常接受光照，需進行光合作用",
+      "根部細胞不需要能量",
+      "所有根部細胞都沒有細胞膜",
+      "葉綠體只負責儲存遺傳物質"
+    ],
+    "answer": 0,
+    "explanation": "葉綠體與光合作用有關，葉片暴露於光線、主要進行光合作用，因此葉肉細胞葉綠體較多。",
+    "hint1": "從葉綠體的功能去連結器官所在環境。",
+    "hint2": "根部仍需要能量，只是功能不同。",
+    "source": "original",
+    "tags": [
+      "細胞功能",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-024",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "推論",
+    "topic": "食物網影響",
+    "competency": "根據已知證據進行推論",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "某湖泊中，小魚吃浮游動物，大魚吃小魚。若短期內小魚數量明顯減少，其他條件近似不變。",
+    "question": "最可能直接受到影響的是什麼？",
+    "choices": [
+      "大魚可獲得的食物減少",
+      "浮游動物立刻全部消失",
+      "湖水一定立即乾涸",
+      "所有生物數量完全不變"
+    ],
+    "answer": 0,
+    "explanation": "大魚直接以小魚為食，小魚減少會先使大魚食物來源減少；其餘選項是過度推論。",
+    "hint1": "先找和小魚有直接攝食關係的生物。",
+    "hint2": "題目問「直接」影響。",
+    "source": "original",
+    "tags": [
+      "食物網影響",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-025",
+    "subject": "science",
+    "chapter": "科學探究",
+    "domain": "科學探究與資料判讀",
+    "questionType": "情境應用",
+    "topic": "控制變因",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "學生要比較不同肥料是否影響同種植物兩週後的高度。",
+    "question": "下列哪一項最應保持相同？",
+    "choices": [
+      "植物品種、光照與水量",
+      "肥料種類",
+      "兩週後的植物高度",
+      "實驗組名稱"
+    ],
+    "answer": 0,
+    "explanation": "肥料種類是自變因，植物高度是應變因；植物品種、光照與水量等應控制一致。",
+    "hint1": "先分辨「要改的」和「要保持一樣的」。",
+    "hint2": "被研究的肥料種類不能保持相同。",
+    "source": "original",
+    "tags": [
+      "控制變因",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-026",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "推論",
+    "topic": "浮力",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "同一物體先完全浸沒在水中，再完全浸沒在密度較大的鹽水中，物體體積不變。",
+    "question": "在鹽水中受到的浮力通常如何？",
+    "choices": [
+      "較大",
+      "較小",
+      "相同且一定為零",
+      "無法受到浮力"
+    ],
+    "answer": 0,
+    "explanation": "完全浸沒時排開液體體積相同，而鹽水密度較大，因此排開液體的重量較大，浮力較大。",
+    "hint1": "浮力與排開液體的重量有關。",
+    "hint2": "體積相同時，再比較液體密度。",
+    "source": "original",
+    "tags": [
+      "浮力",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-027",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "情境應用",
+    "topic": "透鏡成像",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "用凸透鏡把遠處景物清楚成像在白紙上。",
+    "question": "若把白紙拿走，只用眼睛看原來白紙的位置，最合理的說法是什麼？",
+    "choices": [
+      "原本形成的是可投影在白紙上的實像",
+      "凸透鏡完全不會折射光",
+      "遠處景物一定形成虛像且不能投影",
+      "拿走白紙後透鏡焦距會變成零"
+    ],
+    "answer": 0,
+    "explanation": "能清楚投影在白紙上的影像就是實像；白紙只是承接影像，不是造成折射的原因。",
+    "hint1": "能否投影到屏幕是判斷實像的重要線索。",
+    "hint2": "白紙拿走不會改變透鏡本身。",
+    "source": "original",
+    "tags": [
+      "透鏡成像",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-028",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "資料分析",
+    "topic": "天氣變化",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某地連續三小時觀測如下。",
+    "question": "下列哪一項描述最符合資料？",
+    "choices": [
+      "氣壓上升、氣溫下降，降雨後轉弱",
+      "氣溫持續升高且氣壓下降",
+      "氣壓與氣溫都完全不變",
+      "雨量越大氣溫一定越高"
+    ],
+    "answer": 0,
+    "explanation": "三小時中氣壓1004→1009→1013上升，氣溫27→24→22下降，雨量由大轉小，符合選項A。",
+    "hint1": "分別看氣壓、氣溫與雨量的趨勢。",
+    "hint2": "不要只看其中一欄。",
+    "table": {
+      "headers": [
+        "時間",
+        "氣溫(°C)",
+        "氣壓(hPa)",
+        "雨量(mm/h)"
+      ],
+      "rows": [
+        [
+          "14:00",
+          27,
+          1004,
+          12
+        ],
+        [
+          "15:00",
+          24,
+          1009,
+          6
+        ],
+        [
+          "16:00",
+          22,
+          1013,
+          1
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "天氣變化",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-029",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "資料分析",
+    "topic": "反應速率",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "學生用相同質量的碳酸鈣和相同濃度酸反應，只改變碳酸鈣顆粒大小。",
+    "question": "依表中完成反應時間，哪一組反應最快？",
+    "choices": [
+      "粉末",
+      "小顆粒",
+      "大顆粒",
+      "三組完全相同"
+    ],
+    "answer": 0,
+    "explanation": "其他條件相同時，完成時間越短代表反應越快；粉末只需35秒，因此最快。",
+    "hint1": "比較的是完成反應所需時間。",
+    "hint2": "時間越短，反應速率越快。",
+    "table": {
+      "headers": [
+        "形態",
+        "完成時間"
+      ],
+      "rows": [
+        [
+          "粉末",
+          "35秒"
+        ],
+        [
+          "小顆粒",
+          "68秒"
+        ],
+        [
+          "大顆粒",
+          "120秒"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "反應速率",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-science-030",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "情境應用",
+    "topic": "能量轉換",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "太陽能板為行動電源充電，之後行動電源再讓小風扇轉動。",
+    "question": "主要能量轉換順序最合理的是哪一項？",
+    "choices": [
+      "光能→電能→化學能→電能→動能",
+      "化學能→光能→核能→動能",
+      "動能→光能→電能→位能",
+      "熱能→核能→聲能→電能"
+    ],
+    "answer": 0,
+    "explanation": "太陽能板先把光能轉成電能，充電時儲為化學能，放電後再變成電能，最後馬達讓風扇具有動能。",
+    "hint1": "依序看太陽能板、電池、馬達三個階段。",
+    "hint2": "行動電源儲存能量時主要以化學能形式存在。",
+    "source": "original",
+    "tags": [
+      "能量轉換",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考自然科物理、化學、生物、地科、實驗設計與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-012",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "閱讀理解",
+    "topic": "港口與貿易",
+    "competency": "擷取與統整文本訊息",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某19世紀港口開放後，外商設立洋行，茶葉與樟腦出口增加，附近也出現倉庫、碼頭工人與運輸業。",
+    "question": "這段資料最能說明港口開放帶來什麼變化？",
+    "choices": [
+      "對外貿易擴張並帶動相關產業",
+      "農業與商業完全停止",
+      "所有居民都改成外國人",
+      "港口城市不再需要交通運輸"
+    ],
+    "answer": 0,
+    "explanation": "資料同時提到出口增加與洋行、倉庫、運輸等活動發展，顯示對外貿易擴張並帶動相關產業。",
+    "hint1": "找出出口與工作機會之間的連結。",
+    "hint2": "不是只有一種商品增加，而是整個港口周邊活動變多。",
+    "source": "original",
+    "tags": [
+      "港口與貿易",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-013",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境應用",
+    "topic": "權力分立",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某國制度中，立法機關制定法律，行政機關依法執行，法院可在個案中依法審判。",
+    "question": "這種安排最主要反映哪一項原則？",
+    "choices": [
+      "不同政府權力分工並相互制衡",
+      "所有權力集中在單一機關",
+      "法院負責制定全部法律",
+      "行政機關可以不受法律約束"
+    ],
+    "answer": 0,
+    "explanation": "立法、行政、司法分別負責不同功能，核心在權力分工與制衡。",
+    "hint1": "注意三個機關分別做不同事情。",
+    "hint2": "題目沒有說哪一個機關擁有全部權力。",
+    "source": "original",
+    "tags": [
+      "權力分立",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-014",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "氣候判讀",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "甲、乙兩地年平均氣溫與年雨量如下。",
+    "question": "依資料，下列敘述何者最恰當？",
+    "choices": [
+      "甲地較暖且年雨量較多",
+      "乙地一定位於沙漠",
+      "甲地人口一定較多",
+      "兩地農業型態一定完全相同"
+    ],
+    "answer": 0,
+    "explanation": "甲地年均溫24°C高於乙地15°C，年雨量2200 mm也高於900 mm；其他選項超出資料。",
+    "hint1": "只用表格能直接比較的項目。",
+    "hint2": "溫度和雨量不能直接決定人口或全部產業。",
+    "table": {
+      "headers": [
+        "地區",
+        "年均溫",
+        "年雨量"
+      ],
+      "rows": [
+        [
+          "甲",
+          "24°C",
+          "2200 mm"
+        ],
+        [
+          "乙",
+          "15°C",
+          "900 mm"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "氣候判讀",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-015",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "推論",
+    "topic": "資料可信度",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲資料來自某商品公司的廣告，聲稱使用者滿意度達98%，但未說明調查方式。乙資料來自公開研究報告，列出樣本數、抽樣方式與問卷題目。",
+    "question": "若要比較兩份資料的可信度，首先應注意什麼？",
+    "choices": [
+      "調查方法與樣本資訊是否透明",
+      "哪一份字體較大",
+      "哪一份顏色較鮮豔",
+      "哪一份在社群上轉發較多"
+    ],
+    "answer": 0,
+    "explanation": "資料是否可檢驗，關鍵之一是樣本與方法是否公開透明；版面與轉發數不能取代方法資訊。",
+    "hint1": "想想什麼資訊能讓別人重複檢查。",
+    "hint2": "可信度和調查方法比廣告外觀更有關。",
+    "source": "original",
+    "tags": [
+      "資料可信度",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-016",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "推論",
+    "topic": "工業化影響",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某城市在工廠增加後，大量人口從鄉村移入，住宅區向外擴張，鐵路貨運量也上升。",
+    "question": "這些現象最可能共同反映什麼？",
+    "choices": [
+      "工業化帶動都市化與交通需求",
+      "農村人口完全消失",
+      "工廠增加會使城市人口下降",
+      "鐵路只服務觀光客"
+    ],
+    "answer": 0,
+    "explanation": "工廠吸引人口移入、住宅擴張與貨運增加，都是工業化和都市化常見的連動現象。",
+    "hint1": "把人口、住宅、貨運三種變化一起看。",
+    "hint2": "它們都和生產活動集中在城市有關。",
+    "source": "original",
+    "tags": [
+      "工業化影響",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-017",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "情境應用",
+    "topic": "人口移動",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "甲地就業機會少、青年外移；乙地新設產業園區並增加住宅與交通建設。",
+    "question": "若其他條件相近，哪一項人口變化最合理？",
+    "choices": [
+      "乙地可能吸引較多就業人口移入",
+      "甲地青年人口一定快速增加",
+      "乙地人口一定全部來自海外",
+      "兩地人口移動與就業完全無關"
+    ],
+    "answer": 0,
+    "explanation": "就業機會增加通常形成吸引人口的拉力，因此乙地較可能有就業人口移入。",
+    "hint1": "注意哪一地出現新的就業機會。",
+    "hint2": "人口移動常和推力、拉力因素有關。",
+    "source": "original",
+    "tags": [
+      "人口移動",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-018",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "閱讀理解",
+    "topic": "權利與責任",
+    "competency": "擷取與統整文本訊息",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "社區公共空間供居民共同使用。住戶可依規定使用，但也應避免深夜製造噪音、任意堆放私人物品，以免影響其他人。",
+    "question": "這段文字最主要強調什麼？",
+    "choices": [
+      "行使權利時也需尊重他人與共同規範",
+      "公共空間只能由少數人使用",
+      "有權使用就不必遵守任何規定",
+      "住戶應把所有私人物品放在公共區域"
+    ],
+    "answer": 0,
+    "explanation": "文字同時提到居民有使用權，也要避免影響他人，強調權利與責任並存。",
+    "hint1": "看「可使用」後面又補充了哪些限制。",
+    "hint2": "核心不是禁止使用，而是如何使用。",
+    "source": "original",
+    "tags": [
+      "權利與責任",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-019",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "資料分析",
+    "topic": "時間順序",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某歷史事件時間如下。",
+    "question": "依年代先後，正確順序為何？",
+    "choices": [
+      "甲→乙→丙",
+      "乙→甲→丙",
+      "丙→甲→乙",
+      "乙→丙→甲"
+    ],
+    "answer": 1,
+    "explanation": "乙為1895年、甲為1914年、丙為1945年，因此順序是乙→甲→丙。",
+    "hint1": "把年份由小到大排列。",
+    "hint2": "不要先看事件名稱，先看年代。",
+    "table": {
+      "headers": [
+        "事件",
+        "年代"
+      ],
+      "rows": [
+        [
+          "甲",
+          "1914"
+        ],
+        [
+          "乙",
+          "1895"
+        ],
+        [
+          "丙",
+          "1945"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "時間順序",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-020",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "閱讀理解",
+    "topic": "季風與降雨",
+    "competency": "擷取與統整文本訊息",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某地夏季盛行由海洋吹向陸地的風，帶來大量水氣，因此夏季降雨明顯較多；冬季則相對乾燥。",
+    "question": "這段文字主要說明哪一項氣候特徵？",
+    "choices": [
+      "季風方向與水氣來源影響季節降雨",
+      "所有季節降雨量完全相同",
+      "降雨只由海拔高度決定",
+      "冬季一定比夏季炎熱"
+    ],
+    "answer": 0,
+    "explanation": "文字指出夏季風從海洋帶入水氣，造成夏季多雨，說明季風和水氣來源會影響季節性降雨。",
+    "hint1": "找出風向、水氣和降雨的因果關係。",
+    "hint2": "題目比較的是季節差異。",
+    "source": "original",
+    "tags": [
+      "季風與降雨",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-021",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "資料分析",
+    "topic": "政策評估",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某市試辦夜間公車三個月，記錄如下。",
+    "question": "若只依這些資料，哪一項結論最合理？",
+    "choices": [
+      "搭乘人次增加，但成本也上升，需進一步評估效益",
+      "政策已證明完全沒有成本",
+      "所有市民都使用夜間公車",
+      "只要搭乘增加就不必考慮任何支出"
+    ],
+    "answer": 0,
+    "explanation": "資料同時顯示搭乘人次由1200增至2100，月成本也由18萬增至24萬，因此需同時考量使用成長與成本。",
+    "hint1": "政策評估通常不只看單一指標。",
+    "hint2": "把人次和成本兩欄一起看。",
+    "table": {
+      "headers": [
+        "項目",
+        "試辦前",
+        "試辦後"
+      ],
+      "rows": [
+        [
+          "月搭乘人次",
+          "1200",
+          "2100"
+        ],
+        [
+          "月成本",
+          "18萬元",
+          "24萬元"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "政策評估",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-022",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "推論",
+    "topic": "公共決策",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "學校討論是否延長圖書館開放時間。學生會蒐集使用需求，行政單位估算人力與經費，再由相關會議討論方案。",
+    "question": "這個過程最能反映哪一種公共決策方式？",
+    "choices": [
+      "蒐集資訊並考量不同條件後討論",
+      "完全不需要任何資料",
+      "只由單一學生自行決定",
+      "先決定結果再禁止討論"
+    ],
+    "answer": 0,
+    "explanation": "題幹呈現需求調查、成本評估與會議討論，反映先蒐集資訊再綜合評估的決策過程。",
+    "hint1": "找出做決定前有哪些準備。",
+    "hint2": "它包含多方資料與討論。",
+    "source": "original",
+    "tags": [
+      "公共決策",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-023",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "閱讀理解",
+    "topic": "殖民經濟",
+    "competency": "擷取與統整文本訊息",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某殖民政府修築鐵路與港口，並鼓勵大量生產特定經濟作物出口到宗主國。當地農業生產結構也逐漸改變。",
+    "question": "這段資料主要反映哪一種現象？",
+    "choices": [
+      "殖民統治與出口導向經濟相互連動",
+      "殖民政府完全停止基礎建設",
+      "經濟作物與海外市場毫無關係",
+      "當地農業完全不受政策影響"
+    ],
+    "answer": 0,
+    "explanation": "基礎建設與特定作物出口都服務對外運輸與市場需求，反映殖民統治下的出口導向經濟。",
+    "hint1": "把鐵路、港口和出口作物放在同一脈絡看。",
+    "hint2": "基礎建設是為了支援什麼經濟活動？",
+    "source": "original",
+    "tags": [
+      "殖民經濟",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-024",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "扶養比概念",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "甲、乙兩地人口結構如下。",
+    "question": "若只看扶養負擔的潛在壓力，哪一地較可能面臨較高高齡扶養需求？",
+    "choices": [
+      "甲地",
+      "乙地",
+      "兩地一定完全相同",
+      "無法由任何人口資料判斷"
+    ],
+    "answer": 0,
+    "explanation": "甲地65歲以上人口占25%，高於乙地10%，因此高齡扶養需求的潛在壓力較高。",
+    "hint1": "比較65歲以上人口比例。",
+    "hint2": "題目問的是高齡扶養需求，不是總人口。",
+    "table": {
+      "headers": [
+        "地區",
+        "0–14歲",
+        "15–64歲",
+        "65歲以上"
+      ],
+      "rows": [
+        [
+          "甲",
+          "10%",
+          "65%",
+          "25%"
+        ],
+        [
+          "乙",
+          "18%",
+          "72%",
+          "10%"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "扶養比概念",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-025",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境應用",
+    "topic": "契約與消費",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "小安網購商品後發現實物與網頁標示規格不同。他保留訂單、商品頁截圖與客服對話。",
+    "question": "下列哪一項行動最適合處理爭議？",
+    "choices": [
+      "保存證據並透過合法申訴或協商管道處理",
+      "先刪除所有紀錄",
+      "公開無關人員的個人資料",
+      "自行拿走商家其他商品抵償"
+    ],
+    "answer": 0,
+    "explanation": "保存交易證據並透過合法管道協商或申訴，有助於釐清契約內容與主張權益。",
+    "hint1": "先想哪些資料能證明交易內容。",
+    "hint2": "處理爭議要兼顧合法性與證據。",
+    "source": "original",
+    "tags": [
+      "契約與消費",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-026",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "推論",
+    "topic": "全球供應鏈",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某電子產品的晶片在甲地生產、螢幕在乙地製造，最後在丙地組裝，再銷往多國市場。",
+    "question": "這種生產方式最能反映什麼？",
+    "choices": [
+      "產業分工跨越不同地區形成供應鏈",
+      "所有零件都必須在同一城市製造",
+      "國際運輸對生產完全不重要",
+      "產品只會在丙地銷售"
+    ],
+    "answer": 0,
+    "explanation": "不同零件在不同地區生產、再跨地組裝與銷售，正是跨區域分工與供應鏈的特徵。",
+    "hint1": "注意生產步驟分散在甲、乙、丙。",
+    "hint2": "這不是單一地點完成全部生產。",
+    "source": "original",
+    "tags": [
+      "全球供應鏈",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-027",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "推論",
+    "topic": "歷史延續與變遷",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "某老市場在百年前是農產品交易場所，後來增建冷藏設備與停車空間，近年又加入網路訂購與宅配服務，但仍保留每天清晨批發交易。",
+    "question": "這段資料最能說明什麼？",
+    "choices": [
+      "市場功能在變化中仍保留部分傳統",
+      "市場百年來完全沒有改變",
+      "網路服務出現後實體交易立即消失",
+      "冷藏設備使農產品不再交易"
+    ],
+    "answer": 0,
+    "explanation": "設備與服務方式持續改變，但清晨批發交易仍保留，呈現變遷與延續同時存在。",
+    "hint1": "找出哪些部分改變、哪些部分保留。",
+    "hint2": "歷史變化不一定代表全部舊功能消失。",
+    "source": "original",
+    "tags": [
+      "歷史延續與變遷",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-028",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "情境應用",
+    "topic": "區位判斷",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某冷鏈物流中心需要大量高速公路運輸，且每天有許多大型貨車進出。甲地位於市中心巷弄內；乙地靠近交流道並有大片工業用地。",
+    "question": "若只考慮交通與貨運需求，較適合設在哪裡？",
+    "choices": [
+      "乙地",
+      "甲地",
+      "兩地完全相同",
+      "一定要設在山頂"
+    ],
+    "answer": 0,
+    "explanation": "靠近交流道且有較大用地的乙地，更符合大型貨車與高速公路運輸需求。",
+    "hint1": "題目已限定只考慮交通與貨運。",
+    "hint2": "大型貨車需要什麼樣的道路與空間？",
+    "source": "original",
+    "tags": [
+      "區位判斷",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-029",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "資料分析",
+    "topic": "抽樣代表性",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某校想調查全校學生對午餐的意見。甲組只在籃球隊練習後訪問20名球員；乙組依各年級人數比例隨機抽取200名學生。",
+    "question": "哪一組調查較適合用來推估全校意見？",
+    "choices": [
+      "乙組，樣本較大且涵蓋各年級",
+      "甲組，因受訪者彼此認識",
+      "甲組，因只訪問同一社團較方便",
+      "兩組一定完全一樣"
+    ],
+    "answer": 0,
+    "explanation": "乙組樣本較大，且依各年級比例隨機抽樣，代表性通常比單一球隊樣本更好。",
+    "hint1": "比較樣本來源是否涵蓋目標母體。",
+    "hint2": "方便取樣不等於代表性好。",
+    "source": "original",
+    "tags": [
+      "抽樣代表性",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-social-030",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "閱讀理解",
+    "topic": "程序保障",
+    "competency": "擷取與統整文本訊息",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某制度規定，當事人在受到不利處分前，應有機會知道主要理由並提出說明；作成決定後，也提供一定的申訴管道。",
+    "question": "這類規定主要在保障什麼？",
+    "choices": [
+      "程序上的陳述與救濟機會",
+      "任何人都可不遵守規則",
+      "所有決定都不能被作成",
+      "只有機關能表達意見"
+    ],
+    "answer": 0,
+    "explanation": "知道理由、提出說明與事後申訴，都屬於程序保障與救濟機會。",
+    "hint1": "注意題目強調的是作成決定前後的程序。",
+    "hint2": "重點不是結果一定如何，而是當事人能否參與與救濟。",
+    "source": "original",
+    "tags": [
+      "程序保障",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考社會科歷史、地理、公民、公共議題與資料判讀能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
   }
 ]

@@ -299,7 +299,7 @@ it('does not start a new exam when an old check URL is opened after submission',
 it('defaults short practice to explicitly reviewed CAP-oriented questions',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
   expect(document.querySelector('#practice-focus')?.value).toBe('aligned');
-  expect(document.body.textContent).toContain('會考導向 55 題');
+  expect(document.body.textContent).toContain('會考導向 150 題');
   expect(document.body.textContent).toContain('基礎補強 55 題');
   document.querySelector('[data-action="start-practice"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
@@ -384,7 +384,7 @@ it('does not create blank or unclickable revenge entries for stale question ids'
 it('can include all original questions with an accurate live count',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
   const focus=document.querySelector('#practice-focus');focus.value='all';focus.dispatchEvent(new Event('change',{bubbles:true}));
-  expect(document.querySelector('[data-practice-matches]').textContent).toContain('110 題');
+  expect(document.querySelector('[data-practice-matches]').textContent).toContain('205 題');
   document.querySelector('[data-action="start-practice"]').click();
   expect(JSON.parse(localStorage.getItem(key)).activeExam.title).toContain('全部原創');
 });
