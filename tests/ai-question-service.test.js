@@ -6,7 +6,7 @@ import {
   qaGeneratedQuestions,
   validateGenerateRequest
 } from '../api/lib/question-service.js';
-import { createGenerateQuestionHandler } from '../api/generate-question.js';
+import vercelHandler, { createGenerateQuestionHandler } from '../api/generate-question.js';
 
 const brief = {
   subject: 'english',
@@ -106,6 +106,13 @@ describe('AI question service contracts', () => {
 
 
 describe('generate-question HTTP handler', () => {
+
+  it('exports the Vercel Web Standard fetch handler shape', () => {
+    expect(typeof vercelHandler).toBe('object');
+    expect(typeof vercelHandler.fetch).toBe('function');
+  });
+
+
   it('returns 405 for non-POST methods', async () => {
     const handler=createGenerateQuestionHandler({fetchImpl:async()=>{ throw new Error('should not call'); },env:{OPENAI_API_KEY:'x'}});
     const response=await handler(new Request('https://example.test/api/generate-question',{method:'GET'}));
