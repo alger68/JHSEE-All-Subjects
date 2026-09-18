@@ -7,6 +7,21 @@ const escapeHtml = (value) => String(value ?? '')
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
   .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 
+const SUBJECT_LABELS={chinese:'國文',english:'英文',math:'數學',science:'自然',social:'社會'};
+
+function sparkline(points=[]){
+  if(!points.length)return '<p class="muted">完成更多練習後會開始累積趨勢。</p>';
+  const values=points.map(point=>Number(point.overall??60));
+  const min=Math.min(...values,0),max=Math.max(...values,100);
+  const span=Math.max(1,max-min);
+  const coords=values.map((value,index)=>{
+    const x=values.length===1?50:index/(values.length-1)*100;
+    const y=36-((value-min)/span)*32;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  return `<div class="progress-chart"><svg viewBox="0 0 100 40" role="img" aria-label="最近熟練度趨勢"><polyline points="${coords}" fill="none" stroke="currentColor" stroke-width="2.5" vector-effect="non-scaling-stroke"></polyline></svg><div class="muted">${points.map(point=>`<span>${escapeHtml(point.date.slice(5))}・${point.overall}</span>`).join('　')}</div></div>`;
+}
+
 function nav(active = 'home') {
   const items = [
     ['home', '#/', '⌂', '首頁'], ['worlds', '#/world/math', '⌁', '關卡'],
@@ -81,7 +96,7 @@ export function renderRevenge({ items = [], date = '' }) {
   return `<div class="app-shell"><header class="page-header"><a href="#/exam-center">←</a><div><span class="eyebrow">SPACED REVIEW</span><h1>錯題與不確定題複習</h1></div></header><p class="notice">今天到期 ${due} 題・共 ${items.length} 題。先自行作答，再看解析；同一天重做不會重複增加熟練度。熟悉的題目也會安排之後再確認。</p>${missingNotice}${sessionButton}${items.length?`<section class="review-list">${sorted.map(item=>{const valid=item.available!==false;return `<article class="${valid?'':'review-missing'}"><b>${valid?(['🔴','🟠','🟡','🟢'][item.mastery]??'🔴'):'⚠️'}</b><div><h3>${escapeHtml(item.topic??item.questionId)}</h3><p>${valid?`${item.source==='official'?'官方原題':'原創練習'}・熟練度 ${item.mastery}/3・答錯 ${item.wrongCount} 次${item.uncertainCount?`・不確定 ${item.uncertainCount} 次`:''}`:'題目資料目前無法載入，無法開始作答'}</p><p>${item.nextReview<=date?'今天到期':'下次複習：'+escapeHtml(item.nextReview)}</p>${valid?`${reasonSelect(item.questionId,item.reason)}<button class="primary-button" data-action="start-revenge" data-id="${escapeHtml(item.questionId)}">${item.nextReview<=date?'開始到期複習':'提前練習'}</button>`:'<span class="muted">請重新整理頁面後再試</span>'}</div></article>`;}).join('')}</section>`:'<section class="empty-state"><span>✨</span><h2>目前沒有待複習題目</h2><p>答錯或標記不確定的題目會出現在這裡。</p><a href="#/exam-center">選擇練習</a></section>'}${nav('revenge')}</div>`;
 }
 
-export function renderAnalysis(summary, { diagnostic = null, adaptive = null } = {}) {
+export function renderAnalysis(summary, { diagnostic = null, adaptive = null, progress = [], errorReasons = [] } = {}) {
   const subjectRows = SUBJECT_ORDER.filter((id) => summary.subjects[id]).map((id) => {
     const stat = summary.subjects[id]; const item = SUBJECTS[id];
     return `<article style="--subject:${item.color}"><span>${item.icon}</span><div><h3>${item.name}</h3><div class="progress"><i style="width:${stat.accuracy}%"></i></div><p>${stat.status === 'insufficient-data' ? '資料不足' : `正確率 ${stat.accuracy}%`}</p></div><strong>${stat.accuracy}%</strong></article>`;
@@ -94,11 +109,36 @@ export function renderAnalysis(summary, { diagnostic = null, adaptive = null } =
     ${adaptive.subjectWeights?`<div class="weight-grid">${Object.entries(adaptive.subjectWeights).sort((a,b)=>b[1]-a[1]).map(([id,w])=>`<div><span>${weightNames[id]??id}</span><strong>${Number(w).toFixed(1)}%</strong><i style="width:${Math.min(100,w*2.2)}%"></i></div>`).join('')}</div>`:''}
     ${adaptive.topSkills?.length?`<h3>目前優先核心能力</h3><div class="diagnostic-list">${adaptive.topSkills.slice(0,5).map((skill,index)=>`<article><div><strong>#${index+1} ${escapeHtml(skill.competency)}</strong><span>P${skill.priorityScore}</span></div><b>熟練度 ${skill.mastery}/100・${escapeHtml(skill.lastMode)}</b><p>${escapeHtml(skill.domain)}${skill.consecutiveWrong? `・連錯 ${skill.consecutiveWrong} 次`:''}${skill.nextReviewDate?`・下次 ${escapeHtml(skill.nextReviewDate)}`:''}</p></article>`).join('')}</div>`:'<p class="muted">完成幾題後，這裡會開始顯示真正的核心能力弱點。</p>'}
   </section>` : '';
-  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">ABILITY SCAN</span><h1>能力分析</h1></div><span></span></header>${subjectRows ? `<section class="analysis-list">${subjectRows}</section>` : '<section class="empty-state"><span>📊</span><h2>還沒有足夠資料</h2><p>完成每科至少 3 題後，這裡會開始顯示強項與弱點。</p><a href="#/">開始第一場冒險</a></section>'}${adaptivePanel}${diagnosticPanel}${nav('analysis')}</div>`;
+  const recent=progress.slice(-7);
+  const progressPanel=`<section class="diagnostic-panel"><div class="section-heading"><div><span class="eyebrow">7-DAY TREND</span><h2>最近 7 天 Mastery 進步曲線</h2></div></div>${sparkline(recent)}</section>`;
+  const errorPanel=`<section class="diagnostic-panel"><div class="section-heading"><div><span class="eyebrow">ERROR PATTERNS</span><h2>錯因統計</h2></div></div>${errorReasons.length?`<div class="diagnostic-list">${errorReasons.slice(0,6).map(item=>`<article><div><strong>${escapeHtml(item.label)}</strong><span>${item.count} 次</span></div></article>`).join('')}</div>`:'<p class="muted">目前沒有足夠錯因資料。</p>'}</section>`;
+  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">ABILITY SCAN</span><h1>能力分析</h1></div><a class="text-link" href="#/parent">家長摘要</a></header>${subjectRows ? `<section class="analysis-list">${subjectRows}</section>` : '<section class="empty-state"><span>📊</span><h2>還沒有足夠資料</h2><p>完成每科至少 3 題後，這裡會開始顯示強項與弱點。</p><a href="#/">開始第一場冒險</a></section>'}${progressPanel}${errorPanel}${adaptivePanel}${diagnosticPanel}${nav('analysis')}</div>`;
 }
 
-export function renderProfile({ player }) {
-  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">PLAYER</span><h1>我的冒險資料</h1></div><span></span></header><section class="profile-card"><span class="avatar">🧑‍🚀</span><h2>${escapeHtml(player.name)}</h2><strong>LV.${player.level}</strong><dl><div><dt>累積 EXP</dt><dd>${player.exp}</dd></div><div><dt>金幣</dt><dd>${player.coins}</dd></div><div><dt>總答題</dt><dd>${player.totalAnswered}</dd></div><div><dt>擊敗 Boss</dt><dd>${player.bossesDefeated}</dd></div></dl><button class="danger-button" data-action="reset-progress">重設全部進度</button></section>${nav('profile')}</div>`;
+export function renderProfile({ player, ai = null, cycles = [], currentCycle = 1 }) {
+  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">PLAYER</span><h1>我的冒險資料</h1></div><span></span></header><section class="profile-card"><span class="avatar">🧑‍🚀</span><h2>${escapeHtml(player.name)}</h2><strong>LV.${player.level}</strong><dl><div><dt>累積 EXP</dt><dd>${player.exp}</dd></div><div><dt>金幣</dt><dd>${player.coins}</dd></div><div><dt>總答題</dt><dd>${player.totalAnswered}</dd></div><div><dt>目前週期</dt><dd>#${currentCycle}</dd></div></dl>${ai?`<p class="notice">今日 AI 題量：${ai.used} / ${ai.limit}，尚可使用 ${ai.remaining} 題。</p>`:''}<div class="practice-filters"><a class="primary-button" href="#/parent">家長摘要</a><a class="secondary-button" href="#/reset">重新開始／重設</a></div>${cycles.length?`<details><summary>查看已封存學習週期（${cycles.length}）</summary><ul class="attempt-list">${cycles.slice().reverse().map(item=>`<li><strong>第 ${item.cycle} 階段</strong><span>答題 ${item.answered}・待複習 ${item.openWrong}</span><small>${escapeHtml(item.endedAt)}</small></li>`).join('')}</ul></details>`:''}</section>${nav('profile')}</div>`;
+}
+
+export function renderResetWizard({ currentCycle = 1, ai = null } = {}) {
+  return `<div class="app-shell"><header class="page-header"><a href="#/profile">←</a><div><span class="eyebrow">RESTART WIZARD</span><h1>重新開始學習</h1></div><span></span></header>
+  <section class="practice-panel"><h2>選擇要清掉多少記憶</h2><p class="muted">三種模式都只影響這台裝置的學習資料；完整重置無法復原。</p>
+  <div class="diagnostic-list">
+    <article><div><strong>完整重置</strong><span>全部清空</span></div><p>玩家進度、錯題、報告、Mastery、AI 題全部清除，像第一次使用。</p><button class="danger-button" data-action="reset-full">完整重置</button></article>
+    <article><div><strong>只重置 AI／自適應記憶</strong><span>保留歷史</span></div><p>保留歷屆成績、錯題與玩家進度；Mastery、Priority、AI 生成題重新開始。</p><button class="secondary-button" data-action="reset-adaptive">重算弱點</button></article>
+    <article><div><strong>建立新學習週期</strong><span>目前第 ${currentCycle} 階段</span></div><p>先封存本階段摘要，再以新的 Mastery 底盤開始，方便之後比較進步。</p><button class="primary-button" data-action="reset-cycle">封存並開始下一階段</button></article>
+  </div></section>
+  <section class="practice-panel"><span class="eyebrow">NEW BASELINE</span><h2>重新診斷 25 題</h2><p>五科各 5 題；優先使用本地題庫，今日 AI 額度允許時最多加入 5 題 AI 診斷題。</p>${ai?`<p class="notice">今日 AI 尚可使用 ${ai.remaining} / ${ai.limit} 題。</p>`:''}<button class="primary-button" data-action="start-diagnostic">開始 25 題重新診斷</button></section></div>`;
+}
+
+export function renderParentView(summary, progress = [], cycles = []) {
+  const recent=progress.slice(-7);
+  return `<div class="app-shell"><header class="page-header"><a href="#/profile">←</a><div><span class="eyebrow">PARENT SUMMARY</span><h1>家長摘要</h1></div><span>第 ${summary.cycle} 階段</span></header>
+  <section class="practice-panel"><h2>今天完成</h2><div class="adaptive-summary"><span>答題 <b>${summary.today.answered}</b></span><span>答對 <b>${summary.today.correct}</b></span><span>正確率 <b>${summary.today.accuracy}%</b></span><span>待複習 <b>${summary.openWrong}</b></span></div><p class="muted">AI 今日使用 ${summary.ai.used}/${summary.ai.limit} 題，剩餘 ${summary.ai.remaining} 題。</p></section>
+  <section class="practice-panel"><h2>目前最需要注意</h2>${summary.topWeaknesses.length?`<div class="diagnostic-list">${summary.topWeaknesses.slice(0,5).map((item,index)=>`<article><div><strong>#${index+1} ${escapeHtml(item.competency)}</strong><span>P${item.priorityScore??0}</span></div><p>${SUBJECT_LABELS[item.subject]??item.subject}・Mastery ${item.mastery??60}/100${item.consecutiveWrong?`・連錯 ${item.consecutiveWrong}`:''}</p></article>`).join('')}</div>`:'<p class="muted">目前尚未累積足夠弱點資料。</p>'}</section>
+  <section class="practice-panel"><h2>明天建議</h2>${summary.tomorrowPlan.length?`<ol>${summary.tomorrowPlan.map(item=>`<li>${SUBJECT_LABELS[item.subject]??item.subject}・${escapeHtml(item.competency)}（Mastery ${item.mastery??60}）</li>`).join('')}</ol>`:'<p>維持五科基礎短練習即可。</p>'}</section>
+  <section class="practice-panel"><h2>7 天進步</h2>${sparkline(recent)}</section>
+  <section class="practice-panel"><h2>常見錯因</h2>${summary.errorReasons.length?`<div class="diagnostic-list">${summary.errorReasons.slice(0,5).map(item=>`<article><div><strong>${escapeHtml(item.label)}</strong><span>${item.count} 次</span></div></article>`).join('')}</div>`:'<p class="muted">尚無足夠錯因資料。</p>'}</section>
+  ${cycles.length?`<section class="practice-panel"><h2>階段紀錄</h2><ul class="attempt-list">${cycles.slice(-4).reverse().map(item=>`<li><strong>第 ${item.cycle} 階段</strong><span>答題 ${item.answered}・待複習 ${item.openWrong}</span><small>${escapeHtml(item.endedAt)}</small></li>`).join('')}</ul></section>`:''}</div>`;
 }
 
 export function renderExam({ exam, index, answers, remaining }) {
