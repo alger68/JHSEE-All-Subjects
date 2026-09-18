@@ -182,8 +182,9 @@ it('offers a grade and question-type filtered original practice, with material v
   document.querySelector('#practice-type').value='情境應用';
   document.querySelector('[data-action="start-practice"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
-  expect(session.questionIds).toHaveLength(2);
-  expect(session.questionIds.every(id=>['CAP-P-math-001','CAP-P-math-006'].includes(id))).toBe(true);
+  const expected=practice.filter(q=>q.subject==='math'&&q.grade<=7&&q.questionType==='情境應用').map(q=>q.id);
+  expect(session.questionIds).toHaveLength(expected.length);
+  expect(session.questionIds.every(id=>expected.includes(id))).toBe(true);
   expect(document.querySelector('.passage')).not.toBeNull();
 });
 it('a correct but uncertain review does not increase the wrong-answer count',async()=>{
