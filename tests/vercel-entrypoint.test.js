@@ -7,6 +7,6 @@ afterEach(() => {
 
 it('loads the Vercel entrypoint without requiring fetch during module initialization', async () => {
   vi.stubGlobal('fetch', undefined);
-  const mod=await import(`../api/generate-question.js?lazy-init=${Date.now()}`);
+  const mod=await import('../api/generate-question.js');
   expect(typeof mod.default?.fetch).toBe('function');
 });
