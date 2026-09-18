@@ -79,12 +79,21 @@ export function validateGenerateRequest(body){
     passage:clean(body.sourceQuestion.passage,5000),
     choices:Array.isArray(body.sourceQuestion.choices)?body.sourceQuestion.choices.map(x=>clean(x,600)).slice(0,4):[]
   }:null;
-  return {ok:true,value:{brief,count,sourceQuestion}};
+  const avoidQuestions=Array.isArray(body?.avoidQuestions)
+    ? body.avoidQuestions.slice(-8).map(item=>({
+        question:clean(item?.question,800),
+        passage:clean(item?.passage,1800)
+      })).filter(item=>item.question||item.passage)
+    :[];
+  return {ok:true,value:{brief,count,sourceQuestion,avoidQuestions}};
 }
 
-export function buildGenerationPrompt(brief,sourceQuestion,count){
+export function buildGenerationPrompt(brief,sourceQuestion,count,avoidQuestions=[]){
   const source=sourceQuestion
     ? `\n原始題僅用來辨識能力，不可改寫或近似複製：\n題幹：${sourceQuestion.question||'(無)'}\n文章：${sourceQuestion.passage||'(無)'}`
+    :'';
+  const avoid=(avoidQuestions??[]).length
+    ? `\n最近已做過的題目，禁止重複其情境、敘事骨架或核心表面形式：\n${avoidQuestions.map((item,index)=>`${index+1}. 題幹：${item.question||'(無)'}｜材料：${item.passage||'(無)'}`).join('\n')}`
     :'';
   return [
     '請產生台灣國中教育會考風格的原創練習題。',
@@ -97,9 +106,11 @@ export function buildGenerationPrompt(brief,sourceQuestion,count){
     `請產生 ${count} 題。`,
     '每題四個選項且只有一個最佳答案。錯誤選項需各自代表合理迷思，errorTags 依 A/B/C/D 順序對應。',
     '不得只替換人名、數字、地點或關鍵名詞；必須更換情境、資訊表面與敘事。',
+    '同一批題目彼此也必須明顯不同：盡量輪替短文、公告、對話、表格、圖表、實驗紀錄、生活情境、史料或資料判讀等刺激形式；不可全部使用同一敘事模板。',
     '不得複製歷屆官方題目文字。解析要說明為何正解成立，提示不得直接洩漏答案。',
     brief.requirements.length?`其他要求：${brief.requirements.join('；')}`:'',
-    source
+    source,
+    avoid
   ].filter(Boolean).join('\n');
 }
 
@@ -121,7 +132,22 @@ export function extractResponseJson(apiResponse){
 
 const norm=(s)=>clean(s,6000).toLowerCase().replace(/\s+/g,' ').replace(/[\p{P}\p{S}]/gu,'').trim();
 
-export function qaGeneratedQuestions(payload,brief,count,sourceQuestion=null){
+function shingles(value,size=3){
+  const text=norm(value).replace(/\s+/g,'');
+  if(text.length<size)return new Set(text?[text]:[]);
+  const set=new Set();
+  for(let i=0;i<=text.length-size;i+=1)set.add(text.slice(i,i+size));
+  return set;
+}
+function similarity(a,b){
+  const left=shingles(a),right=shingles(b);
+  if(!left.size||!right.size)return 0;
+  let intersection=0;
+  for(const token of left)if(right.has(token))intersection+=1;
+  return intersection/(left.size+right.size-intersection);
+}
+
+export function qaGeneratedQuestions(payload,brief,count,sourceQuestion=null,avoidQuestions=[]){
   if(!payload||!Array.isArray(payload.questions)||payload.questions.length!==count){
     return {ok:false,error:'question count mismatch'};
   }
@@ -136,8 +162,12 @@ export function qaGeneratedQuestions(payload,brief,count,sourceQuestion=null){
     const qt=norm(q.question);
     if(!qt||texts.has(qt))return {ok:false,error:'duplicate or missing question'};
     texts.add(qt);
-    if(sourceQ&&qt===sourceQ)return {ok:false,error:'question copied from source'};
-    if(sourceP&&norm(q.passage)===sourceP)return {ok:false,error:'passage copied from source'};
+    if(sourceQ&&(qt===sourceQ||similarity(q.question,sourceQuestion?.question)>0.82))return {ok:false,error:'question too similar to source'};
+    if(sourceP&&(norm(q.passage)===sourceP||similarity(q.passage,sourceQuestion?.passage)>0.86))return {ok:false,error:'passage too similar to source'};
+    for(const old of avoidQuestions??[]){
+      if(old?.question&&similarity(q.question,old.question)>0.78)return {ok:false,error:'question too similar to recent history'};
+      if(q.passage&&old?.passage&&similarity(q.passage,old.passage)>0.82)return {ok:false,error:'passage too similar to recent history'};
+    }
     if(q.subject!==brief.subject)return {ok:false,error:'subject mismatch'};
     if(clean(q.domain,120)!==brief.domain)return {ok:false,error:'domain mismatch'};
     if(clean(q.competency,160)!==brief.coreSkill)return {ok:false,error:'core skill mismatch'};
