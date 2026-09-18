@@ -2673,5 +2673,733 @@
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-18",
     "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考閱讀、推論、資料判讀與情境應用能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-012",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "擷取與統整文本訊息",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Some students think a study break wastes time. However, short breaks can help the brain stay focused. A five-minute walk, a glass of water, or looking away from the screen may make it easier to return to a difficult task.",
+    "question": "What is the main idea of the passage?",
+    "choices": [
+      "Short breaks can help students return to study with better focus.",
+      "Students should stop studying whenever work becomes difficult.",
+      "Walking is the only useful kind of break.",
+      "Screen time always improves concentration."
+    ],
+    "answer": 0,
+    "explanation": "The passage explains that brief, simple breaks may help students refocus and continue difficult work.",
+    "hint1": "Look at the idea repeated in both the first and last sentences.",
+    "hint2": "The passage is about the purpose of short breaks, not one specific activity.",
+    "source": "original",
+    "tags": [
+      "Main idea",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-013",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Message inference",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "Text message from Ken: “I’m still at the station. The 4:10 train was canceled, and the next one leaves at 4:45. Please start the meeting without me. I’ll join as soon as I arrive.”",
+    "question": "What can we infer about Ken?",
+    "choices": [
+      "He will probably be late for the meeting.",
+      "He has decided not to attend the meeting.",
+      "The meeting was canceled because of the train.",
+      "He arrived before everyone else."
+    ],
+    "answer": 0,
+    "explanation": "Ken says the earlier train was canceled and asks others to start without him, so he expects to arrive late.",
+    "hint1": "Use both the train times and his request about the meeting.",
+    "hint2": "Why would he ask them to start without him?",
+    "source": "original",
+    "tags": [
+      "Message inference",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-014",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Schedule matching",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Four workshops are offered on Saturday. Mia is free only after 10:30 and must leave by 13:00.",
+    "question": "Which workshop can Mia attend from beginning to end?",
+    "choices": [
+      "Robotics",
+      "Cooking",
+      "Photography",
+      "Drama"
+    ],
+    "answer": 2,
+    "explanation": "Photography runs from 11:00 to 12:30, fully inside Mia's available time. The others either start too early or end after 13:00.",
+    "hint1": "Compare both start and end times with Mia's free period.",
+    "hint2": "The whole workshop must fit between 10:30 and 13:00.",
+    "table": {
+      "headers": [
+        "Workshop",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Robotics",
+          "09:30–11:00"
+        ],
+        [
+          "Cooking",
+          "10:00–11:30"
+        ],
+        [
+          "Photography",
+          "11:00–12:30"
+        ],
+        [
+          "Drama",
+          "12:00–13:30"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Schedule matching",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-015",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "情境應用",
+    "topic": "Notice rules",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Library Notice\nStudy rooms may be booked for 30 or 60 minutes. A group must have at least three students. Food is not allowed. Bookings end at 7:00 p.m.",
+    "question": "Which group follows all the rules?",
+    "choices": [
+      "Two students book a room for 60 minutes.",
+      "Four students book a room for 45 minutes.",
+      "Three students book a room for 30 minutes and bring only water.",
+      "Five students book a room at 7:30 p.m."
+    ],
+    "answer": 2,
+    "explanation": "A group of three meets the minimum size and 30 minutes is an allowed booking length. The notice forbids food, not water.",
+    "hint1": "Check group size, booking length, and time.",
+    "hint2": "One choice satisfies every rule, not just one.",
+    "source": "original",
+    "tags": [
+      "Notice rules",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-016",
+    "subject": "english",
+    "chapter": "Vocabulary Bay",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Word in context",
+    "competency": "依上下文理解語詞",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "The museum guide asked visitors to keep their voices low because a recording was in progress. Most people became quiet immediately, but one child continued speaking loudly until his father gently reminded him.",
+    "question": "What does “in progress” most likely mean?",
+    "choices": [
+      "happening now",
+      "already canceled",
+      "ready to be sold",
+      "difficult to understand"
+    ],
+    "answer": 0,
+    "explanation": "The request for silence is needed because the recording is happening at that moment.",
+    "hint1": "Look at why visitors are asked to be quiet.",
+    "hint2": "The phrase describes the current status of the recording.",
+    "source": "original",
+    "tags": [
+      "Word in context",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-017",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Purpose inference",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "Dear parents,\nBecause of the expected heavy rain tomorrow afternoon, the school sports day will end at 1:30 instead of 3:30. Students should still bring lunch, but afternoon club activities are canceled. Buses will leave at 1:50.",
+    "question": "Why was this message most likely sent?",
+    "choices": [
+      "To explain changes to tomorrow's schedule",
+      "To invite parents to join a new sports club",
+      "To announce that the sports day will move to another school",
+      "To ask students to bring extra sports equipment"
+    ],
+    "answer": 0,
+    "explanation": "The message lists changes caused by expected heavy rain: an earlier ending time, canceled clubs, and earlier buses.",
+    "hint1": "Focus on what information has changed.",
+    "hint2": "Several schedule details are being updated for tomorrow.",
+    "source": "original",
+    "tags": [
+      "Purpose inference",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-018",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Price comparison",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "Leo needs exactly two notebooks and one pen. He has NT$100.",
+    "question": "Which store is the cheapest choice that Leo can afford?",
+    "choices": [
+      "Store A",
+      "Store B",
+      "Store C",
+      "None of them"
+    ],
+    "answer": 1,
+    "explanation": "Store A costs 35×2+25=95. Store B costs 30×2+20=80. Store C costs 40×2+15=95. Store B is cheapest.",
+    "hint1": "Calculate the total for the same shopping list at each store.",
+    "hint2": "Compare total cost, not the price of just one item.",
+    "table": {
+      "headers": [
+        "Store",
+        "Notebook",
+        "Pen"
+      ],
+      "rows": [
+        [
+          "A",
+          "35",
+          "25"
+        ],
+        [
+          "B",
+          "30",
+          "20"
+        ],
+        [
+          "C",
+          "40",
+          "15"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Price comparison",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-019",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Sequence",
+    "competency": "擷取與統整文本訊息",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "First, wash the strawberries and remove the leaves. Next, cut them into small pieces. Then mix them with yogurt. Finally, keep the mixture in the refrigerator for thirty minutes before serving.",
+    "question": "What should be done just before the mixture is put in the refrigerator?",
+    "choices": [
+      "Wash the strawberries",
+      "Remove the leaves",
+      "Mix the fruit with yogurt",
+      "Serve the dessert"
+    ],
+    "answer": 2,
+    "explanation": "The order says to mix the strawberries with yogurt and then refrigerate the mixture.",
+    "hint1": "Follow the sequence words: first, next, then, finally.",
+    "hint2": "Find the step immediately before refrigeration.",
+    "source": "original",
+    "tags": [
+      "Sequence",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-020",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Character feeling",
+    "competency": "根據已知證據進行推論",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Jill looked at the stage from behind the curtain. She checked her notes for the third time, took a long breath, and rubbed her cold hands together. When her name was called, she smiled and walked forward.",
+    "question": "How did Jill most likely feel before going on stage?",
+    "choices": [
+      "nervous",
+      "angry",
+      "bored",
+      "sleepy"
+    ],
+    "answer": 0,
+    "explanation": "Repeatedly checking notes, taking a long breath, and having cold hands are clues that Jill was nervous.",
+    "hint1": "Use her actions as emotional clues.",
+    "hint2": "Which feeling best matches checking notes again and taking a deep breath?",
+    "source": "original",
+    "tags": [
+      "Character feeling",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-021",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "情境應用",
+    "topic": "Travel planning",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "Eva must arrive at the science center by 10:20. It takes 15 minutes to walk from the bus stop to the center.",
+    "question": "Which is the latest bus Eva can take?",
+    "choices": [
+      "Bus A",
+      "Bus B",
+      "Bus C",
+      "Bus D"
+    ],
+    "answer": 1,
+    "explanation": "She needs to reach the bus stop by 10:05 to allow 15 minutes to walk. Bus B arrives at 10:02; Bus C arrives at 10:12, which is too late.",
+    "hint1": "Work backward from 10:20 by 15 minutes.",
+    "hint2": "Use arrival time, not departure time.",
+    "table": {
+      "headers": [
+        "Bus",
+        "Arrives at stop"
+      ],
+      "rows": [
+        [
+          "A",
+          "09:50"
+        ],
+        [
+          "B",
+          "10:02"
+        ],
+        [
+          "C",
+          "10:12"
+        ],
+        [
+          "D",
+          "10:18"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Travel planning",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-022",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "資料分析",
+    "topic": "Claim and evidence",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "A class tested whether paper towels absorb the same amount of water. Each sheet was the same size. Brand X absorbed 18 mL on average, Brand Y 24 mL, and Brand Z 21 mL.",
+    "question": "Which conclusion is best supported by the data?",
+    "choices": [
+      "Brand Y absorbed the most water in this test.",
+      "Brand Y is always the best paper towel for every use.",
+      "Brand X is the cheapest brand.",
+      "Brand Z is made from stronger material."
+    ],
+    "answer": 0,
+    "explanation": "The only measured result is water absorption in this test, and Brand Y has the highest average. Price, strength, and all-use superiority were not measured.",
+    "hint1": "Choose a conclusion that stays within the measured data.",
+    "hint2": "Do not add information about price or material.",
+    "source": "original",
+    "tags": [
+      "Claim and evidence",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-023",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Reference",
+    "competency": "擷取與統整文本訊息",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Mr. Lee placed the old bicycle beside the new one. The old bicycle had a broken light, but its brakes still worked well. He decided to repair it and give it to his cousin.",
+    "question": "What does “it” in the last sentence refer to?",
+    "choices": [
+      "the old bicycle",
+      "the new bicycle",
+      "the broken light",
+      "the brake"
+    ],
+    "answer": 0,
+    "explanation": "The item being repaired and given away is the old bicycle, which was just described as having a broken light but working brakes.",
+    "hint1": "Ask what object can logically be repaired and given to a cousin.",
+    "hint2": "Follow the main object across the sentences.",
+    "source": "original",
+    "tags": [
+      "Reference",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-024",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Speaker intention",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "A: Are you coming to the movie at seven?\nB: I wish I could, but my science project is due tomorrow morning and I still need to finish the charts.",
+    "question": "What does B most likely mean?",
+    "choices": [
+      "B probably cannot go to the movie.",
+      "B has already finished the project.",
+      "B wants A to make the charts.",
+      "B thinks the movie starts tomorrow."
+    ],
+    "answer": 0,
+    "explanation": "B says the project is due soon and still unfinished, which explains why B likely cannot attend the movie.",
+    "hint1": "Notice the phrase “I wish I could, but...”",
+    "hint2": "The unfinished project creates a time conflict.",
+    "source": "original",
+    "tags": [
+      "Speaker intention",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-025",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Survey reading",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "A school surveyed 100 students about the place they most often study after school.",
+    "question": "Which statement is supported by the survey?",
+    "choices": [
+      "More students study at home than at the library.",
+      "Exactly half of the students study at school.",
+      "No students study in cafés.",
+      "Library is the most common study place."
+    ],
+    "answer": 0,
+    "explanation": "Home has 46 students and library has 24, so more students study at home. The other statements do not match the table.",
+    "hint1": "Compare the numbers directly.",
+    "hint2": "Only choose what the table clearly shows.",
+    "table": {
+      "headers": [
+        "Place",
+        "Students"
+      ],
+      "rows": [
+        [
+          "Home",
+          46
+        ],
+        [
+          "Library",
+          24
+        ],
+        [
+          "School",
+          20
+        ],
+        [
+          "Café",
+          10
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Survey reading",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-026",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "情境應用",
+    "topic": "Email action",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "From: Coach Lin\nPlease bring your team shirt on Friday. If you ordered a new size, pick it up from Room 205 before 3:30. Practice begins at 4:00 in the gym. Do not wear outdoor shoes on the court.",
+    "question": "Sam ordered a new shirt. What should he do before practice?",
+    "choices": [
+      "Pick up the shirt from Room 205 before 3:30.",
+      "Wait until after practice to get the shirt.",
+      "Go directly to the gym at 4:30.",
+      "Wear his outdoor shoes on the court."
+    ],
+    "answer": 0,
+    "explanation": "The email specifically tells students who ordered a new size to pick it up from Room 205 before 3:30.",
+    "hint1": "Find the sentence that applies only to students with a new size.",
+    "hint2": "Sam belongs to the group mentioned in that condition.",
+    "source": "original",
+    "tags": [
+      "Email action",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-027",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Cause and effect",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "After the city added more shaded seats near the bus terminal, people spent less time standing in direct sunlight. During the following summer, the number of heat-related first-aid cases at the terminal fell.",
+    "question": "Which is the most reasonable inference?",
+    "choices": [
+      "The shaded seating may have helped reduce heat exposure.",
+      "The city completely eliminated hot weather.",
+      "Everyone stopped using the bus terminal.",
+      "Shade is the only possible cause of every health change."
+    ],
+    "answer": 0,
+    "explanation": "The timing and mechanism make it reasonable that shade reduced heat exposure, but the passage does not prove it was the only cause.",
+    "hint1": "Look for a cautious conclusion, not an absolute one.",
+    "hint2": "The word “may” fits the evidence better than “only.”",
+    "source": "original",
+    "tags": [
+      "Cause and effect",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-028",
+    "subject": "english",
+    "chapter": "Vocabulary Bay",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Context meaning",
+    "competency": "依上下文理解語詞",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "The trail was closed after the storm because several trees had fallen across the path. Park workers said the area would remain inaccessible until the trees were removed.",
+    "question": "What does “inaccessible” most likely mean?",
+    "choices": [
+      "not able to be entered or used",
+      "free for everyone to visit",
+      "easy to repair",
+      "open only at night"
+    ],
+    "answer": 0,
+    "explanation": "Fallen trees block the path, so the area cannot be entered or used until they are removed.",
+    "hint1": "Use the fallen trees as the clue.",
+    "hint2": "The word describes whether people can reach the area.",
+    "source": "original",
+    "tags": [
+      "Context meaning",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-029",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "資料分析",
+    "topic": "Experimental result",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "Students placed equal ice cubes in three cups and recorded how long each took to melt. Cup A was metal, Cup B was glass, and Cup C was foam. Room conditions were the same.",
+    "question": "Which statement is best supported by the results?",
+    "choices": [
+      "In this test, the ice in the metal cup melted fastest.",
+      "Metal always makes every cold object melt in exactly six minutes.",
+      "Foam is the heaviest material.",
+      "Glass cannot transfer heat."
+    ],
+    "answer": 0,
+    "explanation": "Six minutes is the shortest melting time, so the metal cup was fastest in this test. The other choices make claims not supported by the data.",
+    "hint1": "Compare the melting times and keep the conclusion limited to this test.",
+    "hint2": "A shorter time means faster melting.",
+    "table": {
+      "headers": [
+        "Cup",
+        "Material",
+        "Melting time"
+      ],
+      "rows": [
+        [
+          "A",
+          "Metal",
+          "6 min"
+        ],
+        [
+          "B",
+          "Glass",
+          "10 min"
+        ],
+        [
+          "C",
+          "Foam",
+          "18 min"
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "Experimental result",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-english-030",
+    "subject": "english",
+    "chapter": "Reading Sky",
+    "domain": "閱讀理解",
+    "questionType": "情境應用",
+    "topic": "Multiple conditions",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "Volunteer Day Rules\n• Volunteers must be at least 13.\n• Outdoor teams work from 9:00 to 12:00.\n• Indoor teams work from 13:00 to 16:00.\n• Anyone with a morning class may join only an indoor team.",
+    "question": "Which student can join an outdoor team?",
+    "choices": [
+      "Amy, 12, free all day",
+      "Ben, 14, with a class from 8:00 to 10:00",
+      "Cara, 15, free from 8:30 to 12:30",
+      "Dan, 13, free only after 13:30"
+    ],
+    "answer": 2,
+    "explanation": "Cara is at least 13 and available for the full outdoor shift. Ben has a morning class, so the rules limit him to an indoor team.",
+    "hint1": "Check age, class restriction, and the full shift time.",
+    "hint2": "Only one student satisfies all conditions for the outdoor team.",
+    "source": "original",
+    "tags": [
+      "Multiple conditions",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
   }
 ]
