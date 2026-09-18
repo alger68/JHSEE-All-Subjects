@@ -555,14 +555,20 @@ app.addEventListener('click', async (event) => {
           .split(/[,，、]/).map(value=>value.trim()).filter(Boolean)
       }
     ])));
+    const recordId=String(document.querySelector('#mock-record-id')?.value||'').trim();
     const record=normalizeMockExamRecord({
+      id:recordId||undefined,
       date:document.querySelector('#mock-date')?.value||taipeiDate(),
       title:document.querySelector('#mock-title')?.value||'模擬考',
       grades,
       errors
     });
-    if(!record){showToast('模考資料不完整，請確認五科等級。');return;}
-    state.mockExamRecords=[...(state.mockExamRecords??[]),record]
+    if(!record){showToast('模考資料不完整，請確認日期與五科等級。');return;}
+    const existing=state.mockExamRecords??[];
+    const updated=recordId
+      ? existing.filter(item=>item.id!==recordId).concat(record)
+      : existing.concat(record);
+    state.mockExamRecords=updated
       .sort((a,b)=>a.date.localeCompare(b.date))
       .slice(-20);
     state.adaptiveSubjectWeights=calculateSubjectWeights(
@@ -570,7 +576,21 @@ app.addEventListener('click', async (event) => {
       state.adaptiveSubjectWeights,
       currentDiagnostic()
     );
-    save();renderRoute(false);showToast('模考已加入戰情中心，後續出題權重已更新。');
+    save();renderRoute(false);showToast(recordId?'模考資料已更新，後續出題權重已重新計算。':'模考已加入戰情中心，後續出題權重已更新。');
+  }
+  if (action === 'new-mock-exam') {
+    const id=document.querySelector('#mock-record-id');if(id)id.value='';
+    const date=document.querySelector('#mock-date');if(date)date.value=taipeiDate();
+    const title=document.querySelector('#mock-title');if(title)title.value='';
+    for(const subject of ['chinese','english','math','science','social']) {
+      const grade=document.querySelector(`[data-mock-grade="${subject}"]`);if(grade)grade.value='';
+      const wrong=document.querySelector(`[data-mock-wrong="${subject}"]`);if(wrong)wrong.value='0';
+      const topics=document.querySelector(`[data-mock-topics="${subject}"]`);if(topics)topics.value='';
+    }
+    control.textContent='新增另一筆模考';
+    const saveButton=document.querySelector('[data-action="save-mock-exam"]');
+    if(saveButton)saveButton.textContent='儲存這次模考';
+    showToast('已開啟新模考表單，請重新選擇五科等級。');
   }
   if (action === 'claim-chest') {
     const claimed = claimDailyChest(state.dailyQuest, taipeiDate());
