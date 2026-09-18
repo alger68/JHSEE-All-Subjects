@@ -132,3 +132,52 @@ export function pickDiagnosticQuestions(questions=[],count=25){
   }
   return picked.slice(0,count);
 }
+
+
+export function buildDiagnosticBaseline(result={},questionLookup=new Map(),date=''){
+  const subjects={};
+  let total=0,correct=0;
+  for(const item of result?.items??[]){
+    if(item?.choice===undefined)continue;
+    const question=questionLookup.get(item.id);
+    const subject=question?.subject;
+    if(!SUBJECTS.includes(subject))continue;
+    const row=subjects[subject]??{correct:0,total:0,accuracy:0};
+    row.total+=1;
+    if(item.correct){row.correct+=1;correct+=1;}
+    row.accuracy=row.total?Math.round(row.correct/row.total*100):0;
+    subjects[subject]=row;
+    total+=1;
+  }
+  return {
+    date,
+    total,
+    correct,
+    accuracy:total?Math.round(correct/total*100):0,
+    subjects
+  };
+}
+
+function averageMastery(skills={},subject){
+  const values=Object.values(skills??{})
+    .filter(item=>item?.subject===subject&&Number.isFinite(Number(item?.mastery)))
+    .map(item=>Number(item.mastery));
+  if(!values.length)return null;
+  return Math.round(values.reduce((a,b)=>a+b,0)/values.length);
+}
+
+export function compareLearningCycles(cycles=[],currentSkills={}){
+  const previous=cycles?.length?cycles.at(-1)?.adaptiveSkills??{}:{};
+  const result={};
+  for(const subject of SUBJECTS){
+    const before=averageMastery(previous,subject);
+    const after=averageMastery(currentSkills,subject);
+    if(before===null&&after===null)continue;
+    result[subject]={
+      before:before??60,
+      after:after??60,
+      delta:(after??60)-(before??60)
+    };
+  }
+  return result;
+}

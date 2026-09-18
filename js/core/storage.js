@@ -20,6 +20,7 @@ export function defaultState() {
     currentCycleStartedOn: null,
     attempts: [],
     examReports: [],
+    diagnosticBaselines: [],
     settings: { sound: true, reducedMotion: false },
     activeRun: null,
     activeExam: null,
@@ -44,6 +45,26 @@ export function createStore(storage = window.localStorage) {
         return { ok: true };
       } catch (error) {
         return { ok: false, error: error instanceof Error ? error.message : String(error) };
+      }
+    },
+    exportBackup(exportedAt = new Date().toISOString()) {
+      const state=this.load();
+      return {
+        meta:{format:'jhsee-backup-v1',version:1,exportedAt},
+        state
+      };
+    },
+    importBackup(input) {
+      try {
+        const parsed=typeof input==='string'?JSON.parse(input):input;
+        if(parsed?.meta?.format!=='jhsee-backup-v1'||parsed?.meta?.version!==1||parsed?.state?.version!==1){
+          return {ok:false,error:'unsupported_backup'};
+        }
+        const next={...defaultState(),...parsed.state,player:{...createPlayer(),...parsed.state.player},version:1};
+        storage.setItem(STORAGE_KEY,JSON.stringify(next));
+        return {ok:true,state:next};
+      } catch(error) {
+        return {ok:false,error:error instanceof Error?error.message:String(error)};
       }
     },
     reset() {

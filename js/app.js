@@ -15,7 +15,7 @@ import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongR
 import { createQuestionBank } from './core/question-bank.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
-import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions } from './core/learning-cycle.js';
+import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
 import { createRouter } from './router.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
@@ -151,7 +151,9 @@ function routes() {
         today:taipeiDate(),
         aiUsage:state.aiUsage,
         wrongQuestions:state.wrongQuestions
-      })
+      }),
+      cycleComparison: compareLearningCycles(state.learningCycles,state.adaptiveSkills),
+      latestBaseline: state.diagnosticBaselines?.at(-1)??null
     }),
     '#/profile': () => renderProfile({
       player: state.player,
@@ -286,6 +288,10 @@ function completeExam() {
   state.attempts = [...state.attempts, { title:session.title, subject:paperFor(session)?.subject??'all',kind:session.kind,paperId:session.paperId,attemptNumber:session.attemptNumber,hintCount:result.items.filter(i=>i.hinted).length, accuracy: result.accuracy, at: new Date().toISOString() }].slice(-50);
   state.lastExamResult = result;
   state.examReports = [...state.examReports,result].slice(-10);
+  if(session.kind==='diagnostic') {
+    const baseline=buildDiagnosticBaseline(result,questionMap,taipeiDate());
+    state.diagnosticBaselines=[...(state.diagnosticBaselines??[]),baseline].slice(-10);
+  }
   save();
   window.location.hash = '#/exam-results';
   renderRoute();
@@ -489,6 +495,17 @@ app.addEventListener('click', async (event) => {
     state=applyResetMode(state,'new-cycle',taipeiDate()); save(); renderRoute(); showToast('新的學習週期已建立。');
   }
   if (action === 'start-diagnostic') await startDiagnostic();
+  if (action === 'export-backup') {
+    const backup=store.exportBackup();
+    const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement('a');
+    link.href=url;
+    link.download=`jhsee-backup-${taipeiDate()}.json`;
+    document.body.append(link);link.click();link.remove();URL.revokeObjectURL(url);
+    showToast('學習資料備份已下載。');
+  }
+  if (action === 'import-backup') document.querySelector('#backup-file-input')?.click();
   if (action === 'reset-progress' && window.confirm('確定完整重設全部學習進度嗎？此動作無法復原。')) {
     state = store.reset(); ensureDailyQuest(); renderRoute(); showToast('全部進度已重設。');
   }
@@ -616,7 +633,31 @@ app.addEventListener('input',(event)=>{
   const id=event.target.dataset.examNote;
   if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
 });
-app.addEventListener('change',(event)=>{
+app.addEventListener('change',async(event)=>{
+  if(event.target.matches('#ai-daily-limit')) {
+    const limit=Math.max(0,Math.min(50,Number(event.target.value)||0));
+    const today=taipeiDate();
+    state.aiUsage={
+      date:state.aiUsage?.date===today?today:today,
+      count:state.aiUsage?.date===today?Math.min(state.aiUsage?.count??0,limit):0,
+      limit
+    };
+    save();renderRoute(false);showToast(`每日 AI 上限已設為 ${limit} 題。`);
+    return;
+  }
+  if(event.target.matches('#backup-file-input')) {
+    const file=event.target.files?.[0];
+    if(!file)return;
+    const text=await file.text();
+    if(!window.confirm('確定用這份備份覆蓋目前學習資料嗎？')) {event.target.value='';return;}
+    const restored=store.importBackup(text);
+    if(!restored.ok){showToast('備份格式不正確，未修改目前資料。');event.target.value='';return;}
+    state=restored.state;
+    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    event.target.value='';
+    renderRoute();showToast('學習資料已還原。');
+    return;
+  }
   if(event.target.matches('[data-paper-page-select]'))changePaperPage(Number(event.target.value));
   if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
     const selection=practiceSelection();
