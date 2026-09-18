@@ -444,13 +444,15 @@ async function startDiagnostic() {
 }
 
 function startSession(questions,options) {
-  if (state.activeExam&&!window.confirm('已有尚未交卷的測驗。確定放棄它並開始新的練習嗎？')) return;
+  if (state.activeExam&&!window.confirm('已有尚未交卷的測驗。確定放棄它並開始新的練習嗎？')) return null;
   state.activeExam=createSession(questions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
   if(options.paperId) {
     state.activeExam.paperMode=options.paperMode==='whole'?'whole':'question';
     state.activeExam.paperPage=1;
   }
+  const started=state.activeExam;
   save(); window.location.hash='#/exam'; renderRoute();
+  return started;
 }
 
 function guardSession() {
@@ -464,6 +466,69 @@ function updateExamClock() {
   if(!guardSession()) return;
   const timer=document.querySelector('[data-exam-timer]');
   if(timer) timer.textContent=`⏱ ${clock(remainingSeconds(state.activeExam,Date.now()))}`;
+}
+
+function cachedAiForProfile(profile,subject='all',limit=4) {
+  if(!profile)return [];
+  const recent=recentQuestionIds(state.answerHistory,30);
+  const result=[];
+  for(const question of [...(state.generatedQuestions??[])].reverse()) {
+    if(!question?.aiGenerated||recent.has(question.id))continue;
+    if(subject!=='all'&&question.subject!==subject)continue;
+    if(skillIdentity(question).key!==profile.key)continue;
+    result.push(question);
+    if(result.length>=limit)break;
+  }
+  return result;
+}
+
+async function generateAiForActivePractice({
+  sessionId,
+  profile,
+  sourceQuestion,
+  count
+}) {
+  if(!AI_SERVICE_URL||!profile||!sourceQuestion||count<=0)return;
+  const generated=await requestAiQuestions({
+    endpoint:AI_SERVICE_URL,
+    brief:generationBrief(profile,sourceQuestion),
+    sourceQuestion,
+    avoidQuestions:aiAvoidExamples(),
+    count
+  });
+  if(!generated?.length)return;
+
+  state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
+  const known=new Map((state.generatedQuestions??[]).map(question=>[question.id,question]));
+  for(const question of generated) {
+    known.set(question.id,question);
+    questionMap.set(question.id,question);
+  }
+  state.generatedQuestions=[...known.values()].slice(-200);
+
+  let injected=0;
+  const session=state.activeExam;
+  if(session?.id===sessionId&&session.status==='active'&&session.kind==='practice') {
+    const usedIds=new Set(session.questionIds);
+    const replacements=[];
+    for(let index=session.questionIds.length-1;index>session.index+1;index-=1) {
+      const id=session.questionIds[index];
+      const existing=questionMap.get(id);
+      if(session.answers[id]!==undefined)continue;
+      if(existing?.aiGenerated)continue;
+      replacements.push(index);
+    }
+    for(const question of generated) {
+      if(usedIds.has(question.id))continue;
+      const index=replacements.shift();
+      if(index===undefined)break;
+      session.questionIds[index]=question.id;
+      usedIds.add(question.id);
+      injected+=1;
+    }
+  }
+  save();
+  if(injected>0)showToast(`AI 已在背景加入 ${injected} 題弱點變形題，不用等待。`);
 }
 
 function practiceSelection(shuffle=false) {
@@ -658,44 +723,45 @@ app.addEventListener('click', async (event) => {
     const {subject,grade,type,focus,pool}=practiceSelection(true);
     save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
+
     let sessionPool=pool;
-    let aiUsed=false;
+    let aiPlanned=false;
+    let background=null;
     const dashboard=adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate());
     const profile=dashboard.topSkills.find((item)=>subject==='all'||item.subject===subject);
+
     if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
       const sourceQuestion=pool.find((question)=>skillIdentity(question).key===profile.key)??pool[0];
       const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+      const cached=cachedAiForProfile(profile,subject,wanted);
+      if(cached.length) {
+        sessionPool=mergeAiWithFallback(cached,pool,Math.min(10,pool.length));
+        aiPlanned=true;
+      }
       const count=aiAllowance(state.aiUsage,taipeiDate(),wanted);
       if(count>0) {
-        showToast(`正在生成 ${profile.competency} 的針對性變形題…`);
-        const generated=await requestAiQuestions({
-          endpoint:AI_SERVICE_URL,
-          brief:generationBrief(profile,sourceQuestion),
-          sourceQuestion,
-          avoidQuestions:aiAvoidExamples(),
-          count
-        });
-        if(generated?.length) {
-          aiUsed=true;
-          state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
-          const known=new Map((state.generatedQuestions??[]).map((q)=>[q.id,q]));
-          for(const q of generated) {
-            known.set(q.id,q);
-            questionMap.set(q.id,q);
-          }
-          state.generatedQuestions=[...known.values()].slice(-200);
-          sessionPool=mergeAiWithFallback(generated,pool,Math.min(10,pool.length));
-          save();
-          showToast(`已加入 ${generated.length} 題 AI 弱點變形題。`);
-        } else {
-          showToast('AI 變形題暫時不可用，已自動改用既有題庫。');
-        }
-      } else {
-        showToast('今日 AI 題目額度已用完，改用本地題庫。');
+        aiPlanned=true;
+        background={profile,sourceQuestion,count};
+      } else if(!cached.length) {
+        showToast('今日 AI 題目額度已用完，先用本地題庫開始。');
       }
     }
+
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
-    startSession(sessionPool,{title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiUsed?'＋AI弱點':''}練習`,kind:'practice',durationMinutes:20});
+    const started=startSession(sessionPool,{
+      title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiPlanned?'＋AI弱點':''}練習`,
+      kind:'practice',
+      durationMinutes:20
+    });
+    if(started&&background) {
+      showToast(`已立即開始；AI 正在背景準備 ${background.profile.competency} 變形題。`);
+      void generateAiForActivePractice({
+        sessionId:started.id,
+        profile:background.profile,
+        sourceQuestion:background.sourceQuestion,
+        count:background.count
+      });
+    }
   }
   if (action === 'exam-answer') {
     if(!guardSession()) return;
