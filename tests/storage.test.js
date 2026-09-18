@@ -25,4 +25,29 @@ describe('adventure storage', () => {
     memory.values.set('jhsee.adventure.v1', '{bad json');
     expect(createStore(memory).load()).toMatchObject({ version: 1, player: { level: 1 } });
   });
+
+  it('exports and restores a validated learning backup', async () => {
+    const memory=fakeStorage();
+    const store=createStore(memory);
+    const original={version:1,player:{exp:321},adaptiveSkills:{x:{mastery:72}},examReports:[{sessionId:'r1'}]};
+    store.save(original);
+    const backup=store.exportBackup('2026-09-18T06:00:00.000Z');
+    expect(backup.meta.format).toBe('jhsee-backup-v1');
+    expect(backup.state.player.exp).toBe(321);
+
+    const restored=createStore(fakeStorage());
+    const result=restored.importBackup(JSON.stringify(backup));
+    expect(result.ok).toBe(true);
+    expect(restored.load().player.exp).toBe(321);
+    expect(restored.load().adaptiveSkills.x.mastery).toBe(72);
+  });
+
+  it('rejects malformed or unsupported backups without overwriting storage', () => {
+    const memory=fakeStorage();
+    const store=createStore(memory);
+    store.save({player:{exp:55}});
+    expect(store.importBackup('{"bad":true}').ok).toBe(false);
+    expect(store.load().player.exp).toBe(55);
+  });
+
 });
