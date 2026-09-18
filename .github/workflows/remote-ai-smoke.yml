@@ -1,0 +1,76 @@
+name: Remote AI smoke test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/remote-ai-smoke-trigger.txt
+      - .github/workflows/remote-ai-smoke.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  remote-ai:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: POST production AI endpoint
+        env:
+          ENDPOINT: https://jhsee-ai-service-alger1026s-projects.vercel.app/api/generate-question
+        run: |
+          node <<'NODE'
+          const endpoint=process.env.ENDPOINT;
+          const payload={
+            brief:{
+              subject:'english',
+              domain:'閱讀理解',
+              coreSkill:'上下文推論',
+              subSkill:'推論題',
+              mastery:50,
+              priority:80,
+              consecutiveWrong:2,
+              practiceMode:'near-transfer',
+              targetDifficulty:2,
+              requirements:['保持相同核心能力，但改用不同情境與表面形式']
+            },
+            sourceQuestion:{
+              question:'Why did the student wait after school?',
+              passage:'A student saw heavy rain outside and waited by the gate until it became lighter.',
+              choices:['A','B','C','D']
+            },
+            avoidQuestions:[
+              {question:'Why did Mia wait at the gate?',passage:'Mia waited because it was raining.'}
+            ],
+            count:1
+          };
+          const controller=new AbortController();
+          const timer=setTimeout(()=>controller.abort(),45000);
+          try{
+            const response=await fetch(endpoint,{
+              method:'POST',
+              headers:{
+                'content-type':'application/json',
+                'origin':'https://alger68.github.io'
+              },
+              body:JSON.stringify(payload),
+              signal:controller.signal
+            });
+            const text=await response.text();
+            console.log('HTTP_STATUS='+response.status);
+            console.log('BODY='+text.slice(0,4000));
+            if(response.status!==200) process.exit(1);
+            const body=JSON.parse(text);
+            if(!Array.isArray(body.questions)||body.questions.length!==1) process.exit(2);
+            const q=body.questions[0];
+            if(!q?.question||!Array.isArray(q.choices)||q.choices.length!==4) process.exit(3);
+            console.log('REMOTE_AI_SMOKE=PASS');
+            console.log('MODEL='+(body.meta?.model??'unknown'));
+            console.log('QUESTION_ID='+(q.id??'unknown'));
+          } finally {
+            clearTimeout(timer);
+          }
+          NODE
