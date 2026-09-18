@@ -3401,5 +3401,681 @@
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-18",
     "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考英文閱讀、資訊擷取、推論、資料判讀與生活情境能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-012",
+    "subject": "math",
+    "chapter": "比例與比例式",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "配方比例",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "做4杯飲料需要果汁300 mL與水500 mL，且每杯容量相同。若配方比例不變，要做10杯。",
+    "question": "需要多少果汁？",
+    "choices": [
+      "600 mL",
+      "750 mL",
+      "800 mL",
+      "1250 mL"
+    ],
+    "answer": 1,
+    "explanation": "10杯是4杯的2.5倍，因此果汁量為300×2.5＝750 mL。",
+    "hint1": "先算杯數放大幾倍。",
+    "hint2": "配方比例不變，所以所有材料都乘同一倍率。",
+    "source": "original",
+    "tags": [
+      "配方比例",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-013",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "一次方程式",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "計程車起跳價85元，之後每公里加收20元。小明搭乘後共付225元，不考慮其他加價。",
+    "question": "起跳後共行駛多少公里？",
+    "choices": [
+      "5公里",
+      "6公里",
+      "7公里",
+      "8公里"
+    ],
+    "answer": 2,
+    "explanation": "225－85＝140，140÷20＝7，所以起跳後行駛7公里。",
+    "hint1": "先扣掉固定起跳價。",
+    "hint2": "剩下的金額才是按公里計費。",
+    "source": "original",
+    "tags": [
+      "一次方程式",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-014",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "中位數",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "五位學生完成一段路跑的時間如下。",
+    "question": "這組資料的中位數是多少？",
+    "choices": [
+      "11.8分鐘",
+      "12.0分鐘",
+      "12.4分鐘",
+      "13.0分鐘"
+    ],
+    "answer": 1,
+    "explanation": "排序後為10.8、11.5、12.0、12.4、13.3，中間第三個數為12.0。",
+    "hint1": "先把資料由小到大排列。",
+    "hint2": "五筆資料的中位數是第3筆。",
+    "table": {
+      "headers": [
+        "學生",
+        "時間(分鐘)"
+      ],
+      "rows": [
+        [
+          "甲",
+          12.4
+        ],
+        [
+          "乙",
+          10.8
+        ],
+        [
+          "丙",
+          13.3
+        ],
+        [
+          "丁",
+          12
+        ],
+        [
+          "戊",
+          11.5
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "中位數",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-015",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "直角三角形",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個直角三角形的兩股長分別為6公分與8公分。",
+    "question": "斜邊長是多少公分？",
+    "choices": [
+      "9",
+      "10",
+      "12",
+      "14"
+    ],
+    "answer": 1,
+    "explanation": "依畢氏定理，斜邊平方＝6²＋8²＝36＋64＝100，所以斜邊為10。",
+    "hint1": "斜邊是直角所對的邊。",
+    "hint2": "使用a²＋b²＝c²。",
+    "source": "original",
+    "tags": [
+      "直角三角形",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-016",
+    "subject": "math",
+    "chapter": "百分率",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "折扣比較",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "一件外套原價1600元。甲店打8折；乙店先減200元，再打9折。",
+    "question": "哪一家較便宜，便宜多少？",
+    "choices": [
+      "甲店便宜20元",
+      "乙店便宜20元",
+      "甲店便宜60元",
+      "兩店同價"
+    ],
+    "answer": 1,
+    "explanation": "甲店1600×0.8＝1280；乙店(1600－200)×0.9＝1260，所以乙店便宜20元。",
+    "hint1": "分別計算兩店最後價格。",
+    "hint2": "注意乙店是先減200再打9折。",
+    "source": "original",
+    "tags": [
+      "折扣比較",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-017",
+    "subject": "math",
+    "chapter": "整數運算",
+    "domain": "數與數線",
+    "questionType": "閱讀理解",
+    "topic": "溫度變化",
+    "competency": "理解數值正負與變化",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "清晨氣溫為－3°C，中午升高8°C，晚上又下降5°C。",
+    "question": "晚上氣溫是多少？",
+    "choices": [
+      "0°C",
+      "2°C",
+      "－5°C",
+      "－10°C"
+    ],
+    "answer": 0,
+    "explanation": "－3＋8－5＝0，所以晚上是0°C。",
+    "hint1": "依時間順序做加減。",
+    "hint2": "升高用加，下降用減。",
+    "source": "original",
+    "tags": [
+      "溫度變化",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-018",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "機率模型",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個袋中有相同大小的球如下。",
+    "question": "隨機取1球，取到藍球的機率是多少？",
+    "choices": [
+      "1/5",
+      "2/5",
+      "1/2",
+      "3/5"
+    ],
+    "answer": 1,
+    "explanation": "共有5球，其中藍球2球，所以機率為2/5。",
+    "hint1": "先算總球數。",
+    "hint2": "有利結果數÷全部可能結果數。",
+    "table": {
+      "headers": [
+        "顏色",
+        "球數"
+      ],
+      "rows": [
+        [
+          "紅",
+          2
+        ],
+        [
+          "藍",
+          2
+        ],
+        [
+          "綠",
+          1
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "機率模型",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-019",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "內角關係",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "一個三角形的三內角分別為x°、2x°、3x°。",
+    "question": "最大的內角是多少度？",
+    "choices": [
+      "60°",
+      "90°",
+      "100°",
+      "120°"
+    ],
+    "answer": 1,
+    "explanation": "x＋2x＋3x＝180，所以6x＝180，x＝30；最大角3x＝90。",
+    "hint1": "三角形內角和為180°。",
+    "hint2": "先求x，再找最大角。",
+    "source": "original",
+    "tags": [
+      "內角關係",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-020",
+    "subject": "math",
+    "chapter": "函數",
+    "domain": "函數",
+    "questionType": "資料分析",
+    "topic": "一次函數",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某影印店的總費用與張數呈一次關係。",
+    "question": "若印20張，費用是多少？",
+    "choices": [
+      "50元",
+      "55元",
+      "60元",
+      "65元"
+    ],
+    "answer": 0,
+    "explanation": "從5張20元到10張30元可知每多5張增加10元，即每張2元；固定費用10元，所以20張為10＋40＝50元。此計算顯示正確應為50元。",
+    "hint1": "先找每增加1張的費用。",
+    "hint2": "再用其中一筆資料找固定費用。",
+    "table": {
+      "headers": [
+        "張數",
+        "費用(元)"
+      ],
+      "rows": [
+        [
+          5,
+          20
+        ],
+        [
+          10,
+          30
+        ],
+        [
+          15,
+          40
+        ]
+      ]
+    },
+    "source": "original",
+    "tags": [
+      "一次函數",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-021",
+    "subject": "math",
+    "chapter": "數列",
+    "domain": "代數與方程式",
+    "questionType": "推論",
+    "topic": "等差規律",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某圖形排列的方格數依序為5、8、11、14、……",
+    "question": "第10個圖形有多少個方格？",
+    "choices": [
+      "29",
+      "30",
+      "32",
+      "35"
+    ],
+    "answer": 2,
+    "explanation": "這是首項5、公差3的等差數列，第10項＝5＋9×3＝32。",
+    "hint1": "相鄰兩項差多少？",
+    "hint2": "第10項比第1項多9個公差。",
+    "source": "original",
+    "tags": [
+      "等差規律",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-022",
+    "subject": "math",
+    "chapter": "比例與比例式",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "地圖比例尺",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "地圖比例尺為1：50,000。地圖上兩地距離6公分。",
+    "question": "實際距離是多少公里？",
+    "choices": [
+      "0.3公里",
+      "3公里",
+      "30公里",
+      "300公里"
+    ],
+    "answer": 1,
+    "explanation": "6×50,000＝300,000公分＝3,000公尺＝3公里。",
+    "hint1": "先換算實際公分數。",
+    "hint2": "100,000公分＝1公里。",
+    "source": "original",
+    "tags": [
+      "地圖比例尺",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-023",
+    "subject": "math",
+    "chapter": "比例與比例式",
+    "domain": "數與比例",
+    "questionType": "閱讀理解",
+    "topic": "濃度比例",
+    "competency": "理解比例敘述",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "果汁原液與水以2：3混合，共調成750 mL飲料。",
+    "question": "其中原液有多少mL？",
+    "choices": [
+      "250",
+      "300",
+      "350",
+      "450"
+    ],
+    "answer": 1,
+    "explanation": "總份數5份，每份750÷5＝150 mL，原液2份＝300 mL。",
+    "hint1": "先算總共有幾份。",
+    "hint2": "原液占2/5。",
+    "source": "original",
+    "tags": [
+      "濃度比例",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-024",
+    "subject": "math",
+    "chapter": "不等式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "最低門檻",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "遊樂園團體票規定：至少20人才能購買，每人票價450元。某班目前有17人確定參加。",
+    "question": "至少還需要幾人參加才能買團體票？",
+    "choices": [
+      "2人",
+      "3人",
+      "4人",
+      "5人"
+    ],
+    "answer": 1,
+    "explanation": "至少需要20人，目前17人，所以還需20－17＝3人。",
+    "hint1": "注意條件是「至少20人」。",
+    "hint2": "算20與17的差。",
+    "source": "original",
+    "tags": [
+      "最低門檻",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-025",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "平均數",
+    "competency": "判讀資料並提出有根據的結論",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某生四次小考成績為72、80、84、92分。",
+    "question": "平均成績是多少？",
+    "choices": [
+      "80分",
+      "82分",
+      "84分",
+      "86分"
+    ],
+    "answer": 1,
+    "explanation": "(72＋80＋84＋92)÷4＝328÷4＝82。",
+    "hint1": "先求總分。",
+    "hint2": "總分除以次數。",
+    "source": "original",
+    "tags": [
+      "平均數",
+      "資料分析"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-026",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "情境應用",
+    "topic": "圓周長",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "圓形花圃半徑為7公尺，取π＝22/7。",
+    "question": "沿花圃外圍繞一圈長多少公尺？",
+    "choices": [
+      "22",
+      "44",
+      "49",
+      "154"
+    ],
+    "answer": 1,
+    "explanation": "圓周長＝2πr＝2×22/7×7＝44公尺。",
+    "hint1": "題目問外圍一圈，是圓周長。",
+    "hint2": "使用2πr。",
+    "source": "original",
+    "tags": [
+      "圓周長",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-027",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "推論",
+    "topic": "周長建模",
+    "competency": "根據已知證據進行推論",
+    "grade": 8,
+    "difficulty": 4,
+    "passage": "一個長方形長比寬多4公分，周長為32公分。",
+    "question": "這個長方形的寬是多少公分？",
+    "choices": [
+      "4",
+      "6",
+      "8",
+      "10"
+    ],
+    "answer": 1,
+    "explanation": "設寬x，長x＋4。2[x＋(x＋4)]＝32，得4x＋8＝32，x＝6。",
+    "hint1": "先用一個未知數表示長與寬。",
+    "hint2": "周長公式是2(長＋寬)。",
+    "source": "original",
+    "tags": [
+      "周長建模",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-028",
+    "subject": "math",
+    "chapter": "座標幾何",
+    "domain": "幾何與圖形",
+    "questionType": "閱讀理解",
+    "topic": "座標距離",
+    "competency": "理解座標差",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "平面上A點座標為(－2,3)，B點座標為(4,3)。",
+    "question": "A、B兩點距離是多少？",
+    "choices": [
+      "2",
+      "4",
+      "6",
+      "8"
+    ],
+    "answer": 2,
+    "explanation": "兩點y座標相同，水平距離為4－(－2)＝6。",
+    "hint1": "y座標相同，所以只比較x座標。",
+    "hint2": "負數相減要注意符號。",
+    "source": "original",
+    "tags": [
+      "座標距離",
+      "閱讀理解"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-029",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "推論",
+    "topic": "補事件",
+    "competency": "根據已知證據進行推論",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "抽獎箱中，中獎機率為0.28。",
+    "question": "不中獎的機率是多少？",
+    "choices": [
+      "0.28",
+      "0.62",
+      "0.72",
+      "1.28"
+    ],
+    "answer": 2,
+    "explanation": "中獎與不中獎互為補事件，所以不中獎機率＝1－0.28＝0.72。",
+    "hint1": "兩種結果合計機率為1。",
+    "hint2": "用1減去中獎機率。",
+    "source": "original",
+    "tags": [
+      "補事件",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
+  },
+  {
+    "id": "CAP-P-math-030",
+    "subject": "math",
+    "chapter": "多步驟情境",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "分段優惠",
+    "competency": "將情境轉換為可解決的問題",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "書店活動：三本書原價分別為280、320、400元。結帳先打9折，再用一張滿800折50元的折價券。",
+    "question": "最後應付多少元？",
+    "choices": [
+      "800元",
+      "850元",
+      "900元",
+      "950元"
+    ],
+    "answer": 1,
+    "explanation": "原價總和1000元，9折後900元，仍滿800元，再折50元，最後850元。",
+    "hint1": "先算三本原價總和。",
+    "hint2": "優惠順序是先9折，再判斷是否滿800。",
+    "source": "original",
+    "tags": [
+      "分段優惠",
+      "情境應用"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-18",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/release_item/116年國中教育會考問與答.pdf；依國中會考數學情境建模、代數、幾何、函數、統計與機率能力編寫，本站核對題意、唯一答案與解析，非官方命題。"
   }
 ]
