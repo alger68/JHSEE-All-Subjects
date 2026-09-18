@@ -23,7 +23,7 @@ function corsHeaders(request,env){
   };
 }
 
-function openAiBody({brief,count,sourceQuestion},env){
+function openAiBody({brief,count,sourceQuestion,avoidQuestions},env){
   const model=env.AI_QUESTION_MODEL||'gpt-5.6-luna';
   const maxOutput=Math.max(600,Math.min(5000,Number(env.AI_MAX_OUTPUT_TOKENS)||2400));
   return {
@@ -40,7 +40,7 @@ function openAiBody({brief,count,sourceQuestion},env){
           '不要輸出 schema 之外的文字。'
         ].join('\n')
       },
-      {role:'user',content:buildGenerationPrompt(brief,sourceQuestion,count)}
+      {role:'user',content:buildGenerationPrompt(brief,sourceQuestion,count,avoidQuestions)}
     ],
     max_output_tokens:maxOutput,
     text:{
@@ -118,7 +118,7 @@ export function createGenerateQuestionHandler({fetchImpl=fetch,env=process.env}=
         model=result.model;
         usage=result.payload?.usage??null;
         const structured=extractResponseJson(result.payload);
-        const qa=qaGeneratedQuestions(structured,checked.value.brief,checked.value.count,checked.value.sourceQuestion);
+        const qa=qaGeneratedQuestions(structured,checked.value.brief,checked.value.count,checked.value.sourceQuestion,checked.value.avoidQuestions);
         if(qa.ok){
           return json({
             questions:qa.questions,
