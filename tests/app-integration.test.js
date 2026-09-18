@@ -481,3 +481,22 @@ it('mixes up to five AI questions into the 25-question re-diagnosis and records 
   expect(state.aiUsage.count).toBe(5);
   expect(state.activeExam.title).toContain('AI＋本地');
 });
+
+
+it('stores a mock exam in the CAP war room and updates adaptive study weights',async()=>{
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  expect(document.body.textContent).toContain('會考戰情中心');
+  document.querySelector('#mock-title').value='第二次模考';
+  document.querySelector('#mock-date').value='2026-09-18';
+  const grades={chinese:'A',english:'B',math:'A+',science:'A',social:'B++'};
+  for(const [subject,level] of Object.entries(grades)){
+    document.querySelector(`[data-mock-grade="${subject}"]`).value=level;
+  }
+  document.querySelector('[data-action="save-mock-exam"]').click();
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.mockExamRecords).toHaveLength(1);
+  expect(state.mockExamRecords[0].grades.english).toBe('B');
+  expect(state.adaptiveSubjectWeights.english).toBeGreaterThan(state.adaptiveSubjectWeights.chinese);
+  expect(document.body.textContent).toContain('下一週讀書比例');
+});
