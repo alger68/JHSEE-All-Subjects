@@ -245,9 +245,16 @@ function completeExam() {
       state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
     }
     if (session.kind==='review') {
-      state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
-        ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
-        : reviewWrong(state.wrongQuestions,item.id,item.correct,taipeiDate());
+      const alreadyTracked=state.wrongQuestions.some(entry=>entry.questionId===item.id);
+      if(alreadyTracked) {
+        state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
+          ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
+          : reviewWrong(state.wrongQuestions,item.id,item.correct,taipeiDate());
+      } else if(!item.correct) {
+        state.wrongQuestions=recordWrong(state.wrongQuestions,item.id,taipeiDate());
+      } else if(item.uncertain||item.hinted) {
+        state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
+      }
       state.dailyQuest=updateDailyQuest(state.dailyQuest,{type:'revenge'},taipeiDate());
     } else if (!item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
     else if (item.uncertain||item.hinted) state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
@@ -264,6 +271,66 @@ function completeExam() {
   save();
   window.location.hash = '#/exam-results';
   renderRoute();
+}
+
+async function startAiRemediation(result=state.lastExamResult) {
+  const items=(result?.items??[]).filter(item=>item.choice!==undefined&&(!item.correct||item.uncertain||item.hinted));
+  const sourceQuestions=items.map(item=>questionMap.get(item.id)).filter(Boolean);
+  if(!sourceQuestions.length) {
+    showToast('這份報告目前沒有需要 AI 驗收的題目。');
+    return;
+  }
+
+  const ranked=sourceQuestions
+    .map(question=>({question,profile:state.adaptiveSkills?.[skillIdentity(question).key]}))
+    .filter(item=>item.profile)
+    .sort((a,b)=>(b.profile.priorityScore??0)-(a.profile.priorityScore??0));
+  const target=ranked[0];
+  if(!target) {
+    showToast('弱點資料尚未建立，先完成一回短練習後再試。');
+    return;
+  }
+
+  const {question:sourceQuestion,profile}=target;
+  const count=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+  const sameSkill=bank.all()
+    .filter(question=>skillIdentity(question).key===profile.key&&!sourceQuestions.some(source=>source.id===question.id));
+  const sameSubject=bank.all()
+    .filter(question=>question.subject===profile.subject&&!sourceQuestions.some(source=>source.id===question.id));
+  const fallback=[...sameSkill,...sameSubject];
+
+  showToast(`正在建立 ${profile.competency} 的 AI 弱點驗收…`);
+  const generated=AI_SERVICE_URL
+    ? await requestAiQuestions({
+        endpoint:AI_SERVICE_URL,
+        brief:generationBrief(profile,sourceQuestion),
+        sourceQuestion,
+        count
+      })
+    : null;
+
+  if(generated?.length) {
+    const known=new Map((state.generatedQuestions??[]).map(question=>[question.id,question]));
+    for(const question of generated) {
+      known.set(question.id,question);
+      questionMap.set(question.id,question);
+    }
+    state.generatedQuestions=[...known.values()].slice(-50);
+  }
+
+  const sessionPool=mergeAiWithFallback(generated??[],fallback,count);
+  if(!sessionPool.length) {
+    showToast('目前找不到可用的弱點驗收題，請稍後再試。');
+    return;
+  }
+
+  save();
+  if(!generated?.length) showToast('AI 暫時不可用，已改用本地同能力題驗收。');
+  startSession(sessionPool,{
+    title:`AI 弱點驗收・${profile.competency}`,
+    kind:'review',
+    durationMinutes:Math.max(10,count*4)
+  });
 }
 
 function startSession(questions,options) {
@@ -327,6 +394,7 @@ app.addEventListener('click', async (event) => {
   }
   if (action === 'start-revenge') startRevenge(control.dataset.id);
   if (action === 'start-revenge-session') startRevengeSession();
+  if (action === 'start-ai-remediation') await startAiRemediation();
   if (action === 'claim-chest') {
     const claimed = claimDailyChest(state.dailyQuest, taipeiDate());
     state.dailyQuest = claimed.quest;
