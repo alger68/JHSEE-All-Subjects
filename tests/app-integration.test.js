@@ -433,3 +433,79 @@ it('starts AI weakness validation from a completed report and stores generated q
   expect(state.activeExam.title).toContain('AI 弱點驗收');
   expect(state.activeExam.questionIds).toContain('ai-remediation-1');
 });
+
+
+it('resets only adaptive memory while preserving reports and wrong questions',async()=>{
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    wrongQuestions:[{questionId:'CHI-WORD-001',mastery:0,wrongCount:1,nextReview:'2026-09-18',resolved:false}],
+    examReports:[{sessionId:'saved-report',items:[]}],
+    adaptiveSkills:{'english::閱讀::推論':{subject:'english',domain:'閱讀',competency:'推論',mastery:35,priorityScore:85}},
+    answerHistory:[{questionId:'q1'}],
+    generatedQuestions:[{id:'old-ai'}]
+  }));
+  window.history.replaceState(null,'','#/reset');await boot();
+  document.querySelector('[data-action="reset-adaptive"]').click();
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.adaptiveSkills).toEqual({});
+  expect(state.answerHistory).toEqual([]);
+  expect(state.generatedQuestions).toEqual([]);
+  expect(state.wrongQuestions).toHaveLength(1);
+  expect(state.examReports).toHaveLength(1);
+});
+
+it('archives the current learning cycle before starting a new one',async()=>{
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    player:{totalAnswered:42},
+    currentLearningCycle:1,
+    adaptiveSkills:{'english::閱讀::推論':{subject:'english',domain:'閱讀',competency:'推論',mastery:40,priorityScore:88}},
+    wrongQuestions:[{questionId:'CHI-WORD-001',mastery:0,wrongCount:1,nextReview:'2026-09-18',resolved:false}]
+  }));
+  window.history.replaceState(null,'','#/reset');await boot();
+  document.querySelector('[data-action="reset-cycle"]').click();
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.currentLearningCycle).toBe(2);
+  expect(state.learningCycles).toHaveLength(1);
+  expect(state.learningCycles[0]).toMatchObject({cycle:1,answered:42});
+  expect(state.adaptiveSkills).toEqual({});
+});
+
+it('starts a 25-question mixed re-diagnostic session from the reset wizard',async()=>{
+  window.history.replaceState(null,'','#/reset');await boot();
+  document.querySelector('[data-action="start-diagnostic"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.activeExam.kind).toBe('diagnostic');
+  expect(state.activeExam.questionIds).toHaveLength(25);
+  const subjects=new Set(state.activeExam.questionIds.map(id=>[...questions,...practice].find(q=>q.id===id)?.subject).filter(Boolean));
+  expect(subjects.size).toBe(5);
+});
+
+it('captures a daily mastery snapshot after a scored practice',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  document.querySelector('[data-action="exam-answer"]').click();
+  submitExam();
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.adaptiveSnapshots).toHaveLength(1);
+  expect(state.adaptiveSnapshots[0].date).toBe('2026-09-17');
+});
+
+it('renders a parent summary with today, AI budget and weaknesses',async()=>{
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    currentLearningCycle:2,
+    aiUsage:{date:'2026-09-17',questions:3,requests:1,limit:15},
+    adaptiveSkills:{'english::閱讀::推論':{subject:'english',domain:'閱讀',competency:'推論',mastery:40,priorityScore:90,nextReviewDate:'2026-09-18'}},
+    answerHistory:[
+      {date:'2026-09-17',correct:true,subject:'english'},
+      {date:'2026-09-17',correct:false,subject:'english',errorReason:'忽略關鍵線索'}
+    ]
+  }));
+  window.history.replaceState(null,'','#/parent');await boot();
+  expect(document.body.textContent).toContain('家長摘要');
+  expect(document.body.textContent).toContain('第 2 階段');
+  expect(document.body.textContent).toContain('AI 今日使用 3/15 題');
+  expect(document.body.textContent).toContain('推論');
+});
