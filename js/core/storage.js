@@ -21,6 +21,7 @@ export function defaultState() {
     attempts: [],
     examReports: [],
     diagnosticBaselines: [],
+    mockExamRecords: [],
     settings: { sound: true, reducedMotion: false },
     activeRun: null,
     activeExam: null,
