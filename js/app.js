@@ -362,6 +362,8 @@ async function startDiagnostic() {
   }
 
   const today=taipeiDate();
+  state=applyResetMode(state,'adaptive',today);
+  state.currentCycleStartedOn=state.currentCycleStartedOn??today;
   const available=Math.min(5,aiAllowance(state.aiUsage,today,5));
   let questions=[...localQuestions];
 
@@ -404,8 +406,6 @@ async function startDiagnostic() {
     showToast('今日 AI 題目額度已用完，重新診斷改用本地 25 題。');
   }
 
-  state=applyResetMode(state,'adaptive',today);
-  state.currentCycleStartedOn=state.currentCycleStartedOn??today;
   save();
   startSession(questions,{
     title:'五科 25 題重新診斷・AI＋本地',
