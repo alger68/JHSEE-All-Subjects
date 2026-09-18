@@ -13,6 +13,7 @@ import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './u
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
+import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
@@ -37,6 +38,17 @@ const currentDiagnostic=()=>buildMockAdjustedDiagnostic(PERSONAL_DIAGNOSTIC,stat
 const currentMockWarRoom=()=>buildMockWarRoom(state.mockExamRecords??[],PERSONAL_DIAGNOSTIC.subjectWeights);
 const currentRepairPlan=()=>buildSevenDayRepairPlan(currentMockWarRoom(),taipeiDate());
 const currentCoverage=()=>buildCoverageReport(bank?.all?.()??[],state.answerHistory??[]);
+const aiAvoidExamples=()=>{
+  const recentAnswered=(state.answerHistory??[]).slice(-20)
+    .map(item=>questionMap.get(item.questionId)).filter(Boolean);
+  const cached=(state.generatedQuestions??[]).slice(-12);
+  const seen=new Set(),merged=[];
+  for(const q of [...recentAnswered,...cached]){
+    if(!q?.id||seen.has(q.id))continue;
+    seen.add(q.id);merged.push(q);
+  }
+  return recentAvoidQuestions(merged,8);
+};
 
 function showToast(message) {
   document.querySelector('.toast')?.remove();
@@ -338,6 +350,7 @@ async function startAiRemediation(result=state.lastExamResult) {
         endpoint:AI_SERVICE_URL,
         brief:generationBrief(profile,sourceQuestion),
         sourceQuestion,
+        avoidQuestions:aiAvoidExamples(),
         count:allowed
       })
     : null;
@@ -349,7 +362,7 @@ async function startAiRemediation(result=state.lastExamResult) {
       known.set(question.id,question);
       questionMap.set(question.id,question);
     }
-    state.generatedQuestions=[...known.values()].slice(-50);
+    state.generatedQuestions=[...known.values()].slice(-200);
   }
 
   const sessionPool=mergeAiWithFallback(generated??[],fallback,count);
@@ -397,6 +410,7 @@ async function startDiagnostic() {
         endpoint:AI_SERVICE_URL,
         brief:generationBrief(profile,sourceQuestion),
         sourceQuestion,
+        avoidQuestions:aiAvoidExamples(),
         count:1
       })??[];
     }));
@@ -410,7 +424,7 @@ async function startDiagnostic() {
         const index=questions.findIndex(item=>item.subject===question.subject);
         if(index>=0)questions[index]=question;
       }
-      state.generatedQuestions=[...known.values()].slice(-50);
+      state.generatedQuestions=[...known.values()].slice(-200);
       showToast(`重新診斷：AI ${generated.length} 題＋本地 ${25-generated.length} 題。`);
     } else {
       showToast('AI 診斷題暫時不可用，改用完整本地 25 題。');
@@ -458,20 +472,33 @@ function practiceSelection(shuffle=false) {
   const criteria={};
   if(subject!=='all')criteria.subject=subject;
   if(focus!=='all')criteria.examAligned=focus!=='basic';
-  const candidates=bank.filter(criteria)
+  const localCandidates=bank.filter(criteria)
     .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
+  const generatedCandidates=(state.generatedQuestions??[])
+    .filter(q=>(subject==='all'||q.subject===subject))
+    .filter(q=>focus==='all'||(focus==='aligned'?q.examAligned===true:q.examAligned!==true))
+    .filter(q=>(q.grade??9)<=grade&&(!type||q.questionType===type));
+  const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
   state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
+  const recentIds=recentQuestionIds(state.answerHistory,30);
+  const candidatePool=preferFreshQuestions(
+    candidates,
+    recentIds,
+    state.adaptiveSkills,
+    taipeiDate(),
+    Math.min(10,candidates.length)
+  );
   const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
   const pool=hasAdaptiveData
-    ? buildAdaptivePractice(candidates,Math.min(10,candidates.length),{
+    ? buildAdaptivePractice(candidatePool,Math.min(10,candidatePool.length),{
         skills:state.adaptiveSkills,
         subjectWeights:state.adaptiveSubjectWeights,
         today:taipeiDate(),
         diagnostic:currentDiagnostic(),
         rng:shuffle?Math.random:()=>0.5
       })
-    : buildStarterPractice(candidates,Math.min(10,candidates.length),{
+    : buildStarterPractice(candidatePool,Math.min(10,candidatePool.length),{
         diagnostic:currentDiagnostic(),
         rng:shuffle?Math.random:()=>0.5,
         ensureFiveSubjectMix:subject==='all'
@@ -588,6 +615,7 @@ app.addEventListener('click', async (event) => {
           endpoint:AI_SERVICE_URL,
           brief:generationBrief(profile,sourceQuestion),
           sourceQuestion,
+          avoidQuestions:aiAvoidExamples(),
           count
         });
         if(generated?.length) {
@@ -598,7 +626,7 @@ app.addEventListener('click', async (event) => {
             known.set(q.id,q);
             questionMap.set(q.id,q);
           }
-          state.generatedQuestions=[...known.values()].slice(-50);
+          state.generatedQuestions=[...known.values()].slice(-200);
           sessionPool=mergeAiWithFallback(generated,pool,Math.min(10,pool.length));
           save();
           showToast(`已加入 ${generated.length} 題 AI 弱點變形題。`);
