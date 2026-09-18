@@ -3,7 +3,8 @@ import {
   PERSONAL_DIAGNOSTIC,
   diagnosticCards,
   prioritizeQuestions,
-  personalizedQuestionScore
+  personalizedQuestionScore,
+  buildStarterPractice
 } from '../js/core/personalization.js';
 
 describe('personalized diagnostic', () => {
@@ -37,5 +38,35 @@ describe('personalized diagnostic', () => {
       expect.objectContaining({ label: '英文閱讀', result: '31 / 43', priority: '最高' }),
       expect.objectContaining({ label: '自然理化', result: '20 / 25', priority: '最高' })
     ]));
+  });
+
+  it('builds a balanced five-subject starter set instead of repeating English top-10',()=>{
+    const subjects=['english','science','math','social','chinese'];
+    const pool=subjects.flatMap(subject=>Array.from({length:8},(_,i)=>({
+      id:`${subject}-${i}`,
+      subject,
+      examAligned:true,
+      chapter:subject==='english'?'Reading Sky':'一般',
+      questionType:'閱讀理解',
+      topic:`topic-${i}`
+    })));
+    const selected=buildStarterPractice(pool,10,{diagnostic:PERSONAL_DIAGNOSTIC,rng:()=>0.5});
+    const counts=Object.fromEntries(subjects.map(subject=>[
+      subject,selected.filter(q=>q.subject===subject).length
+    ]));
+    expect(selected).toHaveLength(10);
+    expect(new Set(selected.map(q=>q.id)).size).toBe(10);
+    expect(counts).toEqual({english:3,science:2,math:2,social:2,chinese:1});
+  });
+
+  it('can vary starter questions across sessions while keeping subject quotas',()=>{
+    const pool=['english','science','math','social','chinese'].flatMap(subject=>
+      Array.from({length:8},(_,i)=>({id:`${subject}-${i}`,subject,examAligned:true,topic:`T${i}`}))
+    );
+    const a=buildStarterPractice(pool,10,{rng:()=>0.05});
+    const b=buildStarterPractice(pool,10,{rng:()=>0.95});
+    expect(a.map(q=>q.id)).not.toEqual(b.map(q=>q.id));
+    expect(new Set(a.map(q=>q.id)).size).toBe(10);
+    expect(new Set(b.map(q=>q.id)).size).toBe(10);
   });
 });

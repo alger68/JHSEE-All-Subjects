@@ -1,6 +1,6 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickLevelQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
-import { PERSONAL_DIAGNOSTIC, prioritizeQuestions } from './core/personalization.js';
+import { PERSONAL_DIAGNOSTIC, prioritizeQuestions, buildStarterPractice } from './core/personalization.js';
 import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, defaultSkillProfile, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
 import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
 import { AI_SERVICE_URL } from './config/ai-service.js';
@@ -471,7 +471,11 @@ function practiceSelection(shuffle=false) {
         diagnostic:currentDiagnostic(),
         rng:shuffle?Math.random:()=>0.5
       })
-    : prioritizeQuestions(candidates,currentDiagnostic()).slice(0,10);
+    : buildStarterPractice(candidates,Math.min(10,candidates.length),{
+        diagnostic:currentDiagnostic(),
+        rng:shuffle?Math.random:()=>0.5,
+        ensureFiveSubjectMix:subject==='all'
+      });
   return {subject,grade,type,focus,pool,matchCount:candidates.length};
 }
 

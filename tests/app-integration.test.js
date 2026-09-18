@@ -306,12 +306,18 @@ it('defaults short practice to explicitly reviewed CAP-oriented questions',async
   expect(session.questionIds.every(id=>practice.some(q=>q.id===id))).toBe(true);
   expect(session.title).toContain('會考導向');
 });
-it('starts the default practice with 宥廷 diagnosed weak points first',async()=>{
+it('starts the default practice with weak-point weighting but keeps all five subjects represented',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
   document.querySelector('[data-action="start-practice"]').click();
   const ids=JSON.parse(localStorage.getItem(key)).activeExam.questionIds;
-  expect(ids.slice(0,5).every(id=>id.startsWith('CAP-P-english-'))).toBe(true);
-  expect(ids.slice(5,8).every(id=>id.startsWith('CAP-P-science-'))).toBe(true);
+  const all=[...questions,...practice];
+  const subjects=ids.map(id=>all.find(q=>q.id===id)?.subject);
+  const counts=Object.fromEntries(['english','science','math','social','chinese'].map(subject=>[
+    subject,subjects.filter(value=>value===subject).length
+  ]));
+  expect(ids).toHaveLength(10);
+  expect(new Set(ids).size).toBe(10);
+  expect(counts).toEqual({english:3,science:2,math:2,social:2,chinese:1});
 });
 it('allows a separate basic practice without mixing reviewed contextual questions',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
@@ -527,4 +533,47 @@ it('navigates English official reading groups without making later questions loo
   expect(current).not.toBeNull();
   expect(current.textContent).toContain('題組 40–43・目前第 43 題');
   expect(document.querySelectorAll('[data-action="exam-answer"]')).toHaveLength(4);
+});
+
+
+it('fresh user five-subject practice is mixed and contains no duplicate questions',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  const state=JSON.parse(localStorage.getItem(key));
+  expect(state.activeExam.questionIds).toHaveLength(10);
+  expect(new Set(state.activeExam.questionIds).size).toBe(10);
+  const all=[...questions,...practice];
+  const subjects=state.activeExam.questionIds.map(id=>all.find(q=>q.id===id)?.subject);
+  const counts=Object.fromEntries(['english','science','math','social','chinese'].map(subject=>[
+    subject,subjects.filter(value=>value===subject).length
+  ]));
+  expect(counts).toEqual({english:3,science:2,math:2,social:2,chinese:1});
+});
+
+for(const [paperId,count] of [
+  ['cap115-chinese',42],
+  ['cap115-english',43],
+  ['cap115-listening',21],
+  ['cap115-math',25],
+  ['cap115-social',54],
+  ['cap115-science',50]
+]){
+  it(`fresh user can open the full official paper ${paperId} through its final question`,async()=>{
+    window.history.replaceState(null,'',`#/paper/${paperId}`);await boot();
+    document.querySelector('[data-action="start-paper"]').click();
+    const state=JSON.parse(localStorage.getItem(key));
+    expect(state.activeExam.questionIds).toHaveLength(count);
+    expect(new Set(state.activeExam.questionIds).size).toBe(count);
+    const last=[...document.querySelectorAll('[data-action="exam-go"]')].at(-1);
+    expect(last).not.toBeUndefined();
+    last.click();
+    expect(document.querySelector(`[data-official-question="${count}"]`)).not.toBeNull();
+  });
+}
+
+it('fresh user can open the official writing paper and save a draft',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-writing');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  expect(document.querySelector('[data-exam-note="writing"]')).not.toBeNull();
+  expect(document.querySelector('.official-manual[open] svg')).not.toBeNull();
 });
