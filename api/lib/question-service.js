@@ -153,6 +153,8 @@ export function qaGeneratedQuestions(payload,brief,count,sourceQuestion=null,avo
   }
   const ids=new Set();
   const texts=new Set();
+  const priorQuestions=[];
+  const priorPassages=[];
   const sourceQ=norm(sourceQuestion?.question||'');
   const sourceP=norm(sourceQuestion?.passage||'');
   for(const q of payload.questions){
@@ -161,7 +163,11 @@ export function qaGeneratedQuestions(payload,brief,count,sourceQuestion=null,avo
     ids.add(q.id);
     const qt=norm(q.question);
     if(!qt||texts.has(qt))return {ok:false,error:'duplicate or missing question'};
+    if(priorQuestions.some(old=>similarity(q.question,old)>0.80))return {ok:false,error:'questions within batch are too similar'};
+    if(q.passage&&priorPassages.some(old=>old&&similarity(q.passage,old)>0.84))return {ok:false,error:'passages within batch are too similar'};
     texts.add(qt);
+    priorQuestions.push(q.question);
+    if(q.passage)priorPassages.push(q.passage);
     if(sourceQ&&(qt===sourceQ||similarity(q.question,sourceQuestion?.question)>0.82))return {ok:false,error:'question too similar to source'};
     if(sourceP&&(norm(q.passage)===sourceP||similarity(q.passage,sourceQuestion?.passage)>0.86))return {ok:false,error:'passage too similar to source'};
     for(const old of avoidQuestions??[]){
