@@ -1,7 +1,7 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickLevelQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
 import { PERSONAL_DIAGNOSTIC, prioritizeQuestions } from './core/personalization.js';
-import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
+import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, defaultSkillProfile, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
 import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
 import { AI_SERVICE_URL } from './config/ai-service.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
@@ -15,7 +15,7 @@ import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongR
 import { createQuestionBank } from './core/question-bank.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
-import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, pickDiagnosticQuestions } from './core/learning-cycle.js';
+import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions } from './core/learning-cycle.js';
 import { createRouter } from './router.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
@@ -144,7 +144,14 @@ function routes() {
       diagnostic: PERSONAL_DIAGNOSTIC,
       adaptive: adaptiveDashboard(state.adaptiveSkills, state.adaptiveSubjectWeights, taipeiDate()),
       trend: buildSevenDayTrend(state.answerHistory, taipeiDate()),
-      parentSummary: buildParentSummary({history:state.answerHistory,skills:state.adaptiveSkills,today:taipeiDate(),aiUsage:state.aiUsage})
+      errorReasons: buildErrorReasonStats(state.answerHistory,state.wrongQuestions),
+      parentSummary: buildParentSummary({
+        history:state.answerHistory,
+        skills:state.adaptiveSkills,
+        today:taipeiDate(),
+        aiUsage:state.aiUsage,
+        wrongQuestions:state.wrongQuestions
+      })
     }),
     '#/profile': () => renderProfile({
       player: state.player,
@@ -347,17 +354,61 @@ async function startAiRemediation(result=state.lastExamResult) {
   });
 }
 
-function startDiagnostic() {
-  const questions=pickDiagnosticQuestions(bank.all().filter(q=>q.examAligned),25);
-  if(questions.length<25) {
+async function startDiagnostic() {
+  const localQuestions=pickDiagnosticQuestions(bank.all().filter(q=>q.examAligned),25);
+  if(localQuestions.length<25) {
     showToast('目前題庫不足 25 題診斷題，請稍後再試。');
     return;
   }
-  state=applyResetMode(state,'adaptive',taipeiDate());
-  state.currentCycleStartedOn=state.currentCycleStartedOn??taipeiDate();
+
+  const today=taipeiDate();
+  const available=Math.min(5,aiAllowance(state.aiUsage,today,5));
+  let questions=[...localQuestions];
+
+  if(AI_SERVICE_URL&&available>0) {
+    const subjectOrder=['english','science','math','social','chinese'].slice(0,available);
+    showToast(`正在建立 AI＋本地混合診斷（AI 最多 ${subjectOrder.length} 題）…`);
+    const generatedGroups=await Promise.all(subjectOrder.map(async subject=>{
+      const sourceQuestion=localQuestions.find(question=>question.subject===subject);
+      if(!sourceQuestion)return [];
+      const profile={
+        ...defaultSkillProfile(sourceQuestion),
+        mastery:60,
+        priorityScore:Math.min(90,50+(PERSONAL_DIAGNOSTIC.subjectWeights?.[subject]??10)),
+        consecutiveWrong:0,
+        diagnosticRequired:false
+      };
+      return await requestAiQuestions({
+        endpoint:AI_SERVICE_URL,
+        brief:generationBrief(profile,sourceQuestion),
+        sourceQuestion,
+        count:1
+      })??[];
+    }));
+    const generated=generatedGroups.flat();
+    if(generated.length) {
+      state.aiUsage=recordAiUsage(state.aiUsage,today,generated.length);
+      const known=new Map((state.generatedQuestions??[]).map(q=>[q.id,q]));
+      for(const question of generated) {
+        known.set(question.id,question);
+        questionMap.set(question.id,question);
+        const index=questions.findIndex(item=>item.subject===question.subject);
+        if(index>=0)questions[index]=question;
+      }
+      state.generatedQuestions=[...known.values()].slice(-50);
+      showToast(`重新診斷：AI ${generated.length} 題＋本地 ${25-generated.length} 題。`);
+    } else {
+      showToast('AI 診斷題暫時不可用，改用完整本地 25 題。');
+    }
+  } else if(available===0) {
+    showToast('今日 AI 題目額度已用完，重新診斷改用本地 25 題。');
+  }
+
+  state=applyResetMode(state,'adaptive',today);
+  state.currentCycleStartedOn=state.currentCycleStartedOn??today;
   save();
   startSession(questions,{
-    title:'五科 25 題重新診斷',
+    title:'五科 25 題重新診斷・AI＋本地',
     kind:'diagnostic',
     durationMinutes:50
   });
@@ -437,7 +488,7 @@ app.addEventListener('click', async (event) => {
   if (action === 'start-new-cycle' && window.confirm('建立新的學習週期？目前弱點與錯題會封存，歷屆報告與玩家進度保留。')) {
     state=applyResetMode(state,'new-cycle',taipeiDate()); save(); renderRoute(); showToast('新的學習週期已建立。');
   }
-  if (action === 'start-diagnostic') startDiagnostic();
+  if (action === 'start-diagnostic') await startDiagnostic();
   if (action === 'reset-progress' && window.confirm('確定完整重設全部學習進度嗎？此動作無法復原。')) {
     state = store.reset(); ensureDailyQuest(); renderRoute(); showToast('全部進度已重設。');
   }
