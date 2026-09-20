@@ -439,3 +439,72 @@ button.primary-button:disabled { opacity:.5; cursor:not-allowed; }
 .attempt-list li .mock-delete-button:hover {
   background:rgba(255,107,129,.16);
 }
+
+/* Formal exam Focus Mode */
+body.focus-mode {
+  background:#0B1220;
+  color:#E5E7EB;
+}
+body.focus-mode #app {
+  background:#0B1220;
+}
+body.focus-mode .exam-page,
+body.focus-mode .exam-check-page {
+  color:#E5E7EB;
+}
+body.focus-mode .exam-page .question-card,
+body.focus-mode .exam-page .answer-sheet,
+body.focus-mode .exam-check-page .practice-panel {
+  background:#111827;
+  border-color:#334155;
+  color:#F8FAFC;
+  box-shadow:0 14px 40px rgba(0,0,0,.22);
+}
+body.focus-mode .exam-top-actions,
+body.focus-mode .check-actions {
+  background:#0B1220;
+  border-color:#334155;
+}
+body.focus-mode .exam-header,
+body.focus-mode .exam-check-header {
+  color:#F8FAFC;
+}
+body.focus-mode .muted,
+body.focus-mode .exam-page .muted,
+body.focus-mode .exam-check-page .muted {
+  color:#AAB4C3;
+}
+body.focus-mode .question-card .passage {
+  background:#172033;
+  border-left-color:#5EEAD4;
+  color:#F1F5F9;
+}
+body.focus-mode .question-card .option,
+body.focus-mode .check-question-list button {
+  background:#172033;
+  border-color:#475569;
+  color:#F8FAFC;
+}
+body.focus-mode .question-card .option:has(input:checked) {
+  background:#133B37;
+  border-color:#5EEAD4;
+}
+body.focus-mode .exam-page select,
+body.focus-mode .exam-page textarea,
+body.focus-mode .exam-check-page textarea {
+  background:#111827;
+  border-color:#475569;
+  color:#F8FAFC;
+}
+body.focus-mode .app-switcher,
+body.focus-mode .jh-app-switcher,
+body.focus-mode .mobile-bottom-nav,
+body.focus-mode .app-nav {
+  display:none !important;
+}
+body.focus-mode a:focus-visible,
+body.focus-mode button:focus-visible,
+body.focus-mode select:focus-visible,
+body.focus-mode textarea:focus-visible {
+  outline-color:#5EEAD4;
+}
