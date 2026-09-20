@@ -16,4 +16,11 @@ describe('JHSEE All Subjects theme contract', () => {
     expect(tokens).toContain('--jh-primary-soft: #ECFDF5');
     expect(tokens).toContain('JHSEE Design System v1.0');
   });
+  it('preserves official reader overflow and accessible motion/contrast contracts', () => {
+    const css = readFileSync('css/app.css','utf8');
+    expect(css).toMatch(/\.paper-image-scroll\s*\{[^}]*overflow:auto/s);
+    expect(css).toContain('prefers-reduced-motion: reduce');
+    expect(css).toMatch(/\.jh-suite-shell \.official-view-controls/);
+    expect(css).toMatch(/body\.focus-mode #official-listening-player/);
+  });
 });
