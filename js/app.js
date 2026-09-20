@@ -20,6 +20,7 @@ import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
 import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, buildCoverageReport } from './core/cap-war-room.js';
 import { createRouter } from './router.js';
+import { isFocusMode } from './ui/focus-mode.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
   renderAnalysis, renderBattle, renderLobby,
@@ -109,6 +110,7 @@ function renderRoute(scroll = true) {
   stopEnglishSpeech();
   try {
     const match = router.resolve(window.location.hash || '#/');
+    document.body.classList.toggle('focus-mode', isFocusMode(match.route, state.activeExam));
     const preserved = new Map([...app.querySelectorAll('[data-preserve]')].map(node=>[node.dataset.preserve,node]));
     app.innerHTML = match.handler(match.params);
     for (const replacement of app.querySelectorAll('[data-preserve]')) {
@@ -120,6 +122,7 @@ function renderRoute(scroll = true) {
     if (match.route === '#/exam-check') app.querySelector('h1')?.focus({ preventScroll: true });
     const mockDate=app.querySelector('#mock-date');if(mockDate&&!mockDate.value)mockDate.value=taipeiDate();
   } catch (error) {
+    document.body.classList.remove('focus-mode');
     console.error(error);
     app.innerHTML = '<section class="fatal-state"><span>🛠️</span><h1>冒險暫時中斷</h1><p>請重新整理頁面或返回首頁。原有學習紀錄仍保存在這台裝置。</p><a href="#/">返回首頁</a></section>';
   }
