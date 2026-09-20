@@ -21,6 +21,7 @@ import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildPa
 import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, buildCoverageReport } from './core/cap-war-room.js';
 import { createRouter } from './router.js';
 import { isFocusMode } from './ui/focus-mode.js';
+import { renderAppShell } from './ui/app-shell.js';
 import { SUBJECTS } from './config/subjects.js';
 import {
   renderAnalysis, renderBattle, renderLobby,
@@ -110,9 +111,11 @@ function renderRoute(scroll = true) {
   stopEnglishSpeech();
   try {
     const match = router.resolve(window.location.hash || '#/');
-    document.body.classList.toggle('focus-mode', isFocusMode(match.route, state.activeExam));
+    const focusMode = isFocusMode(match.route, state.activeExam);
+    document.body.classList.toggle('focus-mode', focusMode);
     const preserved = new Map([...app.querySelectorAll('[data-preserve]')].map(node=>[node.dataset.preserve,node]));
-    app.innerHTML = match.handler(match.params);
+    const content = match.handler(match.params);
+    app.innerHTML = focusMode ? content : renderAppShell(content, match.route);
     for (const replacement of app.querySelectorAll('[data-preserve]')) {
       const previous=preserved.get(replacement.dataset.preserve);
       if(previous) replacement.replaceWith(previous);
