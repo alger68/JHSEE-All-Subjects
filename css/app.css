@@ -603,3 +603,23 @@ body.focus-mode textarea:focus-visible {
 .jh-suite-shell input{background:#fff;color:var(--jh-text);border-color:#BFCBC7}
 .jh-suite-shell .paper-card,
 .jh-suite-shell .practice-panel{background:var(--jh-surface);border-color:var(--jh-border);box-shadow:0 6px 20px rgba(31,42,68,.035)}
+
+/* Official reader theme alignment */
+.jh-suite-shell .official-view-controls button,
+.jh-suite-shell .reader-tools button,
+.jh-suite-shell .reader-tools select{
+  background:var(--jh-surface);
+  color:var(--jh-text);
+  border-color:#BFCBC7;
+}
+.jh-suite-shell .official-view-controls button[aria-pressed="true"]{
+  background:var(--jh-primary-soft);
+  color:var(--jh-primary);
+  border-color:#91C9C2;
+}
+body.focus-mode #official-listening-player{
+  background:#111827;
+  color:#F8FAFC;
+  border-color:#334155;
+  box-shadow:0 14px 40px rgba(0,0,0,.22);
+}
