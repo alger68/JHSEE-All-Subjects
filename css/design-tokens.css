@@ -1,0 +1,31 @@
+/* JHSEE Design System v1.0 */
+:root {
+  color-scheme: light;
+  --jh-bg: #F6F8F7;
+  --jh-surface: #FFFFFF;
+  --jh-surface-muted: #F0F7F5;
+  --jh-text: #1F2A44;
+  --jh-muted: #667085;
+  --jh-border: #DEE7E4;
+
+  --jh-primary: #0F766E;
+  --jh-primary-strong: #115E59;
+  --jh-primary-soft: #ECFDF5;
+
+  --jh-success: #15803D;
+  --jh-warning: #B45309;
+  --jh-danger: #B91C1C;
+  --jh-info: #2563EB;
+
+  --jh-radius-card: 18px;
+  --jh-radius-control: 12px;
+  --jh-shadow-card: 0 8px 24px rgba(31,42,68,.06);
+
+  --jh-space-1: 4px;
+  --jh-space-2: 8px;
+  --jh-space-3: 12px;
+  --jh-space-4: 16px;
+  --jh-space-5: 20px;
+  --jh-space-6: 24px;
+  --jh-space-8: 32px;
+}
