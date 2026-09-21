@@ -332,8 +332,9 @@ Provider 每次抽題都接收 context：
 錯題原題：
 
 - 第一次 Anchor review 例外。
-- Anchor 完成後，原題進冷卻。
-- 原錯題至少 14 天不得作為自動 review 題再次出現。
+- Anchor 作答一次後，該 `questionId` 與其 fingerprint 在這筆錯題的自動 review lifecycle 中永久排除。
+- 不因 14 天或 30 題冷卻結束而重新成為這筆錯題的 review 候選。
+- 一般練習是否再次抽到該題仍受一般 30 題冷卻規則控制，與錯題 review lifecycle 分開。
 
 ### 9.2 Fingerprint
 
@@ -405,9 +406,9 @@ Review / practice 若候選不足，依固定順序：
 3. 同 domain 的相鄰能力。
 4. 通過 QA 的 AI cache。
 5. 即時 AI 生成。
-6. 冷卻已結束的舊題。
+6. 冷卻已結束的舊變形題。
 
-不得直接從 1 跳回原錯題。
+第 6 層不得包含該 review item 的 Anchor 原題或相同 Anchor fingerprint；不得直接從 1 跳回原錯題。
 
 ---
 
@@ -668,7 +669,7 @@ Provider 必須：
 
 1. 優先退回本地近能力題。
 2. 再退到已驗證 AI cache。
-3. 最後才用冷卻已過舊題。
+3. 最後才用冷卻已過的舊變形題；不得使用該 review item 的 Anchor 原題。
 
 不得：
 
