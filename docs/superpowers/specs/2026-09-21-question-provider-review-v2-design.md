@@ -494,17 +494,22 @@ Review / practice 若候選不足，依固定順序：
 
 - 原 questionId。
 
-答對：
+不論答對或答錯：
 
 - `originalReviewCount = 1`
+- 原題自此不得再作為自動 review 題。
 - stage -> `same-skill`
+
+若答對：
+
 - nextReview -> +3 days
 - 不可直接 resolved。
 
-答錯：
+若答錯：
 
-- 保持 stage `anchor`
 - nextReview -> +1 day
+- 提高 adaptive priority。
+- 下一次仍必須使用 Same Skill 新題，不可再次出原題。
 
 ### Stage 1: Same Skill
 
@@ -568,7 +573,7 @@ Review / practice 若候選不足，依固定順序：
 
 錯題 resolved 必須同時滿足：
 
-1. Anchor 已完成。
+1. Anchor 已作答一次，不要求 Anchor 本身一定答對。
 2. 至少 3 個不同 fingerprint 答對。
 3. 至少 2 個答對 fingerprint 非原題。
 4. 至少通過 Same Skill 與 Near Transfer。
@@ -963,8 +968,8 @@ Fingerprint duplicate comparison：
 
 ### 30.3 Review
 
-- 第一次複習允許原題。
-- Anchor 答對後第二次不得出原 questionId。
+- 第一次複習允許原題且只能出現一次。
+- Anchor 不論答對或答錯，第二次都不得出原 questionId。
 - 第二次不得出相同 fingerprint。
 - Same Skill 正確後進 Near Transfer。
 - Near Transfer 正確後進 Delayed Transfer。
