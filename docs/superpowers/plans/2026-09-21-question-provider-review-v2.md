@@ -382,7 +382,9 @@ git commit -m "feat: add content-aware question dedup"
   - `createQuestionRegistry(localQuestions=[]) -> registry`
   - `registry.registerQuestions(questions,{sourceKind,packId?,packVersion?}) -> {accepted,rejected}`
   - `registry.getById(id) -> question|null`
-  - `registry.all() -> question[]`
+  - `registry.all() -> question[]` for variant-eligible local/AI questions
+  - `registry.allLookupQuestions() -> question[]` including lookup-only official questions
+  - `registry.clearSource(sourceKind) -> void`
   - `registry.bySkillKey(skillKey) -> question[]`
   - `registry.byCompetency(subject,competency) -> question[]`
   - `registry.byDomain(subject,domain) -> question[]`
@@ -426,7 +428,7 @@ On registration:
 - index by subject, skillKey, `subject::competency`, `subject::domain`, difficulty, sourceKind;
 - preserve immutable question payload semantics by storing frozen enriched objects.
 
-Do not scan `all()` for every query when an index is available.
+Do not scan `all()` for every query when an index is available. `clearSource('ai-cache')` must remove those questions from every index, while `allLookupQuestions()` must include lookup-only official entries for existing UI/report lookup.
 
 - [ ] **Step 4: Add 5000-question performance-shape test**
 
@@ -458,7 +460,7 @@ git commit -m "feat: add indexed question registry"
 **Files:**
 - Create: `js/core/question-provider.js`
 - Create: `tests/question-provider.test.js`
-- Modify: `js/core/ai-question-client.js` only if a small injectable transport wrapper is required; do not alter endpoint contract.
+- Read-only dependency: `js/core/ai-question-client.js`; do not alter its endpoint contract in this task.
 
 **Interfaces:**
 - Consumes:
@@ -473,6 +475,7 @@ git commit -m "feat: add indexed question registry"
   - `provider.getReviewSession(reviewItems, context) -> Promise<{questions,evidenceByQuestionId,warnings,skippedReviewIds}>`
   - `provider.registerGeneratedQuestions(questions, context) -> {accepted,rejected}`
   - `provider.getStats() -> registry.stats()`
+  - `provider.countPracticeCandidates(criteria, context) -> number` and this preview path never calls AI
 
 - [ ] **Step 1: Write failing local-first tests**
 
@@ -550,7 +553,7 @@ Expected: PASS.
 - [ ] **Step 8: Commit**
 
 ```bash
-git add js/core/question-provider.js tests/question-provider.test.js js/core/ai-question-client.js
+git add js/core/question-provider.js tests/question-provider.test.js
 git commit -m "feat: add local-first question provider"
 ```
 
@@ -677,8 +680,8 @@ git commit -m "feat: add transfer-based review mastery"
 ### Task 6: Storage and Backup Compatibility
 
 **Files:**
-- Modify: `js/core/storage.js`
-- Modify: `tests/storage.test.js`
+- Test: `tests/storage.test.js`
+- Read-only dependency: `js/core/storage.js`
 
 **Interfaces:**
 - Consumes: `migrateWrongQuestions(items, questionLookup)` is not called inside storage because storage does not own the question lookup.
@@ -718,14 +721,9 @@ npx vitest run tests/storage.test.js
 
 Expected: existing tests PASS; new compatibility tests should expose any normalization gap.
 
-- [ ] **Step 3: Make the minimum storage changes**
+- [ ] **Step 3: Confirm no storage implementation change is required**
 
-Do not change:
-- key;
-- state version;
-- backup meta version.
-
-Only add defaults needed for new optional state properties if required, such as `questionProviderDiagnostics:[]`. Review-derived fields remain on each wrong item and are preserved by JSON serialization.
+The existing store serializes nested wrong-item fields without stripping them and merges top-level defaults without rewriting each wrong item. Keep `js/core/storage.js` unchanged as long as the new tests pass. Do not add a new storage key, state version, or backup version.
 
 - [ ] **Step 4: Run storage tests**
 
@@ -738,7 +736,7 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add js/core/storage.js tests/storage.test.js
+git add tests/storage.test.js
 git commit -m "test: preserve review v2 storage compatibility"
 ```
 
@@ -760,7 +758,7 @@ git commit -m "test: preserve review v2 storage compatibility"
 - Produces runtime singletons:
   - `registry`
   - `provider`
-  - existing `bank` retained temporarily for legacy battle/world APIs if needed;
+  - existing `bank` retained for legacy battle/world APIs in this release;
   - `questionMap` rebuilt from registry + official lookup questions.
 
 - [ ] **Step 1: Change app-integration fetch stub to understand manifest and pack URLs**
@@ -804,7 +802,7 @@ questionMap=new Map(registry.allLookupQuestions().map(q=>[q.id,q]));
 state.wrongQuestions=migrateWrongQuestions(state.wrongQuestions,questionMap);
 ```
 
-If registry API uses a different exact lookup method from Task 3, keep that single defined name consistently in this plan during implementation; preferred name is `allLookupQuestions()` and Task 3 should expose it.
+Use the Task 3 interface exactly: `registry.allLookupQuestions()` builds `questionMap`, including official lookup-only questions.
 
 - [ ] **Step 4: Add core pack failure test**
 
@@ -836,13 +834,13 @@ git commit -m "refactor: boot question provider from pack manifest"
 **Files:**
 - Modify: `js/app.js`
 - Modify: `tests/app-integration.test.js`
-- Modify: `tests/question-provider.test.js` if an app-specific context adapter is extracted.
+- Modify: `tests/question-provider.test.js`
 
 **Interfaces:**
 - Consumes: `provider.getPracticeSet(criteria, context)`.
 - Produces app helper:
   - `practiceContext() -> {today,recentIds,recentFingerprints,recentVariationForms,answerHistory,skills,subjectWeights,difficultyWindow,excludeIds,excludeFingerprints,allowAi,aiAllowance}`
-  - `practiceSelection(shuffle=false) -> Promise<{subject,grade,type,focus,pool,matchCount,warnings}>` or equivalent async flow.
+  - `practiceSelection(shuffle=false) -> Promise<{subject,grade,type,focus,pool,matchCount,warnings}>`
 
 - [ ] **Step 1: Add integration test for no repeat in recent history**
 
@@ -864,7 +862,7 @@ Assert:
 - practice starts immediately;
 - AI generation request is not made solely to replace available local same-skill capacity.
 
-The existing background-AI behavior may remain for general weakness enrichment only if it does not violate the spec's local-first rule; if local provider returns a full requested set, Provider must not request AI for that selection.
+Preserve instant-start behavior with this exact rule: when Provider returns the full requested local/cache set, do not call AI. When Provider returns a non-empty but undersized set and AI is allowed, start immediately with those questions and generate only enough AI questions to fill future unanswered slots.
 
 - [ ] **Step 3: Refactor `practiceSelection()`**
 
@@ -878,11 +876,11 @@ behind Provider.
 
 UI filter extraction stays in `app.js`.
 
-The button status count should use a Provider candidate-count API or `getPracticeSet(...,{preview:true})` that never calls AI. Preferred explicit interface:
+The button status count uses the Task 4 preview interface exactly:
 ```js
 provider.countPracticeCandidates(criteria, context) -> number
 ```
-Add this method to Task 4 implementation if needed.
+This method reads registry candidates only and never calls AI.
 
 - [ ] **Step 4: Preserve instant-start behavior**
 
@@ -1058,7 +1056,7 @@ git commit -m "feat: review wrong answers with transfer variants"
 
 **Files:**
 - Modify: `js/app.js`
-- Modify: `js/core/learning-cycle.js`
+- Read-only dependency: `js/core/learning-cycle.js`
 - Modify: `tests/learning-cycle.test.js`
 - Modify: `tests/app-integration.test.js`
 - Modify: `tests/question-provider.test.js`
@@ -1104,7 +1102,7 @@ Replace direct `questionMap.set` / cache merge in:
 
 Existing adaptive reset clears `generatedQuestions`.
 
-After reset, rebuild runtime registry so stale AI-cache entries are no longer selectable.
+After adaptive reset or new-cycle reset, call `registry.clearSource('ai-cache')`; because the persisted `generatedQuestions` array is also cleared by existing reset logic, stale AI-cache entries are no longer selectable.
 
 Add a test proving reset + re-render cannot select a cleared AI cached question.
 
@@ -1119,7 +1117,7 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add js/app.js js/core/learning-cycle.js tests/learning-cycle.test.js tests/app-integration.test.js tests/question-provider.test.js
+git add js/app.js tests/learning-cycle.test.js tests/app-integration.test.js tests/question-provider.test.js
 git commit -m "fix: register only validated AI question variants"
 ```
 
