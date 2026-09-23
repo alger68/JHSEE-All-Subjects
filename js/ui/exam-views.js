@@ -33,7 +33,7 @@ export function renderEnglishTtsControls(q,rate=1) {
 export function renderExamCenter({papers,activeSession,attempts=[],reports=[],dueCount=0,practiceCount=0,alignedCount=0,diagnostic=null,adaptive=null,mockWarRoom=null,repairPlan=[],coverage=null}) {
   return `<div class="app-shell"><header class="page-header"><a href="#/" aria-label="回首頁">←</a><div><span class="eyebrow">CAP STUDY CENTER</span><h1>會考與補強中心</h1></div></header>
   ${activeSession?`<section class="notice"><strong>尚有進行中的測驗：${html(activeSession.title)}</strong><p>原倒數持續計時，作答已保存在這台裝置。</p><a class="primary-button" href="#/exam">繼續作答</a></section>`:''}
-  <section class="study-intro"><h2>真題熟悉考試，練習補足弱點。</h2><p>官方題目直接在本站閱讀、選答案；可切換逐題作答或整份題本，完整保留文章、圖表與題組。交卷後才核對答案。</p><a class="text-link" href="${OFFICIAL_SOURCE}" target="_blank" rel="noopener noreferrer">官方 115 年資料來源 ↗</a></section>
+  <section class="study-intro"><h2>真題熟悉考試，練習補足弱點。</h2><p>官方題目直接在本站閱讀、選答案；可切換逐題作答或整份題本，完整保留文章、圖表與題組。交卷後才核對答案。</p><div class="study-intro-actions"><a class="text-link" href="${OFFICIAL_SOURCE}" target="_blank" rel="noopener noreferrer">官方 115 年資料來源 ↗</a><a class="primary-button" href="#/placement">🎯 查看基北區升學落點</a></div></section>
   <section class="practice-panel cap-war-room"><span class="eyebrow">CAP WAR ROOM</span><h2>會考戰情中心</h2><p>記錄每次模擬考的五科等級，系統用來看趨勢、安排下一週讀書比例，並調整 Adaptive 出題權重。這是內部學習配置，不是官方級距換算或錄取預測。</p>
     <input id="mock-record-id" type="hidden" value="${html(mockWarRoom?.latest?.id??'')}">
     <div class="practice-filters">
