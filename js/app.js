@@ -14,6 +14,10 @@ import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
 import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
+import { loadQuestionPacks } from './core/question-pack-loader.js';
+import { createQuestionRegistry } from './core/question-registry.js';
+import { createQuestionProvider } from './core/question-provider.js';
+import { migrateWrongQuestions } from './core/review-state.js';
 import { buildEnglishSpeechText, getEnglishSpeechRate, setEnglishSpeechRate, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
@@ -32,6 +36,8 @@ const app = document.querySelector('#app');
 const store = createStore();
 let state = store.load();
 let bank;
+let registry;
+let provider;
 let router;
 let feedback = null;
 let questionMap = new Map();
@@ -52,6 +58,40 @@ const aiAvoidExamples=()=>{
   }
   return recentAvoidQuestions(merged,8);
 };
+
+
+async function generateProviderAi({target,sourceQuestion,avoidQuestions=[],count=1}={}){
+  if(!AI_SERVICE_URL||!sourceQuestion)return null;
+  const profile={
+    ...defaultSkillProfile(sourceQuestion),
+    ...target,
+    subject:target?.subject??sourceQuestion.subject,
+    domain:target?.domain??sourceQuestion.domain??sourceQuestion.examProfile?.domain,
+    competency:target?.competency??sourceQuestion.competency??sourceQuestion.examProfile?.competency,
+    subSkill:target?.subSkill??sourceQuestion.questionType,
+    mastery:target?.mastery??60,
+    priorityScore:target?.priorityScore??60
+  };
+  return requestAiQuestions({
+    endpoint:AI_SERVICE_URL,
+    brief:generationBrief(profile,sourceQuestion),
+    sourceQuestion,
+    avoidQuestions,
+    count
+  });
+}
+
+function rebuildQuestionRuntime(){
+  registry=createQuestionRegistry(bank?.all?.()??[]);
+  registry.registerQuestions(state.generatedQuestions??[],{sourceKind:'ai-cache'});
+  registry.registerQuestions(
+    OFFICIAL_PAPERS.flatMap(getOfficialQuestions),
+    {sourceKind:'official',variantEligible:false,lookupOnly:true}
+  );
+  provider=createQuestionProvider({registry,generateAi:generateProviderAi});
+  questionMap=new Map(registry.allLookupQuestions().map(question=>[question.id,question]));
+  state.wrongQuestions=migrateWrongQuestions(state.wrongQuestions??[],questionMap);
+}
 
 function showToast(message) {
   document.querySelector('.toast')?.remove();
@@ -857,7 +897,8 @@ app.addEventListener('change',async(event)=>{
     const restored=store.importBackup(text);
     if(!restored.ok){showToast('備份格式不正確，未修改目前資料。');event.target.value='';return;}
     state=restored.state;
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    rebuildQuestionRuntime();
+    save();
     event.target.value='';
     renderRoute();showToast('學習資料已還原。');
     return;
@@ -876,11 +917,13 @@ app.addEventListener('change',async(event)=>{
 async function boot() {
   app.innerHTML = '<section class="loading-state"><span>✦</span><h1>正在展開冒險地圖…</h1></section>';
   try {
-    const bankUrls = [new URL('../data/questions.json',import.meta.url), new URL('../data/cap-practice.json',import.meta.url)];
-    const responses = await Promise.all(bankUrls.map(url=>fetch(url)));
-    if(responses.some(r=>!r.ok))throw new Error('Question bank request failed');
-    bank = createQuestionBank((await Promise.all(responses.map(r=>r.json()))).flat());
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    const loaded=await loadQuestionPacks({
+      manifestUrl:new URL('../data/packs/manifest.json',import.meta.url),
+      fetchImpl:fetch
+    });
+    bank=createQuestionBank(loaded.questions);
+    rebuildQuestionRuntime();
+    if(loaded.warnings.length)console.warn('Question pack warnings',loaded.warnings);
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
