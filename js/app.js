@@ -851,8 +851,8 @@ app.addEventListener('input',(event)=>{
   if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
 });
 app.addEventListener('change',async(event)=>{
-  if(event.target.matches('[data-placement-grade],#placement-writing,#placement-gender,#placement-target')) {
-    const current=state.admissionProfile??{source:'latest-mock',grades:{},writing:4,gender:'all',targetSchoolId:'banqiao'};
+  if(event.target.matches('[data-placement-grade],#placement-writing,#placement-gender,#placement-target,#placement-preference-points,#placement-balanced-points,#placement-service-points')) {
+    const current=state.admissionProfile??{source:'latest-mock',grades:{},writing:4,gender:'all',targetSchoolId:'banqiao',preferencePoints:null,balancedPoints:null,servicePoints:null};
     const latestGrades=currentMockWarRoom().latest?.grades??{};
     const grades=current.source==='latest-mock'
       ? {...latestGrades,...(current.grades??{})}
@@ -860,13 +860,20 @@ app.addEventListener('change',async(event)=>{
     if(event.target.matches('[data-placement-grade]')) {
       grades[event.target.dataset.placementGrade]=event.target.value;
     }
+    const nullableNumber=(id,fallback)=>{
+      if(event.target.id!==id)return fallback??null;
+      return event.target.value===''?null:Number(event.target.value);
+    };
     state.admissionProfile={
       ...current,
       source:event.target.matches('[data-placement-grade]')?'manual':current.source,
       grades,
       writing:event.target.id==='placement-writing'?Number(event.target.value):Number(current.writing??4),
       gender:event.target.id==='placement-gender'?event.target.value:(current.gender??'all'),
-      targetSchoolId:event.target.id==='placement-target'?event.target.value:(current.targetSchoolId??'banqiao')
+      targetSchoolId:event.target.id==='placement-target'?event.target.value:(current.targetSchoolId??'banqiao'),
+      preferencePoints:nullableNumber('placement-preference-points',current.preferencePoints),
+      balancedPoints:nullableNumber('placement-balanced-points',current.balancedPoints),
+      servicePoints:nullableNumber('placement-service-points',current.servicePoints)
     };
     save();renderRoute(false);return;
   }
