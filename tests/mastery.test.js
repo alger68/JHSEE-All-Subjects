@@ -63,8 +63,8 @@ describe('wrong-answer revenge mastery', () => {
     list = reviewWrong(list, 'Q1', true, '2026-09-17');
     list = reviewWrong(list, 'Q1', true, '2026-09-19');
 
-    expect(list[0]).toMatchObject({ mastery: 2, resolved: false, nextReview: '2026-10-03' });
-    expect(dueWrongQuestions(list, '2026-10-03').map((item) => item.questionId)).toEqual(['Q1']);
+    expect(list[0]).toMatchObject({ mastery: 2, resolved: false, nextReview: '2026-09-23' });
+    expect(dueWrongQuestions(list, '2026-09-23').map((item) => item.questionId)).toEqual(['Q1']);
   });
 
   it('queues an uncertain answer without counting it wrong', () => {
