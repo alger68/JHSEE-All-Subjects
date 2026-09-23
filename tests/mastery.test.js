@@ -16,14 +16,14 @@ describe('wrong-answer revenge mastery', () => {
     });
   });
 
-  it('raises mastery on correct reviews and lowers it after another miss', () => {
+  it('never resolves a wrong item by repeating the same original question', () => {
     let list = recordWrong([], 'Q1', '2026-09-16');
     list = reviewWrong(list, 'Q1', true, '2026-09-17');
     list = reviewWrong(list, 'Q1', true, '2026-09-19');
     list = reviewWrong(list, 'Q1', true, '2026-09-23');
-    expect(list[0]).toMatchObject({ mastery: 3, resolved: true });
-    list = reviewWrong(list, 'Q1', false, '2026-10-07');
     expect(list[0]).toMatchObject({ mastery: 2, resolved: false });
+    list = reviewWrong(list, 'Q1', false, '2026-10-07');
+    expect(list[0]).toMatchObject({ mastery: 1, resolved: false });
   });
 
   it('awards mastery at most once on the same date', () => {
@@ -34,20 +34,18 @@ describe('wrong-answer revenge mastery', () => {
     expect(reviewedAgain[0]).toMatchObject({ mastery: 1, nextReview: '2026-09-19', lastReviewed: '2026-09-17' });
   });
 
-  it('demotes a mastered question answered wrong after a same-day correct review', () => {
+  it('demotes legacy compatibility mastery after another miss without resolving', () => {
     let list = recordWrong([], 'Q1', '2026-09-16');
     list = reviewWrong(list, 'Q1', true, '2026-09-17');
     list = reviewWrong(list, 'Q1', true, '2026-09-19');
-    list = reviewWrong(list, 'Q1', true, '2026-09-23');
-    list = reviewWrong(list, 'Q1', true, '2026-10-07');
-    list = reviewWrong(list, 'Q1', false, '2026-10-07');
+    list = reviewWrong(list, 'Q1', false, '2026-09-23');
 
     expect(list[0]).toMatchObject({
-      mastery: 2,
+      mastery: 1,
       wrongCount: 2,
       resolved: false,
-      nextReview: '2026-10-08',
-      lastReviewed: '2026-10-07'
+      nextReview: '2026-09-24',
+      lastReviewed: '2026-09-23'
     });
   });
 
@@ -60,14 +58,13 @@ describe('wrong-answer revenge mastery', () => {
     expect(immediateRetry[0]).toMatchObject({ mastery: 0, wrongCount: 2, nextReview: '2026-09-20', lastReviewed: '2026-09-19' });
   });
 
-  it('keeps mastered entries due for maintenance after their next review date', () => {
+  it('keeps unresolved compatibility entries scheduled while transfer review owns resolution', () => {
     let list = recordWrong([], 'Q1', '2026-09-16');
     list = reviewWrong(list, 'Q1', true, '2026-09-17');
     list = reviewWrong(list, 'Q1', true, '2026-09-19');
-    list = reviewWrong(list, 'Q1', true, '2026-09-23');
 
-    expect(list[0]).toMatchObject({ mastery: 3, resolved: true, nextReview: '2026-10-07' });
-    expect(dueWrongQuestions(list, '2026-10-07').map((item) => item.questionId)).toEqual(['Q1']);
+    expect(list[0]).toMatchObject({ mastery: 2, resolved: false, nextReview: '2026-10-03' });
+    expect(dueWrongQuestions(list, '2026-10-03').map((item) => item.questionId)).toEqual(['Q1']);
   });
 
   it('queues an uncertain answer without counting it wrong', () => {
