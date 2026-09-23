@@ -1,20 +1,25 @@
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 
-// A successful bundle alone does not prove its asynchronously fetched banks exist.
-const manifest=JSON.parse(readFileSync('data/packs/manifest.json','utf8'));
-assert.equal(manifest.version,1,'Question pack manifest version must be 1');
-assert.deepEqual(manifest.packs.filter(pack=>pack.enabled!==false).map(pack=>pack.id),['core-v1','cap-practice-v1']);
+const sourceManifestPath='data/packs/manifest.json';
+const deployedManifestPath='dist/data/packs/manifest.json';
+const manifest=JSON.parse(readFileSync(sourceManifestPath,'utf8'));
+const deployedManifest=JSON.parse(readFileSync(deployedManifestPath,'utf8'));
+assert.deepEqual(deployedManifest,manifest,'Deployed question pack manifest differs from source');
 
-const files = readdirSync('dist/assets');
-const bundle = files.filter(name => name.endsWith('.js')).map(name => readFileSync(`dist/assets/${name}`, 'utf8')).join('\n');
-for (const bank of ['questions', 'cap-practice']) {
-  const asset = files.find(name => name.startsWith(`${bank}-`) && name.endsWith('.json'));
-  assert.ok(asset, `Missing deployed question bank: ${bank}`);
-  assert.ok(bundle.includes(asset), `Bundle does not reference ${asset}`);
-  assert.deepEqual(JSON.parse(readFileSync(`dist/assets/${asset}`, 'utf8')), JSON.parse(readFileSync(`data/${bank}.json`, 'utf8')));
+let questionCount=0;
+for(const pack of manifest.packs??[]){
+  if(pack.enabled===false)continue;
+  const sourcePath=resolve(dirname(sourceManifestPath),pack.file);
+  const deployedPath=resolve(dirname(deployedManifestPath),pack.file);
+  const source=JSON.parse(readFileSync(sourcePath,'utf8'));
+  const deployed=JSON.parse(readFileSync(deployedPath,'utf8'));
+  assert.deepEqual(deployed,source,`Missing or altered deployed question pack: ${pack.id}`);
+  questionCount+=source.length;
 }
-console.log('Built question banks verified: 205 original questions available.');
+console.log(`Built question packs verified: ${questionCount} original questions available.`);
+
 const official=JSON.parse(readFileSync('data/official-115-layout.json','utf8'));
 let pageCount=0;
 for(const layout of Object.values(official))for(const page of layout.pages) {
