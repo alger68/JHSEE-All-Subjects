@@ -79,7 +79,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
     return freshPracticeCandidates(criteria,context,question=>isLocal(question)||question.sourceKind==='ai-cache').length;
   }
 
-  async function getPracticeSet(criteria={},context={}){
+  function getPracticeSet(criteria={},context={}){
     const requested=Math.max(1,Number(context.count??10));
     const local=freshPracticeCandidates(criteria,context,isLocal);
     const hasAdaptiveData=context.hasAdaptiveData??Object.keys(context.skills??{}).length>0;
