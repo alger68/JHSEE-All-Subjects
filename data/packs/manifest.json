@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "packs": [
+    {
+      "id": "core-v1",
+      "version": 1,
+      "file": "../questions.json",
+      "enabled": true,
+      "kind": "local-core"
+    },
+    {
+      "id": "cap-practice-v1",
+      "version": 1,
+      "file": "../cap-practice.json",
+      "enabled": true,
+      "kind": "local-core"
+    }
+  ]
+}

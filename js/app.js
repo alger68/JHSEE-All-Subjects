@@ -13,7 +13,11 @@ import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './u
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
-import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
+import { recentQuestionIds, recentQuestionFingerprints, recentAvoidQuestions } from './core/question-diversity.js';
+import { loadQuestionPacks } from './core/question-pack-loader.js';
+import { createQuestionRegistry } from './core/question-registry.js';
+import { createQuestionProvider } from './core/question-provider.js';
+import { migrateWrongQuestions } from './core/review-state.js';
 import { buildEnglishSpeechText, getEnglishSpeechRate, setEnglishSpeechRate, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
@@ -34,6 +38,8 @@ const app = document.querySelector('#app');
 const store = createStore();
 let state = store.load();
 let bank;
+let registry;
+let provider;
 let router;
 let feedback = null;
 let questionMap = new Map();
@@ -54,6 +60,40 @@ const aiAvoidExamples=()=>{
   }
   return recentAvoidQuestions(merged,8);
 };
+
+
+async function generateProviderAi({target,sourceQuestion,avoidQuestions=[],count=1}={}){
+  if(!AI_SERVICE_URL||!sourceQuestion)return null;
+  const profile={
+    ...defaultSkillProfile(sourceQuestion),
+    ...target,
+    subject:target?.subject??sourceQuestion.subject,
+    domain:target?.domain??sourceQuestion.domain??sourceQuestion.examProfile?.domain,
+    competency:target?.competency??sourceQuestion.competency??sourceQuestion.examProfile?.competency,
+    subSkill:target?.subSkill??sourceQuestion.questionType,
+    mastery:target?.mastery??60,
+    priorityScore:target?.priorityScore??60
+  };
+  return requestAiQuestions({
+    endpoint:AI_SERVICE_URL,
+    brief:generationBrief(profile,sourceQuestion),
+    sourceQuestion,
+    avoidQuestions,
+    count
+  });
+}
+
+function rebuildQuestionRuntime(){
+  registry=createQuestionRegistry(bank?.all?.()??[]);
+  registry.registerQuestions(state.generatedQuestions??[],{sourceKind:'ai-cache'});
+  registry.registerQuestions(
+    OFFICIAL_PAPERS.flatMap(getOfficialQuestions),
+    {sourceKind:'official',variantEligible:false,lookupOnly:true}
+  );
+  provider=createQuestionProvider({registry,generateAi:generateProviderAi});
+  questionMap=new Map(registry.allLookupQuestions().map(question=>[question.id,question]));
+  state.wrongQuestions=migrateWrongQuestions(state.wrongQuestions??[],questionMap);
+}
 
 function showToast(message) {
   document.querySelector('.toast')?.remove();
@@ -503,7 +543,8 @@ async function generateAiForActivePractice({
   sessionId,
   profile,
   sourceQuestion,
-  count
+  count,
+  targetCount=10
 }) {
   if(!AI_SERVICE_URL||!profile||!sourceQuestion||count<=0)return;
   const generated=await requestAiQuestions({
@@ -527,67 +568,53 @@ async function generateAiForActivePractice({
   const session=state.activeExam;
   if(session?.id===sessionId&&session.status==='active'&&session.kind==='practice') {
     const usedIds=new Set(session.questionIds);
-    const replacements=[];
-    for(let index=session.questionIds.length-1;index>session.index+1;index-=1) {
-      const id=session.questionIds[index];
-      const existing=questionMap.get(id);
-      if(session.answers[id]!==undefined)continue;
-      if(existing?.aiGenerated)continue;
-      replacements.push(index);
-    }
     for(const question of generated) {
+      if(session.questionIds.length>=targetCount)break;
       if(usedIds.has(question.id))continue;
-      const index=replacements.shift();
-      if(index===undefined)break;
-      session.questionIds[index]=question.id;
+      session.questionIds.push(question.id);
       usedIds.add(question.id);
       injected+=1;
     }
   }
   save();
-  if(injected>0)showToast(`AI 已在背景加入 ${injected} 題弱點變形題，不用等待。`);
+  if(injected>0)showToast(`AI 已在背景補入 ${injected} 題弱點變形題，不用等待。`);
+}
+
+function practiceFilters(){
+  const subject=document.querySelector('#practice-subject')?.value??'all';
+  const grade=Number(document.querySelector('#practice-grade')?.value??9);
+  const type=document.querySelector('#practice-type')?.value??'';
+  const focus=document.querySelector('#practice-focus')?.value??'aligned';
+  const criteria={maxGrade:grade};
+  if(subject!=='all')criteria.subject=subject;
+  if(type)criteria.questionType=type;
+  if(focus!=='all')criteria.examAligned=focus!=='basic';
+  return {subject,grade,type,focus,criteria};
+}
+
+function practiceContext(shuffle=false,count=10){
+  state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
+  state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
+  return {
+    today:taipeiDate(),
+    recentIds:recentQuestionIds(state.answerHistory,30),
+    recentFingerprints:recentQuestionFingerprints(state.answerHistory,questionMap,30),
+    recentVariationForms:(state.answerHistory??[]).slice(-3).map(row=>questionMap.get(row.questionId)?.variationForm).filter(Boolean),
+    skills:state.adaptiveSkills,
+    subjectWeights:state.adaptiveSubjectWeights,
+    diagnostic:currentDiagnostic(),
+    hasAdaptiveData:Object.keys(state.adaptiveSkills??{}).length>0,
+    count,
+    rng:shuffle?Math.random:()=>0.5
+  };
 }
 
 function practiceSelection(shuffle=false) {
-  const subject=document.querySelector('#practice-subject').value;
-  const grade=Number(document.querySelector('#practice-grade').value);
-  const type=document.querySelector('#practice-type').value;
-  const focus=document.querySelector('#practice-focus').value;
-  const criteria={};
-  if(subject!=='all')criteria.subject=subject;
-  if(focus!=='all')criteria.examAligned=focus!=='basic';
-  const localCandidates=bank.filter(criteria)
-    .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
-  const generatedCandidates=(state.generatedQuestions??[])
-    .filter(q=>(subject==='all'||q.subject===subject))
-    .filter(q=>focus==='all'||(focus==='aligned'?q.examAligned===true:q.examAligned!==true))
-    .filter(q=>(q.grade??9)<=grade&&(!type||q.questionType===type));
-  const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
-  state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
-  state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
-  const recentIds=recentQuestionIds(state.answerHistory,30);
-  const candidatePool=preferFreshQuestions(
-    candidates,
-    recentIds,
-    state.adaptiveSkills,
-    taipeiDate(),
-    Math.min(10,candidates.length)
-  );
-  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
-  const pool=hasAdaptiveData
-    ? buildAdaptivePractice(candidatePool,Math.min(10,candidatePool.length),{
-        skills:state.adaptiveSkills,
-        subjectWeights:state.adaptiveSubjectWeights,
-        today:taipeiDate(),
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5
-      })
-    : buildStarterPractice(candidatePool,Math.min(10,candidatePool.length),{
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5,
-        ensureFiveSubjectMix:subject==='all'
-      });
-  return {subject,grade,type,focus,pool,matchCount:candidates.length};
+  const filters=practiceFilters();
+  const context=practiceContext(shuffle,10);
+  const result=provider.getPracticeSet(filters.criteria,context);
+  const matchCount=provider.countPracticeCandidates(filters.criteria,context);
+  return {...filters,pool:result.questions,matchCount,warnings:result.warnings};
 }
 
 app.addEventListener('click', async (event) => {
@@ -749,42 +776,38 @@ app.addEventListener('click', async (event) => {
     save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
 
-    let sessionPool=pool;
     let aiPlanned=false;
     let background=null;
     const dashboard=adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate());
     const profile=dashboard.topSkills.find((item)=>subject==='all'||item.subject===subject);
+    const shortage=Math.max(0,10-pool.length);
 
-    if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
+    if(shortage>0&&AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
       const sourceQuestion=pool.find((question)=>skillIdentity(question).key===profile.key)??pool[0];
-      const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
-      const cached=cachedAiForProfile(profile,subject,wanted);
-      if(cached.length) {
-        sessionPool=mergeAiWithFallback(cached,pool,Math.min(10,pool.length));
-        aiPlanned=true;
-      }
-      const count=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+      const wantedBase=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+      const count=aiAllowance(state.aiUsage,taipeiDate(),Math.min(shortage,wantedBase));
       if(count>0) {
         aiPlanned=true;
         background={profile,sourceQuestion,count};
-      } else if(!cached.length) {
-        showToast('今日 AI 題目額度已用完，先用本地題庫開始。');
+      } else {
+        showToast('今日 AI 題目額度已用完，先用現有本地題開始。');
       }
     }
 
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
-    const started=startSession(sessionPool,{
+    const started=startSession(pool,{
       title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiPlanned?'＋AI弱點':''}練習`,
       kind:'practice',
       durationMinutes:20
     });
     if(started&&background) {
-      showToast(`已立即開始；AI 正在背景準備 ${background.profile.competency} 變形題。`);
+      showToast(`已立即開始；AI 正在背景補足 ${background.profile.competency} 變形題。`);
       void generateAiForActivePractice({
         sessionId:started.id,
         profile:background.profile,
         sourceQuestion:background.sourceQuestion,
-        count:background.count
+        count:background.count,
+        targetCount:10
       });
     }
   }
@@ -903,14 +926,15 @@ app.addEventListener('change',async(event)=>{
     const restored=store.importBackup(text);
     if(!restored.ok){showToast('備份格式不正確，未修改目前資料。');event.target.value='';return;}
     state=restored.state;
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    rebuildQuestionRuntime();
+    save();
     event.target.value='';
     renderRoute();showToast('學習資料已還原。');
     return;
   }
   if(event.target.matches('[data-paper-page-select]'))changePaperPage(Number(event.target.value));
   if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
-    const selection=practiceSelection();
+    const selection=practiceSelection(false);
     const count=selection.matchCount;
     document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${selection.pool.length} 題`:'符合條件 0 題，請調整篩選條件。';
     document.querySelector('[data-action="start-practice"]').disabled=count===0;
@@ -922,11 +946,13 @@ app.addEventListener('change',async(event)=>{
 async function boot() {
   app.innerHTML = '<section class="loading-state"><span>✦</span><h1>正在展開冒險地圖…</h1></section>';
   try {
-    const bankUrls = [new URL('../data/questions.json',import.meta.url), new URL('../data/cap-practice.json',import.meta.url)];
-    const responses = await Promise.all(bankUrls.map(url=>fetch(url)));
-    if(responses.some(r=>!r.ok))throw new Error('Question bank request failed');
-    bank = createQuestionBank((await Promise.all(responses.map(r=>r.json()))).flat());
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    const loaded=await loadQuestionPacks({
+      manifestUrl:new URL('data/packs/manifest.json',document.baseURI),
+      fetchImpl:fetch
+    });
+    bank=createQuestionBank(loaded.questions);
+    rebuildQuestionRuntime();
+    if(loaded.warnings.length)console.warn('Question pack warnings',loaded.warnings);
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());

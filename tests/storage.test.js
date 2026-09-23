@@ -50,4 +50,52 @@ describe('adventure storage', () => {
     expect(store.load().player.exp).toBe(55);
   });
 
+  it('preserves review v2 fields through save and load without changing the storage key', () => {
+    const memory=fakeStorage();
+    const store=createStore(memory);
+    const wrong={
+      questionId:'Q1',
+      reviewStage:'near-transfer',
+      originalReviewCount:1,
+      variantHistory:[{questionId:'Q2',fingerprint:'fp2',correct:true,date:'2026-09-21'}],
+      passedFingerprints:['fp2']
+    };
+    store.save({version:1,wrongQuestions:[wrong]});
+    expect([...memory.values.keys()]).toEqual(['jhsee.adventure.v1']);
+    expect(store.load().wrongQuestions[0]).toMatchObject(wrong);
+  });
+
+  it('imports an old v1 backup and keeps it available for later lazy migration', () => {
+    const memory=fakeStorage();
+    const store=createStore(memory);
+    const backup={
+      meta:{format:'jhsee-backup-v1',version:1,exportedAt:'2026-09-18T00:00:00.000Z'},
+      state:{
+        version:1,
+        wrongQuestions:[{questionId:'Q1',mastery:0,wrongCount:1,resolved:false,nextReview:'2026-09-19'}]
+      }
+    };
+    const result=store.importBackup(JSON.stringify(backup));
+    expect(result.ok).toBe(true);
+    expect(store.load().wrongQuestions[0]).toMatchObject({questionId:'Q1',wrongCount:1});
+  });
+
+  it('round-trips review v2 fields through the existing backup format', () => {
+    const memory=fakeStorage();
+    const store=createStore(memory);
+    const wrong={
+      questionId:'Q1',
+      reviewStage:'delayed-transfer',
+      originalReviewCount:1,
+      variantHistory:[{questionId:'Q2',fingerprint:'fp2',correct:true,date:'2026-09-21'}],
+      passedFingerprints:['fp1','fp2']
+    };
+    store.save({version:1,wrongQuestions:[wrong]});
+    const backup=store.exportBackup('2026-09-24T00:00:00.000Z');
+    expect(backup.meta).toMatchObject({format:'jhsee-backup-v1',version:1});
+
+    const restored=createStore(fakeStorage());
+    expect(restored.importBackup(backup).ok).toBe(true);
+    expect(restored.load().wrongQuestions[0]).toMatchObject(wrong);
+  });
 });
