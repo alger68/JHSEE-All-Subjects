@@ -1,5 +1,6 @@
 import { validateQuestion } from './question-bank.js';
 import { buildAdaptivePractice, skillIdentity } from './adaptive-learning.js';
+import { buildStarterPractice } from './personalization.js';
 import { isNearDuplicate, questionFingerprint } from './question-dedup.js';
 
 const LOCAL_KINDS=new Set(['local-core','local-pack']);
@@ -51,41 +52,65 @@ function selectCandidate(candidates,item,context,{differentSubSkill=false,relaxR
 export function createQuestionProvider({registry,generateAi=null}={}){
   if(!registry)throw new Error('question registry is required');
 
-  function countPracticeCandidates(criteria={},context={}){
+  function matchesPracticeCriteria(question,criteria={}){
+    if(criteria.subject&&criteria.subject!=='all'&&question.subject!==criteria.subject)return false;
+    if(criteria.examAligned!==undefined&&criteria.examAligned!==null&&question.examAligned!==criteria.examAligned)return false;
+    if(Number.isFinite(Number(criteria.maxGrade))&&Number(question.grade??9)>Number(criteria.maxGrade))return false;
+    if(criteria.questionType&&question.questionType!==criteria.questionType)return false;
+    return true;
+  }
+
+  function freshPracticeCandidates(criteria={},context={},sourceFilter=()=>true){
     const recentIds=asSet(context.recentIds),recentFingerprints=asSet(context.recentFingerprints);
-    return registry.query({...criteria,variantEligible:true}).filter(question=>
-      isLocal(question)&&
+    const base=criteria.subject&&criteria.subject!=='all'
+      ? registry.query({subject:criteria.subject,variantEligible:true})
+      : registry.query({variantEligible:true});
+    return base.filter(question=>
+      sourceFilter(question)&&
+      matchesPracticeCriteria(question,criteria)&&
       !recentIds.has(question.id)&&
-      !recentFingerprints.has(question.fingerprint)
-    ).length;
+      !recentFingerprints.has(question.fingerprint)&&
+      !asSet(context.excludeIds).has(question.id)&&
+      !asSet(context.excludeFingerprints).has(question.fingerprint)
+    );
+  }
+
+  function countPracticeCandidates(criteria={},context={}){
+    return freshPracticeCandidates(criteria,context,question=>isLocal(question)||question.sourceKind==='ai-cache').length;
   }
 
   async function getPracticeSet(criteria={},context={}){
-    const recentIds=asSet(context.recentIds),recentFingerprints=asSet(context.recentFingerprints);
     const requested=Math.max(1,Number(context.count??10));
-    const local=registry.query({...criteria,variantEligible:true}).filter(question=>
-      isLocal(question)&&
-      !recentIds.has(question.id)&&
-      !recentFingerprints.has(question.fingerprint)
-    );
-    let questions=context.skills
+    const local=freshPracticeCandidates(criteria,context,isLocal);
+    const hasAdaptiveData=context.hasAdaptiveData??Object.keys(context.skills??{}).length>0;
+    let questions=hasAdaptiveData
       ? buildAdaptivePractice(local,Math.min(requested,local.length),{
-          skills:context.skills,
+          skills:context.skills??{},
           subjectWeights:context.subjectWeights,
           today:context.today,
+          diagnostic:context.diagnostic,
           rng:context.rng??Math.random
         })
-      : local.slice(0,requested);
+      : buildStarterPractice(local,Math.min(requested,local.length),{
+          diagnostic:context.diagnostic,
+          rng:context.rng??Math.random,
+          ensureFiveSubjectMix:!criteria.subject||criteria.subject==='all'
+        });
+    const localCount=questions.length;
     const warnings=[];
     if(questions.length<requested){
-      const cache=registry.query({sourceKind:'ai-cache',variantEligible:true}).filter(question=>
-        (!criteria.subject||question.subject===criteria.subject)&&
-        !recentIds.has(question.id)&&!recentFingerprints.has(question.fingerprint)&&
-        !questions.some(item=>item.id===question.id)
-      );
+      const selectedIds=new Set(questions.map(item=>item.id));
+      const cache=freshPracticeCandidates(criteria,{
+        ...context,
+        excludeIds:new Set([...(context.excludeIds??[]),...selectedIds])
+      },question=>question.sourceKind==='ai-cache');
       questions=[...questions,...cache.slice(0,requested-questions.length)];
     }
-    return {questions:questions.slice(0,requested),sourceSummary:{local:questions.filter(isLocal).length},warnings};
+    return {
+      questions:questions.slice(0,requested),
+      sourceSummary:{local:localCount,aiCache:Math.max(0,questions.length-localCount)},
+      warnings
+    };
   }
 
   function reviewTiers(item,context={}){
