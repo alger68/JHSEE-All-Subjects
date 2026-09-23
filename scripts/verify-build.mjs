@@ -2,6 +2,10 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 
 // A successful bundle alone does not prove its asynchronously fetched banks exist.
+const manifest=JSON.parse(readFileSync('data/packs/manifest.json','utf8'));
+assert.equal(manifest.version,1,'Question pack manifest version must be 1');
+assert.deepEqual(manifest.packs.filter(pack=>pack.enabled!==false).map(pack=>pack.id),['core-v1','cap-practice-v1']);
+
 const files = readdirSync('dist/assets');
 const bundle = files.filter(name => name.endsWith('.js')).map(name => readFileSync(`dist/assets/${name}`, 'utf8')).join('\n');
 for (const bank of ['questions', 'cap-practice']) {
