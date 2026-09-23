@@ -688,3 +688,9 @@ body.focus-mode #official-listening-player{
   .target-summary { grid-template-columns:1fr; }
   .study-intro-actions .primary-button,.placement-actions .secondary-button { width:100%; }
 }
+
+.placement-score-grid { display:grid; gap:14px; margin:18px 0; }
+.placement-total-card { border-color:rgba(255,209,102,.32); background:linear-gradient(135deg,rgba(255,209,102,.10),rgba(255,255,255,.035)); }
+@media (min-width:760px) {
+  .placement-score-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
