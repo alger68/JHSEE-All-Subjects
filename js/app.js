@@ -918,7 +918,7 @@ async function boot() {
   app.innerHTML = '<section class="loading-state"><span>✦</span><h1>正在展開冒險地圖…</h1></section>';
   try {
     const loaded=await loadQuestionPacks({
-      manifestUrl:new URL('../data/packs/manifest.json',import.meta.url),
+      manifestUrl:new URL('data/packs/manifest.json',document.baseURI),
       fetchImpl:fetch
     });
     bank=createQuestionBank(loaded.questions);
