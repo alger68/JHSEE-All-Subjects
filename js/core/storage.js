@@ -22,7 +22,7 @@ export function defaultState() {
     examReports: [],
     diagnosticBaselines: [],
     mockExamRecords: [],
-    admissionProfile: { source:'latest-mock', grades:{}, writing:4, gender:'all', targetSchoolId:'banqiao' },
+    admissionProfile: { source:'latest-mock', grades:{}, writing:4, gender:'all', targetSchoolId:'banqiao', preferencePoints:null, balancedPoints:null, servicePoints:null },
     settings: { sound: true, reducedMotion: false },
     activeRun: null,
     activeExam: null,
