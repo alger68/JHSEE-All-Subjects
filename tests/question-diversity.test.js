@@ -3,7 +3,8 @@ import {
   recentQuestionIds,
   buildPracticeReservoir,
   preferFreshQuestions,
-  recentAvoidQuestions
+  recentAvoidQuestions,
+  recentQuestionFingerprints
 } from '../js/core/question-diversity.js';
 
 describe('question diversity pool',()=>{
@@ -45,5 +46,13 @@ describe('question diversity pool',()=>{
       {question:'Q2',passage:'P2'},
       {question:'Q3',passage:'P3'}
     ]);
+  });
+  it('collapses different ids with the same recent fingerprint',()=>{
+    const lookup=new Map([
+      ['a',{id:'a',question:'Same prompt',passage:'Same material',competency:'K',questionType:'T'}],
+      ['b',{id:'b',question:'Same prompt',passage:'Same material',competency:'K',questionType:'T'}]
+    ]);
+    const result=recentQuestionFingerprints([{questionId:'a'},{questionId:'b'}],lookup,30);
+    expect(result.size).toBe(1);
   });
 });
