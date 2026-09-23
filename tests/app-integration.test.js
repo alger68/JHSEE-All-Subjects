@@ -1,5 +1,6 @@
 import { beforeEach, afterEach, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { questionFingerprint } from '../js/core/question-dedup.js';
 
 const questions = JSON.parse(readFileSync('data/questions.json','utf8'));
 const practice = JSON.parse(readFileSync('data/cap-practice.json','utf8'));
@@ -696,6 +697,68 @@ it('deletes only the selected mock exam record and falls back to the newest rema
 });
 
 
+
+it('excludes a recently seen fingerprint even when history used a different question id',async()=>{
+  const groups=practice
+    .filter(q=>q.subject==='english'&&q.examAligned)
+    .reduce((map,q)=>map.set(q.questionType,(map.get(q.questionType)??[]).concat(q)),new Map());
+  const group=[...groups.values()].find(items=>items.length>=2&&items.length<=10);
+  expect(group).toBeTruthy();
+  const target=group[0];
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    answerHistory:[{
+      questionId:'old-alias-id',
+      fingerprint:questionFingerprint(target),
+      subject:'english',
+      date:'2026-09-17'
+    }]
+  }));
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  document.querySelector('#practice-subject').value='english';
+  document.querySelector('#practice-type').value=target.questionType;
+  document.querySelector('[data-action="start-practice"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds).not.toContain(target.id);
+});
+
+it('does not call AI when fresh local questions already fill the requested practice set',async()=>{
+  const source=practice.find(q=>q.subject==='english'&&q.examAligned);
+  const domain=source.examProfile?.domain??source.domain??source.chapter;
+  const competency=source.examProfile?.competency??source.competency??source.questionType;
+  const skillKey=`english::${domain}::${competency}`;
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    adaptiveSkills:{
+      [skillKey]:{
+        subject:'english',domain,competency,subSkill:source.questionType,
+        mastery:10,attempts:4,correct:0,wrong:4,consecutiveCorrect:0,consecutiveWrong:2,
+        attemptsLast7Days:4,wrongLast7Days:4,wrongInMockExam:0,nextReviewDate:'2026-09-17',
+        diagnosticRequired:false
+      }
+    },
+    answerHistory:[],
+    aiUsage:{date:'2026-09-17',count:0,limit:12}
+  }));
+  let aiCalls=0;
+  fetch.mockImplementation(async (url,options={})=>{
+    if(String(url).includes('/api/generate-question')){
+      aiCalls+=1;
+      return new Response(JSON.stringify({questions:[]}),{status:200,headers:{'content-type':'application/json'}});
+    }
+    return bankFetchResponse(url);
+  });
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  await vi.advanceTimersByTimeAsync(2);
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds).toHaveLength(10);
+  expect(aiCalls).toBe(0);
+});
+
 it('starts adaptive practice immediately while AI questions load in the background',async()=>{
   const source=practice.find(q=>q.subject==='english'&&q.examAligned);
   const domain=source.examProfile?.domain??source.domain??source.chapter;
@@ -756,7 +819,13 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
 
   window.history.replaceState(null,'','#/exam-center');
   await boot();
+  const groups=practice
+    .filter(q=>q.subject==='english'&&q.examAligned)
+    .reduce((map,q)=>map.set(q.questionType,(map.get(q.questionType)??0)+1),new Map());
+  const rareType=[...groups.entries()].find(([,count])=>count>=3&&count<10)?.[0];
+  expect(rareType).toBeTruthy();
   document.querySelector('#practice-subject').value='english';
+  document.querySelector('#practice-type').value=rareType;
   document.querySelector('[data-action="start-practice"]').click();
 
   const immediate=JSON.parse(localStorage.getItem(key)).activeExam;
