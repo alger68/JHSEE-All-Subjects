@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   calculateExamPlacementScore,
+  calculateTotalAdmissionScore,
   buildPlacementBands,
   nextGrade,
   subjectUpgradePlan,
@@ -18,6 +19,21 @@ describe('admission placement',()=>{
     expect(result.writingPoints).toBe(0.6);
     expect(result.examScore).toBe(20.6);
     expect(result.max).toBe(36);
+  });
+
+  it('calculates the optional official 108-point total when all components are provided',()=>{
+    const exam=calculateExamPlacementScore(grades,4);
+    const result=calculateTotalAdmissionScore(exam,{preferencePoints:36,balancedPoints:24,servicePoints:12});
+    expect(result.complete).toBe(true);
+    expect(result.total).toBe(92.6);
+    expect(result.max).toBe(108);
+  });
+
+  it('does not assume multi-learning points when they are not supplied',()=>{
+    const exam=calculateExamPlacementScore(grades,4);
+    const result=calculateTotalAdmissionScore(exam,{});
+    expect(result.complete).toBe(false);
+    expect(result.total).toBeNull();
   });
 
   it('requires all five subject levels',()=>{
