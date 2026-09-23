@@ -746,6 +746,15 @@ it('opens admission placement from the latest mock and supports a manual what-if
   expect(document.querySelector('[data-placement-grade="english"]').value).toBe('B+');
   expect(document.body.textContent).toContain('20.6');
 
+  const preference=document.querySelector('#placement-preference-points');
+  const balanced=document.querySelector('#placement-balanced-points');
+  const service=document.querySelector('#placement-service-points');
+  preference.value='36';preference.dispatchEvent(new Event('change',{bubbles:true}));
+  balanced.value='24';balanced.dispatchEvent(new Event('change',{bubbles:true}));
+  service.value='12';service.dispatchEvent(new Event('change',{bubbles:true}));
+  await vi.advanceTimersByTimeAsync(1);
+  expect(document.body.textContent).toContain('92.6');
+
   const english=document.querySelector('[data-placement-grade="english"]');
   english.value='B++';
   english.dispatchEvent(new Event('change',{bubbles:true}));
