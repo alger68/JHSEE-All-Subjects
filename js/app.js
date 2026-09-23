@@ -598,10 +598,10 @@ function practiceContext(shuffle=false,count=10){
   };
 }
 
-async function practiceSelection(shuffle=false) {
+function practiceSelection(shuffle=false) {
   const filters=practiceFilters();
   const context=practiceContext(shuffle,10);
-  const result=await provider.getPracticeSet(filters.criteria,context);
+  const result=provider.getPracticeSet(filters.criteria,context);
   const matchCount=provider.countPracticeCandidates(filters.criteria,context);
   return {...filters,pool:result.questions,matchCount,warnings:result.warnings};
 }
@@ -753,7 +753,7 @@ app.addEventListener('click', async (event) => {
     changePaperPage((state.activeExam?.paperPage??1)+(action==='paper-page-next'?1:-1));
   }
   if(action==='start-practice') {
-    const {subject,grade,type,focus,pool}=await practiceSelection(true);
+    const {subject,grade,type,focus,pool}=practiceSelection(true);
     save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
 
@@ -888,7 +888,7 @@ app.addEventListener('change',async(event)=>{
   }
   if(event.target.matches('[data-paper-page-select]'))changePaperPage(Number(event.target.value));
   if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
-    const selection=await practiceSelection(false);
+    const selection=practiceSelection(false);
     const count=selection.matchCount;
     document.querySelector('[data-practice-matches]').textContent=count?`符合條件 ${count} 題・本次 ${selection.pool.length} 題`:'符合條件 0 題，請調整篩選條件。';
     document.querySelector('[data-action="start-practice"]').disabled=count===0;
