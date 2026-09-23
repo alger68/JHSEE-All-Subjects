@@ -29,6 +29,13 @@ beforeEach(() => {
 function disconnect(){ for(const [type,fn] of window.addEventListener.mock.calls)window.removeEventListener(type,fn);vi.clearAllTimers(); }
 afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals();});
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
+async function bankFetchResponse(url){
+  const value=String(url);
+  if(value.includes('/packs/manifest.json')) return {ok:true,json:async()=>packManifest};
+  if(value.includes('cap-practice')) return {ok:true,json:async()=>practice};
+  if(value.includes('questions')) return {ok:true,json:async()=>questions};
+  return {ok:false,json:async()=>null};
+}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
 
@@ -465,7 +472,7 @@ it('starts AI weakness validation from a completed report and stores generated q
       };
       return new Response(JSON.stringify({questions:[generated]}),{status:200,headers:{'content-type':'application/json'}});
     }
-    return {ok:true,json:async()=>String(url).includes('cap-practice')?practice:questions};
+    return bankFetchResponse(url);
   });
   await boot();
   document.querySelector('[data-action="start-practice"]').click();
@@ -518,7 +525,7 @@ it('mixes up to five AI questions into the 25-question re-diagnosis and records 
       };
       return new Response(JSON.stringify({questions:[generated]}),{status:200,headers:{'content-type':'application/json'}});
     }
-    return {ok:true,json:async()=>target.includes('cap-practice')?practice:questions};
+    return bankFetchResponse(url);
   });
   await boot();
   document.querySelector('[data-action="start-diagnostic"]').click();
@@ -744,10 +751,7 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
         }),{status:200,headers:{'content-type':'application/json'}}));
       });
     }
-    return Promise.resolve({
-      ok:true,
-      json:async()=>value.includes('cap-practice')?practice:questions
-    });
+    return Promise.resolve(bankFetchResponse(url));
   }));
 
   window.history.replaceState(null,'','#/exam-center');
