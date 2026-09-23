@@ -31,6 +31,30 @@ export function calculateExamPlacementScore(grades={},writing=4){
   };
 }
 
+const pickAllowed=(value,allowed)=>{
+  if(value===null||value===undefined||value==='')return null;
+  const n=Number(value);
+  return allowed.includes(n)?n:null;
+};
+
+export function calculateTotalAdmissionScore(examResult={},profile={}){
+  const preferencePoints=pickAllowed(profile.preferencePoints,[36,35,34,33,32]);
+  const balancedPoints=pickAllowed(profile.balancedPoints,[0,6,12,18,24]);
+  const servicePoints=pickAllowed(profile.servicePoints,[0,4,8,12]);
+  const complete=Boolean(examResult?.complete)&&preferencePoints!==null&&balancedPoints!==null&&servicePoints!==null;
+  const total=complete
+    ? Math.round((examResult.examScore+preferencePoints+balancedPoints+servicePoints)*10)/10
+    : null;
+  return {
+    complete,
+    preferencePoints,
+    balancedPoints,
+    servicePoints,
+    total,
+    max:KB_ADMISSION_RULE.totalMax
+  };
+}
+
 export function visibleSchools(gender='all',schools=KB_SCHOOLS){
   const selected=cleanGender(gender);
   if(selected==='all')return [...schools];
@@ -113,7 +137,10 @@ export function resolvePlacementProfile(profile={},latestMock=null){
     grades:source==='manual'&&hasManual?manualGrades:latestGrades,
     writing:Math.max(1,Math.min(6,Math.round(Number(profile?.writing)||4))),
     gender:cleanGender(profile?.gender),
-    targetSchoolId:String(profile?.targetSchoolId||'banqiao')
+    targetSchoolId:String(profile?.targetSchoolId||'banqiao'),
+    preferencePoints:pickAllowed(profile?.preferencePoints,[36,35,34,33,32]),
+    balancedPoints:pickAllowed(profile?.balancedPoints,[0,6,12,18,24]),
+    servicePoints:pickAllowed(profile?.servicePoints,[0,4,8,12])
   };
 }
 
@@ -124,9 +151,11 @@ export function buildPlacementModel({profile={},latestMock=null,adaptiveWeights=
     resolved.targetSchoolId=availableSchools[0]?.id??'';
   }
   const score=calculateExamPlacementScore(resolved.grades,resolved.writing);
+  const totalScore=calculateTotalAdmissionScore(score,resolved);
   return {
     profile:resolved,
     score,
+    totalScore,
     bands:score.complete?buildPlacementBands(score.examScore,resolved.gender,schools):{challenge:[],match:[],safe:[]},
     target:score.complete?targetSchoolAnalysis(score.examScore,resolved.grades,resolved.targetSchoolId,adaptiveWeights,schools):null,
     schools:availableSchools
