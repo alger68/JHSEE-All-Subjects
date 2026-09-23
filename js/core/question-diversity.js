@@ -1,3 +1,4 @@
+import { questionFingerprint } from './question-dedup.js';
 import { skillIdentity } from './adaptive-learning.js';
 
 export function recentQuestionIds(history=[],limit=30){
@@ -45,4 +46,18 @@ export function recentAvoidQuestions(questions=[],limit=8){
     question:String(q?.question??'').slice(0,800),
     passage:String(q?.passage??'').slice(0,1800)
   })).filter(item=>item.question||item.passage);
+}
+
+
+export function recentQuestionFingerprints(history=[],questionLookup=new Map(),limit=30){
+  const values=[];
+  const seen=new Set();
+  for(let i=(history?.length??0)-1;i>=0&&values.length<limit;i-=1){
+    const row=history[i];
+    const fingerprint=row?.fingerprint || (row?.questionId ? questionLookup.get(row.questionId)?.fingerprint : null) || (row?.questionId&&questionLookup.get(row.questionId) ? questionFingerprint(questionLookup.get(row.questionId)) : null);
+    if(!fingerprint||seen.has(fingerprint))continue;
+    seen.add(fingerprint);
+    values.push(fingerprint);
+  }
+  return new Set(values);
 }
