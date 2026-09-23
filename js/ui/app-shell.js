@@ -7,6 +7,7 @@ const APPS = [
 function activeSection(route) {
   if (route === '#/revenge') return 'review';
   if (route.startsWith('#/exam') || route.startsWith('#/paper/')) return 'exam';
+  if (route === '#/placement') return 'placement';
   if (route === '#/analysis' || route === '#/profile' || route === '#/results') return 'more';
   return 'practice';
 }
@@ -16,6 +17,7 @@ export function renderAppShell(content, route = '#/') {
   const primary = [
     ['practice','#/','練習'],
     ['exam','#/exam-center','模考'],
+    ['placement','#/placement','落點'],
     ['review','#/revenge','錯題'],
     ['more','#/profile','更多']
   ];

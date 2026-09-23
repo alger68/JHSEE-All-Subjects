@@ -724,3 +724,58 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
   expect(after.generatedQuestions.some(q=>q.id==='ai-fast-background-1')).toBe(true);
   expect(after.activeExam.questionIds).toContain('ai-fast-background-1');
 });
+
+
+it('opens admission placement from the latest mock and supports a manual what-if grade change',async()=>{
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    mockExamRecords:[{
+      id:'mock-placement-1',
+      date:'2026-09-10',
+      title:'第一次模考',
+      grades:{chinese:'B++',english:'B+',math:'A',science:'B++',social:'B++'},
+      errors:{}
+    }],
+    admissionProfile:{source:'latest-mock',grades:{},writing:4,gender:'all',targetSchoolId:'banqiao'}
+  }));
+  window.history.replaceState(null,'','#/placement');
+  await boot();
+
+  expect(document.body.textContent).toContain('基北區升學落點');
+  expect(document.body.textContent).toContain('第一次模考');
+  expect(document.querySelector('[data-placement-grade="english"]').value).toBe('B+');
+  expect(document.body.textContent).toContain('20.6');
+
+  let field=document.querySelector('#placement-preference-points');
+  field.value='36';field.dispatchEvent(new Event('change',{bubbles:true}));
+  await vi.advanceTimersByTimeAsync(1);
+  field=document.querySelector('#placement-balanced-points');
+  field.value='24';field.dispatchEvent(new Event('change',{bubbles:true}));
+  await vi.advanceTimersByTimeAsync(1);
+  field=document.querySelector('#placement-service-points');
+  field.value='12';field.dispatchEvent(new Event('change',{bubbles:true}));
+  await vi.advanceTimersByTimeAsync(1);
+  expect(document.body.textContent).toContain('92.6');
+
+  const english=document.querySelector('[data-placement-grade="english"]');
+  english.value='B++';
+  english.dispatchEvent(new Event('change',{bubbles:true}));
+  await vi.advanceTimersByTimeAsync(1);
+
+  const saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.admissionProfile.source).toBe('manual');
+  expect(saved.admissionProfile.grades.english).toBe('B++');
+  expect(document.body.textContent).toContain('21.6');
+
+  document.querySelector('[data-action="placement-use-latest"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  expect(JSON.parse(localStorage.getItem(key)).admissionProfile.source).toBe('latest-mock');
+  expect(document.querySelector('[data-placement-grade="english"]').value).toBe('B+');
+});
+
+it('shows placement as a primary suite navigation destination',async()=>{
+  window.history.replaceState(null,'','#/');
+  await boot();
+  expect(document.querySelector('.jh-section-nav a[href="#/placement"]')).not.toBeNull();
+  expect(document.querySelector('a[href="#/placement"]')?.textContent).toBeTruthy();
+});

@@ -19,6 +19,8 @@ import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } fr
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
 import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, buildCoverageReport } from './core/cap-war-room.js';
+import { buildPlacementModel } from './core/admission-placement.js';
+import { renderAdmissionPlacement } from './ui/admission-view.js';
 import { createRouter } from './router.js';
 import { isFocusMode } from './ui/focus-mode.js';
 import { renderAppShell } from './ui/app-shell.js';
@@ -196,6 +198,15 @@ function routes() {
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
       : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports,mockWarRoom:currentMockWarRoom(),repairPlan:currentRepairPlan(),coverage:currentCoverage()}),
     '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:currentDiagnostic(),adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate()),mockWarRoom:currentMockWarRoom(),repairPlan:currentRepairPlan(),coverage:currentCoverage()}),
+    '#/placement': () => {
+      const room=currentMockWarRoom();
+      const model=buildPlacementModel({
+        profile:state.admissionProfile,
+        latestMock:room.latest,
+        adaptiveWeights:state.adaptiveSubjectWeights??room.studyWeights
+      });
+      return renderAdmissionPlacement({model,latestMock:room.latest});
+    },
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
     '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
@@ -663,6 +674,14 @@ app.addEventListener('click', async (event) => {
     if(saveButton)saveButton.textContent='儲存這次模考';
     showToast('已開啟新模考表單，請重新選擇五科等級。');
   }
+  if (action === 'placement-use-latest') {
+    state.admissionProfile={
+      ...(state.admissionProfile??{}),
+      source:'latest-mock',
+      grades:{}
+    };
+    save();renderRoute(false);showToast('已重新帶入最新模考成績。');
+  }
   if (action === 'delete-mock-exam') {
     const id=String(control.dataset.id||'').trim();
     const record=(state.mockExamRecords??[]).find(item=>item.id===id);
@@ -832,6 +851,33 @@ app.addEventListener('input',(event)=>{
   if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
 });
 app.addEventListener('change',async(event)=>{
+  if(event.target.matches('[data-placement-grade],#placement-writing,#placement-gender,#placement-target,#placement-preference-points,#placement-balanced-points,#placement-service-points')) {
+    const current=state.admissionProfile??{source:'latest-mock',grades:{},writing:4,gender:'all',targetSchoolId:'banqiao',preferencePoints:null,balancedPoints:null,servicePoints:null};
+    const latestGrades=currentMockWarRoom().latest?.grades??{};
+    const grades=current.source==='latest-mock'
+      ? {...latestGrades,...(current.grades??{})}
+      : {...(current.grades??{})};
+    if(event.target.matches('[data-placement-grade]')) {
+      grades[event.target.dataset.placementGrade]=event.target.value;
+    }
+    const nullableNumber=(id,fallback)=>{
+      if(event.target.id!==id)return fallback??null;
+      return event.target.value===''?null:Number(event.target.value);
+    };
+    state.admissionProfile={
+      ...current,
+      source:event.target.matches('[data-placement-grade]')?'manual':current.source,
+      grades,
+      writing:event.target.id==='placement-writing'?Number(event.target.value):Number(current.writing??4),
+      gender:event.target.id==='placement-gender'?event.target.value:(current.gender??'all'),
+      targetSchoolId:event.target.id==='placement-target'?event.target.value:(current.targetSchoolId??'banqiao'),
+      preferencePoints:nullableNumber('placement-preference-points',current.preferencePoints),
+      balancedPoints:nullableNumber('placement-balanced-points',current.balancedPoints),
+      servicePoints:nullableNumber('placement-service-points',current.servicePoints)
+    };
+    save();renderRoute(false);return;
+  }
+
   if(event.target.matches('[data-english-tts-rate]')) {
     const rate=setEnglishSpeechRate(event.target.value);
     stopEnglishSpeech();
