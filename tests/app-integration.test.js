@@ -4,6 +4,13 @@ import { readFileSync } from 'node:fs';
 const questions = JSON.parse(readFileSync('data/questions.json','utf8'));
 const practice = JSON.parse(readFileSync('data/cap-practice.json','utf8'));
 const key = 'jhsee.adventure.v1';
+const packManifest = {
+  version:1,
+  packs:[
+    {id:'core-v1',version:1,file:'../questions.json',enabled:true,kind:'local-core'},
+    {id:'cap-practice-v1',version:1,file:'../cap-practice.json',enabled:true,kind:'local-core'}
+  ]
+};
 beforeEach(() => {
   vi.resetModules(); vi.useFakeTimers(); vi.setSystemTime(new Date('2026-09-17T01:00:00Z'));
   localStorage.clear(); document.body.innerHTML='<main id="app"></main>';
@@ -11,13 +18,49 @@ beforeEach(() => {
   vi.spyOn(window,'scrollTo').mockImplementation(()=>{});
   vi.spyOn(window,'confirm').mockReturnValue(true);
   vi.spyOn(window,'addEventListener');
-  vi.stubGlobal('fetch', vi.fn(async (url)=>({ok:true,json:async()=>String(url).includes('cap-practice')?practice:questions})));
+  vi.stubGlobal('fetch', vi.fn(async (url)=>{
+    const value=String(url);
+    if(value.includes('/packs/manifest.json')) return {ok:true,json:async()=>packManifest};
+    if(value.includes('cap-practice')) return {ok:true,json:async()=>practice};
+    if(value.includes('questions')) return {ok:true,json:async()=>questions};
+    return {ok:false,json:async()=>null};
+  }));
 });
 function disconnect(){ for(const [type,fn] of window.addEventListener.mock.calls)window.removeEventListener(type,fn);vi.clearAllTimers(); }
 afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals();});
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
+
+
+it('loads local question banks through the pack manifest',async()=>{
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  expect(fetch.mock.calls.some(([url])=>String(url).includes('/packs/manifest.json'))).toBe(true);
+  expect(document.body.textContent).toContain('會考與補強中心');
+});
+
+it('continues boot when an optional question pack fails',async()=>{
+  const optionalManifest={
+    version:1,
+    packs:[
+      ...packManifest.packs,
+      {id:'optional-v1',version:1,file:'optional.json',enabled:true,kind:'local-pack'}
+    ]
+  };
+  fetch.mockImplementation(async url=>{
+    const value=String(url);
+    if(value.includes('/packs/manifest.json')) return {ok:true,json:async()=>optionalManifest};
+    if(value.includes('optional.json')) return {ok:false,json:async()=>null};
+    if(value.includes('cap-practice')) return {ok:true,json:async()=>practice};
+    if(value.includes('questions')) return {ok:true,json:async()=>questions};
+    return {ok:false,json:async()=>null};
+  });
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  expect(document.body.textContent).toContain('會考與補強中心');
+  expect(document.body.textContent).not.toContain('題庫載入失敗');
+});
 
 it('starts each world level with its own chapter question pool',async()=>{
   window.history.replaceState(null,'','#/battle/english/english-2');await boot();
