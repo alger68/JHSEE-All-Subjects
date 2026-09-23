@@ -853,7 +853,10 @@ app.addEventListener('input',(event)=>{
 app.addEventListener('change',async(event)=>{
   if(event.target.matches('[data-placement-grade],#placement-writing,#placement-gender,#placement-target')) {
     const current=state.admissionProfile??{source:'latest-mock',grades:{},writing:4,gender:'all',targetSchoolId:'banqiao'};
-    const grades={...(current.grades??{})};
+    const latestGrades=currentMockWarRoom().latest?.grades??{};
+    const grades=current.source==='latest-mock'
+      ? {...latestGrades,...(current.grades??{})}
+      : {...(current.grades??{})};
     if(event.target.matches('[data-placement-grade]')) {
       grades[event.target.dataset.placementGrade]=event.target.value;
     }
