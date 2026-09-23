@@ -119,12 +119,16 @@ export function resolvePlacementProfile(profile={},latestMock=null){
 
 export function buildPlacementModel({profile={},latestMock=null,adaptiveWeights={},schools=KB_SCHOOLS}={}){
   const resolved=resolvePlacementProfile(profile,latestMock);
+  const availableSchools=visibleSchools(resolved.gender,schools);
+  if(!availableSchools.some(school=>school.id===resolved.targetSchoolId)){
+    resolved.targetSchoolId=availableSchools[0]?.id??'';
+  }
   const score=calculateExamPlacementScore(resolved.grades,resolved.writing);
   return {
     profile:resolved,
     score,
     bands:score.complete?buildPlacementBands(score.examScore,resolved.gender,schools):{challenge:[],match:[],safe:[]},
     target:score.complete?targetSchoolAnalysis(score.examScore,resolved.grades,resolved.targetSchoolId,adaptiveWeights,schools):null,
-    schools:visibleSchools(resolved.gender,schools)
+    schools:availableSchools
   };
 }
