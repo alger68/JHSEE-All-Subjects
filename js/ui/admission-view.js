@@ -24,8 +24,9 @@ function schoolCards(items=[]){
 }
 
 export function renderAdmissionPlacement({model,latestMock=null}){
-  const profile=model?.profile??{grades:{},writing:4,gender:'all',targetSchoolId:'banqiao',source:'latest-mock'};
+  const profile=model?.profile??{grades:{},writing:4,gender:'all',targetSchoolId:'banqiao',source:'latest-mock',preferencePoints:null,balancedPoints:null,servicePoints:null};
   const score=model?.score;
+  const totalScore=model?.totalScore;
   const complete=Boolean(score?.complete);
   const target=model?.target;
   return `<div class="app-shell placement-page">
@@ -54,10 +55,28 @@ export function renderAdmissionPlacement({model,latestMock=null}){
       </div>
     </section>
 
-    <section class="placement-score-card">
-      <span>會考積分參考</span>
-      <strong>${complete?score.examScore.toFixed(1):'—'} <small>/ 36</small></strong>
-      <p>${complete?`五科 ${score.subjectPoints} 分＋寫作 ${score.writingPoints.toFixed(1)} 分`:'請先完成五科等級。'}</p>
+    <section class="placement-score-grid">
+      <article class="placement-score-card">
+        <span>會考積分參考</span>
+        <strong>${complete?score.examScore.toFixed(1):'—'} <small>/ 36</small></strong>
+        <p>${complete?`五科 ${score.subjectPoints} 分＋寫作 ${score.writingPoints.toFixed(1)} 分`:'請先完成五科等級。'}</p>
+      </article>
+      <article class="placement-score-card placement-total-card">
+        <span>基北區免試總積分</span>
+        <strong>${totalScore?.complete?totalScore.total.toFixed(1):'—'} <small>/ 108</small></strong>
+        <p>${totalScore?.complete?`志願序 ${totalScore.preferencePoints}＋均衡 ${totalScore.balancedPoints}＋服務 ${totalScore.servicePoints}＋會考 ${score.examScore.toFixed(1)}`:'填入下方多元學習與志願序後試算。'}</p>
+      </article>
+    </section>
+
+    <section class="practice-panel">
+      <span class="eyebrow">OFFICIAL SCORE</span>
+      <h2>108 分免試總積分（選填）</h2>
+      <p class="muted">公開學校落點區間仍以會考 36 分制呈現；這裡另外依 115 基北區正式比序規則試算總積分。請依自己的實際多元學習分數填寫。</p>
+      <div class="practice-filters placement-filters">
+        <label>志願序積分<select id="placement-preference-points"><option value="">未填</option>${[36,35,34,33,32].map(value=>`<option value="${value}" ${Number(profile.preferencePoints)===value?'selected':''}>${value} 分</option>`).join('')}</select></label>
+        <label>均衡學習<select id="placement-balanced-points"><option value="">未填</option>${[24,18,12,6,0].map(value=>`<option value="${value}" ${Number(profile.balancedPoints)===value&&profile.balancedPoints!==null?'selected':''}>${value} 分</option>`).join('')}</select></label>
+        <label>服務學習<select id="placement-service-points"><option value="">未填</option>${[12,8,4,0].map(value=>`<option value="${value}" ${Number(profile.servicePoints)===value&&profile.servicePoints!==null?'selected':''}>${value} 分</option>`).join('')}</select></label>
+      </div>
     </section>
 
     ${complete?`<section class="placement-bands">
