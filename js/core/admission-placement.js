@@ -127,6 +127,65 @@ export function targetSchoolAnalysis(score,grades,targetSchoolId,adaptiveWeights
   };
 }
 
+function isoAddDays(date,days){
+  const base=/^\d{4}-\d{2}-\d{2}$/.test(String(date??''))?String(date):new Date().toISOString().slice(0,10);
+  const value=new Date(`${base}T00:00:00Z`);
+  value.setUTCDate(value.getUTCDate()+days);
+  return value.toISOString().slice(0,10);
+}
+
+function topAdaptiveSkill(adaptiveSkills={},subject){
+  return Object.values(adaptiveSkills??{})
+    .filter(item=>item?.subject===subject)
+    .sort((a,b)=>(b.priorityScore??0)-(a.priorityScore??0)||(a.mastery??60)-(b.mastery??60))[0]??null;
+}
+
+const PLAN_PHASES=['弱點修復','近遷移','混合應用','弱點修復','近遷移','錯題回收','週末驗收'];
+
+export function buildTargetSevenDayPlan(target,adaptiveSkills={},startDate=''){
+  if(!target?.school||!Array.isArray(target.upgrades)||!target.upgrades.length)return [];
+  const ranked=target.upgrades.slice(0,3);
+  const gap=Math.max(0,Number(target.gapToLow)||0);
+  const basePrimary=gap>=3?12:gap>=1?10:8;
+  const baseSecondary=gap>=3?7:gap>=1?5:4;
+
+  return Array.from({length:7},(_,dayIndex)=>{
+    const phase=PLAN_PHASES[dayIndex];
+    const selected=dayIndex===6
+      ? ranked
+      : [ranked[dayIndex%ranked.length],ranked[(dayIndex+1)%ranked.length]];
+    const seen=new Set();
+    const tasks=[];
+    for(const [index,item] of selected.entries()){
+      if(!item||seen.has(item.subject))continue;
+      seen.add(item.subject);
+      const skill=topAdaptiveSkill(adaptiveSkills,item.subject);
+      const questionTarget=dayIndex===6
+        ? Math.max(4,Math.round((basePrimary+baseSecondary)/Math.max(1,ranked.length)))
+        : index===0?basePrimary:baseSecondary;
+      tasks.push({
+        subject:item.subject,
+        current:item.current,
+        next:item.next,
+        scoreGain:item.gain,
+        questionTarget,
+        phase,
+        competency:skill?.competency??null,
+        domain:skill?.domain??null,
+        mastery:Number.isFinite(Number(skill?.mastery))?Number(skill.mastery):null,
+        priorityScore:Number.isFinite(Number(skill?.priorityScore))?Number(skill.priorityScore):null
+      });
+    }
+    return {
+      day:dayIndex+1,
+      date:isoAddDays(startDate,dayIndex),
+      phase,
+      tasks,
+      questionTarget:tasks.reduce((sum,item)=>sum+item.questionTarget,0)
+    };
+  });
+}
+
 export function resolvePlacementProfile(profile={},latestMock=null){
   const source=profile?.source==='manual'?'manual':'latest-mock';
   const manualGrades=normalizeAdmissionGrades(profile?.grades);
@@ -144,7 +203,14 @@ export function resolvePlacementProfile(profile={},latestMock=null){
   };
 }
 
-export function buildPlacementModel({profile={},latestMock=null,adaptiveWeights={},schools=KB_SCHOOLS}={}){
+export function buildPlacementModel({
+  profile={},
+  latestMock=null,
+  adaptiveWeights={},
+  adaptiveSkills={},
+  today='',
+  schools=KB_SCHOOLS
+}={}){
   const resolved=resolvePlacementProfile(profile,latestMock);
   const availableSchools=visibleSchools(resolved.gender,schools);
   if(!availableSchools.some(school=>school.id===resolved.targetSchoolId)){
@@ -152,12 +218,16 @@ export function buildPlacementModel({profile={},latestMock=null,adaptiveWeights=
   }
   const score=calculateExamPlacementScore(resolved.grades,resolved.writing);
   const totalScore=calculateTotalAdmissionScore(score,resolved);
+  const target=score.complete
+    ? targetSchoolAnalysis(score.examScore,resolved.grades,resolved.targetSchoolId,adaptiveWeights,schools)
+    : null;
   return {
     profile:resolved,
     score,
     totalScore,
     bands:score.complete?buildPlacementBands(score.examScore,resolved.gender,schools):{challenge:[],match:[],safe:[]},
-    target:score.complete?targetSchoolAnalysis(score.examScore,resolved.grades,resolved.targetSchoolId,adaptiveWeights,schools):null,
+    target,
+    sevenDayPlan:target?buildTargetSevenDayPlan(target,adaptiveSkills,today):[],
     schools:availableSchools
   };
 }
