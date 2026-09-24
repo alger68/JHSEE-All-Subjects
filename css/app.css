@@ -759,3 +759,73 @@ body.focus-mode #official-listening-player{
   .target-plan-task .secondary-button { grid-column:1; grid-row:auto; }
   .target-plan-task .secondary-button { width:100%; }
 }
+
+
+/* English practice visibility + TTS quality controls */
+.exam-page .question-card h1,
+.exam-page .question-card h2,
+.jh-suite-shell .question-card h1,
+.jh-suite-shell .question-card h2 {
+  color:#1F2A44;
+}
+.exam-page .question-card .choice,
+.exam-page .question-card .choice span,
+.jh-suite-shell .question-card .choice,
+.jh-suite-shell .question-card .choice span {
+  color:#1F2A44;
+}
+.jh-suite-shell .question-card .passage {
+  background:#F4F7FB;
+  border-left-color:#2B7A78;
+  color:#1F2A44;
+}
+.english-tts {
+  color:#1F2A44;
+  background:#F7FAFC;
+  border-color:#D8E2EC;
+}
+.english-tts button {
+  background:#FFFFFF;
+  color:#1F2A44;
+  border-color:#D8E2EC;
+}
+.english-tts-settings {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+}
+.english-tts label {
+  color:#53627A;
+}
+.english-tts select {
+  background:#FFFFFF;
+  color:#1F2A44;
+  border-color:#D8E2EC;
+  max-width:260px;
+}
+body.focus-mode .exam-page .question-card h1,
+body.focus-mode .exam-page .question-card h2,
+body.focus-mode .exam-page .question-card .choice,
+body.focus-mode .exam-page .question-card .choice span {
+  color:#F8FAFC;
+}
+body.focus-mode .english-tts {
+  background:#172033;
+  border-color:#475569;
+  color:#F8FAFC;
+}
+body.focus-mode .english-tts button,
+body.focus-mode .english-tts select {
+  background:#111827;
+  border-color:#475569;
+  color:#F8FAFC;
+}
+body.focus-mode .english-tts label {
+  color:#CBD5E1;
+}
+@media (max-width:620px) {
+  .english-tts-settings { width:100%; display:grid; grid-template-columns:1fr; }
+  .english-tts-settings label { width:100%; }
+  .english-tts-settings select { width:100%; max-width:none; }
+}

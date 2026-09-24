@@ -14,7 +14,7 @@ import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
 import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
-import { buildEnglishSpeechText, getEnglishSpeechRate, setEnglishSpeechRate, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
+import { buildEnglishSpeechText, englishVoices, voiceKey, getEnglishSpeechRate, setEnglishSpeechRate, getEnglishVoicePreference, setEnglishVoicePreference, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
@@ -123,6 +123,7 @@ function renderRoute(scroll = true) {
       if(previous) replacement.replaceWith(previous);
     }
     syncOfficialAudio();
+    syncEnglishVoiceOptions();
     if (scroll === true) window.scrollTo({ top: 0, behavior: 'instant' });
     if (match.route === '#/exam-check') app.querySelector('h1')?.focus({ preventScroll: true });
     const mockDate=app.querySelector('#mock-date');if(mockDate&&!mockDate.value)mockDate.value=taipeiDate();
@@ -132,6 +133,27 @@ function renderRoute(scroll = true) {
     app.innerHTML = '<section class="fatal-state"><span>🛠️</span><h1>冒險暫時中斷</h1><p>請重新整理頁面或返回首頁。原有學習紀錄仍保存在這台裝置。</p><a href="#/">返回首頁</a></section>';
   }
 }
+
+function syncEnglishVoiceOptions() {
+  const selects=[...document.querySelectorAll('[data-english-tts-voice]')];
+  if(!selects.length)return;
+  const preferred=getEnglishVoicePreference();
+  const voices=englishVoices(globalThis.speechSynthesis?.getVoices?.()??[]);
+  for(const select of selects){
+    const previous=select.value;
+    select.innerHTML='<option value="">自動（推薦）</option>'+voices.map((voice,index)=>{
+      const key=voiceKey(voice);
+      const label=`${index===0?'★ ':''}${voice.name}・${String(voice.lang||'').replace(/_/g,'-')}`;
+      const option=document.createElement('option');
+      option.value=key;option.textContent=label;
+      return option.outerHTML;
+    }).join('');
+    select.value=voices.some(voice=>voiceKey(voice)===preferred)?preferred:'';
+    if(!preferred&&previous)select.value=previous;
+  }
+}
+
+globalThis.speechSynthesis?.addEventListener?.('voiceschanged',syncEnglishVoiceOptions);
 
 // The audio player lives outside the re-rendered application. Answering,
 // jumping questions and the submission check never detach or restart it.
@@ -703,7 +725,10 @@ app.addEventListener('click', async (event) => {
       return;
     }
     const mode=action==='tts-question'?'question':action==='tts-choices'?'choices':'full';
-    const result=speakEnglish(buildEnglishSpeechText(q,mode),{rate:getEnglishSpeechRate()});
+    const result=speakEnglish(buildEnglishSpeechText(q,mode),{
+      rate:getEnglishSpeechRate(),
+      preferredVoice:getEnglishVoicePreference()
+    });
     if(!result.ok) {
       showToast(result.reason==='unsupported'
         ? '這個瀏覽器目前不支援英文朗讀，請改用 Chrome、Edge 或 Safari。'
@@ -980,6 +1005,14 @@ app.addEventListener('change',async(event)=>{
     save();renderRoute(false);return;
   }
 
+  if(event.target.matches('[data-english-tts-voice]')) {
+    const selected=setEnglishVoicePreference(event.target.value);
+    stopEnglishSpeech();
+    syncEnglishVoiceOptions();
+    const voice=englishVoices(globalThis.speechSynthesis?.getVoices?.()??[]).find(item=>voiceKey(item)===selected);
+    showToast(voice?`英文朗讀聲音已改為 ${voice.name}。`:'英文朗讀已改為自動推薦聲音。');
+    return;
+  }
   if(event.target.matches('[data-english-tts-rate]')) {
     const rate=setEnglishSpeechRate(event.target.value);
     stopEnglishSpeech();

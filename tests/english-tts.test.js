@@ -3,6 +3,10 @@ import {
   buildEnglishSpeechText,
   getEnglishSpeechRate,
   setEnglishSpeechRate,
+  getEnglishVoicePreference,
+  setEnglishVoicePreference,
+  englishVoices,
+  voiceKey,
   pickEnglishVoice,
   speakEnglish
 } from '../js/core/english-tts.js';
@@ -20,14 +24,14 @@ describe('English browser TTS',()=>{
     expect(text).toContain('Ben waited at the station.');
     expect(text).toContain('Table.');
     expect(text).toContain('Question. Why did Ben wait?');
-    expect(text).toContain('A. For a bus');
-    expect(text).toContain('D. For school');
+    expect(text).toContain('Option A. For a bus');
+    expect(text).toContain('Option D. For school');
   });
 
   it('returns question-only and choices-only scripts',()=>{
     const q={subject:'english',question:'Where is Amy?',choices:['Home','School','Park','Store']};
     expect(buildEnglishSpeechText(q,'question')).toBe('Where is Amy?');
-    expect(buildEnglishSpeechText(q,'choices')).toBe('A. Home B. School C. Park D. Store');
+    expect(buildEnglishSpeechText(q,'choices')).toBe('Option A. Home Option B. School Option C. Park Option D. Store');
   });
 
   it('does not build speech for non-English questions',()=>{
@@ -41,6 +45,25 @@ describe('English browser TTS',()=>{
     expect(getEnglishSpeechRate(storage)).toBe(0.75);
     expect(setEnglishSpeechRate(9,storage)).toBe(1);
     expect(getEnglishSpeechRate(storage)).toBe(1);
+  });
+
+  it('filters novelty voices and prefers higher-quality natural voices',()=>{
+    const voices=[
+      {lang:'en-US',name:'Fred',voiceURI:'fred'},
+      {lang:'en-US',name:'Microsoft Aria Natural',voiceURI:'aria'},
+      {lang:'en-GB',name:'Daniel',voiceURI:'daniel'}
+    ];
+    expect(englishVoices(voices).map(v=>v.name)).toEqual(['Microsoft Aria Natural','Daniel']);
+    expect(pickEnglishVoice(voices)?.name).toBe('Microsoft Aria Natural');
+  });
+
+  it('persists a preferred English voice key',()=>{
+    const values=new Map();
+    const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
+    const voice={lang:'en-US',name:'Samantha',voiceURI:'samantha'};
+    const key=voiceKey(voice);
+    expect(setEnglishVoicePreference(key,storage)).toBe(key);
+    expect(getEnglishVoicePreference(storage)).toBe(key);
   });
 
   it('prefers en-US and speaks with the requested rate',()=>{
