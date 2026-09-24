@@ -15,9 +15,10 @@ export function voiceKey(voice){
 }
 
 function novelty(voice){
-  const name=String(voice?.name||'').replace(/\([^)]*\)/g,'').toLowerCase().replace(/[^a-z]/g,'');
+  const raw=String(voice?.name||'');
+  const name=raw.replace(/\([^)]*\)/g,'').toLowerCase().replace(/[^a-z]/g,'');
   const uri=String(voice?.voiceURI||'').split('.').at(-1).toLowerCase().replace(/[^a-z]/g,'');
-  return noveltyNames.has(name)||noveltyNames.has(uri);
+  return noveltyNames.has(name)||noveltyNames.has(uri)||/^(Fred|Ralph|Kathy|Victoria)(?:\b|$)/i.test(raw);
 }
 
 function voiceScore(voice){
