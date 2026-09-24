@@ -104,6 +104,25 @@ export function renderAdmissionPlacement({model,latestMock=null}){
       </article>`).join('')}</div>`:'<p class="muted">完成五科成績後，就會顯示目標差距與升級路徑。</p>'}
     </section>
 
+    ${target&&model?.sevenDayPlan?.length?`<section class="practice-panel target-plan-panel">
+      <div class="section-heading"><div><span class="eyebrow">7 DAY TARGET PLAN</span><h2>${html(target.school.name)}・7 天補強計畫</h2></div><span class="status-chip">${target.gapToLow>0?`距下緣 ${target.gapToLow.toFixed(1)} 分`:'維持／拉開安全距離'}</span></div>
+      <p class="muted">依目標差距、目前會考等級與 Adaptive 弱點排序。這是讀書配置，不代表 7 天內一定能提升級別；每次練習完成後，系統會用新作答紀錄重新調整。</p>
+      ${model.sevenDayPlan[0]?.tasks?.[0]?`<button class="primary-button target-today-button" data-action="start-placement-practice" data-subject="${html(model.sevenDayPlan[0].tasks[0].subject)}" data-count="${model.sevenDayPlan[0].tasks[0].questionTarget}">▶ 今天先攻 ${SUBJECTS[model.sevenDayPlan[0].tasks[0].subject].name}・${model.sevenDayPlan[0].tasks[0].questionTarget} 題</button>`:''}
+      <div class="target-plan-grid">
+        ${model.sevenDayPlan.map(day=>`<article class="target-plan-day">
+          <header><div><span>Day ${day.day}</span><strong>${html(day.date)}</strong></div><b>${html(day.phase)}</b></header>
+          <p>今日共 ${day.questionTarget} 題</p>
+          <div class="target-plan-tasks">
+            ${day.tasks.map(task=>`<div class="target-plan-task">
+              <div><strong>${SUBJECTS[task.subject].icon} ${SUBJECTS[task.subject].name}</strong><span>${html(task.current)} → ${html(task.next)}・${task.questionTarget} 題</span></div>
+              <small>${task.competency?`${html(task.domain??'')}・${html(task.competency)}${task.mastery!==null?`・熟練 ${task.mastery}`:''}`:'依該科最新弱點動態選題'}</small>
+              <button type="button" class="secondary-button" data-action="start-placement-practice" data-subject="${html(task.subject)}" data-count="${task.questionTarget}">開始這組 →</button>
+            </div>`).join('')}
+          </div>
+        </article>`).join('')}
+      </div>
+    </section>`:''}
+
     <section class="practice-panel">
       <h2>怎麼解讀這個結果？</h2>
       <p class="notice">這是學習與志願規劃用的參考工具，不是錄取保證。正式填志願時仍要使用當年度基北區簡章、招生名額、個別序位與超額比序資料。</p>
