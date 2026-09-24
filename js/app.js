@@ -203,7 +203,9 @@ function routes() {
       const model=buildPlacementModel({
         profile:state.admissionProfile,
         latestMock:room.latest,
-        adaptiveWeights:state.adaptiveSubjectWeights??room.studyWeights
+        adaptiveWeights:state.adaptiveSubjectWeights??room.studyWeights,
+        adaptiveSkills:state.adaptiveSkills,
+        today:taipeiDate()
       });
       return renderAdmissionPlacement({model,latestMock:room.latest});
     },
@@ -548,6 +550,101 @@ async function generateAiForActivePractice({
   if(injected>0)showToast(`AI 已在背景加入 ${injected} 題弱點變形題，不用等待。`);
 }
 
+function placementPracticeSelection(subject,count=10,shuffle=true){
+  if(!SUBJECTS[subject])return [];
+  const wanted=Math.max(1,Math.min(15,Math.round(Number(count)||10)));
+  const localCandidates=bank.filter({subject,examAligned:true}).filter(q=>(q.grade??9)<=9);
+  const generatedCandidates=(state.generatedQuestions??[])
+    .filter(q=>q.subject===subject&&q.examAligned===true&&(q.grade??9)<=9);
+  const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
+
+  state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
+  state.adaptiveSubjectWeights=calculateSubjectWeights(
+    state.adaptiveSkills,
+    state.adaptiveSubjectWeights,
+    currentDiagnostic()
+  );
+
+  const recentIds=recentQuestionIds(state.answerHistory,30);
+  const fresh=preferFreshQuestions(
+    candidates,
+    recentIds,
+    state.adaptiveSkills,
+    taipeiDate(),
+    Math.min(wanted,candidates.length)
+  );
+  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
+  return hasAdaptiveData
+    ? buildAdaptivePractice(fresh,Math.min(wanted,fresh.length),{
+        skills:state.adaptiveSkills,
+        subjectWeights:state.adaptiveSubjectWeights,
+        today:taipeiDate(),
+        diagnostic:currentDiagnostic(),
+        rng:shuffle?Math.random:()=>0.5
+      })
+    : buildStarterPractice(fresh,Math.min(wanted,fresh.length),{
+        diagnostic:currentDiagnostic(),
+        rng:shuffle?Math.random:()=>0.5,
+        ensureFiveSubjectMix:false
+      });
+}
+
+function bestAdaptiveProfileForSubject(subject){
+  return Object.values(refreshPriorities(state.adaptiveSkills??{},taipeiDate()))
+    .filter(item=>item?.subject===subject)
+    .sort((a,b)=>(b.priorityScore??0)-(a.priorityScore??0)||(a.mastery??60)-(b.mastery??60))[0]??null;
+}
+
+function startPlacementPractice(subject,count=10){
+  if(!SUBJECTS[subject]){showToast('找不到這個科目的補強題。');return null;}
+  const pool=placementPracticeSelection(subject,count,true);
+  if(!pool.length){showToast('這個科目目前沒有可用的會考導向題。');return null;}
+
+  let sessionPool=pool;
+  let background=null;
+  let aiPlanned=false;
+  const profile=bestAdaptiveProfileForSubject(subject);
+  if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50){
+    const sourceQuestion=pool.find(question=>skillIdentity(question).key===profile.key)??pool[0];
+    const wanted=profile.diagnosticRequired?3:(profile.priorityScore>=70?2:1);
+    const cached=cachedAiForProfile(profile,subject,wanted);
+    if(cached.length){
+      sessionPool=mergeAiWithFallback(cached,pool,Math.min(pool.length,Math.max(Number(count)||10,cached.length)));
+      aiPlanned=true;
+    }
+    const allowance=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+    if(allowance>0){
+      aiPlanned=true;
+      background={profile,sourceQuestion,count:allowance};
+    }
+  }
+
+  const room=currentMockWarRoom();
+  const placement=buildPlacementModel({
+    profile:state.admissionProfile,
+    latestMock:room.latest,
+    adaptiveWeights:state.adaptiveSubjectWeights??room.studyWeights,
+    adaptiveSkills:state.adaptiveSkills,
+    today:taipeiDate()
+  });
+  const targetName=placement.target?.school?.name??'目標高中';
+  const started=startSession(sessionPool,{
+    title:`${targetName}目標・${SUBJECTS[subject].name}補強${aiPlanned?'＋AI弱點':''}`,
+    kind:'practice',
+    durationMinutes:Math.max(15,Math.min(35,Math.round(sessionPool.length*2.2)))
+  });
+  if(started&&background){
+    showToast(`已開始 ${SUBJECTS[subject].name}補強；AI 正在背景準備 ${background.profile.competency} 變形題。`);
+    void generateAiForActivePractice({
+      sessionId:started.id,
+      profile:background.profile,
+      sourceQuestion:background.sourceQuestion,
+      count:background.count
+    });
+  }
+  return started;
+}
+
 function practiceSelection(shuffle=false) {
   const subject=document.querySelector('#practice-subject').value;
   const grade=Number(document.querySelector('#practice-grade').value);
@@ -681,6 +778,11 @@ app.addEventListener('click', async (event) => {
       grades:{}
     };
     save();renderRoute(false);showToast('已重新帶入最新模考成績。');
+  }
+  if (action === 'start-placement-practice') {
+    const subject=String(control.dataset.subject||'');
+    const count=Math.max(1,Math.min(15,Number(control.dataset.count)||10));
+    startPlacementPractice(subject,count);
   }
   if (action === 'delete-mock-exam') {
     const id=String(control.dataset.id||'').trim();

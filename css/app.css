@@ -694,3 +694,68 @@ body.focus-mode #official-listening-player{
 @media (min-width:760px) {
   .placement-score-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
+
+
+/* Target-school 7-day repair plan */
+.target-plan-panel { margin-top:18px; }
+.target-today-button { width:auto; margin:4px 0 18px; }
+.target-plan-grid { display:grid; gap:12px; }
+.target-plan-day {
+  border:1px solid var(--jh-border,var(--line));
+  border-radius:18px;
+  background:var(--jh-surface,var(--surface));
+  padding:16px;
+}
+.target-plan-day > header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--jh-border,var(--line));
+}
+.target-plan-day > header div { display:flex; align-items:baseline; gap:8px; }
+.target-plan-day > header span { font-size:.75rem; font-weight:900; letter-spacing:.08em; color:var(--jh-primary,#3ba99c); }
+.target-plan-day > header strong { font-size:.82rem; }
+.target-plan-day > header b {
+  padding:5px 9px;
+  border-radius:999px;
+  background:var(--jh-primary-soft,rgba(99,230,226,.1));
+  color:var(--jh-primary,#3ba99c);
+  font-size:.72rem;
+}
+.target-plan-day > p { margin:10px 0; color:var(--jh-muted,var(--muted)); font-size:.78rem; }
+.target-plan-tasks { display:grid; gap:9px; }
+.target-plan-task {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:5px 12px;
+  align-items:center;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(99,230,226,.045);
+}
+.target-plan-task > div { min-width:0; }
+.target-plan-task > div strong { display:block; }
+.target-plan-task > div span,
+.target-plan-task > small { color:var(--jh-muted,var(--muted)); font-size:.76rem; }
+.target-plan-task > small { grid-column:1; }
+.target-plan-task .secondary-button {
+  grid-column:2;
+  grid-row:1 / span 2;
+  width:auto;
+  min-width:112px;
+  margin:0;
+  padding-inline:12px;
+}
+@media (min-width:900px) {
+  .target-plan-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .target-plan-day:last-child { grid-column:1 / -1; }
+}
+@media (max-width:620px) {
+  .target-today-button { width:100%; }
+  .target-plan-task { grid-template-columns:1fr; }
+  .target-plan-task > small,
+  .target-plan-task .secondary-button { grid-column:1; grid-row:auto; }
+  .target-plan-task .secondary-button { width:100%; }
+}

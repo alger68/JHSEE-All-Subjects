@@ -6,6 +6,7 @@ import {
   nextGrade,
   subjectUpgradePlan,
   targetSchoolAnalysis,
+  buildTargetSevenDayPlan,
   buildPlacementModel
 } from '../js/core/admission-placement.js';
 
@@ -63,6 +64,27 @@ describe('admission placement',()=>{
     expect(analysis.school.name).toContain('板橋');
     expect(analysis.gapToLow).toBe(1);
     expect(analysis.upgrades.length).toBeGreaterThan(0);
+  });
+
+  it('builds a seven-day target-school repair plan from score gap and adaptive weaknesses',()=>{
+    const target=targetSchoolAnalysis(20.6,grades,'banqiao',{english:35,science:25,math:15,social:15,chinese:10});
+    const plan=buildTargetSevenDayPlan(target,{
+      'english::閱讀理解::上下文推論':{
+        subject:'english',domain:'閱讀理解',competency:'上下文推論',
+        mastery:42,priorityScore:88
+      },
+      'science::理化::受力分析':{
+        subject:'science',domain:'理化',competency:'受力分析',
+        mastery:50,priorityScore:76
+      }
+    },'2026-09-24');
+    expect(plan).toHaveLength(7);
+    expect(plan[0].date).toBe('2026-09-24');
+    expect(plan[6].date).toBe('2026-09-30');
+    expect(plan[0].tasks[0].subject).toBe('english');
+    expect(plan[0].tasks[0].competency).toBe('上下文推論');
+    expect(plan.every(day=>day.questionTarget>0)).toBe(true);
+    expect(plan[6].phase).toBe('週末驗收');
   });
 
   it('uses latest mock grades by default but preserves writing and target preferences',()=>{
