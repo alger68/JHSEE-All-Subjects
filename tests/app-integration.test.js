@@ -773,6 +773,47 @@ it('opens admission placement from the latest mock and supports a manual what-if
   expect(document.querySelector('[data-placement-grade="english"]').value).toBe('B+');
 });
 
+it('turns the target-school seven-day plan into one-click subject practice',async()=>{
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    mockExamRecords:[{
+      id:'mock-target-plan',
+      date:'2026-09-20',
+      title:'第二次模考',
+      grades:{chinese:'B++',english:'B+',math:'A',science:'B++',social:'B++'},
+      errors:{}
+    }],
+    adaptiveSkills:{
+      'english::閱讀理解::上下文推論':{
+        subject:'english',domain:'閱讀理解',competency:'上下文推論',subSkill:'推論',
+        mastery:42,attempts:5,correct:2,wrong:3,consecutiveWrong:2,
+        attemptsLast7Days:5,wrongLast7Days:3,priorityScore:88,nextReviewDate:'2026-09-24'
+      }
+    },
+    admissionProfile:{source:'latest-mock',grades:{},writing:4,gender:'all',targetSchoolId:'banqiao'}
+  }));
+  window.history.replaceState(null,'','#/placement');
+  await boot();
+
+  expect(document.body.textContent).toContain('7 天補強計畫');
+  expect(document.body.textContent).toContain('上下文推論');
+  const start=document.querySelector('.target-today-button');
+  expect(start).not.toBeNull();
+  expect(start.dataset.subject).toBe('english');
+  start.click();
+
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(window.location.hash).toBe('#/exam');
+  expect(session.title).toContain('板橋高中目標');
+  expect(session.title).toContain('英文補強');
+  expect(session.questionIds.length).toBeGreaterThan(0);
+  const all=[...questions,...practice];
+  expect(session.questionIds.every(id=>{
+    const question=all.find(item=>item.id===id);
+    return question?.subject==='english';
+  })).toBe(true);
+});
+
 it('shows placement as a primary suite navigation destination',async()=>{
   window.history.replaceState(null,'','#/');
   await boot();
