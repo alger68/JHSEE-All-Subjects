@@ -22,11 +22,16 @@ export function renderEnglishTtsControls(q,rate=1) {
       <button type="button" data-action="tts-choices" data-id="${html(q.id)}">🔊 選項</button>
       <button type="button" data-action="tts-stop">⏹ 停止</button>
     </div>
-    <label>語速
-      <select data-english-tts-rate>
-        ${[0.75,1,1.25].map(value=>`<option value="${value}" ${value===safeRate?'selected':''}>${value}×</option>`).join('')}
-      </select>
-    </label>
+    <div class="english-tts-settings">
+      <label>聲音
+        <select data-english-tts-voice aria-label="英文朗讀聲音"><option value="">自動（推薦）</option></select>
+      </label>
+      <label>語速
+        <select data-english-tts-rate>
+          ${[0.75,1,1.25].map(value=>`<option value="${value}" ${value===safeRate?'selected':''}>${value}×</option>`).join('')}
+        </select>
+      </label>
+    </div>
   </div>`;
 }
 
