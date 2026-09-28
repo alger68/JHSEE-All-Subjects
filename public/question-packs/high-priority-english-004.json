@@ -168,25 +168,25 @@
     "topic": "Past tense",
     "competency": "Use irregular past tense",
     "grade": 7,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "Last night, Ben _____ a letter to his cousin.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "write",
       "writes",
       "wrote",
       "written"
     ],
-    "choices": 2,
-    "answer": "Last night requires the simple past; the past form of write is wrote.",
-    "explanation": "Find the time clue.",
-    "hint1": "Recall the irregular past form.",
-    "hint2": [
+    "answer": 2,
+    "explanation": "Last night requires the simple past; the past form of write is wrote.",
+    "hint1": "Find the time clue.",
+    "hint2": "Recall the irregular past form.",
+    "source": "original",
+    "tags": [
       "grammar",
       "past tense"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -202,25 +202,25 @@
     "topic": "Future tense",
     "competency": "Choose future form from context",
     "grade": 7,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "notice",
     "passage": "Tomorrow's game _____ start at 3 p.m. because the field will be ready then.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "will",
       "did",
       "has",
       "was"
     ],
-    "choices": 0,
-    "answer": "Tomorrow points to the future, so will start is correct.",
-    "explanation": "Look at tomorrow.",
-    "hint1": "Choose the future auxiliary.",
-    "hint2": [
+    "answer": 0,
+    "explanation": "Tomorrow points to the future, so will start is correct.",
+    "hint1": "Look at tomorrow.",
+    "hint2": "Choose the future auxiliary.",
+    "source": "original",
+    "tags": [
       "grammar",
       "future"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -372,25 +372,25 @@
     "topic": "Cause connector",
     "competency": "Choose a causal connector",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "Sam stayed inside _____ the storm was getting stronger.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "although",
       "because",
       "unless",
       "or"
     ],
-    "choices": 1,
-    "answer": "Because correctly gives the reason Sam stayed inside.",
-    "explanation": "The second clause explains why.",
-    "hint1": "Choose a reason connector.",
-    "hint2": [
+    "answer": 1,
+    "explanation": "Because correctly gives the reason Sam stayed inside.",
+    "hint1": "The second clause explains why.",
+    "hint2": "Choose a reason connector.",
+    "source": "original",
+    "tags": [
       "cloze",
       "connector"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -406,25 +406,25 @@
     "topic": "Contrast connector",
     "competency": "Choose a contrast connector",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "The hike was difficult, _____ everyone reached the top safely.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "but",
       "because",
       "so",
       "if"
     ],
-    "choices": 0,
-    "answer": "The ideas contrast: it was difficult, but everyone succeeded.",
-    "explanation": "Look for contrast.",
-    "hint1": "The second idea is unexpected after the first.",
-    "hint2": [
+    "answer": 0,
+    "explanation": "The ideas contrast: it was difficult, but everyone succeeded.",
+    "hint1": "Look for contrast.",
+    "hint2": "The second idea is unexpected after the first.",
+    "source": "original",
+    "tags": [
       "cloze",
       "connector"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -508,25 +508,25 @@
     "topic": "Gerund/infinitive",
     "competency": "Choose a common verb pattern",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "dialogue",
     "passage": "A: What do you enjoy doing after dinner?\nB: I enjoy _____ novels.",
-    "question": [
+    "question": "Which word best completes B's sentence?",
+    "choices": [
       "read",
       "reads",
       "reading",
       "to readed"
     ],
-    "choices": 2,
-    "answer": "Enjoy is commonly followed by a gerund, so reading is correct.",
-    "explanation": "What form follows enjoy?",
-    "hint1": "Use verb + -ing.",
-    "hint2": [
+    "answer": 2,
+    "explanation": "Enjoy is commonly followed by a gerund, so reading is correct.",
+    "hint1": "What form follows enjoy?",
+    "hint2": "Use verb + -ing.",
+    "source": "original",
+    "tags": [
       "grammar",
       "verb pattern"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
