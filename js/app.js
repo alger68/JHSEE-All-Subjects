@@ -13,7 +13,7 @@ import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './u
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
-import { recentQuestionIds, recentQuestionFingerprints, recentAvoidQuestions } from './core/question-diversity.js';
+import { recentQuestionIds, recentQuestionFingerprints, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
 import { loadSupplementalQuestionPacks } from './core/question-pack-loader.js';
 import { createQuestionRegistry } from './core/question-registry.js';
 import { createQuestionProvider } from './core/question-provider.js';
