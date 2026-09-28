@@ -68,36 +68,60 @@
   {
     "id": "HP-MA-003",
     "subject": "math",
-    "chapter": "數與比例",
-    "domain": "數與比例",
-    "questionType": "情境應用",
-    "topic": "百分率折扣",
-    "competency": "把百分率轉為實際金額",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "基礎統計",
+    "competency": "由表格計算平均並判讀資料",
     "grade": 7,
     "difficulty": 2,
-    "passage": "一件外套原價480元，特價打75折。",
-    "question": "特價是多少元？",
+    "passage": "四位同學完成練習題的數量如下：小安8題、小美10題、小華12題、小杰10題。",
+    "question": "四人的平均完成題數是多少？",
     "choices": [
-      "320",
-      "340",
-      "360",
-      "380"
+      "9題",
+      "10題",
+      "11題",
+      "12題"
     ],
-    "answer": 2,
-    "explanation": "75折等於原價的75%，480×0.75=360。",
-    "hint1": "75折就是75%。",
-    "hint2": "480×3/4。",
+    "answer": 1,
+    "explanation": "總題數為8+10+12+10=40，四人平均為40÷4=10題。",
+    "hint1": "先把四人的題數相加。",
+    "hint2": "總和再除以4。",
     "source": "original",
     "tags": [
-      "比例",
-      "百分率",
-      "折扣"
+      "統計",
+      "平均數",
+      "資料判讀"
     ],
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
     "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
-    "curriculumSkillId": "jhsee-ma-7-ratio"
+    "curriculumSkillId": "jhsee-ma-7-stat",
+    "table": {
+      "headers": [
+        "學生",
+        "完成題數"
+      ],
+      "rows": [
+        [
+          "小安",
+          8
+        ],
+        [
+          "小美",
+          10
+        ],
+        [
+          "小華",
+          12
+        ],
+        [
+          "小杰",
+          10
+        ]
+      ]
+    }
   },
   {
     "id": "HP-MA-004",
