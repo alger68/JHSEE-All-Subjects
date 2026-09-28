@@ -3,6 +3,20 @@ import { questionFingerprint } from './question-dedup.js';
 
 const key2=(a,b)=>`${a ?? ''}::${b ?? ''}`;
 
+export function inferVariationForm(question={}) {
+  if (question?.variationForm) return question.variationForm;
+  if (question?.table) return 'table';
+  const passage=String(question?.passage??'').trim();
+  const type=String(question?.questionType??'').toLowerCase();
+  if (/^notice\b|公告|通知|notice/i.test(passage)) return 'notice';
+  if (/(^|\n)\s*[A-Z一-龥][：:]|\bA:|\bB:/m.test(passage)) return 'dialogue';
+  if (/email|e-mail|dear\s|subject:/i.test(passage)) return 'email';
+  if (/chart|graph|圖表|統計|資料分析/i.test(type)) return 'chart';
+  if (/實驗|experiment|控制變因|觀察/i.test(type)||/實驗|experiment/i.test(passage)) return 'experiment';
+  if (passage) return 'passage';
+  return 'standalone';
+}
+
 export function createQuestionRegistry(localQuestions=[]) {
   const entries=new Map();
   const indexes={
@@ -62,6 +76,7 @@ export function createQuestionRegistry(localQuestions=[]) {
       domain:skill.domain,
       competency:skill.competency,
       subSkill:skill.subSkill,
+      variationForm:inferVariationForm(question),
       fingerprint:question.fingerprint??questionFingerprint(question)
     });
   };

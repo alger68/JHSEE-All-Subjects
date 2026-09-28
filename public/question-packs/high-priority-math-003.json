@@ -1,0 +1,594 @@
+[
+  {
+    "id": "HP3-MA-001",
+    "subject": "math",
+    "chapter": "數與數線",
+    "domain": "數與數線",
+    "questionType": "計算題",
+    "topic": "整數運算",
+    "competency": "正確處理正負數加減",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "計算題。",
+    "question": "−8+13 的值為何？",
+    "choices": [
+      "−21",
+      "−5",
+      "5",
+      "21"
+    ],
+    "answer": 2,
+    "explanation": "異號相加取絕對值較大者的符號，13−8=5。",
+    "hint1": "比較兩數絕對值。",
+    "hint2": "13比較大，所以答案為正。",
+    "source": "original",
+    "tags": [
+      "整數",
+      "正負數"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-number"
+  },
+  {
+    "id": "HP3-MA-002",
+    "subject": "math",
+    "chapter": "數與數線",
+    "domain": "數與數線",
+    "questionType": "推論",
+    "topic": "數線",
+    "competency": "由數線位置比較大小",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "chart",
+    "passage": "數線上 A 在 −3，B 在 2，C 在 5。",
+    "question": "哪一個敘述正確？",
+    "choices": [
+      "A>B",
+      "B>C",
+      "C>A",
+      "A=C"
+    ],
+    "answer": 2,
+    "explanation": "數線越右邊數值越大，因此5>−3。",
+    "hint1": "數線往右數值變大。",
+    "hint2": "比較各點位置。",
+    "source": "original",
+    "tags": [
+      "數線",
+      "比較"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-number"
+  },
+  {
+    "id": "HP3-MA-003",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "一元一次方程式",
+    "competency": "由生活情境建立方程式",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "買3枝相同的筆和一個20元橡皮擦共花95元。",
+    "question": "每枝筆多少元？",
+    "choices": [
+      "20",
+      "25",
+      "30",
+      "35"
+    ],
+    "answer": 1,
+    "explanation": "設每枝筆x元，3x+20=95，3x=75，x=25。",
+    "hint1": "先扣掉橡皮擦20元。",
+    "hint2": "剩下75元由3枝筆平分。",
+    "source": "original",
+    "tags": [
+      "方程式",
+      "情境"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-linear"
+  },
+  {
+    "id": "HP3-MA-004",
+    "subject": "math",
+    "chapter": "數與比例",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "比例",
+    "competency": "利用比例求未知量",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "果汁與水比例為2：5。若果汁有400 mL。",
+    "question": "水是多少 mL？",
+    "choices": [
+      "600 mL",
+      "800 mL",
+      "1000 mL",
+      "1200 mL"
+    ],
+    "answer": 2,
+    "explanation": "2份是400，所以1份200；水5份=1000 mL。",
+    "hint1": "先求1份。",
+    "hint2": "400÷2×5。",
+    "source": "original",
+    "tags": [
+      "比例",
+      "生活"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-ratio"
+  },
+  {
+    "id": "HP3-MA-005",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "平均數",
+    "competency": "由表格計算平均",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "四次小考分數為70、80、90、80。",
+    "question": "平均分數是多少？",
+    "choices": [
+      "75",
+      "80",
+      "82.5",
+      "85"
+    ],
+    "answer": 1,
+    "explanation": "總分320，除以4得80。",
+    "hint1": "先加總。",
+    "hint2": "320÷4。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "平均"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-stat",
+    "table": {
+      "headers": [
+        "次數",
+        "分數"
+      ],
+      "rows": [
+        [
+          1,
+          70
+        ],
+        [
+          2,
+          80
+        ],
+        [
+          3,
+          90
+        ],
+        [
+          4,
+          80
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-MA-006",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "中位數",
+    "competency": "由排序資料找中位數",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "資料為3、5、8、10、12。",
+    "question": "中位數是多少？",
+    "choices": [
+      "5",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": 1,
+    "explanation": "5個數排序後中間第3個是8。",
+    "hint1": "找最中間的位置。",
+    "hint2": "共有5個數。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "中位數"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-stat"
+  },
+  {
+    "id": "HP3-MA-007",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "聯立方程式",
+    "competency": "用總數與總價求兩類數量",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "雞腿便當80元、排骨便當100元，共買10個，總價900元。",
+    "question": "排骨便當有幾個？",
+    "choices": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": 2,
+    "explanation": "若全買雞腿需800元，實際多100元；每換一個排骨多20元，所以5個。",
+    "hint1": "先假設全是80元便當。",
+    "hint2": "多出的100除以20。",
+    "source": "original",
+    "tags": [
+      "聯立方程式",
+      "情境"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-system"
+  },
+  {
+    "id": "HP3-MA-008",
+    "subject": "math",
+    "chapter": "函數",
+    "domain": "函數",
+    "questionType": "資料分析",
+    "topic": "一次函數",
+    "competency": "由表格判斷固定變化率",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "x=1時y=4，x=2時y=7，x=3時y=10。",
+    "question": "每當x增加1，y增加多少？",
+    "choices": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "answer": 2,
+    "explanation": "y依序增加3，所以變化率為3。",
+    "hint1": "比較相鄰y值。",
+    "hint2": "7−4與10−7。",
+    "source": "original",
+    "tags": [
+      "一次函數",
+      "變化率"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-function",
+    "table": {
+      "headers": [
+        "x",
+        "y"
+      ],
+      "rows": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          3,
+          10
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-MA-009",
+    "subject": "math",
+    "chapter": "函數",
+    "domain": "函數",
+    "questionType": "情境應用",
+    "topic": "一次函數",
+    "competency": "由固定費與單位費建立函數",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "租車費用為固定50元，加上每小時30元。",
+    "question": "租4小時共多少元？",
+    "choices": [
+      "120",
+      "150",
+      "170",
+      "200"
+    ],
+    "answer": 2,
+    "explanation": "50+30×4=170。",
+    "hint1": "先算4小時費用。",
+    "hint2": "再加固定費50元。",
+    "source": "original",
+    "tags": [
+      "一次函數",
+      "生活"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-function"
+  },
+  {
+    "id": "HP3-MA-010",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "三角形內角",
+    "competency": "利用內角和求角度",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "一個三角形兩角為45°與65°。",
+    "question": "第三角是多少？",
+    "choices": [
+      "60°",
+      "70°",
+      "80°",
+      "90°"
+    ],
+    "answer": 1,
+    "explanation": "180−45−65=70。",
+    "hint1": "三角形內角和180°。",
+    "hint2": "先加已知兩角。",
+    "source": "original",
+    "tags": [
+      "三角形",
+      "內角"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-geometry"
+  },
+  {
+    "id": "HP3-MA-011",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "情境應用",
+    "topic": "畢氏定理",
+    "competency": "由直角三角形求斜邊",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "diagram",
+    "passage": "直角三角形兩股為9與12。",
+    "question": "斜邊長為何？",
+    "choices": [
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "answer": 2,
+    "explanation": "9²+12²=81+144=225，√225=15。",
+    "hint1": "使用a²+b²=c²。",
+    "hint2": "225的平方根是15。",
+    "source": "original",
+    "tags": [
+      "畢氏",
+      "幾何"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-geometry"
+  },
+  {
+    "id": "HP3-MA-012",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "推論",
+    "topic": "機率",
+    "competency": "由等可能事件計算機率",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "袋中有2紅、3藍、5白球，隨機抽1顆。",
+    "question": "抽到藍球的機率為何？",
+    "choices": [
+      "1/5",
+      "3/10",
+      "1/2",
+      "3/5"
+    ],
+    "answer": 1,
+    "explanation": "總數10，藍球3，所以3/10。",
+    "hint1": "先算總球數。",
+    "hint2": "有利結果3個。",
+    "source": "original",
+    "tags": [
+      "機率",
+      "樣本空間"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-probability"
+  },
+  {
+    "id": "HP3-MA-013",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "實驗機率",
+    "competency": "由重複試驗資料估計機率",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "硬幣拋100次，正面出現54次。",
+    "question": "根據實驗，正面機率的估計值約為？",
+    "choices": [
+      "0.46",
+      "0.50",
+      "0.54",
+      "0.60"
+    ],
+    "answer": 2,
+    "explanation": "實驗相對次數=54/100=0.54。",
+    "hint1": "用出現次數除以總次數。",
+    "hint2": "54÷100。",
+    "source": "original",
+    "tags": [
+      "機率",
+      "實驗"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-probability",
+    "table": {
+      "headers": [
+        "結果",
+        "次數"
+      ],
+      "rows": [
+        [
+          "正面",
+          54
+        ],
+        [
+          "反面",
+          46
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-MA-014",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "情境應用",
+    "topic": "圓面積",
+    "competency": "由半徑計算圓面積",
+    "grade": 9,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "一個圓半徑為5公分。",
+    "question": "圓面積為何？",
+    "choices": [
+      "10π",
+      "20π",
+      "25π",
+      "50π"
+    ],
+    "answer": 2,
+    "explanation": "面積=πr²=25π。",
+    "hint1": "使用πr²。",
+    "hint2": "5²=25。",
+    "source": "original",
+    "tags": [
+      "圓",
+      "面積"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-circle"
+  },
+  {
+    "id": "HP3-MA-015",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "中位數與平均數",
+    "competency": "比較統計量受極端值影響",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "資料為10、11、12、13、50。",
+    "question": "若要描述多數資料的典型值，哪個較適合？",
+    "choices": [
+      "平均數，因為50不影響它",
+      "中位數，因為50是極端值",
+      "最大值",
+      "總和"
+    ],
+    "answer": 1,
+    "explanation": "50會把平均數拉高，中位數12較能代表多數資料。",
+    "hint1": "觀察50與其他值的差距。",
+    "hint2": "中位數較不受極端值影響。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "極端值"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-data",
+    "table": {
+      "headers": [
+        "資料"
+      ],
+      "rows": [
+        [
+          10
+        ],
+        [
+          11
+        ],
+        [
+          12
+        ],
+        [
+          13
+        ],
+        [
+          50
+        ]
+      ]
+    }
+  }
+]

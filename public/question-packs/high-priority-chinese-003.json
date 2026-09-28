@@ -1,0 +1,549 @@
+[
+  {
+    "id": "HP3-CH-001",
+    "subject": "chinese",
+    "chapter": "字音字形與詞語",
+    "domain": "字音字形與詞語",
+    "questionType": "情境應用",
+    "topic": "成語語境",
+    "competency": "依語境判斷詞義",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "甲：「他準備很久，上台時還是把每個步驟都檢查一遍。」乙：「難怪大家說他做事很＿＿。」",
+    "question": "空格最適合填入哪個詞？",
+    "choices": [
+      "草率",
+      "嚴謹",
+      "浮誇",
+      "遲鈍"
+    ],
+    "answer": 1,
+    "explanation": "反覆檢查步驟顯示做事嚴謹。",
+    "hint1": "找與仔細、周密接近的詞。",
+    "hint2": "排除負面且不符語境的選項。",
+    "source": "original",
+    "tags": [
+      "詞義",
+      "語境"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-word-context"
+  },
+  {
+    "id": "HP3-CH-002",
+    "subject": "chinese",
+    "chapter": "字音字形與詞語",
+    "domain": "字音字形與詞語",
+    "questionType": "語句判讀",
+    "topic": "近義詞辨析",
+    "competency": "辨析相近詞語使用",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "notice",
+    "passage": "公告：因場地整理，本週五社團活動＿＿一次，下週恢復。",
+    "question": "空格最適合使用哪個詞？",
+    "choices": [
+      "暫停",
+      "中止永久",
+      "遺失",
+      "延伸"
+    ],
+    "answer": 0,
+    "explanation": "「暫停」表示短期停止，與下週恢復相符。",
+    "hint1": "注意後文「下週恢復」。",
+    "hint2": "不是永久停止。",
+    "source": "original",
+    "tags": [
+      "詞語辨析",
+      "公告"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-word-context"
+  },
+  {
+    "id": "HP3-CH-003",
+    "subject": "chinese",
+    "chapter": "語文運用",
+    "domain": "語文運用",
+    "questionType": "語句判讀",
+    "topic": "因果複句",
+    "competency": "辨識因果關係",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "「因為前一晚充分準備，所以他上台時能從容回答問題。」",
+    "question": "這句主要是哪種複句關係？",
+    "choices": [
+      "因果",
+      "轉折",
+      "假設",
+      "並列"
+    ],
+    "answer": 0,
+    "explanation": "「因為……所以……」明確表示因果。",
+    "hint1": "看關聯詞。",
+    "hint2": "前件是原因，後件是結果。",
+    "source": "original",
+    "tags": [
+      "複句",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-sentence"
+  },
+  {
+    "id": "HP3-CH-004",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "事件順序",
+    "competency": "整理敘事先後",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "小雅先查公車時刻，再提早十分鐘出門；到了站牌後，她發現前一班車剛離開，但下一班三分鐘後就到。",
+    "question": "下列哪項最能說明小雅沒有久等的原因？",
+    "choices": [
+      "她跑得很快",
+      "她事先查時刻並提早出門",
+      "公車每分鐘一班",
+      "她改搭計程車"
+    ],
+    "answer": 1,
+    "explanation": "文中直接指出她先查時刻並提早出門。",
+    "hint1": "找出行動與結果的連結。",
+    "hint2": "不要加入文中沒有的交通方式。",
+    "source": "original",
+    "tags": [
+      "敘事",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-narrative"
+  },
+  {
+    "id": "HP3-CH-005",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "文言詞義",
+    "competency": "由句意判斷古今義",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "「有朋自遠方來，不亦樂乎？」",
+    "question": "句中的「樂」最接近哪個意思？",
+    "choices": [
+      "音樂",
+      "快樂",
+      "演奏",
+      "娛樂場所"
+    ],
+    "answer": 1,
+    "explanation": "此處「樂」指喜悅、快樂。",
+    "hint1": "從朋友遠道而來的心情判斷。",
+    "hint2": "選情緒意義。",
+    "source": "original",
+    "tags": [
+      "文言文",
+      "詞義"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-classic-basic"
+  },
+  {
+    "id": "HP3-CH-006",
+    "subject": "chinese",
+    "chapter": "語文運用",
+    "domain": "語文運用",
+    "questionType": "推論",
+    "topic": "修辭效果",
+    "competency": "判讀譬喻效果",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "「夕陽像一枚緩緩沉入海面的橘色硬幣。」",
+    "question": "這句主要使用什麼修辭？",
+    "choices": [
+      "譬喻",
+      "排比",
+      "設問",
+      "借代"
+    ],
+    "answer": 0,
+    "explanation": "以「像」把夕陽比作橘色硬幣，是明喻。",
+    "hint1": "找比較詞。",
+    "hint2": "「像」是明顯線索。",
+    "source": "original",
+    "tags": [
+      "修辭",
+      "譬喻"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-rhetoric"
+  },
+  {
+    "id": "HP3-CH-007",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "資料分析",
+    "topic": "公告閱讀",
+    "competency": "整合公告中的時間與規則",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "notice",
+    "passage": "NOTICE／校史館週二上午維修，12:30後恢復開放。已預約導覽者可改至下午，不需重新登記。",
+    "question": "已預約週二上午導覽的學生最適合怎麼做？",
+    "choices": [
+      "上午照常入館",
+      "下午前往且不需重新登記",
+      "取消所有預約",
+      "改到下週並重新付費"
+    ],
+    "answer": 1,
+    "explanation": "公告說上午維修，下午恢復，原預約可改下午且免重新登記。",
+    "hint1": "同時看時間與預約規則。",
+    "hint2": "不要忽略「不需重新登記」。",
+    "source": "original",
+    "tags": [
+      "公告",
+      "資訊整合"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-info"
+  },
+  {
+    "id": "HP3-CH-008",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "說明文主旨",
+    "competency": "概括說明文本重點",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "候鳥遷徙並非只受氣溫影響，食物來源、日照長短與繁殖需求也會影響牠們移動的時間與路線。",
+    "question": "這段文字主要說明什麼？",
+    "choices": [
+      "候鳥只受氣溫影響",
+      "候鳥遷徙受多種因素共同影響",
+      "所有候鳥路線完全相同",
+      "候鳥不需要食物"
+    ],
+    "answer": 1,
+    "explanation": "文本列舉多個影響因素，主旨是遷徙受多因素共同作用。",
+    "hint1": "看列舉的共同功能。",
+    "hint2": "避免把單一因素當唯一原因。",
+    "source": "original",
+    "tags": [
+      "說明文",
+      "主旨"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-info"
+  },
+  {
+    "id": "HP3-CH-009",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "推論",
+    "topic": "文言語境",
+    "competency": "由前後文推論詞義",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "「敏而好學，不恥下問。」",
+    "question": "「不恥下問」最接近哪個意思？",
+    "choices": [
+      "不願向別人請教",
+      "不以向不如自己的人請教為羞恥",
+      "只向老師提問",
+      "認為問題不重要"
+    ],
+    "answer": 1,
+    "explanation": "句意強調虛心求教，不因對方地位或能力較低而羞於發問。",
+    "hint1": "注意「恥」是以……為羞恥。",
+    "hint2": "重點在虛心學習。",
+    "source": "original",
+    "tags": [
+      "文言文",
+      "語境"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-classic-context"
+  },
+  {
+    "id": "HP3-CH-010",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "理由強度",
+    "competency": "判斷理由是否支持主張",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "甲：「學校應多設遮雨走廊。」乙：「因為雨天學生從教室走到圖書館常被淋濕。」",
+    "question": "乙的話在論證中扮演什麼角色？",
+    "choices": [
+      "提出支持主張的理由",
+      "否定甲的主張",
+      "轉換話題",
+      "證明所有天氣都下雨"
+    ],
+    "answer": 0,
+    "explanation": "乙提供雨天通行受影響的具體理由來支持增加遮雨走廊。",
+    "hint1": "先找甲的主張。",
+    "hint2": "乙是在回答「為什麼」。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "理由"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-argument"
+  },
+  {
+    "id": "HP3-CH-011",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "資料分析",
+    "topic": "證據相關性",
+    "competency": "判斷資料是否能支持主張",
+    "grade": 8,
+    "difficulty": 4,
+    "variationForm": "table",
+    "passage": "學生主張「延長圖書館開放能增加使用量」。資料：延長前平均每日120人；延長後平均每日165人，但同月新增大型閱讀活動。",
+    "question": "下列哪個評估最合理？",
+    "choices": [
+      "使用量增加，但還需考量閱讀活動影響",
+      "延長開放一定是唯一原因",
+      "活動一定完全無關",
+      "資料無法比較任何變化"
+    ],
+    "answer": 0,
+    "explanation": "數據顯示使用量增加，但同時有閱讀活動，不能確定唯一原因。",
+    "hint1": "注意同時改變的另一因素。",
+    "hint2": "區分現象與因果。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "資料",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-argument",
+    "table": {
+      "headers": [
+        "時期",
+        "平均每日人數"
+      ],
+      "rows": [
+        [
+          "延長前",
+          120
+        ],
+        [
+          "延長後",
+          165
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-CH-012",
+    "subject": "chinese",
+    "chapter": "語文運用",
+    "domain": "語文運用",
+    "questionType": "推論",
+    "topic": "擬人",
+    "competency": "辨識擬人修辭",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "「窗外的雨滴一路追著車窗往下跑。」",
+    "question": "這句最明顯使用哪種修辭？",
+    "choices": [
+      "擬人",
+      "設問",
+      "層遞",
+      "引用"
+    ],
+    "answer": 0,
+    "explanation": "把雨滴寫成會「追、跑」的人類動作，是擬人。",
+    "hint1": "找非人事物的人類動作。",
+    "hint2": "雨滴不會真的追逐。",
+    "source": "original",
+    "tags": [
+      "修辭",
+      "擬人"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-rhetoric"
+  },
+  {
+    "id": "HP3-CH-013",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "作者意圖",
+    "competency": "從例子推論作者提醒",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "作者說：「第一次答對不代表真正會了；隔幾天換個情境還能答對，才比較能確認理解。」",
+    "question": "作者最想強調什麼？",
+    "choices": [
+      "只做原題即可",
+      "理解需要跨情境與延遲驗證",
+      "答對一次就可停止複習",
+      "所有題目都要背答案"
+    ],
+    "answer": 1,
+    "explanation": "作者明確強調換情境、隔一段時間再驗證理解。",
+    "hint1": "抓住「換個情境」與「隔幾天」。",
+    "hint2": "重點不是重複原題。",
+    "source": "original",
+    "tags": [
+      "推論",
+      "學習策略"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-evidence"
+  },
+  {
+    "id": "HP3-CH-014",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "圖表趨勢",
+    "competency": "整合表格與文字",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "某活動三次參與人數為45、52、49人。主辦方說：「第二次最高，但不能說每次都增加。」",
+    "question": "哪個敘述符合資料？",
+    "choices": [
+      "每次都增加",
+      "第二次最高",
+      "第三次最低",
+      "三次都相同"
+    ],
+    "answer": 1,
+    "explanation": "52是最高，且第三次49低於第二次，因此不是持續增加。",
+    "hint1": "先找最大值。",
+    "hint2": "比較第二與第三次。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "趨勢"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-data-text",
+    "table": {
+      "headers": [
+        "次數",
+        "人數"
+      ],
+      "rows": [
+        [
+          1,
+          45
+        ],
+        [
+          2,
+          52
+        ],
+        [
+          3,
+          49
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-CH-015",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "跨文本整合",
+    "competency": "整合效益與限制",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "甲文指出遠距會議可省下交通時間；乙文提醒需要穩定網路，也可能減少面對面互動。",
+    "question": "綜合兩文，哪個結論最適當？",
+    "choices": [
+      "遠距會議只有優點",
+      "遠距會議有便利性，也有使用條件與限制",
+      "遠距會議完全不可用",
+      "網路與遠距會議無關"
+    ],
+    "answer": 1,
+    "explanation": "兩文分別呈現優點與限制，合理結論應同時保留。",
+    "hint1": "不要只選單一文本。",
+    "hint2": "找能包含正反兩面資訊的選項。",
+    "source": "original",
+    "tags": [
+      "跨文本",
+      "統整"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-cross-text"
+  }
+]

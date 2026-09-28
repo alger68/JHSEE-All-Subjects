@@ -1,0 +1,578 @@
+[
+  {
+    "id": "HP3-SC-001",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "概念理解",
+    "topic": "細胞構造",
+    "competency": "辨識細胞構造與功能",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "植物細胞中可進行光合作用的主要構造是什麼？",
+    "question": "請選出正確答案。",
+    "choices": [
+      "細胞膜",
+      "細胞核",
+      "葉綠體",
+      "液泡"
+    ],
+    "answer": 2,
+    "explanation": "葉綠體含葉綠素，是光合作用主要場所。",
+    "hint1": "想植物細胞特有構造。",
+    "hint2": "與光能轉換有關。",
+    "source": "original",
+    "tags": [
+      "細胞",
+      "葉綠體"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-7-cell"
+  },
+  {
+    "id": "HP3-SC-002",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "資料分析",
+    "topic": "細胞觀察",
+    "competency": "由顯微鏡觀察辨識細胞",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "experiment",
+    "passage": "學生用顯微鏡觀察洋蔥表皮，看到規則排列的長方形構造，外圍有明顯細胞壁。",
+    "question": "這些構造最可能是？",
+    "choices": [
+      "植物細胞",
+      "紅血球",
+      "細菌群落",
+      "脂肪滴"
+    ],
+    "answer": 0,
+    "explanation": "洋蔥表皮具有細胞壁且排列規則，符合植物細胞。",
+    "hint1": "抓住「細胞壁」。",
+    "hint2": "洋蔥是植物。",
+    "source": "original",
+    "tags": [
+      "細胞",
+      "顯微鏡"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-7-cell"
+  },
+  {
+    "id": "HP3-SC-003",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "實驗判讀",
+    "topic": "光合作用",
+    "competency": "由葉片遮光實驗判斷光的作用",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "experiment",
+    "passage": "同一片葉部分遮光、部分照光，其他條件相同。數小時後用碘液檢測澱粉。",
+    "question": "哪一部分較可能呈現較多澱粉？",
+    "choices": [
+      "遮光部分",
+      "照光部分",
+      "兩者一定完全相同",
+      "只有葉柄"
+    ],
+    "answer": 1,
+    "explanation": "照光部分可進行較多光合作用，較容易累積澱粉。",
+    "hint1": "實驗只改變光照。",
+    "hint2": "澱粉是光合作用產物的證據。",
+    "source": "original",
+    "tags": [
+      "光合作用",
+      "實驗"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-7-plant"
+  },
+  {
+    "id": "HP3-SC-004",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "推論",
+    "topic": "食物鏈",
+    "competency": "由食物關係推論族群變化",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "chart",
+    "passage": "食物鏈：草 → 蚱蜢 → 青蛙 → 蛇。",
+    "question": "若青蛙短期大幅減少，其他條件不變，蚱蜢最可能如何？",
+    "choices": [
+      "增加",
+      "減少",
+      "立即消失",
+      "完全不受影響"
+    ],
+    "answer": 0,
+    "explanation": "青蛙是蚱蜢的捕食者，青蛙減少會降低蚱蜢被捕食的壓力。",
+    "hint1": "先找蚱蜢的捕食者。",
+    "hint2": "捕食者減少時獵物可能增加。",
+    "source": "original",
+    "tags": [
+      "生態",
+      "食物鏈"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-7-ecology"
+  },
+  {
+    "id": "HP3-SC-005",
+    "subject": "science",
+    "chapter": "生物",
+    "domain": "生物",
+    "questionType": "資料分析",
+    "topic": "族群資料",
+    "competency": "由族群表格判讀變化",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "某池塘魚群數量四季依序為120、150、145、130。",
+    "question": "哪一季數量最高？",
+    "choices": [
+      "春",
+      "夏",
+      "秋",
+      "冬"
+    ],
+    "answer": 1,
+    "explanation": "150是四季最高值。",
+    "hint1": "找最大數字。",
+    "hint2": "比較四筆資料。",
+    "source": "original",
+    "tags": [
+      "生態",
+      "族群",
+      "資料"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-7-ecology",
+    "table": {
+      "headers": [
+        "季節",
+        "魚群數量"
+      ],
+      "rows": [
+        [
+          "春",
+          120
+        ],
+        [
+          "夏",
+          150
+        ],
+        [
+          "秋",
+          145
+        ],
+        [
+          "冬",
+          130
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-SC-006",
+    "subject": "science",
+    "chapter": "科學探究與資料判讀",
+    "domain": "科學探究與資料判讀",
+    "questionType": "實驗判讀",
+    "topic": "公平測試",
+    "competency": "辨識控制變因",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "experiment",
+    "passage": "比較兩種土壤對豆苗生長的影響時，兩組使用相同豆種、相同水量與光照。",
+    "question": "這些相同條件的主要目的為何？",
+    "choices": [
+      "增加自變因數量",
+      "控制其他因素以公平比較土壤",
+      "讓兩組結果必定相同",
+      "讓植物停止生長"
+    ],
+    "answer": 1,
+    "explanation": "保持其他條件相同可讓土壤種類成為主要差異來源。",
+    "hint1": "想公平比較需要什麼。",
+    "hint2": "其他條件應被控制。",
+    "source": "original",
+    "tags": [
+      "實驗",
+      "控制變因"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-7-inquiry"
+  },
+  {
+    "id": "HP3-SC-007",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "概念理解",
+    "topic": "物理變化與化學變化",
+    "competency": "區分物理與化學變化",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "甲：「冰融化成水。」乙：「鐵生鏽形成新物質。」",
+    "question": "哪個敘述正確？",
+    "choices": [
+      "兩者都是物理變化",
+      "冰融化是物理變化，生鏽是化學變化",
+      "冰融化是化學變化，生鏽是物理變化",
+      "兩者都沒有任何變化"
+    ],
+    "answer": 1,
+    "explanation": "融化只改變狀態，生鏽產生新物質。",
+    "hint1": "看有沒有生成新物質。",
+    "hint2": "狀態改變通常屬物理變化。",
+    "source": "original",
+    "tags": [
+      "物質",
+      "化學變化"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-8-matter"
+  },
+  {
+    "id": "HP3-SC-008",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "實驗判讀",
+    "topic": "酸鹼中和",
+    "competency": "由酸鹼反應推論性質",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "experiment",
+    "passage": "學生逐滴把鹼性溶液加入酸性溶液，並持續測量pH。",
+    "question": "一般而言，加入鹼後pH會如何變化？",
+    "choices": [
+      "通常上升",
+      "通常下降",
+      "一定維持0",
+      "無法有任何趨勢"
+    ],
+    "answer": 0,
+    "explanation": "加入鹼會降低酸性程度，pH通常上升。",
+    "hint1": "想pH越高代表什麼。",
+    "hint2": "鹼會中和部分酸。",
+    "source": "original",
+    "tags": [
+      "酸鹼",
+      "中和"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-8-acid"
+  },
+  {
+    "id": "HP3-SC-009",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "資料分析",
+    "topic": "速度",
+    "competency": "由距離與時間計算速率",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "小車10秒走50公尺。",
+    "question": "平均速率是多少？",
+    "choices": [
+      "2 m/s",
+      "5 m/s",
+      "10 m/s",
+      "50 m/s"
+    ],
+    "answer": 1,
+    "explanation": "速率=距離/時間=50/10=5 m/s。",
+    "hint1": "使用距離除以時間。",
+    "hint2": "50÷10。",
+    "source": "original",
+    "tags": [
+      "運動",
+      "速率"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-8-motion",
+    "table": {
+      "headers": [
+        "距離",
+        "時間"
+      ],
+      "rows": [
+        [
+          "50 m",
+          "10 s"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-SC-010",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "推論",
+    "topic": "慣性",
+    "competency": "由運動狀態理解慣性",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "公車突然煞車時，站立乘客身體常會向前傾。",
+    "question": "這主要與哪個概念有關？",
+    "choices": [
+      "浮力",
+      "慣性",
+      "折射",
+      "蒸發"
+    ],
+    "answer": 1,
+    "explanation": "身體原本有向前運動的狀態，煞車時會傾向維持原運動。",
+    "hint1": "物體傾向維持原狀態。",
+    "hint2": "想牛頓第一運動定律。",
+    "source": "original",
+    "tags": [
+      "力與運動",
+      "慣性"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-8-motion"
+  },
+  {
+    "id": "HP3-SC-011",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "情境應用",
+    "topic": "電路安全",
+    "competency": "由功率推論電流與安全",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "notice",
+    "passage": "延長線標示「最大承受1200 W」。已接一台800 W電暖器。",
+    "question": "若再接600 W吹風機並同時使用，最合理的判斷是？",
+    "choices": [
+      "總功率1400 W，可能超過安全負荷",
+      "總功率只有200 W",
+      "一定更省電",
+      "功率不能相加"
+    ],
+    "answer": 0,
+    "explanation": "同時使用總功率800+600=1400 W，超過標示1200 W。",
+    "hint1": "把同時使用的功率相加。",
+    "hint2": "比較總功率與額定上限。",
+    "source": "original",
+    "tags": [
+      "電學",
+      "安全"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-8-electric"
+  },
+  {
+    "id": "HP3-SC-012",
+    "subject": "science",
+    "chapter": "化學",
+    "domain": "化學",
+    "questionType": "資料分析",
+    "topic": "溶解度",
+    "competency": "由表格判斷溫度影響",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "某物質在20°C每100 g水可溶30 g，在60°C可溶55 g。",
+    "question": "根據資料，哪個敘述正確？",
+    "choices": [
+      "此物質在較高溫時溶解度較大",
+      "溫度升高溶解度一定降為0",
+      "兩溫度溶解度相同",
+      "資料證明所有物質都如此"
+    ],
+    "answer": 0,
+    "explanation": "表格顯示此物質60°C時可溶較多，但不能推廣到所有物質。",
+    "hint1": "比較30與55。",
+    "hint2": "結論範圍限於此物質。",
+    "source": "original",
+    "tags": [
+      "溶解度",
+      "資料"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-8-matter",
+    "table": {
+      "headers": [
+        "溫度",
+        "每100g水可溶量"
+      ],
+      "rows": [
+        [
+          "20°C",
+          "30g"
+        ],
+        [
+          "60°C",
+          "55g"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-SC-013",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "資料分析",
+    "topic": "氣溫趨勢",
+    "competency": "由多日資料判讀趨勢",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "chart",
+    "passage": "某地午間氣溫連續四天為24、26、25、28°C。",
+    "question": "哪個敘述正確？",
+    "choices": [
+      "每天都上升",
+      "第四天最高",
+      "第一天最高",
+      "四天相同"
+    ],
+    "answer": 1,
+    "explanation": "28°C為四天最高，且第三天低於第二天，所以不是每天上升。",
+    "hint1": "找最大值。",
+    "hint2": "檢查是否單調增加。",
+    "source": "original",
+    "tags": [
+      "天氣",
+      "資料"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-9-weather"
+  },
+  {
+    "id": "HP3-SC-014",
+    "subject": "science",
+    "chapter": "地球科學",
+    "domain": "地球科學",
+    "questionType": "推論",
+    "topic": "板塊邊界",
+    "competency": "由地質現象判斷板塊活動",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "某區頻繁地震，並沿狹長帶分布許多火山。",
+    "question": "最合理的推論是？",
+    "choices": [
+      "可能接近板塊邊界",
+      "一定位於穩定板塊中央",
+      "地震與火山完全無關",
+      "該區一定沒有地殼運動"
+    ],
+    "answer": 0,
+    "explanation": "地震與火山沿帶密集分布是板塊邊界常見特徵。",
+    "hint1": "找能同時解釋兩種現象的機制。",
+    "hint2": "板塊邊界地質活動活躍。",
+    "source": "original",
+    "tags": [
+      "板塊",
+      "地震",
+      "火山"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-9-earth"
+  },
+  {
+    "id": "HP3-SC-015",
+    "subject": "science",
+    "chapter": "物理",
+    "domain": "物理",
+    "questionType": "資料分析",
+    "topic": "效率",
+    "competency": "由輸入輸出計算效率",
+    "grade": 9,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "某裝置輸入200 J，輸出有用能量150 J。",
+    "question": "效率是多少？",
+    "choices": [
+      "25%",
+      "50%",
+      "75%",
+      "150%"
+    ],
+    "answer": 2,
+    "explanation": "效率=150/200=0.75=75%。",
+    "hint1": "用有用輸出除以輸入。",
+    "hint2": "150÷200。",
+    "source": "original",
+    "tags": [
+      "能量",
+      "效率"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-sc-9-energy",
+    "table": {
+      "headers": [
+        "輸入能量",
+        "有用輸出"
+      ],
+      "rows": [
+        [
+          "200 J",
+          "150 J"
+        ]
+      ]
+    }
+  }
+]
