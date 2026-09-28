@@ -1,7 +1,7 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickLevelQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
-import { PERSONAL_DIAGNOSTIC, prioritizeQuestions, buildStarterPractice } from './core/personalization.js';
-import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, defaultSkillProfile, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
+import { PERSONAL_DIAGNOSTIC } from './core/personalization.js';
+import { adaptiveDashboard, calculateSubjectWeights, defaultSkillProfile, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
 import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
 import { AI_SERVICE_URL } from './config/ai-service.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
@@ -13,7 +13,7 @@ import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './u
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
-import { recentQuestionIds, recentQuestionFingerprints, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
+import { recentQuestionIds, recentQuestionFingerprints, recentAvoidQuestions } from './core/question-diversity.js';
 import { loadSupplementalQuestionPacks } from './core/question-pack-loader.js';
 import { createQuestionRegistry } from './core/question-registry.js';
 import { createQuestionProvider } from './core/question-provider.js';
@@ -723,19 +723,6 @@ function updateExamClock() {
   if(timer) timer.textContent=`⏱ ${clock(remainingSeconds(state.activeExam,Date.now()))}`;
 }
 
-function cachedAiForProfile(profile,subject='all',limit=4) {
-  if(!profile)return [];
-  const recent=recentQuestionIds(state.answerHistory,30);
-  const result=[];
-  for(const question of [...(state.generatedQuestions??[])].reverse()) {
-    if(!question?.aiGenerated||!isAnswerableQuestion(question)||recent.has(question.id))continue;
-    if(subject!=='all'&&question.subject!==subject)continue;
-    if(skillIdentity(question).key!==profile.key)continue;
-    result.push(question);
-    if(result.length>=limit)break;
-  }
-  return result;
-}
 
 async function generateAiForActivePractice({
   sessionId,
