@@ -726,54 +726,53 @@ async function generateAiForActivePractice({
   sessionId,
   profile,
   sourceQuestion,
-  count
+  count,
+  targetCount=10
 }) {
   if(!AI_SERVICE_URL||!profile||!sourceQuestion||count<=0)return;
-  const generated=await requestAiQuestions({
+  const raw=await requestAiQuestions({
     endpoint:AI_SERVICE_URL,
     brief:generationBrief(profile,sourceQuestion),
     sourceQuestion,
     avoidQuestions:aiAvoidExamples(),
     count
   });
-  if(!generated?.length)return;
-  const answerableGenerated=generated.filter(isAnswerableQuestion);
-  if(!answerableGenerated.length) {
-    showToast('AI 題目格式異常，已略過；目前練習不受影響。');
+  if(!raw?.length)return;
+
+  const session=state.activeExam?.id===sessionId?state.activeExam:null;
+  const references=[
+    sourceQuestion,
+    ...(session?sessionQuestions(session):[])
+  ].filter(Boolean);
+  const qa=provider.registerGeneratedQuestions(raw,{
+    target:{subject:profile.subject,competency:profile.competency,skillKey:profile.key},
+    references,
+    excludeFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+    generatedAt:new Date().toISOString()
+  });
+  const accepted=qa.accepted.filter(isAnswerableQuestion);
+  if(!accepted.length) {
+    showToast('AI 題目未通過品質或重複檢查，已略過；目前練習不受影響。');
     return;
   }
 
-  state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),answerableGenerated.length);
-  const known=new Map((state.generatedQuestions??[]).filter(isAnswerableQuestion).map(question=>[question.id,question]));
-  for(const question of answerableGenerated) {
-    known.set(question.id,question);
-    questionMap.set(question.id,question);
-  }
-  state.generatedQuestions=[...known.values()].slice(-200);
+  state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),accepted.length);
+  mergeAcceptedGeneratedQuestions(accepted);
 
   let injected=0;
-  const session=state.activeExam;
-  if(session?.id===sessionId&&session.status==='active'&&session.kind==='practice') {
-    const usedIds=new Set(session.questionIds);
-    const replacements=[];
-    for(let index=session.questionIds.length-1;index>session.index+1;index-=1) {
-      const id=session.questionIds[index];
-      const existing=questionMap.get(id);
-      if(session.answers[id]!==undefined)continue;
-      if(existing?.aiGenerated)continue;
-      replacements.push(index);
-    }
-    for(const question of answerableGenerated) {
+  const active=state.activeExam;
+  if(active?.id===sessionId&&active.status==='active'&&active.kind==='practice') {
+    const usedIds=new Set(active.questionIds);
+    for(const question of accepted) {
+      if(active.questionIds.length>=targetCount)break;
       if(usedIds.has(question.id))continue;
-      const index=replacements.shift();
-      if(index===undefined)break;
-      session.questionIds[index]=question.id;
+      active.questionIds.push(question.id);
       usedIds.add(question.id);
       injected+=1;
     }
   }
   save();
-  if(injected>0)showToast(`AI 已在背景加入 ${injected} 題弱點變形題，不用等待。`);
+  if(injected>0)showToast(`AI 已在背景補入 ${injected} 題通過檢查的弱點變形題。`);
 }
 
 function placementPracticeSelection(subject,count=10,shuffle=true){
@@ -1080,46 +1079,44 @@ app.addEventListener('click', async (event) => {
     changePaperPage((state.activeExam?.paperPage??1)+(action==='paper-page-next'?1:-1));
   }
   if(action==='start-practice') {
-    const {subject,grade,type,focus,pool}=practiceSelection(true);
+    const {subject,grade,type,focus,pool,warnings}=practiceSelection(true);
     save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
 
-    let sessionPool=pool;
     let aiPlanned=false;
     let background=null;
+    const shortage=Math.max(0,10-pool.length);
     const dashboard=adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate());
     const profile=dashboard.topSkills.find((item)=>subject==='all'||item.subject===subject);
 
-    if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
+    if(shortage>0&&AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
       const sourceQuestion=pool.find((question)=>skillIdentity(question).key===profile.key)??pool[0];
-      const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
-      const cached=cachedAiForProfile(profile,subject,wanted);
-      if(cached.length) {
-        sessionPool=mergeAiWithFallback(cached,pool,Math.min(10,pool.length));
-        aiPlanned=true;
-      }
-      const count=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+      const wantedBase=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+      const count=aiAllowance(state.aiUsage,taipeiDate(),Math.min(shortage,wantedBase));
       if(count>0) {
         aiPlanned=true;
-        background={profile,sourceQuestion,count};
-      } else if(!cached.length) {
-        showToast('今日 AI 題目額度已用完，先用本地題庫開始。');
+        background={profile,sourceQuestion,count,targetCount:10};
+      } else {
+        showToast('這個範圍本地新題不足，且今日 AI 題目額度已用完。');
       }
+    } else if(warnings?.length) {
+      showToast(warnings[0]);
     }
 
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
-    const started=startSession(sessionPool,{
+    const started=startSession(pool,{
       title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiPlanned?'＋AI弱點':''}練習`,
       kind:'practice',
       durationMinutes:20
     });
     if(started&&background) {
-      showToast(`已立即開始；AI 正在背景準備 ${background.profile.competency} 變形題。`);
+      showToast(`已立即開始；AI 正在背景補 ${background.profile.competency} 新題。`);
       void generateAiForActivePractice({
         sessionId:started.id,
         profile:background.profile,
         sourceQuestion:background.sourceQuestion,
-        count:background.count
+        count:background.count,
+        targetCount:background.targetCount
       });
     }
   }
