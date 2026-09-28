@@ -50,12 +50,18 @@ describe('supplemental question packs',()=>{
     const packed=manifest.packs.filter(pack=>pack.enabled!==false)
       .flatMap(pack=>readJson('public/question-packs/'+pack.file));
     const all=[...core,...packed];
+    const blueprint=readJson('data/curriculum-blueprint.json');
+    const blueprintIds=new Set(blueprint.skills.map(skill=>skill.id));
     expect(new Set(all.map(q=>q.id)).size).toBe(all.length);
+    const signatures=all.map(q=>[q.passage??'',q.question??'']
+      .join('|').normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim());
+    expect(new Set(signatures).size).toBe(signatures.length);
     for(const q of packed){
       expect(validateQuestion(q).ok).toBe(true);
       expect(q.examAligned).toBe(true);
       expect(q.reviewStatus).toBe('reviewed');
       expect(q.curriculumSkillId).toMatch(/^jhsee-/);
+      expect(blueprintIds.has(q.curriculumSkillId)).toBe(true);
       expect(q.alignmentBasis).toContain('cap.rcpet.edu.tw');
       expect(q.choices).toHaveLength(4);
       expect(new Set(q.choices).size).toBe(4);
@@ -98,8 +104,10 @@ describe('coverage audit',()=>{
     expect(after.totalQuestions).toBe(280);
     for(const subject of subjects){
       expect(after.bySubject[subject].total).toBe(before.bySubject[subject].total+15);
+      expect(after.bySubject[subject].coveredSkills).toBe(12);
       expect(after.bySubject[subject].coveredSkills).toBeGreaterThanOrEqual(before.bySubject[subject].coveredSkills);
     }
+    expect(Object.values(after.bySubject).reduce((sum,row)=>sum+row.coveredSkills,0)).toBe(60);
     expect(after.totalGap).toBeLessThan(before.totalGap);
   });
 });
