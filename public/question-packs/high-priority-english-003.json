@@ -1,0 +1,555 @@
+[
+  {
+    "id": "HP3-EN-001",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "字彙題",
+    "topic": "Vocabulary in context",
+    "competency": "Use context to infer word meaning",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "A: Why are you carrying two umbrellas?\nB: One is for my sister. She forgot hers.",
+    "question": "What does carrying two umbrellas show about B?",
+    "choices": [
+      "He is careless.",
+      "He is thoughtful.",
+      "He is angry.",
+      "He is lost."
+    ],
+    "answer": 1,
+    "explanation": "Bringing an extra umbrella for his sister shows he is thoughtful.",
+    "hint1": "Look at why he has the second umbrella.",
+    "hint2": "Choose a positive personality word.",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP3-EN-002",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "字彙題",
+    "topic": "Meaning from context",
+    "competency": "Infer a word from surrounding details",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "The room was silent. Everyone stopped talking when the principal entered.",
+    "question": "Which word is closest in meaning to silent?",
+    "choices": [
+      "quiet",
+      "crowded",
+      "bright",
+      "warm"
+    ],
+    "answer": 0,
+    "explanation": "Silent means quiet or making no sound.",
+    "hint1": "Use the next sentence as a clue.",
+    "hint2": "Everyone stopped talking.",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP3-EN-003",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Present tense",
+    "competency": "Use subject-verb agreement",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "A: What does Kevin do after school?\nB: He _____ basketball with his friends.",
+    "question": [
+      "play",
+      "plays",
+      "played",
+      "playing"
+    ],
+    "choices": 1,
+    "answer": "Kevin is third-person singular, so the present-tense verb is plays.",
+    "explanation": "Who is the subject?",
+    "hint1": "Kevin needs -s on the verb.",
+    "hint2": [
+      "grammar",
+      "present tense"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP3-EN-004",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Past tense",
+    "competency": "Choose past tense from a time marker",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Yesterday, Mia _____ her aunt at the hospital.",
+    "question": [
+      "visit",
+      "visits",
+      "visited",
+      "will visit"
+    ],
+    "choices": 2,
+    "answer": "Yesterday shows a completed past action, so visited is correct.",
+    "explanation": "Find the time marker.",
+    "hint1": "Use the past form.",
+    "hint2": [
+      "grammar",
+      "past tense"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP3-EN-005",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "細節理解",
+    "topic": "Short dialogue",
+    "competency": "Locate an agreed time",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "A: The movie starts at 6:30. Shall we meet at six?\nB: I need ten more minutes. How about 6:10?\nA: OK.",
+    "question": "When will they meet?",
+    "choices": [
+      "6:00",
+      "6:10",
+      "6:20",
+      "6:30"
+    ],
+    "answer": 1,
+    "explanation": "They agree on 6:10.",
+    "hint1": "Use the final agreement.",
+    "hint2": "The first suggestion changes.",
+    "source": "original",
+    "tags": [
+      "dialogue",
+      "detail"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-dialogue"
+  },
+  {
+    "id": "HP3-EN-006",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "細節理解",
+    "topic": "Notice",
+    "competency": "Read a simple public notice",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "notice",
+    "passage": "NOTICE\nThe music room is closed from 12:00 to 1:00 today. Please use Room 204 for practice during that hour.",
+    "question": "What should students do at 12:30?",
+    "choices": [
+      "Use the music room",
+      "Use Room 204",
+      "Wait until tomorrow",
+      "Go home"
+    ],
+    "answer": 1,
+    "explanation": "The notice directs students to Room 204 during the closure.",
+    "hint1": "Check the time window.",
+    "hint2": "12:30 is between 12 and 1.",
+    "source": "original",
+    "tags": [
+      "notice",
+      "life message"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-notice"
+  },
+  {
+    "id": "HP3-EN-007",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "推論題",
+    "topic": "Life message",
+    "competency": "Infer an action from a message",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "email",
+    "passage": "Hi Leo,\nThe bus for the field trip will leave at 7:40, not 8:00. Please arrive ten minutes early.\nMs. Lin",
+    "question": "What time should Leo arrive?",
+    "choices": [
+      "7:20",
+      "7:30",
+      "7:40",
+      "7:50"
+    ],
+    "answer": 1,
+    "explanation": "He should arrive ten minutes before 7:40, which is 7:30.",
+    "hint1": "Find the new departure time.",
+    "hint2": "Subtract ten minutes.",
+    "source": "original",
+    "tags": [
+      "message",
+      "time"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-notice"
+  },
+  {
+    "id": "HP3-EN-008",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Comparatives",
+    "competency": "Use comparative adjectives correctly",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "This backpack is _____ than the one I used last year.",
+    "question": [
+      "light",
+      "lighter",
+      "lightest",
+      "more light"
+    ],
+    "choices": 1,
+    "answer": "Than signals a comparative form; light becomes lighter.",
+    "explanation": "Look for than.",
+    "hint1": "Use the comparative adjective.",
+    "hint2": [
+      "grammar",
+      "comparative"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-grammar"
+  },
+  {
+    "id": "HP3-EN-009",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Modal verbs",
+    "competency": "Choose a modal for advice",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "A: I have a bad headache.\nB: You _____ rest for a while.",
+    "question": [
+      "should",
+      "would",
+      "might have",
+      "used to"
+    ],
+    "choices": 0,
+    "answer": "Should is used to give advice.",
+    "explanation": "B is giving advice.",
+    "hint1": "Choose the common advice modal.",
+    "hint2": [
+      "grammar",
+      "modal"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-grammar"
+  },
+  {
+    "id": "HP3-EN-010",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "克漏字",
+    "topic": "Connector",
+    "competency": "Choose a connector by meaning",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Lucy was nervous before the speech, _____ she took a deep breath and began slowly.",
+    "question": [
+      "but",
+      "so",
+      "because",
+      "or"
+    ],
+    "choices": 1,
+    "answer": "Being nervous leads to the action she took, so is the best connector.",
+    "explanation": "Is the second action a result?",
+    "hint1": "Choose the result connector.",
+    "hint2": [
+      "cloze",
+      "connector"
+    ],
+    "source": "original",
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP3-EN-011",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "克漏字",
+    "topic": "Reference word",
+    "competency": "Use context to interpret a pronoun",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Tom found a wallet near the gate. He took it to the office because he hoped the owner would get _____ back.",
+    "question": [
+      "him",
+      "her",
+      "it",
+      "them"
+    ],
+    "choices": 2,
+    "answer": "The pronoun refers to the wallet, so it is correct.",
+    "explanation": "What does the owner want back?",
+    "hint1": "The wallet is singular and not a person.",
+    "hint2": [
+      "cloze",
+      "pronoun"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP3-EN-012",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Email detail",
+    "competency": "Integrate details from an email",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "email",
+    "passage": "Subject: Practice Change\nHi team,\nFriday's practice will begin at 5:00 in the gym instead of 4:30 on the field. Bring indoor shoes.\nCoach Lee",
+    "question": "Which statement is correct?",
+    "choices": [
+      "Practice is canceled.",
+      "Practice starts later and moves indoors.",
+      "Students should bring raincoats.",
+      "Practice begins at 4:00."
+    ],
+    "answer": 1,
+    "explanation": "The email changes both the time and location and asks for indoor shoes.",
+    "hint1": "Check both time and place.",
+    "hint2": "Instead of marks a change.",
+    "source": "original",
+    "tags": [
+      "email",
+      "detail"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-email"
+  },
+  {
+    "id": "HP3-EN-013",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Schedule",
+    "competency": "Read a timetable under constraints",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Club schedule: Art—Tue 4:00; Science—Wed 4:30; Music—Thu 5:00.",
+    "question": "Jenny is busy Tuesday and must be home before 5:30. Which club can she attend?",
+    "choices": [
+      "Art only",
+      "Science or Music",
+      "Music only",
+      "None"
+    ],
+    "answer": 1,
+    "explanation": "Tuesday is unavailable; both Wednesday 4:30 and Thursday 5:00 fit the time condition.",
+    "hint1": "Remove Tuesday first.",
+    "hint2": "Both remaining start before 5:30.",
+    "source": "original",
+    "tags": [
+      "schedule",
+      "table"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-table",
+    "table": {
+      "headers": [
+        "Club",
+        "Day",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Art",
+          "Tue",
+          "4:00"
+        ],
+        [
+          "Science",
+          "Wed",
+          "4:30"
+        ],
+        [
+          "Music",
+          "Thu",
+          "5:00"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-EN-014",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Price table",
+    "competency": "Compare prices using a table",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Notebook prices: Store A $45 each; Store B two for $80; Store C three for $126.",
+    "question": "If Mia needs exactly two notebooks, which store is cheapest?",
+    "choices": [
+      "Store A",
+      "Store B",
+      "Store C",
+      "A and C"
+    ],
+    "answer": 1,
+    "explanation": "Two at A cost 90; B costs 80; C requires buying three for 126, so B is cheapest for exactly two.",
+    "hint1": "Calculate the cost for two.",
+    "hint2": "Do not ignore package size.",
+    "source": "original",
+    "tags": [
+      "table",
+      "price"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-table",
+    "table": {
+      "headers": [
+        "Store",
+        "Offer"
+      ],
+      "rows": [
+        [
+          "A",
+          "$45 each"
+        ],
+        [
+          "B",
+          "2 for $80"
+        ],
+        [
+          "C",
+          "3 for $126"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-EN-015",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論題",
+    "topic": "Inference",
+    "competency": "Infer a reason from multiple clues",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "At lunch, Eva read the ingredient card twice, asked the cook a question, and then chose a different soup. Earlier, she had said she was allergic to peanuts.",
+    "question": "Why did Eva most likely choose a different soup?",
+    "choices": [
+      "She was not hungry.",
+      "She was checking whether the first soup was safe for her.",
+      "She wanted to leave school.",
+      "She forgot how to read."
+    ],
+    "answer": 1,
+    "explanation": "Her allergy plus checking ingredients and asking the cook strongly suggests a safety concern.",
+    "hint1": "Connect the earlier allergy information to her actions.",
+    "hint2": "Use all clues together.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-inference"
+  }
+]
