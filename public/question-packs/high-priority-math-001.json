@@ -1,0 +1,515 @@
+[
+  {
+    "id": "HP-MA-001",
+    "subject": "math",
+    "chapter": "數與數線",
+    "domain": "數與數線",
+    "questionType": "情境應用",
+    "topic": "分數運算",
+    "competency": "正確處理異分母分數運算",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "小安上午走了全程的 3/4，下午又走了全程的 1/6，但其中有一段重複計算，因此老師請他先比較兩個分數的差。",
+    "question": "3/4 − 1/6 的結果是多少？",
+    "choices": [
+      "1/12",
+      "5/12",
+      "7/12",
+      "2/3"
+    ],
+    "answer": 2,
+    "explanation": "3/4=9/12，1/6=2/12，所以差為7/12。",
+    "hint1": "先通分成12分之幾。",
+    "hint2": "9/12−2/12。",
+    "source": "original",
+    "tags": [
+      "分數",
+      "運算"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-number"
+  },
+  {
+    "id": "HP-MA-002",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "一元一次方程式",
+    "competency": "由等式解出未知數",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "某數減2後的3倍等於15。",
+    "question": "若這個數為 x，下列何者正確？",
+    "choices": [
+      "x=3",
+      "x=5",
+      "x=7",
+      "x=9"
+    ],
+    "answer": 2,
+    "explanation": "3(x−2)=15，所以x−2=5，x=7。",
+    "hint1": "先把3除到右邊。",
+    "hint2": "得到x−2=5。",
+    "source": "original",
+    "tags": [
+      "一元一次方程式",
+      "代數"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-linear"
+  },
+  {
+    "id": "HP-MA-003",
+    "subject": "math",
+    "chapter": "數與比例",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "百分率折扣",
+    "competency": "把百分率轉為實際金額",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "一件外套原價480元，特價打75折。",
+    "question": "特價是多少元？",
+    "choices": [
+      "320",
+      "340",
+      "360",
+      "380"
+    ],
+    "answer": 2,
+    "explanation": "75折等於原價的75%，480×0.75=360。",
+    "hint1": "75折就是75%。",
+    "hint2": "480×3/4。",
+    "source": "original",
+    "tags": [
+      "比例",
+      "百分率",
+      "折扣"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-ratio"
+  },
+  {
+    "id": "HP-MA-004",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "二元一次方程式",
+    "competency": "將票價情境轉換為聯立關係",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某展覽成人票50元、學生票30元，共賣出14張，收入540元。",
+    "question": "成人票賣出幾張？",
+    "choices": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": 2,
+    "explanation": "設成人x張，學生14−x張：50x+30(14−x)=540，20x=120，所以x=6。",
+    "hint1": "先假設全部是學生票。",
+    "hint2": "540−14×30=120，每換一張成人多20元。",
+    "source": "original",
+    "tags": [
+      "二元一次",
+      "聯立方程式"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-system"
+  },
+  {
+    "id": "HP-MA-005",
+    "subject": "math",
+    "chapter": "函數",
+    "domain": "函數",
+    "questionType": "資料分析",
+    "topic": "一次函數",
+    "competency": "由表格找固定變化率",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某計程服務的費用符合一次函數。使用1單位收8元，3單位收14元。",
+    "question": "若使用5單位，依相同規則應收多少元？",
+    "choices": [
+      "17",
+      "18",
+      "20",
+      "22"
+    ],
+    "answer": 2,
+    "explanation": "增加2單位費用增加6元，所以每單位增加3元；由8=3×1+5得固定費5元，5單位為20元。",
+    "hint1": "先找每增加1單位費用增加多少。",
+    "hint2": "斜率是3，再找固定費。",
+    "source": "original",
+    "tags": [
+      "一次函數",
+      "表格"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-function",
+    "table": {
+      "headers": [
+        "使用量",
+        "費用"
+      ],
+      "rows": [
+        [
+          1,
+          8
+        ],
+        [
+          3,
+          14
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP-MA-006",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "情境應用",
+    "topic": "畢氏定理",
+    "competency": "利用直角三角形求長度",
+    "grade": 8,
+    "difficulty": 2,
+    "passage": "一個直角三角形兩股長為6公分與8公分。",
+    "question": "斜邊長是多少公分？",
+    "choices": [
+      "9",
+      "10",
+      "12",
+      "14"
+    ],
+    "answer": 1,
+    "explanation": "斜邊平方=6²+8²=36+64=100，所以斜邊為10。",
+    "hint1": "使用畢氏定理。",
+    "hint2": "√100=10。",
+    "source": "original",
+    "tags": [
+      "畢氏定理",
+      "三角形"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-geometry"
+  },
+  {
+    "id": "HP-MA-007",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "推論",
+    "topic": "簡單機率",
+    "competency": "從樣本空間計算事件機率",
+    "grade": 8,
+    "difficulty": 2,
+    "passage": "袋中有4顆紅球、3顆藍球、3顆綠球，每顆被抽到的機會相同。",
+    "question": "隨機抽1顆，抽到「不是藍球」的機率為何？",
+    "choices": [
+      "3/10",
+      "4/10",
+      "6/10",
+      "7/10"
+    ],
+    "answer": 3,
+    "explanation": "不是藍球共有4+3=7顆，總共10顆，所以機率是7/10。",
+    "hint1": "先算符合條件的球數。",
+    "hint2": "紅球和綠球都算。",
+    "source": "original",
+    "tags": [
+      "機率",
+      "樣本空間"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-probability"
+  },
+  {
+    "id": "HP-MA-008",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "推論",
+    "topic": "二次方程式",
+    "competency": "由因式形式判斷方程式解",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "若 (x−3)(x+2)=0，且只取正數解。",
+    "question": "x 等於多少？",
+    "choices": [
+      "−3",
+      "−2",
+      "2",
+      "3"
+    ],
+    "answer": 3,
+    "explanation": "乘積為0時，x−3=0或x+2=0，解為3與−2；正數解為3。",
+    "hint1": "零乘積性質。",
+    "hint2": "兩個因式分別令為0。",
+    "source": "original",
+    "tags": [
+      "二次方程式",
+      "因式"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-quadratic"
+  },
+  {
+    "id": "HP-MA-009",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "推論",
+    "topic": "因式分解",
+    "competency": "利用平方差進行因式分解",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "下列哪一式與 2x²−8 完全相等？",
+    "question": [
+      "2(x−4)(x+1)",
+      "2(x−2)(x+2)",
+      "(2x−2)(x+4)",
+      "2(x−8)(x+1)"
+    ],
+    "choices": 1,
+    "answer": "2x²−8=2(x²−4)=2(x−2)(x+2)。",
+    "explanation": "先提出公因數2。",
+    "hint1": "x²−4是平方差。",
+    "hint2": [
+      "因式分解",
+      "平方差"
+    ],
+    "source": "original",
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-quadratic"
+  },
+  {
+    "id": "HP-MA-010",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "情境應用",
+    "topic": "相似形",
+    "competency": "利用相似比例求未知邊",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "兩個相似三角形中，小三角形一邊長6，對應的大三角形邊長9。小三角形另一邊長10。",
+    "question": "大三角形的對應邊長是多少？",
+    "choices": [
+      "12",
+      "15",
+      "16",
+      "18"
+    ],
+    "answer": 1,
+    "explanation": "放大倍率為9/6=3/2，所以10×3/2=15。",
+    "hint1": "先求大對小的倍率。",
+    "hint2": "9÷6=1.5。",
+    "source": "original",
+    "tags": [
+      "相似形",
+      "比例"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-similarity"
+  },
+  {
+    "id": "HP-MA-011",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "圓心角與圓周",
+    "competency": "理解圓心角對應弧長比例",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "一個圓的圓周長為24π，某扇形的圓心角為90°。",
+    "question": "這個扇形的弧長是多少？",
+    "choices": [
+      "3π",
+      "6π",
+      "8π",
+      "12π"
+    ],
+    "answer": 1,
+    "explanation": "90°占整圓360°的1/4，所以弧長=24π×1/4=6π。",
+    "hint1": "先算90°占整圓多少比例。",
+    "hint2": "弧長=圓周長×角度比例。",
+    "source": "original",
+    "tags": [
+      "圓",
+      "弧長"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-circle"
+  },
+  {
+    "id": "HP-MA-012",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "平均數與極端值",
+    "competency": "判讀極端值對平均數的影響",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "五筆資料為 6、7、7、8、32。",
+    "question": "若只看平均數，下列哪個提醒最適當？",
+    "choices": [
+      "平均數一定等於中位數",
+      "32可能使平均數被明顯拉高",
+      "資料沒有任何極端值",
+      "刪掉32後平均數一定更高"
+    ],
+    "answer": 1,
+    "explanation": "32遠大於其餘資料，會把平均數向上拉，因此只看平均數可能誤解典型狀況。",
+    "hint1": "比較32與其他四個數。",
+    "hint2": "想想極端值如何影響平均數。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "平均數",
+      "極端值"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-data"
+  },
+  {
+    "id": "HP-MA-013",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "推論",
+    "topic": "不放回機率",
+    "competency": "計算兩階段不放回事件",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "袋中有3顆紅球、2顆藍球。連續抽2顆且不放回。",
+    "question": "先抽紅球、再抽藍球的機率是多少？",
+    "choices": [
+      "1/5",
+      "3/10",
+      "2/5",
+      "1/2"
+    ],
+    "answer": 1,
+    "explanation": "第一顆紅球機率3/5；抽走紅球後剩4顆，其中藍球2顆，故第二顆藍球2/4。相乘得3/10。",
+    "hint1": "兩次機率的分母不同。",
+    "hint2": "3/5×2/4。",
+    "source": "original",
+    "tags": [
+      "機率",
+      "不放回"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-data"
+  },
+  {
+    "id": "HP-MA-014",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "相似比例面積",
+    "competency": "由邊長比推論面積比",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "兩個相似正方形的邊長比為2：3。",
+    "question": "它們的面積比是多少？",
+    "choices": [
+      "2：3",
+      "3：2",
+      "4：9",
+      "8：27"
+    ],
+    "answer": 2,
+    "explanation": "相似圖形面積比是對應邊長比的平方，因此2²：3²=4：9。",
+    "hint1": "面積和長度不是同一次方。",
+    "hint2": "把邊長比平方。",
+    "source": "original",
+    "tags": [
+      "相似形",
+      "面積比"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-similarity"
+  },
+  {
+    "id": "HP-MA-015",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "資料代表性",
+    "competency": "比較平均數與中位數的適用性",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某小組每人完成題數為 18、19、20、21、62。",
+    "question": "若要描述「大多數組員」的典型完成量，哪個統計量較適合？",
+    "choices": [
+      "平均數，因為一定最接近每個人",
+      "中位數，因為62是明顯極端值",
+      "最大值，因為代表最好成績",
+      "總和，因為不受人數影響"
+    ],
+    "answer": 1,
+    "explanation": "62是明顯極端值，會拉高平均數；中位數20較能代表大多數人的典型狀況。",
+    "hint1": "觀察是否有極端值。",
+    "hint2": "中位數較不受極端值影響。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "中位數",
+      "資料判讀"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-data"
+  }
+]
