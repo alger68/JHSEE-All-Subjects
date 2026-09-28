@@ -565,15 +565,19 @@ async function startAiRemediation(result=state.lastExamResult) {
 
   const {question:sourceQuestion,profile}=target;
   const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
-  const count=Math.max(1,aiAllowance(state.aiUsage,taipeiDate(),wanted));
-  const sameSkill=bank.all()
-    .filter(question=>skillIdentity(question).key===profile.key&&!sourceQuestions.some(source=>source.id===question.id));
-  const sameSubject=bank.all()
-    .filter(question=>question.subject===profile.subject&&!sourceQuestions.some(source=>source.id===question.id));
+  const allowed=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+  const count=Math.max(1,allowed||Math.min(wanted,3));
+  const recentIds=recentQuestionIds(state.answerHistory??[],30);
+  const recentFingerprints=recentQuestionFingerprints(state.answerHistory??[],questionMap,30);
+  const localPool=registry.query({subject:profile.subject,variantEligible:true})
+    .filter(question=>question.sourceKind==='local-core'||question.sourceKind==='local-pack')
+    .filter(question=>!sourceQuestions.some(source=>source.id===question.id))
+    .filter(question=>!recentIds.has(question.id)&&!recentFingerprints.has(question.fingerprint));
+  const sameSkill=localPool.filter(question=>skillIdentity(question).key===profile.key);
+  const sameSubject=localPool.filter(question=>skillIdentity(question).key!==profile.key);
   const fallback=[...sameSkill,...sameSubject];
 
   showToast(`正在建立 ${profile.competency} 的 AI 弱點驗收…`);
-  const allowed=aiAllowance(state.aiUsage,taipeiDate(),wanted);
   const generatedRaw=AI_SERVICE_URL&&allowed>0
     ? await requestAiQuestions({
         endpoint:AI_SERVICE_URL,
@@ -583,19 +587,20 @@ async function startAiRemediation(result=state.lastExamResult) {
         count:allowed
       })
     : null;
-  const generated=(generatedRaw??[]).filter(isAnswerableQuestion);
+  const qa=provider.registerGeneratedQuestions(generatedRaw??[],{
+    target:{subject:profile.subject,competency:profile.competency,skillKey:profile.key},
+    references:sourceQuestions,
+    excludeFingerprints:recentFingerprints,
+    generatedAt:new Date().toISOString()
+  });
+  const generated=qa.accepted.filter(isAnswerableQuestion);
 
   if(generated.length) {
     state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
-    const known=new Map((state.generatedQuestions??[]).map(question=>[question.id,question]));
-    for(const question of generated) {
-      known.set(question.id,question);
-      questionMap.set(question.id,question);
-    }
-    state.generatedQuestions=[...known.values()].slice(-200);
+    mergeAcceptedGeneratedQuestions(generated);
   }
 
-  const sessionPool=mergeAiWithFallback(generated??[],fallback,count);
+  const sessionPool=mergeAiWithFallback(generated,fallback,count);
   if(!sessionPool.length) {
     showToast('目前找不到可用的弱點驗收題，請稍後再試。');
     return;
@@ -644,20 +649,30 @@ async function startDiagnostic() {
         count:1
       })??[];
     }));
-    const generated=generatedGroups.flat().filter(isAnswerableQuestion);
-    if(generated.length) {
-      state.aiUsage=recordAiUsage(state.aiUsage,today,generated.length);
-      const known=new Map((state.generatedQuestions??[]).map(q=>[q.id,q]));
-      for(const question of generated) {
-        known.set(question.id,question);
-        questionMap.set(question.id,question);
+    const accepted=[];
+    for(const raw of generatedGroups.flat()){
+      if(!isAnswerableQuestion(raw))continue;
+      const sourceQuestion=localQuestions.find(question=>question.subject===raw.subject);
+      if(!sourceQuestion)continue;
+      const identity=skillIdentity(sourceQuestion);
+      const qa=provider.registerGeneratedQuestions([raw],{
+        target:{subject:identity.subject,competency:identity.competency,skillKey:identity.key},
+        references:[sourceQuestion],
+        excludeFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+        generatedAt:new Date().toISOString()
+      });
+      accepted.push(...qa.accepted);
+    }
+    if(accepted.length) {
+      state.aiUsage=recordAiUsage(state.aiUsage,today,accepted.length);
+      mergeAcceptedGeneratedQuestions(accepted);
+      for(const question of accepted) {
         const index=questions.findIndex(item=>item.subject===question.subject);
         if(index>=0)questions[index]=question;
       }
-      state.generatedQuestions=[...known.values()].slice(-200);
-      showToast(`重新診斷：AI ${generated.length} 題＋本地 ${25-generated.length} 題。`);
+      showToast(`重新診斷：AI ${accepted.length} 題＋本地 ${25-accepted.length} 題。`);
     } else {
-      showToast('AI 診斷題暫時不可用，改用完整本地 25 題。');
+      showToast('AI 診斷題未通過品質檢查或暫時不可用，改用完整本地 25 題。');
     }
   } else if(available===0) {
     showToast('今日 AI 題目額度已用完，重新診斷改用本地 25 題。');
