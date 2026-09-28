@@ -38,13 +38,13 @@ export function reviewWrong(list, questionId, correct, date) {
   return list.map((item) => {
     if (item.questionId !== questionId) return item;
     if (correct && item.lastReviewed === date) return item;
-    const mastery = correct ? Math.min(3, item.mastery + 1) : Math.max(0, item.mastery - 1);
+    const mastery = correct ? Math.min(2, item.mastery + 1) : Math.max(0, item.mastery - 1);
     return {
       ...item,
       mastery,
       wrongCount: item.wrongCount + (correct ? 0 : 1),
-      resolved: mastery === 3,
-      nextReview: addDays(date, correct ? REVIEW_INTERVALS[mastery] : 1),
+      resolved: false,
+      nextReview: addDays(date, correct ? REVIEW_INTERVALS[Math.max(1, mastery)] : 1),
       lastReviewed: date
     };
   });
