@@ -829,3 +829,28 @@ body.focus-mode .english-tts label {
   .english-tts-settings label { width:100%; }
   .english-tts-settings select { width:100%; max-width:none; }
 }
+
+
+/* Ensure selected exam answers stay visibly selected after the light-theme override. */
+.jh-suite-shell .choice.selected,
+.jh-suite-shell .choice[aria-pressed="true"] {
+  border:2px solid var(--subject);
+  background:color-mix(in srgb,var(--subject) 14%,var(--jh-surface));
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--subject) 16%,transparent);
+}
+.jh-suite-shell .choice.selected b,
+.jh-suite-shell .choice[aria-pressed="true"] b {
+  background:color-mix(in srgb,var(--subject) 18%,var(--jh-surface));
+  color:color-mix(in srgb,var(--subject) 88%,#102238);
+}
+body.focus-mode .question-card .choice.selected,
+body.focus-mode .question-card .choice[aria-pressed="true"] {
+  border:2px solid #5EEAD4;
+  background:#133B37;
+  box-shadow:0 0 0 3px rgba(94,234,212,.16);
+}
+body.focus-mode .question-card .choice.selected b,
+body.focus-mode .question-card .choice[aria-pressed="true"] b {
+  background:#164E47;
+  color:#CCFBF1;
+}
