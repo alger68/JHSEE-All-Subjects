@@ -14,6 +14,7 @@ import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
 import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
+import { loadSupplementalQuestionPacks } from './core/question-pack-loader.js';
 import { buildEnglishSpeechText, englishVoices, voiceKey, getEnglishSpeechRate, setEnglishSpeechRate, getEnglishVoicePreference, setEnglishVoicePreference, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
@@ -1105,9 +1106,14 @@ async function boot() {
   app.innerHTML = '<section class="loading-state"><span>✦</span><h1>正在展開冒險地圖…</h1></section>';
   try {
     const bankUrls = [new URL('../data/questions.json',import.meta.url), new URL('../data/cap-practice.json',import.meta.url)];
-    const responses = await Promise.all(bankUrls.map(url=>fetch(url)));
+    const [responses,supplemental] = await Promise.all([
+      Promise.all(bankUrls.map(url=>fetch(url))),
+      loadSupplementalQuestionPacks()
+    ]);
     if(responses.some(r=>!r.ok))throw new Error('Question bank request failed');
-    bank = createQuestionBank((await Promise.all(responses.map(r=>r.json()))).flat());
+    const coreQuestions=(await Promise.all(responses.map(r=>r.json()))).flat();
+    bank = createQuestionBank([...coreQuestions,...supplemental.questions]);
+    if(supplemental.warnings.length)console.warn('Supplemental question pack warnings',supplemental.warnings);
     questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
