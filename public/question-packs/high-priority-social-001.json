@@ -179,28 +179,29 @@
     "competency": "比較法律與生活規範",
     "grade": 7,
     "difficulty": 3,
-    "passage": "下列哪一項最能說明「規範」的作用？",
-    "question": [
+    "passage": "班級、社團與公共場所都有不同規範，用來協調成員的行為與互動。",
+    "question": "下列哪一項最能說明「規範」的作用？",
+    "choices": [
       "協助群體成員形成可預期的行為準則",
       "保證所有人想法完全相同",
       "取消個人所有選擇",
       "只處理自然現象"
     ],
-    "choices": 0,
-    "answer": "社會規範可提供共同遵循的行為準則，使群體互動較有秩序與可預期性。",
-    "explanation": "規範和群體互動有關。",
-    "hint1": "不是要求所有人思想一致。",
-    "hint2": [
-      "公民",
-      "規範",
-      "社會"
-    ],
+    "answer": 0,
+    "explanation": "社會規範可提供共同遵循的行為準則，使群體互動較有秩序與可預期性。",
+    "hint1": "規範和群體互動有關。",
+    "hint2": "不是要求所有人思想一致。",
     "source": "original",
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
     "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
-    "curriculumSkillId": "jhsee-so-7-civics"
+    "curriculumSkillId": "jhsee-so-7-civics",
+    "tags": [
+      "公民",
+      "規範",
+      "社會"
+    ]
   },
   {
     "id": "HP-SO-007",
