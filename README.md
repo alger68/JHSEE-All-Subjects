@@ -88,3 +88,18 @@ Vercel 環境變數請依 `.env.example` 設定：
 4. 執行 `npm run audit:content`、`npm test`、`npm run build`。
 
 正式網站會自動讀取所有 enabled Pack；新增 Pack 不需要修改 `app.js`。
+
+
+## Current content milestone
+
+As of 2026-09-29, the production All Subjects bank contains **655 original questions**:
+
+- Chinese: 134
+- English: 129
+- Math: 125
+- Science: 136
+- Social: 131
+
+The three-year curriculum blueprint contains **60 skill nodes**, all currently meeting the project's internal minimum depth target (8–12 questions per skill). Supplemental content is loaded through `public/question-packs/manifest.json`.
+
+Wrong-answer review uses Question Provider V2: one-time Anchor → Same Skill → Near Transfer → Delayed Transfer, with recent-ID/fingerprint cooldown and variation-form diversity.
