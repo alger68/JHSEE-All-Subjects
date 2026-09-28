@@ -453,17 +453,36 @@ function completeExam() {
       state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
     }
     if (session.kind==='review') {
-      const alreadyTracked=state.wrongQuestions.some(entry=>entry.questionId===item.id);
-      if(alreadyTracked) {
-        state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
-          ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
-          : reviewWrong(state.wrongQuestions,item.id,item.correct,taipeiDate());
-      } else if(!item.correct) {
-        state.wrongQuestions=recordWrong(state.wrongQuestions,item.id,taipeiDate());
-      } else if(item.uncertain||item.hinted) {
-        state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
+      const evidence=session.reviewEvidenceByQuestionId?.[item.id];
+      if(evidence&&item.choice!==undefined) {
+        const reviewIndex=state.wrongQuestions.findIndex(entry=>entry.questionId===evidence.reviewQuestionId);
+        if(reviewIndex>=0) {
+          const updated=recordReviewEvidence(state.wrongQuestions[reviewIndex],{
+            question,
+            correct:item.correct,
+            uncertain:Boolean(item.uncertain||item.hinted),
+            date:taipeiDate(),
+            evidenceKind:evidence.evidenceKind
+          });
+          state.wrongQuestions=[
+            ...state.wrongQuestions.slice(0,reviewIndex),
+            updated,
+            ...state.wrongQuestions.slice(reviewIndex+1)
+          ];
+        }
+      } else if(!evidence) {
+        const alreadyTracked=state.wrongQuestions.some(entry=>entry.questionId===item.id);
+        if(alreadyTracked) {
+          state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
+            ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
+            : reviewWrong(state.wrongQuestions,item.id,item.correct,taipeiDate());
+        } else if(item.choice!==undefined&&!item.correct) {
+          state.wrongQuestions=recordWrong(state.wrongQuestions,item.id,taipeiDate());
+        } else if(item.choice!==undefined&&(item.uncertain||item.hinted)) {
+          state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
+        }
       }
-      state.dailyQuest=updateDailyQuest(state.dailyQuest,{type:'revenge'},taipeiDate());
+      if(item.choice!==undefined)state.dailyQuest=updateDailyQuest(state.dailyQuest,{type:'revenge'},taipeiDate());
     } else if (!item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
     else if (item.uncertain||item.hinted) state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
   }
