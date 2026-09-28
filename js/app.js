@@ -872,47 +872,30 @@ function startPlacementPractice(subject,count=10){
   return started;
 }
 
-function practiceSelection(shuffle=false) {
-  const subject=document.querySelector('#practice-subject').value;
-  const grade=Number(document.querySelector('#practice-grade').value);
-  const type=document.querySelector('#practice-type').value;
-  const focus=document.querySelector('#practice-focus').value;
-  const criteria={};
+function practiceFilters(){
+  const subject=document.querySelector('#practice-subject')?.value??'all';
+  const grade=Number(document.querySelector('#practice-grade')?.value??9);
+  const type=document.querySelector('#practice-type')?.value??'';
+  const focus=document.querySelector('#practice-focus')?.value??'aligned';
+  const criteria={maxGrade:grade};
   if(subject!=='all')criteria.subject=subject;
+  if(type)criteria.questionType=type;
   if(focus!=='all')criteria.examAligned=focus!=='basic';
-  const localCandidates=bank.filter(criteria)
-    .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
-  const generatedCandidates=(state.generatedQuestions??[])
-    .filter(isAnswerableQuestion)
-    .filter(q=>(subject==='all'||q.subject===subject))
-    .filter(q=>focus==='all'||(focus==='aligned'?q.examAligned===true:q.examAligned!==true))
-    .filter(q=>(q.grade??9)<=grade&&(!type||q.questionType===type));
-  const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
+  return {subject,grade,type,focus,criteria};
+}
+
+function practiceSelection(shuffle=false) {
+  const filters=practiceFilters();
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
   state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
-  const recentIds=recentQuestionIds(state.answerHistory,30);
-  const candidatePool=preferFreshQuestions(
-    candidates,
-    recentIds,
-    state.adaptiveSkills,
-    taipeiDate(),
-    Math.min(10,candidates.length)
-  );
-  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
-  const pool=hasAdaptiveData
-    ? buildAdaptivePractice(candidatePool,Math.min(10,candidatePool.length),{
-        skills:state.adaptiveSkills,
-        subjectWeights:state.adaptiveSubjectWeights,
-        today:taipeiDate(),
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5
-      })
-    : buildStarterPractice(candidatePool,Math.min(10,candidatePool.length),{
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5,
-        ensureFiveSubjectMix:subject==='all'
-      });
-  return {subject,grade,type,focus,pool,matchCount:candidates.length};
+  const context=practiceProviderContext({count:10,shuffle});
+  const result=provider.getPracticeSet(filters.criteria,context);
+  const matchCount=provider.countPracticeCandidates(filters.criteria,{
+    ...context,
+    recentIds:new Set(),
+    recentFingerprints:new Set()
+  });
+  return {...filters,pool:result.questions,matchCount,warnings:result.warnings};
 }
 
 app.addEventListener('click', async (event) => {
