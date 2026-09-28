@@ -1,0 +1,536 @@
+[
+  {
+    "id": "HP4-EN-001",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Trend chart",
+    "competency": "Read a non-monotonic trend",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "chart",
+    "passage": "Weekly visitors: 80, 95, 90, 110.",
+    "question": "Which statement is supported by the data?",
+    "choices": [
+      "Visitors increased every week.",
+      "Week 4 had the highest number.",
+      "Week 1 had more than Week 3.",
+      "All weeks were the same."
+    ],
+    "answer": 1,
+    "explanation": "110 is the highest value, and Week 3 is lower than Week 2.",
+    "hint1": "Find the maximum.",
+    "hint2": "Check every week before saying the trend always rises.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "trend"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart",
+    "table": {
+      "headers": [
+        "Week",
+        "Visitors"
+      ],
+      "rows": [
+        [
+          1,
+          80
+        ],
+        [
+          2,
+          95
+        ],
+        [
+          3,
+          90
+        ],
+        [
+          4,
+          110
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP4-EN-002",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Percentage table",
+    "competency": "Compare rates using different totals",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Club A: 18 of 30 members joined the trip. Club B: 20 of 40 joined.",
+    "question": "Which club had the higher participation rate?",
+    "choices": [
+      "Club A",
+      "Club B",
+      "They were equal",
+      "Cannot be calculated"
+    ],
+    "answer": 0,
+    "explanation": "Club A is 60%; Club B is 50%.",
+    "hint1": "Compare percentages, not counts.",
+    "hint2": "18/30 and 20/40.",
+    "source": "original",
+    "tags": [
+      "table",
+      "percentage"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart"
+  },
+  {
+    "id": "HP4-EN-003",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Evidence limits",
+    "competency": "Avoid causal overclaim from a chart",
+    "grade": 9,
+    "difficulty": 4,
+    "variationForm": "chart",
+    "passage": "After a school added plants to classrooms, average student comfort scores rose from 6.8 to 7.5. The school also repaired air conditioners that month.",
+    "question": "Which conclusion is best?",
+    "choices": [
+      "Plants alone caused the increase.",
+      "Air conditioning alone caused the increase.",
+      "Comfort scores rose, but the data cannot separate the two changes.",
+      "The changes had no possible effect."
+    ],
+    "answer": 2,
+    "explanation": "Two changes occurred together, so the increase cannot be assigned to one cause.",
+    "hint1": "How many things changed?",
+    "hint2": "Use a cautious conclusion.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "evidence"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart"
+  },
+  {
+    "id": "HP4-EN-004",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Present tense",
+    "competency": "Use do/does agreement",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "A: _____ your brother walk to school every day?\nB: Yes, he does.",
+    "question": "Which word best completes A's question?",
+    "choices": [
+      "Do",
+      "Does",
+      "Did",
+      "Doing"
+    ],
+    "answer": 1,
+    "explanation": "Brother is third-person singular, so use Does in the present tense.",
+    "hint1": "Look at 'every day'.",
+    "hint2": "Brother is singular.",
+    "source": "original",
+    "tags": [
+      "grammar",
+      "present tense"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP4-EN-005",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Past tense",
+    "competency": "Use irregular past tense",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Last night, Ben _____ a letter to his cousin.",
+    "question": [
+      "write",
+      "writes",
+      "wrote",
+      "written"
+    ],
+    "choices": 2,
+    "answer": "Last night requires the simple past; the past form of write is wrote.",
+    "explanation": "Find the time clue.",
+    "hint1": "Recall the irregular past form.",
+    "hint2": [
+      "grammar",
+      "past tense"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP4-EN-006",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Future tense",
+    "competency": "Choose future form from context",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "notice",
+    "passage": "Tomorrow's game _____ start at 3 p.m. because the field will be ready then.",
+    "question": [
+      "will",
+      "did",
+      "has",
+      "was"
+    ],
+    "choices": 0,
+    "answer": "Tomorrow points to the future, so will start is correct.",
+    "explanation": "Look at tomorrow.",
+    "hint1": "Choose the future auxiliary.",
+    "hint2": [
+      "grammar",
+      "future"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP4-EN-007",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-text integration",
+    "competency": "Combine benefit and limitation from two sources",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Text A: Online forms reduce paper use.\nText B: Some families still need paper forms because internet access is limited.",
+    "question": "Which statement best combines both texts?",
+    "choices": [
+      "Online forms are always enough.",
+      "Paper forms should completely replace online forms.",
+      "Online forms can save paper, but an alternative may still be needed.",
+      "Internet access is never a problem."
+    ],
+    "answer": 2,
+    "explanation": "One text gives a benefit and the other identifies an access limitation.",
+    "hint1": "Keep both texts in the answer.",
+    "hint2": "Avoid absolute claims.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "integration"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP4-EN-008",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Source comparison",
+    "competency": "Identify needed evidence",
+    "grade": 9,
+    "difficulty": 4,
+    "variationForm": "passage",
+    "passage": "Source A says a new lunch menu reduced food waste. Source B says fewer students ate at school during the same month.",
+    "question": "What information would best help evaluate the menu's effect?",
+    "choices": [
+      "The color of lunch trays",
+      "Waste per student rather than total waste alone",
+      "The principal's favorite food",
+      "The number of classroom windows"
+    ],
+    "answer": 1,
+    "explanation": "If fewer students ate at school, total waste may fall even without a menu effect. Waste per student helps separate this.",
+    "hint1": "What changed besides the menu?",
+    "hint2": "Use a fair comparison measure.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "evidence"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP4-EN-009",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "字彙題",
+    "topic": "Vocabulary in context",
+    "competency": "Infer meaning from an action",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "Nina whispered during the movie because she did not want to disturb anyone.",
+    "question": "What does whispered most likely mean?",
+    "choices": [
+      "spoke very softly",
+      "laughed loudly",
+      "ran quickly",
+      "slept deeply"
+    ],
+    "answer": 0,
+    "explanation": "She did not want to disturb others, so she spoke very softly.",
+    "hint1": "Use the reason after because.",
+    "hint2": "Think about volume.",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP4-EN-010",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "字彙題",
+    "topic": "Vocabulary in context",
+    "competency": "Use surrounding clues",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "A: The box is fragile.\nB: Then let's carry it carefully.",
+    "question": "What does fragile most likely mean?",
+    "choices": [
+      "easy to break",
+      "very heavy",
+      "full of food",
+      "hard to find"
+    ],
+    "answer": 0,
+    "explanation": "Carrying it carefully suggests it is easy to break.",
+    "hint1": "Use B's response.",
+    "hint2": "Why would careful handling matter?",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP4-EN-011",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "克漏字",
+    "topic": "Cause connector",
+    "competency": "Choose a causal connector",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Sam stayed inside _____ the storm was getting stronger.",
+    "question": [
+      "although",
+      "because",
+      "unless",
+      "or"
+    ],
+    "choices": 1,
+    "answer": "Because correctly gives the reason Sam stayed inside.",
+    "explanation": "The second clause explains why.",
+    "hint1": "Choose a reason connector.",
+    "hint2": [
+      "cloze",
+      "connector"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP4-EN-012",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "克漏字",
+    "topic": "Contrast connector",
+    "competency": "Choose a contrast connector",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "The hike was difficult, _____ everyone reached the top safely.",
+    "question": [
+      "but",
+      "because",
+      "so",
+      "if"
+    ],
+    "choices": 0,
+    "answer": "The ideas contrast: it was difficult, but everyone succeeded.",
+    "explanation": "Look for contrast.",
+    "hint1": "The second idea is unexpected after the first.",
+    "hint2": [
+      "cloze",
+      "connector"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP4-EN-013",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "細節理解",
+    "topic": "Notice",
+    "competency": "Read date and action from a notice",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "notice",
+    "passage": "NOTICE\nThe computer room will close at 4:00 on Wednesday for maintenance. Students may use the library computers after 4:00.",
+    "question": "What can students do at 4:30 on Wednesday?",
+    "choices": [
+      "Use the computer room",
+      "Use library computers",
+      "Wait until next month",
+      "Enter the staff office"
+    ],
+    "answer": 1,
+    "explanation": "The notice directs students to library computers after 4:00.",
+    "hint1": "Check the time.",
+    "hint2": "Use the alternative location.",
+    "source": "original",
+    "tags": [
+      "notice",
+      "detail"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-notice"
+  },
+  {
+    "id": "HP4-EN-014",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Identify the main idea of an explanatory passage",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Many people turn off phone notifications while studying. This does not make every task easy, but it reduces one common source of interruption. Some students also place the phone out of reach so they do not check it automatically.",
+    "question": "What is the main idea?",
+    "choices": [
+      "Phones should never be used.",
+      "Reducing phone interruptions may help people focus while studying.",
+      "Notifications always improve studying.",
+      "All students must study in silence."
+    ],
+    "answer": 1,
+    "explanation": "The passage focuses on reducing phone interruptions as a way to support focus.",
+    "hint1": "Choose the idea covering both sentences.",
+    "hint2": "Avoid absolute claims.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP4-EN-015",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Gerund/infinitive",
+    "competency": "Choose a common verb pattern",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "A: What do you enjoy doing after dinner?\nB: I enjoy _____ novels.",
+    "question": [
+      "read",
+      "reads",
+      "reading",
+      "to readed"
+    ],
+    "choices": 2,
+    "answer": "Enjoy is commonly followed by a gerund, so reading is correct.",
+    "explanation": "What form follows enjoy?",
+    "hint1": "Use verb + -ing.",
+    "hint2": [
+      "grammar",
+      "verb pattern"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-grammar"
+  }
+]
