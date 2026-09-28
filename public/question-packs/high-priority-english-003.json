@@ -76,25 +76,25 @@
     "topic": "Present tense",
     "competency": "Use subject-verb agreement",
     "grade": 7,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "dialogue",
     "passage": "A: What does Kevin do after school?\nB: He _____ basketball with his friends.",
-    "question": [
+    "question": "Which word best completes the conversation?",
+    "choices": [
       "play",
       "plays",
       "played",
       "playing"
     ],
-    "choices": 1,
-    "answer": "Kevin is third-person singular, so the present-tense verb is plays.",
-    "explanation": "Who is the subject?",
-    "hint1": "Kevin needs -s on the verb.",
-    "hint2": [
+    "answer": 1,
+    "explanation": "Kevin is third-person singular, so the present-tense verb is plays.",
+    "hint1": "Who is the subject?",
+    "hint2": "Kevin needs -s on the verb.",
+    "source": "original",
+    "tags": [
       "grammar",
       "present tense"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -110,25 +110,25 @@
     "topic": "Past tense",
     "competency": "Choose past tense from a time marker",
     "grade": 7,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "Yesterday, Mia _____ her aunt at the hospital.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "visit",
       "visits",
       "visited",
       "will visit"
     ],
-    "choices": 2,
-    "answer": "Yesterday shows a completed past action, so visited is correct.",
-    "explanation": "Find the time marker.",
-    "hint1": "Use the past form.",
-    "hint2": [
+    "answer": 2,
+    "explanation": "Yesterday shows a completed past action, so visited is correct.",
+    "hint1": "Find the time marker.",
+    "hint2": "Use the past form.",
+    "source": "original",
+    "tags": [
       "grammar",
       "past tense"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -246,25 +246,25 @@
     "topic": "Comparatives",
     "competency": "Use comparative adjectives correctly",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "This backpack is _____ than the one I used last year.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "light",
       "lighter",
       "lightest",
       "more light"
     ],
-    "choices": 1,
-    "answer": "Than signals a comparative form; light becomes lighter.",
-    "explanation": "Look for than.",
-    "hint1": "Use the comparative adjective.",
-    "hint2": [
+    "answer": 1,
+    "explanation": "Than signals a comparative form; light becomes lighter.",
+    "hint1": "Look for than.",
+    "hint2": "Use the comparative adjective.",
+    "source": "original",
+    "tags": [
       "grammar",
       "comparative"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -280,25 +280,25 @@
     "topic": "Modal verbs",
     "competency": "Choose a modal for advice",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "dialogue",
     "passage": "A: I have a bad headache.\nB: You _____ rest for a while.",
-    "question": [
+    "question": "Which word best completes B's advice?",
+    "choices": [
       "should",
       "would",
       "might have",
       "used to"
     ],
-    "choices": 0,
-    "answer": "Should is used to give advice.",
-    "explanation": "B is giving advice.",
-    "hint1": "Choose the common advice modal.",
-    "hint2": [
+    "answer": 0,
+    "explanation": "Should is used to give advice.",
+    "hint1": "B is giving advice.",
+    "hint2": "Choose the common advice modal.",
+    "source": "original",
+    "tags": [
       "grammar",
       "modal"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -317,26 +317,27 @@
     "difficulty": 3,
     "variationForm": "passage",
     "passage": "Lucy was nervous before the speech, _____ she took a deep breath and began slowly.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "but",
       "so",
       "because",
       "or"
     ],
-    "choices": 1,
-    "answer": "Being nervous leads to the action she took, so is the best connector.",
-    "explanation": "Is the second action a result?",
-    "hint1": "Choose the result connector.",
-    "hint2": [
-      "cloze",
-      "connector"
-    ],
+    "answer": 1,
+    "explanation": "Being nervous leads to the action she took, so is the best connector.",
+    "hint1": "Is the second action a result?",
+    "hint2": "Choose the result connector.",
     "source": "original",
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
     "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
-    "curriculumSkillId": "jhsee-en-8-cloze"
+    "curriculumSkillId": "jhsee-en-8-cloze",
+    "tags": [
+      "cloze",
+      "connector"
+    ]
   },
   {
     "id": "HP3-EN-011",
@@ -347,25 +348,25 @@
     "topic": "Reference word",
     "competency": "Use context to interpret a pronoun",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "Tom found a wallet near the gate. He took it to the office because he hoped the owner would get _____ back.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "him",
       "her",
       "it",
       "them"
     ],
-    "choices": 2,
-    "answer": "The pronoun refers to the wallet, so it is correct.",
-    "explanation": "What does the owner want back?",
-    "hint1": "The wallet is singular and not a person.",
-    "hint2": [
+    "answer": 2,
+    "explanation": "The pronoun refers to the wallet, so it is correct.",
+    "hint1": "What does the owner want back?",
+    "hint2": "The wallet is singular and not a person.",
+    "source": "original",
+    "tags": [
       "cloze",
       "pronoun"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
