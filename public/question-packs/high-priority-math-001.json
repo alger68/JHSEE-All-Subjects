@@ -290,27 +290,28 @@
     "competency": "利用平方差進行因式分解",
     "grade": 9,
     "difficulty": 3,
-    "passage": "下列哪一式與 2x²−8 完全相等？",
-    "question": [
+    "passage": "將多項式先提出公因數，再觀察剩餘部分是否可用平方差公式。",
+    "question": "下列哪一式與 2x²−8 完全相等？",
+    "choices": [
       "2(x−4)(x+1)",
       "2(x−2)(x+2)",
       "(2x−2)(x+4)",
       "2(x−8)(x+1)"
     ],
-    "choices": 1,
-    "answer": "2x²−8=2(x²−4)=2(x−2)(x+2)。",
-    "explanation": "先提出公因數2。",
-    "hint1": "x²−4是平方差。",
-    "hint2": [
-      "因式分解",
-      "平方差"
-    ],
+    "answer": 1,
+    "explanation": "2x²−8=2(x²−4)=2(x−2)(x+2)。",
+    "hint1": "先提出公因數2。",
+    "hint2": "x²−4是平方差。",
     "source": "original",
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
     "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
-    "curriculumSkillId": "jhsee-ma-9-quadratic"
+    "curriculumSkillId": "jhsee-ma-9-quadratic",
+    "tags": [
+      "因式分解",
+      "平方差"
+    ]
   },
   {
     "id": "HP-MA-010",
