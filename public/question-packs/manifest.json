@@ -182,6 +182,96 @@
       "kind": "local-pack",
       "subject": "social",
       "questionCount": 15
+    },
+    {
+      "id": "hp-chinese-005",
+      "version": 1,
+      "file": "high-priority-chinese-005.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "chinese",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-english-005",
+      "version": 1,
+      "file": "high-priority-english-005.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "english",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-math-005",
+      "version": 1,
+      "file": "high-priority-math-005.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "math",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-science-005",
+      "version": 1,
+      "file": "high-priority-science-005.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "science",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-social-005",
+      "version": 1,
+      "file": "high-priority-social-005.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "social",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-chinese-006",
+      "version": 1,
+      "file": "high-priority-chinese-006.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "chinese",
+      "questionCount": 18
+    },
+    {
+      "id": "hp-english-006",
+      "version": 1,
+      "file": "high-priority-english-006.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "english",
+      "questionCount": 13
+    },
+    {
+      "id": "hp-math-006",
+      "version": 1,
+      "file": "high-priority-math-006.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "math",
+      "questionCount": 9
+    },
+    {
+      "id": "hp-science-006",
+      "version": 1,
+      "file": "high-priority-science-006.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "science",
+      "questionCount": 20
+    },
+    {
+      "id": "hp-social-006",
+      "version": 1,
+      "file": "high-priority-social-006.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "social",
+      "questionCount": 15
     }
   ]
 }
