@@ -1,0 +1,612 @@
+[
+  {
+    "id": "HP3-SO-001",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "史料判讀",
+    "topic": "清代建設",
+    "competency": "由史料線索判讀臺灣史發展",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "史料記載：「官府修築道路、設置郵電，並改善港口運輸，希望加強治理與防務。」",
+    "question": "這類措施最符合哪個歷史背景？",
+    "choices": [
+      "清代晚期近代化建設",
+      "史前狩獵社會",
+      "荷蘭人剛到臺灣前",
+      "二十一世紀數位轉型"
+    ],
+    "answer": 0,
+    "explanation": "道路、郵電、港口與治理防務的近代化措施符合清代晚期改革脈絡。",
+    "hint1": "抓住郵電與近代交通。",
+    "hint2": "判斷哪個時期已有這些建設。",
+    "source": "original",
+    "tags": [
+      "臺灣史",
+      "近代化"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twhistory"
+  },
+  {
+    "id": "HP3-SO-002",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "地圖判讀",
+    "topic": "臺灣地形",
+    "competency": "由地形與人口位置判斷分布",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "map",
+    "passage": "某地圖顯示人口密集區多位於西部平原，中央山區人口較少。",
+    "question": "最合理的解釋是？",
+    "choices": [
+      "平原較利於交通與聚落發展",
+      "山區一定完全無人",
+      "人口只由氣溫決定",
+      "所有產業都必須在山頂"
+    ],
+    "answer": 0,
+    "explanation": "西部平原地勢較平坦、交通與聚落發展條件較佳，因此人口較集中。",
+    "hint1": "想居住與交通條件。",
+    "hint2": "不要把分布歸因單一氣候因素。",
+    "source": "original",
+    "tags": [
+      "臺灣地理",
+      "人口",
+      "地形"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twgeo"
+  },
+  {
+    "id": "HP3-SO-003",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "氣候",
+    "competency": "由月雨量判讀季節差異",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "某地夏季平均月雨量260 mm，冬季平均月雨量60 mm。",
+    "question": "最合理的描述是？",
+    "choices": [
+      "夏季較濕、冬季較乾",
+      "全年完全無雨",
+      "冬季雨量較多",
+      "兩季雨量相同"
+    ],
+    "answer": 0,
+    "explanation": "260明顯高於60，資料顯示夏季較濕、冬季較乾。",
+    "hint1": "比較兩個雨量數值。",
+    "hint2": "不要超出資料說全年情況。",
+    "source": "original",
+    "tags": [
+      "氣候",
+      "雨量"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twgeo",
+    "table": {
+      "headers": [
+        "季節",
+        "平均月雨量"
+      ],
+      "rows": [
+        [
+          "夏季",
+          "260 mm"
+        ],
+        [
+          "冬季",
+          "60 mm"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-SO-004",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "權利責任",
+    "competency": "理解權利行使需兼顧他人",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "甲：「我有使用公共球場的權利，所以可以整天占用。」乙：「但別人也有使用權。」",
+    "question": "乙的回應最強調什麼？",
+    "choices": [
+      "權利行使應兼顧他人權益",
+      "有權利就沒有任何限制",
+      "公共設施只能一人使用",
+      "權利只屬於成年人"
+    ],
+    "answer": 0,
+    "explanation": "公共資源的使用權並非排他，行使權利時需兼顧他人同等權益。",
+    "hint1": "想公共空間的共同使用。",
+    "hint2": "權利不是無限制。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "權利",
+      "責任"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-civics"
+  },
+  {
+    "id": "HP3-SO-005",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "比例",
+    "competency": "區分人數與比例",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "甲班20人中有8人走路上學；乙班30人中有9人走路上學。",
+    "question": "哪一班走路上學比例較高？",
+    "choices": [
+      "甲班",
+      "乙班",
+      "兩班相同",
+      "無法比較"
+    ],
+    "answer": 0,
+    "explanation": "甲班8/20=40%，乙班9/30=30%，所以甲班比例較高。",
+    "hint1": "分別算比例。",
+    "hint2": "不能只看走路人數。",
+    "source": "original",
+    "tags": [
+      "比例",
+      "資料"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-mapdata",
+    "table": {
+      "headers": [
+        "班級",
+        "總人數",
+        "走路"
+      ],
+      "rows": [
+        [
+          "甲",
+          20,
+          8
+        ],
+        [
+          "乙",
+          30,
+          9
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-SO-006",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "地圖判讀",
+    "topic": "方位",
+    "competency": "由方位描述判讀位置",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "map",
+    "passage": "地圖上圖書館在學校正東方，公園在圖書館正北方。",
+    "question": "公園大約位於學校哪個方向？",
+    "choices": [
+      "東北",
+      "西北",
+      "東南",
+      "西南"
+    ],
+    "answer": 0,
+    "explanation": "先向東到圖書館，再向北到公園，因此公園位於學校東北方。",
+    "hint1": "把兩段方向合起來。",
+    "hint2": "東再北形成東北。",
+    "source": "original",
+    "tags": [
+      "地圖",
+      "方位"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-mapdata"
+  },
+  {
+    "id": "HP3-SO-007",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "史料判讀",
+    "topic": "工業革命",
+    "competency": "由生產方式判讀歷史變化",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "工人集中在大型廠房，利用機器大量生產紡織品，城市人口快速增加。",
+    "question": "這段描述最接近哪個歷史發展？",
+    "choices": [
+      "工業革命",
+      "新石器革命",
+      "十字軍東征",
+      "冷戰結束"
+    ],
+    "answer": 0,
+    "explanation": "工廠、機器大量生產與都市人口增加都是工業革命常見特徵。",
+    "hint1": "找機器與工廠。",
+    "hint2": "這是生產方式的大轉變。",
+    "source": "original",
+    "tags": [
+      "世界史",
+      "工業革命"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-history"
+  },
+  {
+    "id": "HP3-SO-008",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "產業區位",
+    "competency": "由交通條件推論產業位置",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "map",
+    "passage": "某加工業需要大量進口原料並出口成品。A地靠近港口，B地位於偏遠山區。",
+    "question": "若其他條件相近，工廠較可能選哪裡？",
+    "choices": [
+      "A地",
+      "B地",
+      "一定選海拔最高處",
+      "兩地完全沒有差別"
+    ],
+    "answer": 0,
+    "explanation": "靠近港口有利原料進口與成品出口，可降低部分運輸成本。",
+    "hint1": "想原料和成品如何運輸。",
+    "hint2": "港口對外貿易較便利。",
+    "source": "original",
+    "tags": [
+      "區域地理",
+      "產業",
+      "交通"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-region"
+  },
+  {
+    "id": "HP3-SO-009",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "人口遷移",
+    "competency": "由就業資料推論人口流動",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "甲區新增工作機會後，20至35歲人口三年間由18,000增至23,000。",
+    "question": "下列哪個說法最合理？",
+    "choices": [
+      "就業增加可能與青年人口移入有關",
+      "工作機會增加一定使人口減少",
+      "人口增加證明所有人都因工作移入",
+      "兩組資料完全不能比較"
+    ],
+    "answer": 0,
+    "explanation": "就業機會與青年人口同時增加，可提出關聯，但不能斷言所有人口增加都由工作造成。",
+    "hint1": "用「可能」而非「一定」。",
+    "hint2": "注意資料只能支持有限度推論。",
+    "source": "original",
+    "tags": [
+      "人口",
+      "就業",
+      "資料"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-region",
+    "table": {
+      "headers": [
+        "年度",
+        "20-35歲人口"
+      ],
+      "rows": [
+        [
+          "第1年",
+          "18,000"
+        ],
+        [
+          "第3年",
+          "23,000"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-SO-010",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "制度理解",
+    "topic": "政府權力",
+    "competency": "辨識中央政府基本職能",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "甲：「法律由誰制定？」乙：「由代表人民行使立法權的機關審議。」",
+    "question": "乙指的是哪個機關？",
+    "choices": [
+      "行政院",
+      "立法院",
+      "司法院",
+      "監察院"
+    ],
+    "answer": 1,
+    "explanation": "立法院代表人民行使立法權，負責法律審議與制定。",
+    "hint1": "題目關鍵是立法權。",
+    "hint2": "名稱中有立法。",
+    "source": "original",
+    "tags": [
+      "政府組織",
+      "立法"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-goveco"
+  },
+  {
+    "id": "HP3-SO-011",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "供需",
+    "competency": "由需求改變推論價格壓力",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "chart",
+    "passage": "某熱門演唱會門票數量固定，但想購票的人大幅增加。",
+    "question": "若其他條件不變，市場價格通常受到什麼壓力？",
+    "choices": [
+      "上升",
+      "下降為零",
+      "完全固定",
+      "一定變成負數"
+    ],
+    "answer": 0,
+    "explanation": "供給固定而需求增加時，價格通常面臨上升壓力。",
+    "hint1": "供給不變、需求增加。",
+    "hint2": "想買的人變多。",
+    "source": "original",
+    "tags": [
+      "經濟",
+      "供需"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-goveco"
+  },
+  {
+    "id": "HP3-SO-012",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "抽樣",
+    "competency": "判斷樣本偏差",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "notice",
+    "passage": "學生會想了解全校對新制服的意見，卻只在制服改款支持社群中發問卷。",
+    "question": "主要問題是什麼？",
+    "choices": [
+      "樣本可能偏向支持者",
+      "問卷一定不能調查制服",
+      "支持社群一定沒有學生",
+      "任何百分比都不能用"
+    ],
+    "answer": 0,
+    "explanation": "只在支持社群抽樣會造成樣本偏差，代表性不足。",
+    "hint1": "看受訪者來源。",
+    "hint2": "樣本是否涵蓋不同立場？",
+    "source": "original",
+    "tags": [
+      "抽樣",
+      "代表性"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence"
+  },
+  {
+    "id": "HP3-SO-013",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "平均數",
+    "competency": "判讀極端值影響",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "五戶用電量為90、95、100、105、310度。",
+    "question": "若描述多數家庭典型用電量，哪個提醒最適當？",
+    "choices": [
+      "310是極端值，平均數可能被拉高",
+      "平均數永遠不能使用",
+      "310一定是資料錯誤",
+      "五筆資料不能計算"
+    ],
+    "answer": 0,
+    "explanation": "310遠高於其他值，會提高平均數，因此可同時參考中位數。",
+    "hint1": "觀察最大值與其他值差距。",
+    "hint2": "極端值會影響平均數。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "平均數"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence",
+    "table": {
+      "headers": [
+        "戶別",
+        "用電量"
+      ],
+      "rows": [
+        [
+          1,
+          90
+        ],
+        [
+          2,
+          95
+        ],
+        [
+          3,
+          100
+        ],
+        [
+          4,
+          105
+        ],
+        [
+          5,
+          310
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP3-SO-014",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "情境思辨",
+    "topic": "多元觀點",
+    "competency": "整合公共議題不同需求",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "商家希望延長夜市營業；居民擔心噪音；交通單位建議增設深夜公車。",
+    "question": "較完整的政策評估應怎麼做？",
+    "choices": [
+      "只聽商家",
+      "只聽居民",
+      "同時評估經濟、噪音與交通配套",
+      "因為意見不同所以不需決策"
+    ],
+    "answer": 2,
+    "explanation": "公共議題需要同時考量不同利害與配套，而非只採單一觀點。",
+    "hint1": "找能包含三方因素的選項。",
+    "hint2": "公共決策常需權衡。",
+    "source": "original",
+    "tags": [
+      "公共議題",
+      "多元觀點"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-public"
+  },
+  {
+    "id": "HP3-SO-015",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "多來源整合",
+    "competency": "整合史料與統計資料",
+    "grade": 9,
+    "difficulty": 4,
+    "variationForm": "table",
+    "passage": "史料指出新道路通車後商旅往來增加；統計顯示當地旅館入住人次由每月2,000增至2,700，但同期也舉辦大型節慶。",
+    "question": "哪個結論最適當？",
+    "choices": [
+      "入住增加與交通改善同時出現，但節慶也可能影響結果",
+      "道路一定是唯一原因",
+      "節慶一定完全無關",
+      "資料證明旅館入住一定持續增加"
+    ],
+    "answer": 0,
+    "explanation": "道路改善與入住增加方向一致，但節慶是另一可能因素，因此應保留因果判斷。",
+    "hint1": "同時看史料、統計與額外事件。",
+    "hint2": "不要把單一因素當唯一原因。",
+    "source": "original",
+    "tags": [
+      "跨資料",
+      "證據",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-crosssource",
+    "table": {
+      "headers": [
+        "時期",
+        "每月入住人次"
+      ],
+      "rows": [
+        [
+          "通車前",
+          "2,000"
+        ],
+        [
+          "通車後",
+          "2,700"
+        ]
+      ]
+    }
+  }
+]
