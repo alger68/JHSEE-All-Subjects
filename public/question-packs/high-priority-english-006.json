@@ -147,22 +147,22 @@
     "difficulty": 3,
     "variationForm": "passage",
     "passage": "Emma was tired. _____, she finished the final page before going to bed.",
-    "question": [
+    "question": "Which word best begins the second sentence?",
+    "choices": [
       "However",
       "Because",
       "For example",
       "Therefore only"
     ],
-    "choices": 0,
-    "answer": "However signals the contrast between being tired and still finishing.",
-    "explanation": "The second sentence is unexpected.",
-    "hint1": "Choose a contrast transition.",
-    "hint2": [
+    "answer": 0,
+    "explanation": "However signals the contrast between being tired and still finishing.",
+    "hint1": "The second sentence is unexpected.",
+    "hint2": "Choose a contrast transition.",
+    "source": "original",
+    "tags": [
       "cloze",
       "transition"
     ],
-    "source": "original",
-    "tags": 3,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -178,25 +178,25 @@
     "topic": "Sequence",
     "competency": "Choose a sequencing word",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "First, wash the vegetables. _____, cut them into small pieces.",
-    "question": [
+    "question": "Which word best completes the instructions?",
+    "choices": [
       "Next",
       "Although",
       "Because",
       "Unless"
     ],
-    "choices": 0,
-    "answer": "Next correctly introduces the following step.",
-    "explanation": "This is an instruction sequence.",
-    "hint1": "Choose a time/order word.",
-    "hint2": [
+    "answer": 0,
+    "explanation": "Next correctly introduces the following step.",
+    "hint1": "This is an instruction sequence.",
+    "hint2": "Choose a time/order word.",
+    "source": "original",
+    "tags": [
       "cloze",
       "sequence"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -351,22 +351,22 @@
     "difficulty": 3,
     "variationForm": "dialogue",
     "passage": "A: What will we do if it rains?\nB: We _____ the game indoors.",
-    "question": [
+    "question": "Which phrase best completes B's sentence?",
+    "choices": [
       "move",
       "moved",
       "will move",
       "moving"
     ],
-    "choices": 2,
-    "answer": "In a real future condition, the main clause can use will move.",
-    "explanation": "The if-clause refers to a future possibility.",
-    "hint1": "Choose the future result.",
-    "hint2": [
+    "answer": 2,
+    "explanation": "In a real future condition, the main clause can use will move.",
+    "hint1": "The if-clause refers to a future possibility.",
+    "hint2": "Choose the future result.",
+    "source": "original",
+    "tags": [
       "grammar",
       "conditional"
     ],
-    "source": "original",
-    "tags": 3,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -385,22 +385,22 @@
     "difficulty": 3,
     "variationForm": "passage",
     "passage": "The classroom _____ every afternoon by the cleaning team.",
-    "question": [
+    "question": "Which phrase best completes the sentence?",
+    "choices": [
       "cleans",
       "cleaned",
       "is cleaned",
       "is cleaning"
     ],
-    "choices": 2,
-    "answer": "The classroom receives the action, so the present passive is is cleaned.",
-    "explanation": "Who performs the action?",
-    "hint1": "The classroom is the receiver.",
-    "hint2": [
+    "answer": 2,
+    "explanation": "The classroom receives the action, so the present passive is is cleaned.",
+    "hint1": "Who performs the action?",
+    "hint2": "The classroom is the receiver.",
+    "source": "original",
+    "tags": [
       "grammar",
       "passive"
     ],
-    "source": "original",
-    "tags": 3,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
