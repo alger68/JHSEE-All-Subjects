@@ -1,0 +1,555 @@
+[
+  {
+    "id": "HP2-CH-001",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "因果謬誤",
+    "competency": "評估因果推論是否超出證據",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某班換了新的座位排列後，第一次小考平均分數比上次高5分。班長說：「可見只要改座位，成績一定會提高。」",
+    "question": "班長的推論最需要注意哪一點？",
+    "choices": [
+      "座位永遠不會影響學習",
+      "兩次考試難度、準備情況等其他因素也可能不同",
+      "平均分數不能比較",
+      "只要分數上升就代表座位完全無關"
+    ],
+    "answer": 1,
+    "explanation": "只有一次前後比較，且其他條件可能不同，不能把分數上升完全歸因於座位排列。",
+    "hint1": "找可能同時改變的其他因素。",
+    "hint2": "一次事件不足以證明唯一因果。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "因果",
+      "證據"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-logic"
+  },
+  {
+    "id": "HP2-CH-002",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "樣本偏差",
+    "competency": "評估調查樣本的代表性",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "學校想知道全校學生最常使用哪種交通工具，卻只在自行車社團發問卷，結果九成回答「自行車」。",
+    "question": "若用此結果代表全校，主要問題是什麼？",
+    "choices": [
+      "問卷一定不能調查交通",
+      "樣本來源偏向特定族群，代表性不足",
+      "九成的比例不可能出現",
+      "自行車不是交通工具"
+    ],
+    "answer": 1,
+    "explanation": "只調查自行車社團成員會造成選樣偏差，無法合理代表全校學生。",
+    "hint1": "先看受訪者是誰。",
+    "hint2": "樣本與調查主題本身高度相關。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "抽樣",
+      "代表性"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-logic"
+  },
+  {
+    "id": "HP2-CH-003",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "二分法謬誤",
+    "competency": "辨識把複雜問題簡化為兩個選項",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "有人說：「如果不贊成把所有作業都改成線上，就表示你反對科技進步。」",
+    "question": "這段話的主要問題是什麼？",
+    "choices": [
+      "沒有使用任何科技名詞",
+      "把可能有多種立場的問題硬分成兩個極端",
+      "沒有提到作業內容",
+      "線上作業一定比較差"
+    ],
+    "answer": 1,
+    "explanation": "是否支持全面線上化與是否反對科技進步並非只有兩種極端立場，中間還有許多可能方案。",
+    "hint1": "注意「如果不A，就一定B」。",
+    "hint2": "思考是否存在折衷或部分支持。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "二分法",
+      "邏輯"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-logic"
+  },
+  {
+    "id": "HP2-CH-004",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "資料分析",
+    "topic": "相關與因果",
+    "competency": "區分相關現象與因果結論",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "調查發現，常參加社團的學生平均自評幸福感較高，但調查沒有記錄家庭支持、睡眠或朋友關係。",
+    "question": "下列哪個結論最合理？",
+    "choices": [
+      "參加社團一定是幸福感較高的唯一原因",
+      "兩者有關聯，但仍可能受其他因素影響",
+      "家庭支持一定不重要",
+      "沒有辦法比較任何資料"
+    ],
+    "answer": 1,
+    "explanation": "資料顯示關聯，但未控制其他可能因素，因此不能直接推論單一因果。",
+    "hint1": "找調查沒有控制的因素。",
+    "hint2": "有關聯不等於唯一因果。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "相關",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-logic"
+  },
+  {
+    "id": "HP2-CH-005",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "跨文本觀點比較",
+    "competency": "比較兩篇文本的主張與條件",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲文：「校園應增加戶外座椅，讓學生有更多休息空間。」乙文：「增加座椅有幫助，但應先評估遮陽、動線與維護成本。」",
+    "question": "兩文最大的差異是什麼？",
+    "choices": [
+      "甲文支持增加座椅，乙文則在支持中加入執行條件",
+      "甲文討論運動，乙文討論飲食",
+      "兩文都反對增加座椅",
+      "乙文認為完全不需要休息空間"
+    ],
+    "answer": 0,
+    "explanation": "甲文直接支持增加座椅；乙文不反對，但強調實施前應考量條件。",
+    "hint1": "找兩文對同一方案的態度。",
+    "hint2": "乙文是有條件支持，不是反對。",
+    "source": "original",
+    "tags": [
+      "跨文本",
+      "觀點",
+      "比較"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-cross-text"
+  },
+  {
+    "id": "HP2-CH-006",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "資訊整合",
+    "competency": "整合兩文互補資訊",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲文說明共享單車可減少短程汽車使用；乙文指出若停放管理不足，可能占用人行空間。",
+    "question": "綜合兩文，最適當的結論是？",
+    "choices": [
+      "共享單車只有優點",
+      "共享單車完全不值得推行",
+      "推動共享單車時也需搭配停放管理",
+      "只要有共享單車就不需要大眾運輸"
+    ],
+    "answer": 2,
+    "explanation": "甲文提出效益，乙文提出可能問題，因此合理結論是推動時需兼顧管理。",
+    "hint1": "同時保留兩文資訊。",
+    "hint2": "避免只採單一文本的極端說法。",
+    "source": "original",
+    "tags": [
+      "跨文本",
+      "統整",
+      "公共議題"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-cross-text"
+  },
+  {
+    "id": "HP2-CH-007",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "證據互證",
+    "competency": "比較兩來源是否互相支持",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "資料甲：某河段整治後，沿岸垃圾量下降。資料乙：同期間志工清理次數也增加。",
+    "question": "若要判斷「整治工程本身造成垃圾下降」，最需要補充什麼？",
+    "choices": [
+      "志工穿什麼顏色背心",
+      "排除清理次數增加等其他因素的資料",
+      "河段名稱的字數",
+      "附近商店的招牌顏色"
+    ],
+    "answer": 1,
+    "explanation": "志工清理增加也可能造成垃圾量下降，因此需要排除或控制這項因素才能較有力判斷工程效果。",
+    "hint1": "找同期間也改變的因素。",
+    "hint2": "哪個變化也可能影響垃圾量？",
+    "source": "original",
+    "tags": [
+      "跨文本",
+      "證據",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-cross-text"
+  },
+  {
+    "id": "HP2-CH-008",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "立場統整",
+    "competency": "找出兩文共同立場",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲：「考前延長圖書館開放時間，能提供更多安靜讀書空間。」乙：「若延長開放，應安排輪班，避免工作人員負擔過重。」",
+    "question": "兩文共同接受的前提最可能是什麼？",
+    "choices": [
+      "延長開放可能對學生有幫助",
+      "圖書館應永遠24小時開放",
+      "工作人員不需要休息",
+      "學生只應在圖書館讀書"
+    ],
+    "answer": 0,
+    "explanation": "乙文雖提出人力條件，但並未否定延長開放可能有幫助，因此兩文都接受其潛在效益。",
+    "hint1": "找兩文都沒有否定的部分。",
+    "hint2": "乙文是條件式支持。",
+    "source": "original",
+    "tags": [
+      "跨文本",
+      "共同點",
+      "觀點"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-cross-text"
+  },
+  {
+    "id": "HP2-CH-009",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "作者意圖",
+    "competency": "由語氣與例證推論寫作目的",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "作者寫道：「把計畫排得滿滿的，看起來很努力；但如果每件事都只做到一半，行程表再漂亮也沒有意義。」",
+    "question": "作者最可能想提醒讀者什麼？",
+    "choices": [
+      "計畫表越長越好",
+      "安排任務時要考量實際完成能力",
+      "不要做任何計畫",
+      "只做最簡單的事情"
+    ],
+    "answer": 1,
+    "explanation": "作者不是反對計畫，而是提醒計畫要能實際完成，不應只追求表面上的滿檔。",
+    "hint1": "注意「但」之後的重點。",
+    "hint2": "作者批評的是形式，不是計畫本身。",
+    "source": "original",
+    "tags": [
+      "閱讀",
+      "作者意圖",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-evidence"
+  },
+  {
+    "id": "HP2-CH-010",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "人物推論",
+    "competency": "用行動證據推論人物想法",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "老師發回考卷後，小凱沒有立刻擦掉錯誤答案，而是在旁邊寫下「把題目中的『至少』看成『恰好』」。",
+    "question": "從小凱的做法最合理推論什麼？",
+    "choices": [
+      "他只想把考卷寫得更滿",
+      "他正在分析造成錯誤的思考原因",
+      "他不在意正確答案",
+      "他認為所有題目都一樣"
+    ],
+    "answer": 1,
+    "explanation": "他記錄自己誤讀關鍵詞的原因，顯示他在分析錯誤思路，而不只是抄正解。",
+    "hint1": "看他記錄的是什麼。",
+    "hint2": "「至少」與「恰好」代表讀題差異。",
+    "source": "original",
+    "tags": [
+      "閱讀",
+      "證據",
+      "錯因"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-evidence"
+  },
+  {
+    "id": "HP2-CH-011",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "隱含訊息",
+    "competency": "從細節推論未明說情況",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "演出前十分鐘，工作人員把入口旁的第二排椅子往後移，又確認輪椅通道上的紙箱全部清空。",
+    "question": "最合理的推論是什麼？",
+    "choices": [
+      "工作人員正在改善通行空間",
+      "演出已經取消",
+      "觀眾只能站著看",
+      "所有椅子都要搬走"
+    ],
+    "answer": 0,
+    "explanation": "移動椅子並清空輪椅通道，都指向確保入口與通道順暢。",
+    "hint1": "找兩個動作的共同目的。",
+    "hint2": "注意「輪椅通道」。",
+    "source": "original",
+    "tags": [
+      "閱讀",
+      "推論",
+      "細節"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-evidence"
+  },
+  {
+    "id": "HP2-CH-012",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "語氣判讀",
+    "competency": "依文字語氣判讀作者態度",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "「這項新措施確實縮短了排隊時間，但我們還需要觀察尖峰時段是否也有同樣效果。」",
+    "question": "作者對這項措施的態度最接近哪一項？",
+    "choices": [
+      "完全否定",
+      "肯定部分效果，但保留進一步觀察",
+      "無條件支持所有情況",
+      "認為排隊時間完全沒有改變"
+    ],
+    "answer": 1,
+    "explanation": "作者承認已有改善，但也指出仍需觀察不同情況，屬審慎肯定。",
+    "hint1": "同時看前半句和「但」。",
+    "hint2": "不是全盤支持，也不是否定。",
+    "source": "original",
+    "tags": [
+      "閱讀",
+      "語氣",
+      "證據"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-evidence"
+  },
+  {
+    "id": "HP2-CH-013",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "百分比判讀",
+    "competency": "結合表格與文字判斷比例",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某社團去年有40人，其中24人參加校外服務；今年有50人，其中25人參加。老師提醒：「比較參與程度時應看比例，不只看人數。」",
+    "question": "下列哪個判斷正確？",
+    "choices": [
+      "今年參加人數較多，所以參與比例也較高",
+      "去年參與比例60%，今年50%，去年較高",
+      "兩年比例相同",
+      "資料不足以算比例"
+    ],
+    "answer": 1,
+    "explanation": "去年24/40=60%，今年25/50=50%。雖然今年人數多1人，但比例反而較低。",
+    "hint1": "分別計算兩年的比例。",
+    "hint2": "人數增加不代表比例增加。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "百分比",
+      "判讀"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-data-text",
+    "table": {
+      "headers": [
+        "年度",
+        "總人數",
+        "參加服務"
+      ],
+      "rows": [
+        [
+          "去年",
+          40,
+          24
+        ],
+        [
+          "今年",
+          50,
+          25
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP2-CH-014",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "平均數限制",
+    "competency": "結合說明文字判讀平均數",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲組五人的閱讀分鐘數為20、22、24、25、79。老師說：「若要描述大多數人的典型狀況，不能只看平均數。」",
+    "question": "老師這樣提醒的主要原因是什麼？",
+    "choices": [
+      "79是極端值，可能把平均數拉高",
+      "平均數永遠不能使用",
+      "20一定是錯誤資料",
+      "五筆資料不能計算平均"
+    ],
+    "answer": 0,
+    "explanation": "79遠高於其他值，會明顯提高平均數，因此描述多數人的典型狀況時也應考慮中位數等指標。",
+    "hint1": "找與其他數值差距最大的資料。",
+    "hint2": "極端值會影響平均數。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "平均數",
+      "極端值"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-data-text"
+  },
+  {
+    "id": "HP2-CH-015",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "趨勢判讀",
+    "competency": "從多期資料判斷可支持的趨勢",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某校資源回收量：一月120公斤、二月135公斤、三月128公斤、四月150公斤。",
+    "question": "下列哪個敘述最符合資料？",
+    "choices": [
+      "每個月都比前一月增加",
+      "四月是四個月中最高",
+      "二月是最低",
+      "三月比一月少"
+    ],
+    "answer": 1,
+    "explanation": "四月150公斤是四個月最高；三月比二月下降，所以不能說每月都增加。",
+    "hint1": "先找最大值。",
+    "hint2": "再檢查是否真的每月都上升。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "趨勢",
+      "圖表"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-data-text",
+    "table": {
+      "headers": [
+        "月份",
+        "回收量(kg)"
+      ],
+      "rows": [
+        [
+          "一月",
+          120
+        ],
+        [
+          "二月",
+          135
+        ],
+        [
+          "三月",
+          128
+        ],
+        [
+          "四月",
+          150
+        ]
+      ]
+    }
+  }
+]

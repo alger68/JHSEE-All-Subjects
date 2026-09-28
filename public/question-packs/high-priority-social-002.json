@@ -1,0 +1,539 @@
+[
+  {
+    "id": "HP2-SO-001",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "全球供應鏈",
+    "competency": "由跨國生產資訊判斷全球分工",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某運動鞋品牌在甲國設計，鞋底在乙國生產，鞋面在丙國製造，最後於丁國組裝並銷往多國。",
+    "question": "這個例子最能說明什麼？",
+    "choices": [
+      "生產活動可透過全球供應鏈跨國分工",
+      "所有產品都必須在單一國家完成",
+      "國際貿易已經消失",
+      "設計與製造一定發生在同一地"
+    ],
+    "answer": 0,
+    "explanation": "設計、零件製造與組裝分散在不同國家，反映全球供應鏈與國際分工。",
+    "hint1": "看每個生產階段位在哪裡。",
+    "hint2": "重點是跨國分工。",
+    "source": "original",
+    "tags": [
+      "全球化",
+      "供應鏈"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-global"
+  },
+  {
+    "id": "HP2-SO-002",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "推論",
+    "topic": "區域連結",
+    "competency": "由運輸成本變化推論產業布局",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某港口新建深水碼頭後，大型貨輪可直接靠港，鄰近物流倉儲業快速增加。",
+    "question": "最合理的解釋是什麼？",
+    "choices": [
+      "交通條件改善提升物流活動吸引力",
+      "港口一定使所有產業消失",
+      "倉儲業與交通完全無關",
+      "大型貨輪會降低所有貿易"
+    ],
+    "answer": 0,
+    "explanation": "深水碼頭提升大型船舶靠港與貨物流通效率，因此可吸引物流與倉儲活動。",
+    "hint1": "想運輸條件如何影響物流。",
+    "hint2": "港口改善降低部分運輸障礙。",
+    "source": "original",
+    "tags": [
+      "全球化",
+      "物流",
+      "交通"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-global"
+  },
+  {
+    "id": "HP2-SO-003",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "人口移動",
+    "competency": "由就業與人口資料判斷區域連結",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某城市近五年資訊服務業職缺增加30%，同期間20至34歲外來人口增加25%。",
+    "question": "下列哪個判斷最適當？",
+    "choices": [
+      "資訊業職缺增加可能與青年移入有關，但不能只憑兩組資料證明唯一因果",
+      "青年移入一定完全由資訊業造成",
+      "兩組資料毫無任何關聯可能",
+      "職缺增加代表人口一定減少"
+    ],
+    "answer": 0,
+    "explanation": "兩者同時增加可提出關聯假設，但仍需考量住房、教育等其他因素，不能證明唯一因果。",
+    "hint1": "資料只顯示同時變化。",
+    "hint2": "相關不等於唯一因果。",
+    "source": "original",
+    "tags": [
+      "全球化",
+      "人口",
+      "資料"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-global"
+  },
+  {
+    "id": "HP2-SO-004",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "情境思辨",
+    "topic": "貿易依賴",
+    "competency": "理解供應鏈中斷的區域影響",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某國高度依賴單一海外來源進口關鍵原料。若該地因天災暫停出口，",
+    "question": "最可能先出現哪種影響？",
+    "choices": [
+      "相關產業可能面臨原料不足",
+      "所有商品價格一定歸零",
+      "國內產業完全不受影響",
+      "天災只影響出口國，不可能影響進口國"
+    ],
+    "answer": 0,
+    "explanation": "高度依賴單一來源會增加供應鏈風險，出口中斷可能造成進口國相關產業原料不足。",
+    "hint1": "想單一來源的風險。",
+    "hint2": "供應鏈是跨國連結。",
+    "source": "original",
+    "tags": [
+      "全球化",
+      "供應鏈風險"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-global"
+  },
+  {
+    "id": "HP2-SO-005",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "情境思辨",
+    "topic": "多元利害",
+    "competency": "整合不同利害關係人的觀點",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "市府規劃夜市延長營業時間。攤商支持增加收入，附近居民擔心噪音，公車業者則表示可配合增加班次。",
+    "question": "較完整的決策方式是什麼？",
+    "choices": [
+      "只採納攤商意見",
+      "只採納居民意見",
+      "同時評估經濟效益、噪音影響與交通需求",
+      "因為意見不同就不需決策"
+    ],
+    "answer": 2,
+    "explanation": "公共議題涉及多方利害，應同時考量不同影響與可行配套。",
+    "hint1": "不要只看單一群體。",
+    "hint2": "找能整合三方需求的選項。",
+    "source": "original",
+    "tags": [
+      "公共議題",
+      "多元觀點"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-public"
+  },
+  {
+    "id": "HP2-SO-006",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "資料分析",
+    "topic": "民調解讀",
+    "competency": "評估民調結果的限制",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某網路平台針對「是否支持增加公園設施」進行自願投票，結果85%支持，但只有該平台會員可以參加。",
+    "question": "使用此結果代表全市居民時，主要限制是什麼？",
+    "choices": [
+      "樣本可能不具全市代表性",
+      "百分比一定不能使用",
+      "公園議題不能做民調",
+      "85%一定代表所有人"
+    ],
+    "answer": 0,
+    "explanation": "自願參與且限制平台會員，樣本可能存在選樣偏差，不能直接代表全市。",
+    "hint1": "看看誰能參加投票。",
+    "hint2": "代表性取決於抽樣方式。",
+    "source": "original",
+    "tags": [
+      "公共議題",
+      "民調",
+      "抽樣"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-public"
+  },
+  {
+    "id": "HP2-SO-007",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "推論",
+    "topic": "政策評估",
+    "competency": "由前後資料判斷政策效果但保留限制",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "某校增設飲水機後，午休平均排隊時間從8分鐘降到4分鐘；同時也把午休分流成兩個時段。",
+    "question": "哪個結論最合理？",
+    "choices": [
+      "飲水機一定是排隊縮短的唯一原因",
+      "分流一定是唯一原因",
+      "排隊時間下降，但兩項措施同時改變，無法只歸因於其中一項",
+      "兩項措施一定都無效"
+    ],
+    "answer": 2,
+    "explanation": "兩項措施同時改變，因此可確認排隊時間下降，但不能只判定單一措施的效果。",
+    "hint1": "有幾項措施同時改變？",
+    "hint2": "避免單一因果推論。",
+    "source": "original",
+    "tags": [
+      "公共議題",
+      "政策",
+      "證據"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-public"
+  },
+  {
+    "id": "HP2-SO-008",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "情境思辨",
+    "topic": "價值衝突",
+    "competency": "辨識公共政策中的價值取捨",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "城市考慮將部分停車格改成人行空間。支持者強調安全與步行環境，反對者擔心停車不便。",
+    "question": "這項爭議主要反映哪種情況？",
+    "choices": [
+      "公共政策常涉及不同價值與利益的取捨",
+      "只有支持者有合理理由",
+      "只要安全議題就不需考慮其他影響",
+      "停車與行人空間完全無關"
+    ],
+    "answer": 0,
+    "explanation": "政策同時影響安全、便利與空間使用，因此涉及不同價值與利益的權衡。",
+    "hint1": "兩方各自重視什麼？",
+    "hint2": "公共決策常需權衡。",
+    "source": "original",
+    "tags": [
+      "公共議題",
+      "價值",
+      "取捨"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-public"
+  },
+  {
+    "id": "HP2-SO-009",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "制度理解",
+    "topic": "比例原則",
+    "competency": "判斷限制手段是否超過必要程度",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "為避免考場作弊，學校要求考生關閉手機並集中保管。有人進一步提議禁止學生整個學期攜帶任何電子產品到校。",
+    "question": "評估後一項提議時，最需要檢查什麼？",
+    "choices": [
+      "限制是否與防作弊目的相稱、是否超過必要程度",
+      "規定是否寫得夠長",
+      "電子產品是否顏色一致",
+      "只要為防作弊就可無限限制"
+    ],
+    "answer": 0,
+    "explanation": "比例原則要求手段適合、必要且與目的相稱，不能因目的正當就無限擴張限制。",
+    "hint1": "比較限制範圍與目的。",
+    "hint2": "注意是否超過必要程度。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "比例原則",
+      "權利"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-law"
+  },
+  {
+    "id": "HP2-SO-010",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "法律保留",
+    "competency": "理解限制人民基本權利需有法規依據",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某公務機關想限制民眾進入特定區域，理由是維護公共安全。",
+    "question": "除了目的正當外，還應重視哪一點？",
+    "choices": [
+      "是否有適當法規依據與程序",
+      "主管個人是否喜歡此規定",
+      "限制時間越長越好",
+      "只要口頭宣布即可永久生效"
+    ],
+    "answer": 0,
+    "explanation": "對人民權利的限制通常需要適當法規依據並遵守程序，不能只靠主管個人意見。",
+    "hint1": "公共權力要有合法依據。",
+    "hint2": "想法律與程序。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "法律",
+      "權利"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-law"
+  },
+  {
+    "id": "HP2-SO-011",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "制度理解",
+    "topic": "程序正義",
+    "competency": "理解公平程序的重要性",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "學生因違反規定可能受到處分。學校在決定前先告知事實與理由，並讓學生有機會說明。",
+    "question": "這種做法最主要體現什麼？",
+    "choices": [
+      "程序正義",
+      "多數決一定正確",
+      "處分越重越公平",
+      "只要有規定就不需聽取說明"
+    ],
+    "answer": 0,
+    "explanation": "事前告知與給予陳述機會，是保障公平程序的重要做法。",
+    "hint1": "重點是決定前的程序。",
+    "hint2": "是否讓當事人有機會說明？",
+    "source": "original",
+    "tags": [
+      "公民",
+      "程序正義"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-law"
+  },
+  {
+    "id": "HP2-SO-012",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "平等原則",
+    "competency": "判斷差別待遇是否有合理理由",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "游泳池為維護安全，規定幼童必須由成人陪同，但成人可單獨入場。",
+    "question": "這種不同規定最適合如何理解？",
+    "choices": [
+      "任何差別待遇都一定違反平等",
+      "若基於年齡與安全風險的合理差異，可能有正當理由",
+      "只要管理者喜歡就合理",
+      "幼童不享有任何權利"
+    ],
+    "answer": 1,
+    "explanation": "平等不代表所有情況完全相同處理；若存在實質差異且目的與手段合理，可有不同規定。",
+    "hint1": "比較幼童與成人的安全風險。",
+    "hint2": "平等也考慮實質差異。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "平等原則"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-law"
+  },
+  {
+    "id": "HP2-SO-013",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "史料與統計",
+    "competency": "整合文字史料與數據判斷歷史變化",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "史料記載某城在鐵路通車後商旅往來增加。統計顯示當地旅館數由通車前12家增加到三年後21家。",
+    "question": "下列哪個結論最適當？",
+    "choices": [
+      "資料支持交通改善與商旅活動增加同時出現",
+      "鐵路一定是旅館增加的唯一原因",
+      "旅館增加證明所有居民都變富有",
+      "鐵路通車後商旅一定減少"
+    ],
+    "answer": 0,
+    "explanation": "文字史料與統計數據方向一致，可支持交通改善與商旅活動增加同時出現，但不能證明唯一因果。",
+    "hint1": "比較兩種資料是否互相支持。",
+    "hint2": "避免「唯一原因」的過度推論。",
+    "source": "original",
+    "tags": [
+      "跨資料",
+      "史料",
+      "統計"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-crosssource",
+    "table": {
+      "headers": [
+        "時期",
+        "旅館數"
+      ],
+      "rows": [
+        [
+          "通車前",
+          12
+        ],
+        [
+          "通車三年後",
+          21
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP2-SO-014",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "地圖與人口",
+    "competency": "整合地圖位置與人口資料解釋分布",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某區人口主要集中在河谷與交通幹線交會處，高山地區人口稀少。",
+    "question": "若地圖又顯示主要市場與學校也集中於河谷，哪個推論最合理？",
+    "choices": [
+      "地形與交通服務可能共同影響人口分布",
+      "高山地區一定完全沒有人",
+      "市場位置與人口完全無關",
+      "所有人口都只由氣溫決定"
+    ],
+    "answer": 0,
+    "explanation": "河谷較易通行，且市場與學校等服務集中，這些因素都可能共同影響人口聚集。",
+    "hint1": "不要只找單一因素。",
+    "hint2": "地形、交通與服務都提供線索。",
+    "source": "original",
+    "tags": [
+      "跨資料",
+      "地圖",
+      "人口"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-crosssource"
+  },
+  {
+    "id": "HP2-SO-015",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "多來源證據",
+    "competency": "比較不同來源證據的一致與限制",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "資料甲顯示某城市自行車道增加後，自行車通勤比例由8%升至13%。資料乙指出同期間油價也上漲。",
+    "question": "若要判斷自行車道是否造成通勤比例上升，最適當的說法是？",
+    "choices": [
+      "自行車道一定是唯一原因",
+      "油價一定是唯一原因",
+      "比例確實上升，但需要更多資料分辨自行車道與其他因素的影響",
+      "因為有兩份資料，所以完全不能研究"
+    ],
+    "answer": 2,
+    "explanation": "通勤比例上升是事實，但自行車道與油價都可能影響選擇，需要更多控制或比較資料才能分辨效果。",
+    "hint1": "同期間有兩個重要變化。",
+    "hint2": "先區分「發生了什麼」與「為什麼發生」。",
+    "source": "original",
+    "tags": [
+      "跨資料",
+      "證據",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-crosssource",
+    "table": {
+      "headers": [
+        "時期",
+        "自行車通勤比例"
+      ],
+      "rows": [
+        [
+          "新增前",
+          "8%"
+        ],
+        [
+          "新增後",
+          "13%"
+        ]
+      ]
+    }
+  }
+]
