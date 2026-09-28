@@ -362,25 +362,25 @@
     "topic": "Present continuous",
     "competency": "Choose tense from now",
     "grade": 7,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "dialogue",
     "passage": "A: Where is Mia?\nB: She _____ in the library right now.",
-    "question": [
+    "question": "Which phrase best completes B's sentence?",
+    "choices": [
       "studies",
       "studied",
       "is studying",
       "will study"
     ],
-    "choices": 2,
-    "answer": "Right now calls for the present continuous.",
-    "explanation": "Find the time clue.",
-    "hint1": "Use be + verb-ing.",
-    "hint2": [
+    "answer": 2,
+    "explanation": "Right now calls for the present continuous.",
+    "hint1": "Find the time clue.",
+    "hint2": "Use be + verb-ing.",
+    "source": "original",
+    "tags": [
       "grammar",
       "tense"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
@@ -464,25 +464,25 @@
     "topic": "Time connector",
     "competency": "Choose a time connector",
     "grade": 8,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "passage",
     "passage": "Please turn off the lights _____ you leave the room.",
-    "question": [
+    "question": "Which word best completes the sentence?",
+    "choices": [
       "before",
       "although",
       "because of",
       "unless if"
     ],
-    "choices": 0,
-    "answer": "Before correctly shows the action should happen prior to leaving.",
-    "explanation": "Think about order of actions.",
-    "hint1": "Turn off lights first.",
-    "hint2": [
+    "answer": 0,
+    "explanation": "Before correctly shows the action should happen prior to leaving.",
+    "hint1": "Think about order of actions.",
+    "hint2": "Turn off lights first.",
+    "source": "original",
+    "tags": [
       "cloze",
       "connector"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
