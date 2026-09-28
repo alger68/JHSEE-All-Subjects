@@ -23,4 +23,10 @@ describe('JHSEE All Subjects theme contract', () => {
     expect(css).toMatch(/\.jh-suite-shell \.official-view-controls/);
     expect(css).toMatch(/body\.focus-mode #official-listening-player/);
   });
+
+  it('keeps selected answer buttons visually distinct in both light and focus modes', () => {
+    const css = readFileSync('css/app.css','utf8');
+    expect(css).toMatch(/\.jh-suite-shell \.choice\.selected[\s\S]*border:2px solid var\(--subject\)/);
+    expect(css).toMatch(/body\.focus-mode \.question-card \.choice\.selected[\s\S]*background:#133B37/);
+  });
 });
