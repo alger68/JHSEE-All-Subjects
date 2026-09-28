@@ -10,7 +10,23 @@ for (const bank of ['questions', 'cap-practice']) {
   assert.ok(bundle.includes(asset), `Bundle does not reference ${asset}`);
   assert.deepEqual(JSON.parse(readFileSync(`dist/assets/${asset}`, 'utf8')), JSON.parse(readFileSync(`data/${bank}.json`, 'utf8')));
 }
-console.log('Built question banks verified: 205 original questions available.');
+const packManifest=JSON.parse(readFileSync('public/question-packs/manifest.json','utf8'));
+let supplementalCount=0;
+for(const pack of packManifest.packs.filter(pack=>pack.enabled!==false)){
+  const sourcePath=`public/question-packs/${pack.file}`;
+  const deployedPath=`dist/question-packs/${pack.file}`;
+  const source=JSON.parse(readFileSync(sourcePath,'utf8'));
+  const deployed=JSON.parse(readFileSync(deployedPath,'utf8'));
+  assert.deepEqual(deployed,source,`Missing or altered supplemental pack: ${pack.id}`);
+  assert.equal(source.length,pack.questionCount,`Question count mismatch: ${pack.id}`);
+  supplementalCount+=source.length;
+}
+assert.deepEqual(
+  JSON.parse(readFileSync('dist/question-packs/manifest.json','utf8')),
+  packManifest,
+  'Supplemental pack manifest missing or altered'
+);
+console.log(`Built question banks verified: ${205+supplementalCount} original questions available (${supplementalCount} supplemental).`);
 const official=JSON.parse(readFileSync('data/official-115-layout.json','utf8'));
 let pageCount=0;
 for(const layout of Object.values(official))for(const page of layout.pages) {
