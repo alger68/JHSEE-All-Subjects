@@ -7,7 +7,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "serve": "vite --host 0.0.0.0",
-    "build": "vite build && node scripts/verify-build.mjs"
+    "build": "npm run audit:content && vite build && node scripts/verify-build.mjs",
+    "audit:content": "node scripts/audit-content.mjs"
   },
   "devDependencies": {
     "jsdom": "^26.1.0",

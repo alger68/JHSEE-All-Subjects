@@ -76,3 +76,15 @@ Vercel 環境變數請依 `.env.example` 設定：
 部署後，Vercel 網站本身會自動使用同網域的 `/api/generate-question`。若仍以 GitHub Pages 為主要入口，請把 Vercel 專案根網址填入 `js/config/ai-service.js` 的 `deployedService`，GitHub Pages 就會跨網域呼叫 Vercel API。
 
 <!-- deployment-trigger: ai-remediation-loop -->
+
+
+## Supplemental Question Packs
+
+核心題庫保留在 `data/questions.json` 與 `data/cap-practice.json`。新增內容請使用 `public/question-packs/`：
+
+1. 建立新的 JSON Pack。
+2. 在 `public/question-packs/manifest.json` 登錄。
+3. 每題使用唯一 `id`，並以 `curriculumSkillId` 對應 `data/curriculum-blueprint.json`。
+4. 執行 `npm run audit:content`、`npm test`、`npm run build`。
+
+正式網站會自動讀取所有 enabled Pack；新增 Pack 不需要修改 `app.js`。

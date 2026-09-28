@@ -1,0 +1,1385 @@
+{
+  "version": 1,
+  "title": "JHSEE 國中三年五科考點藍圖",
+  "updatedAt": "2026-09-29",
+  "sources": [
+    {
+      "id": "cap-116",
+      "label": "116年國中教育會考官方網站／問與答",
+      "url": "https://cap.rcpet.edu.tw/"
+    },
+    {
+      "id": "naer-12yr",
+      "label": "十二年國民基本教育課程綱要",
+      "url": "https://www.naer.edu.tw/PageSyllabus?fid=52"
+    }
+  ],
+  "skills": [
+    {
+      "id": "jhsee-ch-7-word-context",
+      "subject": "chinese",
+      "grade": 7,
+      "domain": "字音字形與詞語",
+      "name": "字詞語境辨識",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "字音字形與詞語",
+          "字詞森林"
+        ],
+        "topics": [
+          "成語運用",
+          "字音字形",
+          "詞語辨析"
+        ],
+        "tags": [
+          "成語",
+          "詞義",
+          "字音"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-7-sentence",
+      "subject": "chinese",
+      "grade": 7,
+      "domain": "語文運用",
+      "name": "語句與複句判讀",
+      "priority": "medium",
+      "targetQuestions": 8,
+      "aliases": {
+        "domains": [
+          "語文運用",
+          "字詞森林"
+        ],
+        "topics": [
+          "語句判讀",
+          "複句"
+        ],
+        "tags": [
+          "語句",
+          "轉折"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-7-narrative",
+      "subject": "chinese",
+      "grade": 7,
+      "domain": "白話文閱讀",
+      "name": "敘事文本重點與因果",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "白話文閱讀",
+          "閱讀聖殿"
+        ],
+        "topics": [
+          "文意理解",
+          "主旨"
+        ],
+        "tags": [
+          "閱讀",
+          "主旨"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-7-classic-basic",
+      "subject": "chinese",
+      "grade": 7,
+      "domain": "文言文閱讀",
+      "name": "基礎文言詞義與句意",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "文言文閱讀",
+          "文言古城"
+        ],
+        "topics": [
+          "文言詞義",
+          "文言文理解"
+        ],
+        "tags": [
+          "文言文",
+          "詞義"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-8-rhetoric",
+      "subject": "chinese",
+      "grade": 8,
+      "domain": "語文運用",
+      "name": "修辭與語氣判讀",
+      "priority": "medium",
+      "targetQuestions": 8,
+      "aliases": {
+        "domains": [
+          "語文運用",
+          "閱讀聖殿"
+        ],
+        "topics": [
+          "修辭判讀"
+        ],
+        "tags": [
+          "修辭"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-8-info",
+      "subject": "chinese",
+      "grade": 8,
+      "domain": "白話文閱讀",
+      "name": "說明與資訊文本理解",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "白話文閱讀",
+          "生活文本"
+        ],
+        "topics": [
+          "閱讀理解",
+          "資料判讀"
+        ],
+        "tags": [
+          "閱讀",
+          "資訊"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-8-classic-context",
+      "subject": "chinese",
+      "grade": 8,
+      "domain": "文言文閱讀",
+      "name": "文言篇章脈絡推論",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "文言文閱讀",
+          "文言古城"
+        ],
+        "topics": [
+          "文言文閱讀",
+          "文言文理解"
+        ],
+        "tags": [
+          "文言文",
+          "推論"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-8-argument",
+      "subject": "chinese",
+      "grade": 8,
+      "domain": "跨文本與論證",
+      "name": "論點與理由辨識",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "跨文本與論證",
+          "閱讀聖殿"
+        ],
+        "topics": [
+          "觀點判讀",
+          "推論"
+        ],
+        "tags": [
+          "論證",
+          "觀點"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-9-cross-text",
+      "subject": "chinese",
+      "grade": 9,
+      "domain": "跨文本與論證",
+      "name": "跨文本比較與統整",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "跨文本與論證",
+          "資料閱讀"
+        ],
+        "topics": [
+          "閱讀理解",
+          "資料分析"
+        ],
+        "tags": [
+          "跨文本",
+          "統整"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-9-evidence",
+      "subject": "chinese",
+      "grade": 9,
+      "domain": "白話文閱讀",
+      "name": "證據推論與作者意圖",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "白話文閱讀",
+          "閱讀聖殿"
+        ],
+        "topics": [
+          "推論",
+          "主旨推論"
+        ],
+        "tags": [
+          "推論",
+          "主旨"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-9-data-text",
+      "subject": "chinese",
+      "grade": 9,
+      "domain": "資料閱讀",
+      "name": "圖表與文字整合判讀",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "資料閱讀",
+          "生活文本",
+          "跨文本與論證"
+        ],
+        "topics": [
+          "資料分析",
+          "資料判讀"
+        ],
+        "tags": [
+          "資料",
+          "圖表"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ch-9-logic",
+      "subject": "chinese",
+      "grade": 9,
+      "domain": "跨文本與論證",
+      "name": "論證謬誤與證據評估",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "跨文本與論證",
+          "閱讀聖殿"
+        ],
+        "topics": [
+          "觀點分析",
+          "推論"
+        ],
+        "tags": [
+          "論證",
+          "邏輯"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-7-vocab",
+      "subject": "english",
+      "grade": 7,
+      "domain": "字彙與片語",
+      "name": "字彙語境判讀",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "字彙與片語",
+          "Vocabulary Bay"
+        ],
+        "topics": [
+          "Vocabulary",
+          "Vocabulary in context"
+        ],
+        "tags": [
+          "單字",
+          "字彙"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-7-tense",
+      "subject": "english",
+      "grade": 7,
+      "domain": "基本文法",
+      "name": "基礎時態與主動詞",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "基本文法",
+          "Grammar Ridge"
+        ],
+        "topics": [
+          "Present tense",
+          "Past tense"
+        ],
+        "tags": [
+          "文法",
+          "現在式",
+          "過去式"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-7-dialogue",
+      "subject": "english",
+      "grade": 7,
+      "domain": "閱讀理解",
+      "name": "短對話細節理解",
+      "priority": "medium",
+      "targetQuestions": 8,
+      "aliases": {
+        "domains": [
+          "閱讀理解",
+          "Reading Sky"
+        ],
+        "topics": [
+          "閱讀理解",
+          "Reading"
+        ],
+        "tags": [
+          "閱讀",
+          "細節"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-7-notice",
+      "subject": "english",
+      "grade": 7,
+      "domain": "圖表與生活情境",
+      "name": "公告與生活訊息",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "圖表與生活情境",
+          "閱讀理解"
+        ],
+        "topics": [
+          "閱讀理解",
+          "情境應用"
+        ],
+        "tags": [
+          "公告",
+          "訊息"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-8-grammar",
+      "subject": "english",
+      "grade": 8,
+      "domain": "基本文法",
+      "name": "情境文法與連接詞",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "基本文法",
+          "Grammar Ridge"
+        ],
+        "topics": [
+          "文法題",
+          "Modal verbs",
+          "Comparatives"
+        ],
+        "tags": [
+          "文法",
+          "連接詞"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-8-cloze",
+      "subject": "english",
+      "grade": 8,
+      "domain": "克漏字",
+      "name": "篇章克漏與語意銜接",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "克漏字",
+          "Reading Sky"
+        ],
+        "topics": [
+          "Cloze",
+          "閱讀理解"
+        ],
+        "tags": [
+          "克漏字"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-8-email",
+      "subject": "english",
+      "grade": 8,
+      "domain": "閱讀理解",
+      "name": "Email與訊息統整",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "閱讀理解"
+        ],
+        "topics": [
+          "閱讀理解",
+          "推論"
+        ],
+        "tags": [
+          "email",
+          "訊息"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-8-table",
+      "subject": "english",
+      "grade": 8,
+      "domain": "圖表與生活情境",
+      "name": "表格與時程資訊判讀",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "圖表與生活情境"
+        ],
+        "topics": [
+          "資料分析",
+          "情境應用"
+        ],
+        "tags": [
+          "表格",
+          "schedule"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-9-main",
+      "subject": "english",
+      "grade": 9,
+      "domain": "閱讀理解",
+      "name": "長篇閱讀主旨",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "閱讀理解",
+          "Reading Sky"
+        ],
+        "topics": [
+          "閱讀理解"
+        ],
+        "tags": [
+          "主旨",
+          "閱讀"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-9-inference",
+      "subject": "english",
+      "grade": 9,
+      "domain": "閱讀理解",
+      "name": "長篇閱讀推論",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "閱讀理解",
+          "Reading Sky"
+        ],
+        "topics": [
+          "推論",
+          "Inference"
+        ],
+        "tags": [
+          "推論"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-9-cross",
+      "subject": "english",
+      "grade": 9,
+      "domain": "閱讀理解",
+      "name": "跨段與跨文本整合",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "閱讀理解",
+          "圖表與生活情境"
+        ],
+        "topics": [
+          "閱讀理解",
+          "資料分析"
+        ],
+        "tags": [
+          "統整",
+          "跨文本"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-en-9-chart",
+      "subject": "english",
+      "grade": 9,
+      "domain": "圖表與生活情境",
+      "name": "圖表證據與結論",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "圖表與生活情境"
+        ],
+        "topics": [
+          "資料分析",
+          "推論"
+        ],
+        "tags": [
+          "圖表",
+          "資料"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-7-number",
+      "subject": "math",
+      "grade": 7,
+      "domain": "數與數線",
+      "name": "整數分數與數線",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "數與數線",
+          "基礎森林"
+        ],
+        "topics": [
+          "概念題",
+          "計算題"
+        ],
+        "tags": [
+          "整數",
+          "分數"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-7-linear",
+      "subject": "math",
+      "grade": 7,
+      "domain": "代數與方程式",
+      "name": "一元一次方程式",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "代數與方程式",
+          "代數城"
+        ],
+        "topics": [
+          "情境應用",
+          "計算題"
+        ],
+        "tags": [
+          "方程式",
+          "代數"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-7-ratio",
+      "subject": "math",
+      "grade": 7,
+      "domain": "數與比例",
+      "name": "比例百分率與折扣",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "數與比例",
+          "數與數線",
+          "基礎森林"
+        ],
+        "topics": [
+          "情境應用"
+        ],
+        "tags": [
+          "比例",
+          "折扣"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-7-stat",
+      "subject": "math",
+      "grade": 7,
+      "domain": "統計與機率",
+      "name": "基礎統計與資料閱讀",
+      "priority": "medium",
+      "targetQuestions": 8,
+      "aliases": {
+        "domains": [
+          "統計與機率"
+        ],
+        "topics": [
+          "資料分析"
+        ],
+        "tags": [
+          "統計",
+          "平均"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-8-system",
+      "subject": "math",
+      "grade": 8,
+      "domain": "代數與方程式",
+      "name": "二元一次與聯立方程式",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "代數與方程式",
+          "代數城"
+        ],
+        "topics": [
+          "情境應用",
+          "推論"
+        ],
+        "tags": [
+          "二元一次",
+          "聯立"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-8-function",
+      "subject": "math",
+      "grade": 8,
+      "domain": "函數",
+      "name": "一次函數與圖表",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "函數",
+          "代數城"
+        ],
+        "topics": [
+          "資料分析",
+          "情境應用"
+        ],
+        "tags": [
+          "一次函數",
+          "函數"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-8-geometry",
+      "subject": "math",
+      "grade": 8,
+      "domain": "幾何與圖形",
+      "name": "三角形與畢氏定理",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "幾何與圖形",
+          "幾何山"
+        ],
+        "topics": [
+          "情境應用",
+          "推論"
+        ],
+        "tags": [
+          "三角形",
+          "畢氏"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-8-probability",
+      "subject": "math",
+      "grade": 8,
+      "domain": "統計與機率",
+      "name": "機率與樣本空間",
+      "priority": "medium",
+      "targetQuestions": 8,
+      "aliases": {
+        "domains": [
+          "統計與機率"
+        ],
+        "topics": [
+          "推論",
+          "資料分析"
+        ],
+        "tags": [
+          "機率"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-9-quadratic",
+      "subject": "math",
+      "grade": 9,
+      "domain": "代數與方程式",
+      "name": "乘法公式因式分解與二次方程式",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "代數與方程式",
+          "代數城"
+        ],
+        "topics": [
+          "計算題",
+          "推理題"
+        ],
+        "tags": [
+          "因式分解",
+          "二次"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-9-similarity",
+      "subject": "math",
+      "grade": 9,
+      "domain": "幾何與圖形",
+      "name": "相似形與比例推理",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "幾何與圖形",
+          "幾何山"
+        ],
+        "topics": [
+          "推論",
+          "情境應用"
+        ],
+        "tags": [
+          "相似",
+          "比例"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-9-circle",
+      "subject": "math",
+      "grade": 9,
+      "domain": "幾何與圖形",
+      "name": "圓與幾何關係",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "幾何與圖形",
+          "幾何山"
+        ],
+        "topics": [
+          "推論",
+          "計算題"
+        ],
+        "tags": [
+          "圓",
+          "圓周角"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-ma-9-data",
+      "subject": "math",
+      "grade": 9,
+      "domain": "統計與機率",
+      "name": "統計機率綜合推理",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "統計與機率"
+        ],
+        "topics": [
+          "資料分析",
+          "推論"
+        ],
+        "tags": [
+          "統計",
+          "機率"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-7-cell",
+      "subject": "science",
+      "grade": 7,
+      "domain": "生物",
+      "name": "細胞與生命現象",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "生物",
+          "生命雨林"
+        ],
+        "topics": [
+          "概念理解",
+          "資料分析"
+        ],
+        "tags": [
+          "細胞"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-7-plant",
+      "subject": "science",
+      "grade": 7,
+      "domain": "生物",
+      "name": "光合作用與植物生理",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "生物",
+          "生命雨林"
+        ],
+        "topics": [
+          "概念理解",
+          "實驗判讀"
+        ],
+        "tags": [
+          "光合作用",
+          "植物"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-7-ecology",
+      "subject": "science",
+      "grade": 7,
+      "domain": "生物",
+      "name": "生態系與族群互動",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "生物",
+          "生命雨林"
+        ],
+        "topics": [
+          "因果推理",
+          "資料分析"
+        ],
+        "tags": [
+          "生態",
+          "食物網"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-7-inquiry",
+      "subject": "science",
+      "grade": 7,
+      "domain": "科學探究與資料判讀",
+      "name": "控制變因與實驗設計",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "科學探究與資料判讀"
+        ],
+        "topics": [
+          "實驗判讀",
+          "資料分析"
+        ],
+        "tags": [
+          "控制變因",
+          "實驗"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-8-matter",
+      "subject": "science",
+      "grade": 8,
+      "domain": "化學",
+      "name": "物質性質與質量守恆",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "化學",
+          "理化工坊"
+        ],
+        "topics": [
+          "概念理解",
+          "因果推理"
+        ],
+        "tags": [
+          "質量守恆",
+          "物質"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-8-acid",
+      "subject": "science",
+      "grade": 8,
+      "domain": "化學",
+      "name": "酸鹼與反應",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "化學",
+          "理化工坊"
+        ],
+        "topics": [
+          "實驗判讀",
+          "概念理解"
+        ],
+        "tags": [
+          "酸鹼"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-8-motion",
+      "subject": "science",
+      "grade": 8,
+      "domain": "物理",
+      "name": "力與運動",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "物理",
+          "理化工坊"
+        ],
+        "topics": [
+          "因果推理",
+          "資料分析"
+        ],
+        "tags": [
+          "力",
+          "運動"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-8-electric",
+      "subject": "science",
+      "grade": 8,
+      "domain": "物理",
+      "name": "電路電壓電流與功率",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "物理",
+          "理化工坊"
+        ],
+        "topics": [
+          "情境應用",
+          "資料分析"
+        ],
+        "tags": [
+          "電學",
+          "電功率"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-9-energy",
+      "subject": "science",
+      "grade": 9,
+      "domain": "物理",
+      "name": "能量功與波動",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "物理"
+        ],
+        "topics": [
+          "跨科整合",
+          "資料分析"
+        ],
+        "tags": [
+          "能量",
+          "波"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-9-weather",
+      "subject": "science",
+      "grade": 9,
+      "domain": "地球科學",
+      "name": "天氣與氣候資料",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "地球科學",
+          "地科觀測站"
+        ],
+        "topics": [
+          "資料分析",
+          "因果推理"
+        ],
+        "tags": [
+          "天氣",
+          "氣候"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-9-earth",
+      "subject": "science",
+      "grade": 9,
+      "domain": "地球科學",
+      "name": "板塊地質與地球系統",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "地球科學",
+          "地科觀測站"
+        ],
+        "topics": [
+          "概念理解",
+          "因果推理"
+        ],
+        "tags": [
+          "板塊",
+          "地質"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-sc-9-integrated",
+      "subject": "science",
+      "grade": 9,
+      "domain": "科學探究與資料判讀",
+      "name": "跨科實驗與證據推論",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "科學探究與資料判讀"
+        ],
+        "topics": [
+          "跨科整合",
+          "實驗判讀"
+        ],
+        "tags": [
+          "實驗",
+          "推論"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-7-twhistory",
+      "subject": "social",
+      "grade": 7,
+      "domain": "臺灣與世界歷史",
+      "name": "臺灣史時序與史料",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "臺灣與世界歷史",
+          "歷史古道"
+        ],
+        "topics": [
+          "史料判讀",
+          "推論"
+        ],
+        "tags": [
+          "臺灣史",
+          "清代臺灣"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-7-twgeo",
+      "subject": "social",
+      "grade": 7,
+      "domain": "地理環境與區域",
+      "name": "臺灣地形氣候與人口",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "地理環境與區域",
+          "地理航線"
+        ],
+        "topics": [
+          "地圖判讀",
+          "資料分析"
+        ],
+        "tags": [
+          "臺灣地理",
+          "河川",
+          "氣候"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-7-civics",
+      "subject": "social",
+      "grade": 7,
+      "domain": "公民與社會",
+      "name": "權利責任與社會規範",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "公民與社會",
+          "公民議會"
+        ],
+        "topics": [
+          "制度理解",
+          "情境思辨"
+        ],
+        "tags": [
+          "基本權利",
+          "規範"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-7-mapdata",
+      "subject": "social",
+      "grade": 7,
+      "domain": "圖表與資料判讀",
+      "name": "地圖圖表基礎判讀",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "圖表與資料判讀",
+          "地理環境與區域"
+        ],
+        "topics": [
+          "地圖判讀",
+          "資料分析"
+        ],
+        "tags": [
+          "地圖",
+          "資料"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-8-history",
+      "subject": "social",
+      "grade": 8,
+      "domain": "臺灣與世界歷史",
+      "name": "中國與世界史脈絡",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "臺灣與世界歷史",
+          "歷史古道"
+        ],
+        "topics": [
+          "史料判讀",
+          "推論"
+        ],
+        "tags": [
+          "世界史",
+          "中國史"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-8-region",
+      "subject": "social",
+      "grade": 8,
+      "domain": "地理環境與區域",
+      "name": "區域地理與產業人口",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "地理環境與區域",
+          "地理航線"
+        ],
+        "topics": [
+          "地圖判讀",
+          "資料分析"
+        ],
+        "tags": [
+          "區域",
+          "產業"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-8-goveco",
+      "subject": "social",
+      "grade": 8,
+      "domain": "公民與社會",
+      "name": "政府制度與經濟生活",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "公民與社會",
+          "公民議會"
+        ],
+        "topics": [
+          "制度理解",
+          "資料分析"
+        ],
+        "tags": [
+          "政府組織",
+          "經濟"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-8-evidence",
+      "subject": "social",
+      "grade": 8,
+      "domain": "圖表與資料判讀",
+      "name": "社會資料與證據判讀",
+      "priority": "high",
+      "targetQuestions": 10,
+      "aliases": {
+        "domains": [
+          "圖表與資料判讀",
+          "公共議題思辨"
+        ],
+        "topics": [
+          "資料分析",
+          "情境思辨"
+        ],
+        "tags": [
+          "資料",
+          "證據"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-9-global",
+      "subject": "social",
+      "grade": 9,
+      "domain": "地理環境與區域",
+      "name": "全球化與區域連結",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "地理環境與區域"
+        ],
+        "topics": [
+          "資料分析",
+          "情境思辨"
+        ],
+        "tags": [
+          "全球化",
+          "區域"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-9-public",
+      "subject": "social",
+      "grade": 9,
+      "domain": "公共議題思辨",
+      "name": "公共議題多元觀點",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "公共議題思辨"
+        ],
+        "topics": [
+          "情境思辨",
+          "資料分析"
+        ],
+        "tags": [
+          "公共議題",
+          "觀點"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-9-law",
+      "subject": "social",
+      "grade": 9,
+      "domain": "公民與社會",
+      "name": "法律權利與比例原則",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "公民與社會",
+          "公民議會"
+        ],
+        "topics": [
+          "制度理解",
+          "情境思辨"
+        ],
+        "tags": [
+          "法律",
+          "比例原則"
+        ]
+      }
+    },
+    {
+      "id": "jhsee-so-9-crosssource",
+      "subject": "social",
+      "grade": 9,
+      "domain": "圖表與資料判讀",
+      "name": "跨史料地圖與統計整合",
+      "priority": "high",
+      "targetQuestions": 12,
+      "aliases": {
+        "domains": [
+          "圖表與資料判讀",
+          "公共議題思辨"
+        ],
+        "topics": [
+          "資料分析",
+          "史料判讀"
+        ],
+        "tags": [
+          "跨資料",
+          "統整"
+        ]
+      }
+    }
+  ]
+}
