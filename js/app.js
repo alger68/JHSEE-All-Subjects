@@ -379,6 +379,27 @@ function handleBattleAnswer(choice) {
 async function startRevenge(questionId) {
   const reviewItem=state.wrongQuestions.find(item=>item.questionId===questionId);
   if(!reviewItem) { showToast('找不到這筆錯題紀錄。'); return null; }
+
+  const isAnchor=(reviewItem.originalReviewCount??0)===0&&(reviewItem.reviewStage??'anchor')==='anchor';
+  if(isAnchor){
+    const anchor=registry.getById(reviewItem.questionId);
+    if(!anchor){showToast('這題資料目前無法載入，請重新整理後再試。');return null;}
+    return startSession([anchor],{
+      title:'單題複習・原題確認',
+      kind:'review',
+      paperId:anchor.paperId,
+      durationMinutes:10,
+      reviewItemIds:[reviewItem.questionId],
+      reviewEvidenceByQuestionId:{
+        [anchor.id]:{
+          reviewQuestionId:reviewItem.questionId,
+          evidenceKind:'anchor',
+          fingerprint:anchor.fingerprint
+        }
+      }
+    });
+  }
+
   const selection=await provider.getReviewQuestion(reviewItem,reviewProviderContext(reviewItem));
   if(!selection.question) {
     showToast(selection.warning??'這個能力目前沒有足夠的新題。');
@@ -394,9 +415,8 @@ async function startRevenge(questionId) {
     fingerprint:selection.question.fingerprint
   };
   return startSession([selection.question],{
-    title:selection.evidenceKind==='anchor'?'單題複習・原題確認':'單題複習・同能力驗證',
+    title:'單題複習・同能力驗證',
     kind:'review',
-    paperId:selection.evidenceKind==='anchor'?selection.question.paperId:null,
     durationMinutes:10,
     reviewItemIds:[reviewItem.questionId],
     reviewEvidenceByQuestionId:{[selection.question.id]:evidence}
@@ -406,6 +426,27 @@ async function startRevenge(questionId) {
 async function startRevengeSession() {
   const entries=reviewEntries().filter(item=>item.available&&!item.resolved);
   if (!entries.length) { showToast('目前沒有可作答的錯題。'); return null; }
+
+  const allAnchors=entries.every(item=>(item.originalReviewCount??0)===0&&(item.reviewStage??'anchor')==='anchor');
+  if(allAnchors){
+    const questions=entries.map(item=>registry.getById(item.questionId)).filter(Boolean);
+    const evidenceByQuestionId=Object.fromEntries(questions.map(question=>[
+      question.id,
+      {
+        reviewQuestionId:question.id,
+        evidenceKind:'anchor',
+        fingerprint:question.fingerprint
+      }
+    ]));
+    return startSession(questions,{
+      title:`錯題復仇・${questions.length} 題`,
+      kind:'review',
+      durationMinutes:Math.min(180,Math.max(10,questions.length*10)),
+      reviewItemIds:entries.map(item=>item.questionId),
+      reviewEvidenceByQuestionId:evidenceByQuestionId
+    });
+  }
+
   const selection=await provider.getReviewSession(entries,reviewProviderContext());
   if(selection.generatedAccepted?.length) {
     state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),selection.generatedAccepted.length);
