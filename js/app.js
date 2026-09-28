@@ -376,17 +376,55 @@ function handleBattleAnswer(choice) {
   renderRoute();
 }
 
-function startRevenge(questionId) {
-  const question = questionMap.get(questionId);
-  if (!question) { showToast('這題資料目前無法載入，請重新整理後再試。'); return; }
-  startSession([question],{title:'單題複習',kind:'review',paperId:question.paperId,durationMinutes:10});
+async function startRevenge(questionId) {
+  const reviewItem=state.wrongQuestions.find(item=>item.questionId===questionId);
+  if(!reviewItem) { showToast('找不到這筆錯題紀錄。'); return null; }
+  const selection=await provider.getReviewQuestion(reviewItem,reviewProviderContext(reviewItem));
+  if(!selection.question) {
+    showToast(selection.warning??'這個能力目前沒有足夠的新題。');
+    return null;
+  }
+  if(selection.generatedAccepted?.length) {
+    state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),selection.generatedAccepted.length);
+    mergeAcceptedGeneratedQuestions(selection.generatedAccepted);
+  }
+  const evidence={
+    reviewQuestionId:reviewItem.questionId,
+    evidenceKind:selection.evidenceKind,
+    fingerprint:selection.question.fingerprint
+  };
+  return startSession([selection.question],{
+    title:selection.evidenceKind==='anchor'?'單題複習・原題確認':'單題複習・同能力驗證',
+    kind:'review',
+    paperId:selection.evidenceKind==='anchor'?selection.question.paperId:null,
+    durationMinutes:10,
+    reviewItemIds:[reviewItem.questionId],
+    reviewEvidenceByQuestionId:{[selection.question.id]:evidence}
+  });
 }
 
-function startRevengeSession() {
-  const entries=reviewEntries().filter(item=>item.available);
-  const questions=entries.map(item=>questionMap.get(item.questionId)).filter(Boolean);
-  if (!questions.length) { showToast('目前沒有可作答的錯題。'); return; }
-  startSession(questions,{title:`錯題復仇・${questions.length} 題`,kind:'review',durationMinutes:Math.min(180,Math.max(10,questions.length*10))});
+async function startRevengeSession() {
+  const entries=reviewEntries().filter(item=>item.available&&!item.resolved);
+  if (!entries.length) { showToast('目前沒有可作答的錯題。'); return null; }
+  const selection=await provider.getReviewSession(entries,reviewProviderContext());
+  if(selection.generatedAccepted?.length) {
+    state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),selection.generatedAccepted.length);
+    mergeAcceptedGeneratedQuestions(selection.generatedAccepted);
+  }
+  if (!selection.questions.length) {
+    showToast(selection.warnings?.[0]??'目前沒有足夠的新題可進行錯題複習。');
+    return null;
+  }
+  if(selection.skippedReviewIds?.length) {
+    showToast(`本次先練 ${selection.questions.length} 題；另有 ${selection.skippedReviewIds.length} 個弱點等待新題。`);
+  }
+  return startSession(selection.questions,{
+    title:`錯題復仇・${selection.questions.length} 題`,
+    kind:'review',
+    durationMinutes:Math.min(180,Math.max(10,selection.questions.length*10)),
+    reviewItemIds:entries.map(item=>item.questionId),
+    reviewEvidenceByQuestionId:selection.evidenceByQuestionId
+  });
 }
 
 function completeExam() {
@@ -586,6 +624,8 @@ function startSession(questions,options) {
     return null;
   }
   state.activeExam=createSession(sessionQuestions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
+  if(options.reviewItemIds)state.activeExam.reviewItemIds=[...options.reviewItemIds];
+  if(options.reviewEvidenceByQuestionId)state.activeExam.reviewEvidenceByQuestionId={...options.reviewEvidenceByQuestionId};
   if(options.paperId) {
     state.activeExam.paperMode=options.paperMode==='whole'?'whole':'question';
     state.activeExam.paperPage=1;
@@ -849,8 +889,8 @@ app.addEventListener('click', async (event) => {
     if (battle && (battle.index >= battle.questions.length || battle.playerHp === 0)) settleBattle();
     else renderRoute();
   }
-  if (action === 'start-revenge') startRevenge(control.dataset.id);
-  if (action === 'start-revenge-session') startRevengeSession();
+  if (action === 'start-revenge') { await startRevenge(control.dataset.id); return; }
+  if (action === 'start-revenge-session') { await startRevengeSession(); return; }
   if (action === 'start-ai-remediation') {
     if(aiRemediationInFlight) {
       showToast('AI 弱點驗收正在準備中，請稍候。');
@@ -956,10 +996,10 @@ app.addEventListener('click', async (event) => {
     save(); renderRoute(); showToast('寶箱開啟：+150 EXP、+100 金幣！');
   }
   if (action === 'reset-adaptive' && window.confirm('只重置 AI／自適應記憶？歷屆成績、錯題與玩家進度會保留。')) {
-    state=applyResetMode(state,'adaptive',taipeiDate()); save(); renderRoute(); showToast('AI／自適應記憶已重新開始。');
+    state=applyResetMode(state,'adaptive',taipeiDate()); rebuildQuestionRuntime(); save(); renderRoute(); showToast('AI／自適應記憶已重新開始。');
   }
   if (action === 'start-new-cycle' && window.confirm('建立新的學習週期？目前弱點與錯題會封存，歷屆報告與玩家進度保留。')) {
-    state=applyResetMode(state,'new-cycle',taipeiDate()); save(); renderRoute(); showToast('新的學習週期已建立。');
+    state=applyResetMode(state,'new-cycle',taipeiDate()); rebuildQuestionRuntime(); save(); renderRoute(); showToast('新的學習週期已建立。');
   }
   if (action === 'start-diagnostic') await startDiagnostic();
   if (action === 'export-backup') {
@@ -974,7 +1014,7 @@ app.addEventListener('click', async (event) => {
   }
   if (action === 'import-backup') document.querySelector('#backup-file-input')?.click();
   if (action === 'reset-progress' && window.confirm('確定完整重設全部學習進度嗎？此動作無法復原。')) {
-    state = store.reset(); ensureDailyQuest(); renderRoute(); showToast('全部進度已重設。');
+    state = store.reset(); rebuildQuestionRuntime(); ensureDailyQuest(); renderRoute(); showToast('全部進度已重設。');
   }
   if(action==='start-paper') {
     const paper=OFFICIAL_PAPERS.find(p=>p.id===control.dataset.id);
@@ -1172,7 +1212,7 @@ app.addEventListener('change',async(event)=>{
     const restored=store.importBackup(text);
     if(!restored.ok){showToast('備份格式不正確，未修改目前資料。');event.target.value='';return;}
     state=restored.state;
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    rebuildQuestionRuntime();
     event.target.value='';
     renderRoute();showToast('學習資料已還原。');
     return;
@@ -1200,7 +1240,7 @@ async function boot() {
     const coreQuestions=(await Promise.all(responses.map(r=>r.json()))).flat();
     bank = createQuestionBank([...coreQuestions,...supplemental.questions]);
     if(supplemental.warnings.length)console.warn('Supplemental question pack warnings',supplemental.warnings);
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    rebuildQuestionRuntime();
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
