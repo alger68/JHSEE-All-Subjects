@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-29",
+  "description": "JHSEE All Subjects supplemental reviewed question packs. Add a new JSON file and manifest entry; app code does not need to change.",
+  "packs": [
+    {
+      "id": "hp-chinese-001",
+      "version": 1,
+      "file": "high-priority-chinese-001.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "chinese",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-english-001",
+      "version": 1,
+      "file": "high-priority-english-001.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "english",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-math-001",
+      "version": 1,
+      "file": "high-priority-math-001.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "math",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-science-001",
+      "version": 1,
+      "file": "high-priority-science-001.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "science",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-social-001",
+      "version": 1,
+      "file": "high-priority-social-001.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "social",
+      "questionCount": 15
+    }
+  ]
+}
