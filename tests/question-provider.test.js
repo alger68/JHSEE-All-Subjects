@@ -103,6 +103,7 @@ describe('question provider',()=>{
     const anchor=makeQuestion('anchor');
     const registry=createQuestionRegistry([anchor]);
     const generated=makeQuestion('ai-new',{
+      source:'ai_generated',
       question:'What can readers infer about a library return policy?',
       passage:'A library email explains that borrowed devices must be returned before Friday.',
       variationForm:'email'
@@ -165,5 +166,17 @@ describe('question provider',()=>{
     const provider=createQuestionProvider({registry:createQuestionRegistry(local),generateAi});
     expect(provider.countPracticeCandidates({subject:'english'},context())).toBe(1);
     expect(generateAi).not.toHaveBeenCalled();
+  });
+  it('relaxes practice cooldown only after fresh local/cache candidates are insufficient',()=>{
+    const a=makeQuestion('a');
+    const b=makeQuestion('b',{variationForm:'email'});
+    const provider=createQuestionProvider({registry:createQuestionRegistry([a,b]),generateAi:vi.fn()});
+    const result=provider.getPracticeSet({subject:'english'},context({
+      count:2,
+      recentIds:new Set(['a','b'])
+    }));
+    expect(result.questions).toHaveLength(2);
+    expect(new Set(result.questions.map(q=>q.id))).toEqual(new Set(['a','b']));
+    expect(result.warnings).toContain('使用已冷卻的舊題補足練習');
   });
 });
