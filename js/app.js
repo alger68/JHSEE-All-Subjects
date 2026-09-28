@@ -5,7 +5,7 @@ import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, defa
 import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
 import { AI_SERVICE_URL } from './config/ai-service.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
-import { createSession, answerSession, remainingSeconds, finishSession, validateSession } from './core/exam-session.js';
+import { createSession, answerSession, remainingSeconds, finishSession, validateSession, isAnswerableQuestion } from './core/exam-session.js';
 import { OFFICIAL_PAPERS, getOfficialQuestions } from './config/official-papers.js';
 import { clock, renderExamCenter, renderPaperSetup, renderSession, renderSessionResults } from './ui/exam-views.js';
 import { renderExamCheck } from './ui/exam-check.js';
@@ -388,7 +388,7 @@ async function startAiRemediation(result=state.lastExamResult) {
 
   showToast(`正在建立 ${profile.competency} 的 AI 弱點驗收…`);
   const allowed=aiAllowance(state.aiUsage,taipeiDate(),wanted);
-  const generated=AI_SERVICE_URL&&allowed>0
+  const generatedRaw=AI_SERVICE_URL&&allowed>0
     ? await requestAiQuestions({
         endpoint:AI_SERVICE_URL,
         brief:generationBrief(profile,sourceQuestion),
@@ -397,8 +397,9 @@ async function startAiRemediation(result=state.lastExamResult) {
         count:allowed
       })
     : null;
+  const generated=(generatedRaw??[]).filter(isAnswerableQuestion);
 
-  if(generated?.length) {
+  if(generated.length) {
     state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
     const known=new Map((state.generatedQuestions??[]).map(question=>[question.id,question]));
     for(const question of generated) {
@@ -457,7 +458,7 @@ async function startDiagnostic() {
         count:1
       })??[];
     }));
-    const generated=generatedGroups.flat();
+    const generated=generatedGroups.flat().filter(isAnswerableQuestion);
     if(generated.length) {
       state.aiUsage=recordAiUsage(state.aiUsage,today,generated.length);
       const known=new Map((state.generatedQuestions??[]).map(q=>[q.id,q]));
@@ -486,7 +487,17 @@ async function startDiagnostic() {
 
 function startSession(questions,options) {
   if (state.activeExam&&!window.confirm('已有尚未交卷的測驗。確定放棄它並開始新的練習嗎？')) return null;
-  state.activeExam=createSession(questions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
+  const sessionQuestions=options.kind==='official-writing'
+    ? [...(questions??[])]
+    : (questions??[]).filter(isAnswerableQuestion);
+  if(options.kind!=='official-writing'&&sessionQuestions.length!==(questions??[]).length) {
+    showToast('部分題目資料不完整，已自動略過，其他題目仍可正常作答。');
+  }
+  if(options.kind!=='official-writing'&&!sessionQuestions.length) {
+    showToast('目前沒有可正常作答的題目，請重新選擇練習。');
+    return null;
+  }
+  state.activeExam=createSession(sessionQuestions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
   if(options.paperId) {
     state.activeExam.paperMode=options.paperMode==='whole'?'whole':'question';
     state.activeExam.paperPage=1;
@@ -514,7 +525,7 @@ function cachedAiForProfile(profile,subject='all',limit=4) {
   const recent=recentQuestionIds(state.answerHistory,30);
   const result=[];
   for(const question of [...(state.generatedQuestions??[])].reverse()) {
-    if(!question?.aiGenerated||recent.has(question.id))continue;
+    if(!question?.aiGenerated||!isAnswerableQuestion(question)||recent.has(question.id))continue;
     if(subject!=='all'&&question.subject!==subject)continue;
     if(skillIdentity(question).key!==profile.key)continue;
     result.push(question);
@@ -538,10 +549,15 @@ async function generateAiForActivePractice({
     count
   });
   if(!generated?.length)return;
+  const answerableGenerated=generated.filter(isAnswerableQuestion);
+  if(!answerableGenerated.length) {
+    showToast('AI 題目格式異常，已略過；目前練習不受影響。');
+    return;
+  }
 
-  state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
-  const known=new Map((state.generatedQuestions??[]).map(question=>[question.id,question]));
-  for(const question of generated) {
+  state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),answerableGenerated.length);
+  const known=new Map((state.generatedQuestions??[]).filter(isAnswerableQuestion).map(question=>[question.id,question]));
+  for(const question of answerableGenerated) {
     known.set(question.id,question);
     questionMap.set(question.id,question);
   }
@@ -559,7 +575,7 @@ async function generateAiForActivePractice({
       if(existing?.aiGenerated)continue;
       replacements.push(index);
     }
-    for(const question of generated) {
+    for(const question of answerableGenerated) {
       if(usedIds.has(question.id))continue;
       const index=replacements.shift();
       if(index===undefined)break;
@@ -577,6 +593,7 @@ function placementPracticeSelection(subject,count=10,shuffle=true){
   const wanted=Math.max(1,Math.min(15,Math.round(Number(count)||10)));
   const localCandidates=bank.filter({subject,examAligned:true}).filter(q=>(q.grade??9)<=9);
   const generatedCandidates=(state.generatedQuestions??[])
+    .filter(isAnswerableQuestion)
     .filter(q=>q.subject===subject&&q.examAligned===true&&(q.grade??9)<=9);
   const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
 
@@ -678,6 +695,7 @@ function practiceSelection(shuffle=false) {
   const localCandidates=bank.filter(criteria)
     .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
   const generatedCandidates=(state.generatedQuestions??[])
+    .filter(isAnswerableQuestion)
     .filter(q=>(subject==='all'||q.subject===subject))
     .filter(q=>focus==='all'||(focus==='aligned'?q.examAligned===true:q.examAligned!==true))
     .filter(q=>(q.grade??9)<=grade&&(!type||q.questionType===type));
@@ -917,11 +935,20 @@ app.addEventListener('click', async (event) => {
   }
   if (action === 'exam-answer') {
     if(!guardSession()) return;
-    const s=state.activeExam,qs=sessionQuestions(s);
-    state.activeExam=answerSession(s,qs,qs[s.index].id,Number(control.dataset.choice),Date.now());
-    if (state.activeExam.kind==='review' && state.activeExam.index < state.activeExam.questionIds.length-1) {
-      state.activeExam.index += 1;
+    const s=state.activeExam;
+    const questionId=s.questionIds?.[s.index];
+    const question=questionMap.get(questionId);
+    const choice=Number(control.dataset.choice);
+    if(!question||!isAnswerableQuestion(question)) {
+      showToast('這題資料不完整，暫時無法作答；請跳到下一題。');
+      return;
     }
+    const next=answerSession(s,sessionQuestions(s),questionId,choice,Date.now());
+    if(next===s||next.answers?.[questionId]!==choice) {
+      showToast('這次答案沒有成功記錄，請再點一次或重新整理頁面。');
+      return;
+    }
+    state.activeExam=next;
     save(); renderRoute(false);
   }
   if(action==='exam-uncertain'||action==='practice-hint') {

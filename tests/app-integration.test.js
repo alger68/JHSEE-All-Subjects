@@ -354,18 +354,21 @@ it('starts one continuous revenge session for all wrong questions',async()=>{
   expect(document.querySelector('[data-exam-progress]').textContent).toContain('0 / 2');
 });
 
-it('advances to the next revenge question after recording an answer',async()=>{
+it('keeps a selected revenge answer visible until the learner chooses next',async()=>{
   localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[
     {questionId:'CHI-WORD-001',mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false},
     {questionId:'CHI-WORD-002',mastery:1,wrongCount:2,nextReview:'2026-09-18',resolved:false}
   ]}));
   window.history.replaceState(null,'','#/revenge');await boot();
   document.querySelector('[data-action="start-revenge-session"]').click();
-  const first=document.querySelector('[data-action="exam-answer"]');first.click();
+  document.querySelector('[data-action="exam-answer"][data-choice="0"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
-  expect(session.index).toBe(1);expect(session.answers['CHI-WORD-001']).toBe(0);
+  expect(session.index).toBe(0);
+  expect(session.answers['CHI-WORD-001']).toBe(0);
+  expect(document.querySelector('[data-choice="0"]').getAttribute('aria-pressed')).toBe('true');
   expect(document.querySelector('[data-exam-progress]').textContent).toContain('1 / 2');
-  expect(document.querySelector('[data-action="exam-prev"]')).not.toBeNull();
+  document.querySelector('[data-action="exam-next"]').click();
+  expect(JSON.parse(localStorage.getItem(key)).activeExam.index).toBe(1);
 });
 
 it('does not create blank or unclickable revenge entries for stale question ids',async()=>{
@@ -725,6 +728,76 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
   expect(after.activeExam.questionIds).toContain('ai-fast-background-1');
 });
 
+
+
+it('rejects a malformed background AI question before it can poison answer selection',async()=>{
+  const source=practice.find(q=>q.subject==='english'&&q.examAligned);
+  const domain=source.examProfile?.domain??source.domain??source.chapter;
+  const competency=source.examProfile?.competency??source.competency??source.questionType;
+  const skillKey=`english::${domain}::${competency}`;
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    adaptiveSkills:{
+      [skillKey]:{
+        subject:'english',domain,competency,
+        subSkill:source.questionType??competency,
+        mastery:10,attempts:2,correct:0,wrong:2,
+        consecutiveCorrect:0,consecutiveWrong:2,
+        attemptsLast7Days:2,wrongLast7Days:2,
+        wrongInMockExam:0,nextReviewDate:'2026-09-17',
+        diagnosticRequired:false,reviewStage:0
+      }
+    },
+    answerHistory:[],
+    aiUsage:{date:'2026-09-17',count:0,limit:12}
+  }));
+
+  vi.stubGlobal('fetch',vi.fn(async(url)=>{
+    const value=String(url);
+    if(value.includes('/api/generate-question')) {
+      return new Response(JSON.stringify({
+        questions:[{
+          id:'ai-malformed-answer',
+          subject:'english',
+          domain,
+          questionType:source.questionType??'推論',
+          competency,
+          difficulty:source.difficulty??3,
+          passage:'A malformed generated passage.',
+          question:'What is the answer?',
+          choices:['A','B','C','D'],
+          answer:99,
+          explanation:'Invalid generated answer index.',
+          hint1:'h1',hint2:'h2',
+          errorTags:['a','b','c','d'],
+          source:'ai_generated',
+          chapter:domain,
+          topic:competency,
+          grade:9,
+          examAligned:true,
+          examProfile:{domain,type:source.questionType??'推論',competency},
+          aiGenerated:true,
+          aiPracticeMode:'near-transfer'
+        }]
+      }),{status:200,headers:{'content-type':'application/json'}});
+    }
+    return {ok:true,json:async()=>value.includes('cap-practice')?practice:questions};
+  }));
+
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  document.querySelector('#practice-subject').value='english';
+  document.querySelector('[data-action="start-practice"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+
+  const saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.generatedQuestions.some(q=>q.id==='ai-malformed-answer')).toBe(false);
+  expect(saved.activeExam.questionIds).not.toContain('ai-malformed-answer');
+
+  document.querySelector('[data-action="exam-answer"][data-choice="0"]').click();
+  const after=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(Object.keys(after.answers)).toHaveLength(1);
+});
 
 it('opens admission placement from the latest mock and supports a manual what-if grade change',async()=>{
   localStorage.setItem(key,JSON.stringify({

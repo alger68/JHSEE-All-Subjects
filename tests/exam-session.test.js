@@ -62,6 +62,25 @@ describe('serializable exam sessions', () => {
     expect(answerSession(session, questions, 'missing', 0, 2_000)).toBe(session);
   });
 
+  it('keeps a valid current question answerable even if another session question is malformed', () => {
+    const mixedQuestions = [
+      questions[0],
+      { ...questions[1], answer: 99 }
+    ];
+    const session = createSession(mixedQuestions, {
+      id:'mixed-session',
+      title:'混合練習',
+      kind:'practice',
+      durationMinutes:20,
+      startedAt:1_000
+    });
+
+    expect(validateSession(session, mixedQuestions)).toBe(false);
+    const answered = answerSession(session, mixedQuestions, 'a', 1, 2_000);
+    expect(answered).not.toBe(session);
+    expect(answered.answers).toEqual({ a: 1 });
+  });
+
   it('returns the original session after the deadline or after settlement', () => {
     const session = makeSession();
     expect(answerSession(session, questions, 'a', 1, 1_501_000)).toBe(session);
