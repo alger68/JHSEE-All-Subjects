@@ -72,13 +72,20 @@ export function renderResults({ subject, result }) {
 }
 
 export function renderRevenge({ items = [], date = '' }) {
-  const sorted=[...items].sort((a,b)=>a.nextReview.localeCompare(b.nextReview));
-  const due=sorted.filter(i=>i.nextReview<=date).length;
-  const available=sorted.filter(item=>item.available!==false);
-  const missing=sorted.length-available.length;
-  const sessionButton=available.length?`<section class="review-start-panel"><div><span class="eyebrow">CONTINUOUS REVIEW</span><h2>一次完成這批複習</h2><p>會依序進入每一題，作答後自動到下一題；可用答案卡返回修改。</p></div><button class="primary-button" data-action="start-revenge-session">開始連續複習（${available.length} 題）</button></section>`:'';
-  const missingNotice=missing?`<p class="notice warning">${missing} 筆題目資料目前無法載入，已暫停這些項目的作答；請重新整理後再試。原紀錄仍保留，不會變成空白題目。</p>`:'';
-  return `<div class="app-shell"><header class="page-header"><a href="#/exam-center">←</a><div><span class="eyebrow">SPACED REVIEW</span><h1>錯題與不確定題複習</h1></div></header><p class="notice">今天到期 ${due} 題・共 ${items.length} 題。先自行作答，再看解析；同一天重做不會重複增加熟練度。熟悉的題目也會安排之後再確認。</p>${missingNotice}${sessionButton}${items.length?`<section class="review-list">${sorted.map(item=>{const valid=item.available!==false;return `<article class="${valid?'':'review-missing'}"><b>${valid?(['🔴','🟠','🟡','🟢'][item.mastery]??'🔴'):'⚠️'}</b><div><h3>${escapeHtml(item.topic??item.questionId)}</h3><p>${valid?`${item.source==='official'?'官方原題':'原創練習'}・熟練度 ${item.mastery}/3・答錯 ${item.wrongCount} 次${item.uncertainCount?`・不確定 ${item.uncertainCount} 次`:''}`:'題目資料目前無法載入，無法開始作答'}</p><p>${item.nextReview<=date?'今天到期':'下次複習：'+escapeHtml(item.nextReview)}</p>${valid?`${reasonSelect(item.questionId,item.reason)}<button class="primary-button" data-action="start-revenge" data-id="${escapeHtml(item.questionId)}">${item.nextReview<=date?'開始到期複習':'提前練習'}</button>`:'<span class="muted">請重新整理頁面後再試</span>'}</div></article>`;}).join('')}</section>`:'<section class="empty-state"><span>✨</span><h2>目前沒有待複習題目</h2><p>答錯或標記不確定的題目會出現在這裡。</p><a href="#/exam-center">選擇練習</a></section>'}${nav('revenge')}</div>`;
+  const sorted=[...items].sort((a,b)=>String(a.nextReview??'').localeCompare(String(b.nextReview??'')));
+  const due=sorted.filter(i=>String(i.nextReview??'')<=date).length;
+  const available=sorted.filter(item=>item.available!==false&&!item.resolved);
+  const missing=sorted.filter(item=>item.available===false).length;
+  const stageLabel={
+    anchor:'原題確認',
+    'same-skill':'同能力新題',
+    'near-transfer':'近遷移',
+    'delayed-transfer':'延遲驗證',
+    resolved:'已掌握'
+  };
+  const sessionButton=available.length?`<section class="review-start-panel"><div><span class="eyebrow">CONTINUOUS REVIEW</span><h2>一次完成這批複習</h2><p>每題選完答案會先停在原題，確認選取後再按「下一題」。系統會逐步改用同能力新題驗證，不讓你只靠記住原答案。</p></div><button class="primary-button" data-action="start-revenge-session">開始連續複習（${available.length} 題）</button></section>`:'';
+  const missingNotice=missing?`<p class="notice warning">${missing} 筆題目資料目前無法載入，已暫停這些項目的作答；原紀錄仍保留，不會變成空白題目。</p>`:'';
+  return `<div class="app-shell"><header class="page-header"><a href="#/exam-center">←</a><div><span class="eyebrow">SPACED REVIEW</span><h1>錯題與不確定題複習</h1></div></header><p class="notice">今天到期 ${due} 題・共 ${items.length} 題。第一次會確認原題；之後改用同能力新題、近遷移與延遲驗證，確認是真的掌握而不是記住答案。</p>${missingNotice}${sessionButton}${items.length?`<section class="review-list">${sorted.map(item=>{const valid=item.available!==false;const stage=item.reviewStage??((item.originalReviewCount??0)>0?'same-skill':'anchor');return `<article class="${valid?'':'review-missing'}"><b>${valid?(['🔴','🟠','🟡','🟢'][item.mastery]??'🔴'):'⚠️'}</b><div><h3>${escapeHtml(item.topic??item.questionId)}</h3><p>${valid?`${item.source==='official'?'官方原題':'原創練習'}・${stageLabel[stage]??'能力驗證'}・熟練度 ${item.mastery}/3・答錯 ${item.wrongCount} 次${item.uncertainCount?`・不確定 ${item.uncertainCount} 次`:''}`:'題目資料目前無法載入，無法開始作答'}</p><p>${item.resolved?'已完成跨題驗證':item.nextReview<=date?'今天到期':'下次複習：'+escapeHtml(item.nextReview)}</p>${valid&&!item.resolved?`${reasonSelect(item.questionId,item.reason)}<button class="primary-button" data-action="start-revenge" data-id="${escapeHtml(item.questionId)}">${item.nextReview<=date?'開始到期複習':'提前練習'}</button>`:item.resolved?'<span class="muted">已掌握・之後由自適應練習維持</span>':'<span class="muted">請重新整理頁面後再試</span>'}</div></article>`;}).join('')}</section>`:'<section class="empty-state"><span>✨</span><h2>目前沒有待複習題目</h2><p>答錯或標記不確定的題目會出現在這裡。</p><a href="#/exam-center">選擇練習</a></section>'}${nav('revenge')}</div>`;
 }
 
 export function renderAnalysis(summary, { diagnostic = null, adaptive = null, trend = {}, parentSummary = null, errorReasons = [], cycleComparison = {}, latestBaseline = null } = {}) {
