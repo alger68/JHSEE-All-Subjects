@@ -1,5 +1,7 @@
 import { beforeEach, afterEach, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { skillIdentity } from '../js/core/adaptive-learning.js';
+import { questionFingerprint } from '../js/core/question-dedup.js';
 
 const questions = JSON.parse(readFileSync('data/questions.json','utf8'));
 const practice = JSON.parse(readFileSync('data/cap-practice.json','utf8'));
@@ -16,6 +18,7 @@ beforeEach(() => {
 function disconnect(){ for(const [type,fn] of window.addEventListener.mock.calls)window.removeEventListener(type,fn);vi.clearAllTimers(); }
 afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals();});
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
+function questionMapForTest(id){return [...questions,...practice].find(question=>question.id===id);}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
 
@@ -393,6 +396,106 @@ it('can include all original questions with an accurate live count',async()=>{
 });
 
 
+
+function reviewVariantPair(){
+  const groups=new Map();
+  for(const question of practice){
+    const key=skillIdentity(question).key;
+    const list=groups.get(key)??[];
+    list.push(question);groups.set(key,list);
+  }
+  const group=[...groups.values()].find(list=>list.length>=3);
+  if(!group)throw new Error('test fixture needs a skill with at least 3 local questions');
+  return group.slice(0,3);
+}
+
+it('uses the original wrong question exactly once, then switches to a same-skill variant',async()=>{
+  const [anchor,variant]=reviewVariantPair();
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    wrongQuestions:[{questionId:anchor.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false}]
+  }));
+  window.history.replaceState(null,'','#/revenge');await boot();
+
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  let session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds).toEqual([anchor.id]);
+  document.querySelector(`[data-action="exam-answer"][data-choice="${anchor.answer}"]`).click();
+  submitExam();
+
+  let saved=JSON.parse(localStorage.getItem(key)).wrongQuestions.find(item=>item.questionId===anchor.id);
+  expect(saved).toMatchObject({originalReviewCount:1,reviewStage:'same-skill',resolved:false});
+
+  await go('#/revenge');
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds).toHaveLength(1);
+  expect(session.questionIds[0]).not.toBe(anchor.id);
+  expect(skillIdentity(questionMapForTest(session.questionIds[0])).key).toBe(skillIdentity(anchor).key);
+  expect(session.questionIds).toContain(variant.id);
+});
+
+it('switches away from the anchor after one review even when the anchor answer was wrong',async()=>{
+  const [anchor]=reviewVariantPair();
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    wrongQuestions:[{questionId:anchor.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false}]
+  }));
+  window.history.replaceState(null,'','#/revenge');await boot();
+
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  const wrongChoice=(Number(anchor.answer)+1)%anchor.choices.length;
+  document.querySelector(`[data-action="exam-answer"][data-choice="${wrongChoice}"]`).click();
+  submitExam();
+
+  const saved=JSON.parse(localStorage.getItem(key)).wrongQuestions.find(item=>item.questionId===anchor.id);
+  expect(saved).toMatchObject({originalReviewCount:1,reviewStage:'same-skill',wrongCount:2});
+
+  await go('#/revenge');
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  expect(JSON.parse(localStorage.getItem(key)).activeExam.questionIds).not.toContain(anchor.id);
+});
+
+it('does not reuse one variant for multiple review items in a continuous review session',async()=>{
+  const [anchor1,anchor2,onlyVariant]=reviewVariantPair();
+  const first={questionId:anchor1.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false,originalReviewCount:1,reviewStage:'same-skill',...skillIdentity(anchor1),difficulty:anchor1.difficulty,anchorFingerprint:questionFingerprint(anchor1),variantHistory:[],passedFingerprints:[]};
+  const second={questionId:anchor2.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false,originalReviewCount:1,reviewStage:'same-skill',...skillIdentity(anchor2),difficulty:anchor2.difficulty,anchorFingerprint:questionFingerprint(anchor2),variantHistory:[],passedFingerprints:[]};
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[first,second]}));
+  window.history.replaceState(null,'','#/revenge');await boot();
+  document.querySelector('[data-action="start-revenge-session"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(new Set(session.questionIds).size).toBe(session.questionIds.length);
+  expect(session.questionIds).not.toContain(anchor1.id);
+  expect(session.questionIds).not.toContain(anchor2.id);
+  expect(session.questionIds.filter(id=>id===onlyVariant.id)).toHaveLength(1);
+});
+
+it('does not advance transfer evidence for a correct but uncertain review answer',async()=>{
+  const [anchor]=reviewVariantPair();
+  const identity=skillIdentity(anchor);
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[{
+    questionId:anchor.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false,
+    originalReviewCount:1,reviewStage:'same-skill',...identity,difficulty:anchor.difficulty,
+    anchorFingerprint:questionFingerprint(anchor),variantHistory:[],passedFingerprints:[questionFingerprint(anchor)]
+  }]}));
+  window.history.replaceState(null,'','#/revenge');await boot();
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  const selected=questionMapForTest(session.questionIds[0]);
+  document.querySelector(`[data-action="exam-answer"][data-choice="${selected.answer}"]`).click();
+  document.querySelector('[data-action="exam-uncertain"]').click();
+  submitExam();
+  const saved=JSON.parse(localStorage.getItem(key)).wrongQuestions.find(item=>item.questionId===anchor.id);
+  expect(saved.reviewStage).toBe('same-skill');
+  expect(saved.passedFingerprints).toEqual([questionFingerprint(anchor)]);
+});
+
 it('starts AI weakness validation from a completed report and stores generated questions',async()=>{
   window.history.replaceState(null,'','#/exam-center');
   fetch.mockImplementation(async (url,options={})=>{
@@ -717,6 +820,46 @@ it('deletes only the selected mock exam record and falls back to the newest rema
 });
 
 
+it('does not call AI when a full local practice set is available',async()=>{
+  const source=practice.find(q=>q.subject==='english'&&q.examAligned);
+  const domain=source.examProfile?.domain??source.domain??source.chapter;
+  const competency=source.examProfile?.competency??source.competency??source.questionType;
+  const skillKey=`english::${domain}::${competency}`;
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    adaptiveSkills:{
+      [skillKey]:{
+        subject:'english',domain,competency,subSkill:source.questionType??competency,
+        mastery:10,attempts:2,correct:0,wrong:2,consecutiveCorrect:0,consecutiveWrong:2,
+        attemptsLast7Days:2,wrongLast7Days:2,wrongInMockExam:0,nextReviewDate:'2026-09-17',
+        diagnosticRequired:false,reviewStage:0
+      }
+    },
+    answerHistory:[],
+    aiUsage:{date:'2026-09-17',count:0,limit:12}
+  }));
+  let aiRequests=0;
+  vi.stubGlobal('fetch',vi.fn(async url=>{
+    const value=String(url);
+    if(value.includes('/api/generate-question')) {
+      aiRequests+=1;
+      return new Response(JSON.stringify({questions:[]}),{status:200,headers:{'content-type':'application/json'}});
+    }
+    return {ok:true,json:async()=>value.includes('cap-practice')?practice:questions};
+  }));
+
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  document.querySelector('#practice-subject').value='english';
+  document.querySelector('[data-action="start-practice"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session).not.toBeNull();
+  expect(session.questionIds).toHaveLength(10);
+  expect(aiRequests).toBe(0);
+});
+
 it('starts adaptive practice immediately while AI questions load in the background',async()=>{
   const source=practice.find(q=>q.subject==='english'&&q.examAligned);
   const domain=source.examProfile?.domain??source.domain??source.chapter;
@@ -764,6 +907,7 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
             chapter:domain,
             topic:competency,
             grade:9,
+            tags:['ai-generated','near-transfer',competency],
             examAligned:true,
             examProfile:{domain,type:source.questionType??'推論',competency},
             aiGenerated:true,
@@ -781,6 +925,8 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
   window.history.replaceState(null,'','#/exam-center');
   await boot();
   document.querySelector('#practice-subject').value='english';
+  document.querySelector('#practice-grade').value=String(source.grade);
+  document.querySelector('#practice-type').value=source.questionType;
   document.querySelector('[data-action="start-practice"]').click();
 
   const immediate=JSON.parse(localStorage.getItem(key)).activeExam;
@@ -793,6 +939,7 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
   await vi.advanceTimersByTimeAsync(1);
   const after=JSON.parse(localStorage.getItem(key));
   expect(after.generatedQuestions.some(q=>q.id==='ai-fast-background-1')).toBe(true);
+  expect(after.aiUsage.count).toBe(1);
   expect(after.activeExam.questionIds).toContain('ai-fast-background-1');
 });
 
@@ -855,16 +1002,68 @@ it('rejects a malformed background AI question before it can poison answer selec
   window.history.replaceState(null,'','#/exam-center');
   await boot();
   document.querySelector('#practice-subject').value='english';
+  document.querySelector('#practice-grade').value=String(source.grade);
+  document.querySelector('#practice-type').value=source.questionType;
   document.querySelector('[data-action="start-practice"]').click();
   await vi.advanceTimersByTimeAsync(1);
 
   const saved=JSON.parse(localStorage.getItem(key));
   expect(saved.generatedQuestions.some(q=>q.id==='ai-malformed-answer')).toBe(false);
+  expect(saved.aiUsage.count).toBe(0);
   expect(saved.activeExam.questionIds).not.toContain('ai-malformed-answer');
 
   document.querySelector('[data-action="exam-answer"][data-choice="0"]').click();
   const after=JSON.parse(localStorage.getItem(key)).activeExam;
   expect(Object.keys(after.answers)).toHaveLength(1);
+});
+
+it('clears runtime AI cache when adaptive memory is reset',async()=>{
+  const cached={
+    id:'ai-cache-reset-1',
+    subject:'english',
+    domain:'閱讀理解',
+    questionType:'推論',
+    competency:'上下文推論',
+    difficulty:3,
+    passage:'A cached passage that must disappear after reset.',
+    question:'What can the reader infer?',
+    choices:['A','B','C','D'],
+    answer:0,
+    explanation:'A is supported.',
+    hint1:'Read the passage.',
+    hint2:'Use evidence.',
+    errorTags:['correct','b','c','d'],
+    source:'ai_generated',
+    chapter:'閱讀理解',
+    topic:'上下文推論',
+    grade:9,
+    tags:['ai-generated','near-transfer','上下文推論'],
+    examAligned:true,
+    examProfile:{domain:'閱讀理解',type:'推論',competency:'上下文推論'},
+    aiGenerated:true,
+    aiPracticeMode:'near-transfer'
+  };
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    generatedQuestions:[cached],
+    adaptiveSkills:{'english::閱讀理解::上下文推論':{
+      subject:'english',domain:'閱讀理解',competency:'上下文推論',subSkill:'推論',
+      mastery:40,priorityScore:80
+    }}
+  }));
+  window.history.replaceState(null,'','#/profile');
+  await boot();
+  document.querySelector('[data-action="reset-adaptive"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+
+  let saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.generatedQuestions).toEqual([]);
+
+  await go('#/exam-center');
+  document.querySelector('#practice-subject').value='english';
+  document.querySelector('[data-action="start-practice"]').click();
+  saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.activeExam.questionIds).not.toContain('ai-cache-reset-1');
 });
 
 it('opens admission placement from the latest mock and supports a manual what-if grade change',async()=>{

@@ -1,7 +1,7 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
 import { daysUntil, makeBossQuestions, pickLevelQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
-import { PERSONAL_DIAGNOSTIC, prioritizeQuestions, buildStarterPractice } from './core/personalization.js';
-import { adaptiveDashboard, buildAdaptivePractice, calculateSubjectWeights, defaultSkillProfile, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
+import { PERSONAL_DIAGNOSTIC } from './core/personalization.js';
+import { adaptiveDashboard, calculateSubjectWeights, defaultSkillProfile, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
 import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
 import { AI_SERVICE_URL } from './config/ai-service.js';
 import { answerBattle, createBattle, finishBattle } from './core/battle.js';
@@ -13,8 +13,11 @@ import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './u
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
-import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
+import { recentQuestionIds, recentQuestionFingerprints, recentAvoidQuestions } from './core/question-diversity.js';
 import { loadSupplementalQuestionPacks } from './core/question-pack-loader.js';
+import { createQuestionRegistry } from './core/question-registry.js';
+import { createQuestionProvider } from './core/question-provider.js';
+import { migrateWrongQuestions, recordReviewEvidence } from './core/review-state.js';
 import { buildEnglishSpeechText, englishVoices, voiceKey, getEnglishSpeechRate, setEnglishSpeechRate, getEnglishVoicePreference, setEnglishVoicePreference, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
@@ -35,6 +38,8 @@ const app = document.querySelector('#app');
 const store = createStore();
 let state = store.load();
 let bank;
+let registry;
+let provider;
 let router;
 let feedback = null;
 let questionMap = new Map();
@@ -56,6 +61,87 @@ const aiAvoidExamples=()=>{
   }
   return recentAvoidQuestions(merged,8);
 };
+
+async function generateProviderAi({target,sourceQuestion,avoidQuestions=[],count=1}={}){
+  if(!AI_SERVICE_URL||!sourceQuestion)return null;
+  const profile={
+    ...defaultSkillProfile(sourceQuestion),
+    ...target,
+    subject:target?.subject??sourceQuestion.subject,
+    domain:target?.domain??sourceQuestion.domain??sourceQuestion.examProfile?.domain,
+    competency:target?.competency??sourceQuestion.competency??sourceQuestion.examProfile?.competency,
+    subSkill:target?.subSkill??sourceQuestion.questionType,
+    mastery:target?.mastery??60,
+    priorityScore:target?.priorityScore??60
+  };
+  return requestAiQuestions({
+    endpoint:AI_SERVICE_URL,
+    brief:generationBrief(profile,sourceQuestion),
+    sourceQuestion,
+    avoidQuestions,
+    count
+  });
+}
+
+function rebuildQuestionRuntime(){
+  registry=createQuestionRegistry(bank?.all?.()??[]);
+  registry.registerQuestions(
+    (state.generatedQuestions??[]).filter(isAnswerableQuestion),
+    {sourceKind:'ai-cache'}
+  );
+  registry.registerQuestions(
+    OFFICIAL_PAPERS.flatMap(getOfficialQuestions),
+    {sourceKind:'official',variantEligible:false,lookupOnly:true}
+  );
+  provider=createQuestionProvider({registry,generateAi:generateProviderAi});
+  questionMap=new Map(registry.allLookupQuestions().map(question=>[question.id,question]));
+  state.wrongQuestions=migrateWrongQuestions(state.wrongQuestions??[],questionMap);
+}
+
+function practiceProviderContext({count=10,shuffle=false}={}){
+  return {
+    today:taipeiDate(),
+    recentIds:recentQuestionIds(state.answerHistory??[],30),
+    recentFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+    recentVariationForms:(state.answerHistory??[]).slice(-6)
+      .map(row=>questionMap.get(row.questionId)?.variationForm)
+      .filter(Boolean),
+    excludeIds:new Set(),
+    excludeFingerprints:new Set(),
+    skills:state.adaptiveSkills??{},
+    subjectWeights:state.adaptiveSubjectWeights,
+    diagnostic:currentDiagnostic(),
+    hasAdaptiveData:Object.keys(state.adaptiveSkills??{}).length>0,
+    rng:shuffle?Math.random:()=>0.5,
+    count
+  };
+}
+
+function reviewProviderContext(item){
+  return {
+    today:taipeiDate(),
+    recentIds:recentQuestionIds(state.answerHistory??[],30),
+    recentFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+    recentVariationForms:(item?.variantHistory??[]).slice(-3).map(row=>row.variationForm).filter(Boolean),
+    excludeIds:new Set(),
+    excludeFingerprints:new Set(),
+    skills:state.adaptiveSkills??{},
+    subjectWeights:state.adaptiveSubjectWeights,
+    allowAi:Boolean(AI_SERVICE_URL),
+    aiAllowance:aiAllowance(state.aiUsage,taipeiDate(),2),
+    aiCount:2,
+    avoidQuestions:aiAvoidExamples()
+  };
+}
+
+function mergeAcceptedGeneratedQuestions(accepted=[]){
+  if(!accepted.length)return;
+  const known=new Map((state.generatedQuestions??[]).filter(isAnswerableQuestion).map(question=>[question.id,question]));
+  for(const question of accepted)known.set(question.id,question);
+  state.generatedQuestions=[...known.values()].slice(-200);
+  questionMap=new Map(registry.allLookupQuestions().map(question=>[question.id,question]));
+}
+
 
 function showToast(message) {
   document.querySelector('.toast')?.remove();
@@ -290,17 +376,96 @@ function handleBattleAnswer(choice) {
   renderRoute();
 }
 
-function startRevenge(questionId) {
-  const question = questionMap.get(questionId);
-  if (!question) { showToast('這題資料目前無法載入，請重新整理後再試。'); return; }
-  startSession([question],{title:'單題複習',kind:'review',paperId:question.paperId,durationMinutes:10});
+async function startRevenge(questionId) {
+  const reviewItem=state.wrongQuestions.find(item=>item.questionId===questionId);
+  if(!reviewItem) { showToast('找不到這筆錯題紀錄。'); return null; }
+
+  const isAnchor=(reviewItem.originalReviewCount??0)===0&&(reviewItem.reviewStage??'anchor')==='anchor';
+  if(isAnchor){
+    const anchor=registry.getById(reviewItem.questionId);
+    if(!anchor){showToast('這題資料目前無法載入，請重新整理後再試。');return null;}
+    return startSession([anchor],{
+      title:'單題複習・原題確認',
+      kind:'review',
+      paperId:anchor.paperId,
+      durationMinutes:10,
+      reviewItemIds:[reviewItem.questionId],
+      reviewEvidenceByQuestionId:{
+        [anchor.id]:{
+          reviewQuestionId:reviewItem.questionId,
+          evidenceKind:'anchor',
+          fingerprint:anchor.fingerprint
+        }
+      }
+    });
+  }
+
+  const selection=await provider.getReviewQuestion(reviewItem,reviewProviderContext(reviewItem));
+  if(!selection.question) {
+    showToast(selection.warning??'這個能力目前沒有足夠的新題。');
+    return null;
+  }
+  if(selection.generatedAccepted?.length) {
+    state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),selection.generatedAccepted.length);
+    mergeAcceptedGeneratedQuestions(selection.generatedAccepted);
+  }
+  const evidence={
+    reviewQuestionId:reviewItem.questionId,
+    evidenceKind:selection.evidenceKind,
+    fingerprint:selection.question.fingerprint
+  };
+  return startSession([selection.question],{
+    title:'單題複習・同能力驗證',
+    kind:'review',
+    durationMinutes:10,
+    reviewItemIds:[reviewItem.questionId],
+    reviewEvidenceByQuestionId:{[selection.question.id]:evidence}
+  });
 }
 
-function startRevengeSession() {
-  const entries=reviewEntries().filter(item=>item.available);
-  const questions=entries.map(item=>questionMap.get(item.questionId)).filter(Boolean);
-  if (!questions.length) { showToast('目前沒有可作答的錯題。'); return; }
-  startSession(questions,{title:`錯題復仇・${questions.length} 題`,kind:'review',durationMinutes:Math.min(180,Math.max(10,questions.length*10))});
+async function startRevengeSession() {
+  const entries=reviewEntries().filter(item=>item.available&&!item.resolved);
+  if (!entries.length) { showToast('目前沒有可作答的錯題。'); return null; }
+
+  const allAnchors=entries.every(item=>(item.originalReviewCount??0)===0&&(item.reviewStage??'anchor')==='anchor');
+  if(allAnchors){
+    const questions=entries.map(item=>registry.getById(item.questionId)).filter(Boolean);
+    const evidenceByQuestionId=Object.fromEntries(questions.map(question=>[
+      question.id,
+      {
+        reviewQuestionId:question.id,
+        evidenceKind:'anchor',
+        fingerprint:question.fingerprint
+      }
+    ]));
+    return startSession(questions,{
+      title:`錯題復仇・${questions.length} 題`,
+      kind:'review',
+      durationMinutes:Math.min(180,Math.max(10,questions.length*10)),
+      reviewItemIds:entries.map(item=>item.questionId),
+      reviewEvidenceByQuestionId:evidenceByQuestionId
+    });
+  }
+
+  const selection=await provider.getReviewSession(entries,reviewProviderContext());
+  if(selection.generatedAccepted?.length) {
+    state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),selection.generatedAccepted.length);
+    mergeAcceptedGeneratedQuestions(selection.generatedAccepted);
+  }
+  if (!selection.questions.length) {
+    showToast(selection.warnings?.[0]??'目前沒有足夠的新題可進行錯題複習。');
+    return null;
+  }
+  if(selection.skippedReviewIds?.length) {
+    showToast(`本次先練 ${selection.questions.length} 題；另有 ${selection.skippedReviewIds.length} 個弱點等待新題。`);
+  }
+  return startSession(selection.questions,{
+    title:`錯題復仇・${selection.questions.length} 題`,
+    kind:'review',
+    durationMinutes:Math.min(180,Math.max(10,selection.questions.length*10)),
+    reviewItemIds:entries.map(item=>item.questionId),
+    reviewEvidenceByQuestionId:selection.evidenceByQuestionId
+  });
 }
 
 function completeExam() {
@@ -329,17 +494,36 @@ function completeExam() {
       state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
     }
     if (session.kind==='review') {
-      const alreadyTracked=state.wrongQuestions.some(entry=>entry.questionId===item.id);
-      if(alreadyTracked) {
-        state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
-          ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
-          : reviewWrong(state.wrongQuestions,item.id,item.correct,taipeiDate());
-      } else if(!item.correct) {
-        state.wrongQuestions=recordWrong(state.wrongQuestions,item.id,taipeiDate());
-      } else if(item.uncertain||item.hinted) {
-        state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
+      const evidence=session.reviewEvidenceByQuestionId?.[item.id];
+      if(evidence&&item.choice!==undefined) {
+        const reviewIndex=state.wrongQuestions.findIndex(entry=>entry.questionId===evidence.reviewQuestionId);
+        if(reviewIndex>=0) {
+          const updated=recordReviewEvidence(state.wrongQuestions[reviewIndex],{
+            question,
+            correct:item.correct,
+            uncertain:Boolean(item.uncertain||item.hinted),
+            date:taipeiDate(),
+            evidenceKind:evidence.evidenceKind
+          });
+          state.wrongQuestions=[
+            ...state.wrongQuestions.slice(0,reviewIndex),
+            updated,
+            ...state.wrongQuestions.slice(reviewIndex+1)
+          ];
+        }
+      } else if(!evidence) {
+        const alreadyTracked=state.wrongQuestions.some(entry=>entry.questionId===item.id);
+        if(alreadyTracked) {
+          state.wrongQuestions=item.correct&&(item.uncertain||item.hinted)
+            ? recordUncertain(state.wrongQuestions,item.id,taipeiDate())
+            : reviewWrong(state.wrongQuestions,item.id,item.correct,taipeiDate());
+        } else if(item.choice!==undefined&&!item.correct) {
+          state.wrongQuestions=recordWrong(state.wrongQuestions,item.id,taipeiDate());
+        } else if(item.choice!==undefined&&(item.uncertain||item.hinted)) {
+          state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
+        }
       }
-      state.dailyQuest=updateDailyQuest(state.dailyQuest,{type:'revenge'},taipeiDate());
+      if(item.choice!==undefined)state.dailyQuest=updateDailyQuest(state.dailyQuest,{type:'revenge'},taipeiDate());
     } else if (!item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
     else if (item.uncertain||item.hinted) state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
   }
@@ -381,15 +565,19 @@ async function startAiRemediation(result=state.lastExamResult) {
 
   const {question:sourceQuestion,profile}=target;
   const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
-  const count=Math.max(1,aiAllowance(state.aiUsage,taipeiDate(),wanted));
-  const sameSkill=bank.all()
-    .filter(question=>skillIdentity(question).key===profile.key&&!sourceQuestions.some(source=>source.id===question.id));
-  const sameSubject=bank.all()
-    .filter(question=>question.subject===profile.subject&&!sourceQuestions.some(source=>source.id===question.id));
+  const allowed=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+  const count=Math.max(1,allowed||Math.min(wanted,3));
+  const recentIds=recentQuestionIds(state.answerHistory??[],30);
+  const recentFingerprints=recentQuestionFingerprints(state.answerHistory??[],questionMap,30);
+  const localPool=registry.query({subject:profile.subject,variantEligible:true})
+    .filter(question=>question.sourceKind==='local-core'||question.sourceKind==='local-pack')
+    .filter(question=>!sourceQuestions.some(source=>source.id===question.id))
+    .filter(question=>!recentIds.has(question.id)&&!recentFingerprints.has(question.fingerprint));
+  const sameSkill=localPool.filter(question=>skillIdentity(question).key===profile.key);
+  const sameSubject=localPool.filter(question=>skillIdentity(question).key!==profile.key);
   const fallback=[...sameSkill,...sameSubject];
 
   showToast(`正在建立 ${profile.competency} 的 AI 弱點驗收…`);
-  const allowed=aiAllowance(state.aiUsage,taipeiDate(),wanted);
   const generatedRaw=AI_SERVICE_URL&&allowed>0
     ? await requestAiQuestions({
         endpoint:AI_SERVICE_URL,
@@ -399,19 +587,20 @@ async function startAiRemediation(result=state.lastExamResult) {
         count:allowed
       })
     : null;
-  const generated=(generatedRaw??[]).filter(isAnswerableQuestion);
+  const qa=provider.registerGeneratedQuestions(generatedRaw??[],{
+    target:{subject:profile.subject,competency:profile.competency,skillKey:profile.key},
+    references:sourceQuestions,
+    excludeFingerprints:recentFingerprints,
+    generatedAt:new Date().toISOString()
+  });
+  const generated=qa.accepted.filter(isAnswerableQuestion);
 
   if(generated.length) {
     state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),generated.length);
-    const known=new Map((state.generatedQuestions??[]).map(question=>[question.id,question]));
-    for(const question of generated) {
-      known.set(question.id,question);
-      questionMap.set(question.id,question);
-    }
-    state.generatedQuestions=[...known.values()].slice(-200);
+    mergeAcceptedGeneratedQuestions(generated);
   }
 
-  const sessionPool=mergeAiWithFallback(generated??[],fallback,count);
+  const sessionPool=mergeAiWithFallback(generated,fallback,count);
   if(!sessionPool.length) {
     showToast('目前找不到可用的弱點驗收題，請稍後再試。');
     return;
@@ -460,20 +649,30 @@ async function startDiagnostic() {
         count:1
       })??[];
     }));
-    const generated=generatedGroups.flat().filter(isAnswerableQuestion);
-    if(generated.length) {
-      state.aiUsage=recordAiUsage(state.aiUsage,today,generated.length);
-      const known=new Map((state.generatedQuestions??[]).map(q=>[q.id,q]));
-      for(const question of generated) {
-        known.set(question.id,question);
-        questionMap.set(question.id,question);
+    const accepted=[];
+    for(const raw of generatedGroups.flat()){
+      if(!isAnswerableQuestion(raw))continue;
+      const sourceQuestion=localQuestions.find(question=>question.subject===raw.subject);
+      if(!sourceQuestion)continue;
+      const identity=skillIdentity(sourceQuestion);
+      const qa=provider.registerGeneratedQuestions([raw],{
+        target:{subject:identity.subject,competency:identity.competency,skillKey:identity.key},
+        references:[sourceQuestion],
+        excludeFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+        generatedAt:new Date().toISOString()
+      });
+      accepted.push(...qa.accepted);
+    }
+    if(accepted.length) {
+      state.aiUsage=recordAiUsage(state.aiUsage,today,accepted.length);
+      mergeAcceptedGeneratedQuestions(accepted);
+      for(const question of accepted) {
         const index=questions.findIndex(item=>item.subject===question.subject);
         if(index>=0)questions[index]=question;
       }
-      state.generatedQuestions=[...known.values()].slice(-200);
-      showToast(`重新診斷：AI ${generated.length} 題＋本地 ${25-generated.length} 題。`);
+      showToast(`重新診斷：AI ${accepted.length} 題＋本地 ${25-accepted.length} 題。`);
     } else {
-      showToast('AI 診斷題暫時不可用，改用完整本地 25 題。');
+      showToast('AI 診斷題未通過品質檢查或暫時不可用，改用完整本地 25 題。');
     }
   } else if(available===0) {
     showToast('今日 AI 題目額度已用完，重新診斷改用本地 25 題。');
@@ -500,6 +699,8 @@ function startSession(questions,options) {
     return null;
   }
   state.activeExam=createSession(sessionQuestions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
+  if(options.reviewItemIds)state.activeExam.reviewItemIds=[...options.reviewItemIds];
+  if(options.reviewEvidenceByQuestionId)state.activeExam.reviewEvidenceByQuestionId={...options.reviewEvidenceByQuestionId};
   if(options.paperId) {
     state.activeExam.paperMode=options.paperMode==='whole'?'whole':'question';
     state.activeExam.paperPage=1;
@@ -522,112 +723,74 @@ function updateExamClock() {
   if(timer) timer.textContent=`⏱ ${clock(remainingSeconds(state.activeExam,Date.now()))}`;
 }
 
-function cachedAiForProfile(profile,subject='all',limit=4) {
-  if(!profile)return [];
-  const recent=recentQuestionIds(state.answerHistory,30);
-  const result=[];
-  for(const question of [...(state.generatedQuestions??[])].reverse()) {
-    if(!question?.aiGenerated||!isAnswerableQuestion(question)||recent.has(question.id))continue;
-    if(subject!=='all'&&question.subject!==subject)continue;
-    if(skillIdentity(question).key!==profile.key)continue;
-    result.push(question);
-    if(result.length>=limit)break;
-  }
-  return result;
-}
 
 async function generateAiForActivePractice({
   sessionId,
   profile,
   sourceQuestion,
-  count
+  count,
+  targetCount=10
 }) {
   if(!AI_SERVICE_URL||!profile||!sourceQuestion||count<=0)return;
-  const generated=await requestAiQuestions({
+  const raw=await requestAiQuestions({
     endpoint:AI_SERVICE_URL,
     brief:generationBrief(profile,sourceQuestion),
     sourceQuestion,
     avoidQuestions:aiAvoidExamples(),
     count
   });
-  if(!generated?.length)return;
-  const answerableGenerated=generated.filter(isAnswerableQuestion);
-  if(!answerableGenerated.length) {
-    showToast('AI 題目格式異常，已略過；目前練習不受影響。');
+  if(!raw?.length)return;
+
+  const session=state.activeExam?.id===sessionId?state.activeExam:null;
+  const references=[
+    sourceQuestion,
+    ...(session?sessionQuestions(session):[])
+  ].filter(Boolean);
+  const qa=provider.registerGeneratedQuestions(raw,{
+    target:{subject:profile.subject,competency:profile.competency,skillKey:profile.key},
+    references,
+    excludeFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+    generatedAt:new Date().toISOString()
+  });
+  const accepted=qa.accepted.filter(isAnswerableQuestion);
+  if(!accepted.length) {
+    showToast('AI 題目未通過品質或重複檢查，已略過；目前練習不受影響。');
     return;
   }
 
-  state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),answerableGenerated.length);
-  const known=new Map((state.generatedQuestions??[]).filter(isAnswerableQuestion).map(question=>[question.id,question]));
-  for(const question of answerableGenerated) {
-    known.set(question.id,question);
-    questionMap.set(question.id,question);
-  }
-  state.generatedQuestions=[...known.values()].slice(-200);
+  state.aiUsage=recordAiUsage(state.aiUsage,taipeiDate(),accepted.length);
+  mergeAcceptedGeneratedQuestions(accepted);
 
   let injected=0;
-  const session=state.activeExam;
-  if(session?.id===sessionId&&session.status==='active'&&session.kind==='practice') {
-    const usedIds=new Set(session.questionIds);
-    const replacements=[];
-    for(let index=session.questionIds.length-1;index>session.index+1;index-=1) {
-      const id=session.questionIds[index];
-      const existing=questionMap.get(id);
-      if(session.answers[id]!==undefined)continue;
-      if(existing?.aiGenerated)continue;
-      replacements.push(index);
-    }
-    for(const question of answerableGenerated) {
+  const active=state.activeExam;
+  if(active?.id===sessionId&&active.status==='active'&&active.kind==='practice') {
+    const usedIds=new Set(active.questionIds);
+    for(const question of accepted) {
+      if(active.questionIds.length>=targetCount)break;
       if(usedIds.has(question.id))continue;
-      const index=replacements.shift();
-      if(index===undefined)break;
-      session.questionIds[index]=question.id;
+      active.questionIds.push(question.id);
       usedIds.add(question.id);
       injected+=1;
     }
   }
   save();
-  if(injected>0)showToast(`AI 已在背景加入 ${injected} 題弱點變形題，不用等待。`);
+  if(injected>0)showToast(`AI 已在背景補入 ${injected} 題通過檢查的弱點變形題。`);
 }
 
 function placementPracticeSelection(subject,count=10,shuffle=true){
   if(!SUBJECTS[subject])return [];
   const wanted=Math.max(1,Math.min(15,Math.round(Number(count)||10)));
-  const localCandidates=bank.filter({subject,examAligned:true}).filter(q=>(q.grade??9)<=9);
-  const generatedCandidates=(state.generatedQuestions??[])
-    .filter(isAnswerableQuestion)
-    .filter(q=>q.subject===subject&&q.examAligned===true&&(q.grade??9)<=9);
-  const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
-
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
   state.adaptiveSubjectWeights=calculateSubjectWeights(
     state.adaptiveSkills,
     state.adaptiveSubjectWeights,
     currentDiagnostic()
   );
-
-  const recentIds=recentQuestionIds(state.answerHistory,30);
-  const fresh=preferFreshQuestions(
-    candidates,
-    recentIds,
-    state.adaptiveSkills,
-    taipeiDate(),
-    Math.min(wanted,candidates.length)
+  const result=provider.getPracticeSet(
+    {subject,examAligned:true,maxGrade:9},
+    practiceProviderContext({count:wanted,shuffle})
   );
-  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
-  return hasAdaptiveData
-    ? buildAdaptivePractice(fresh,Math.min(wanted,fresh.length),{
-        skills:state.adaptiveSkills,
-        subjectWeights:state.adaptiveSubjectWeights,
-        today:taipeiDate(),
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5
-      })
-    : buildStarterPractice(fresh,Math.min(wanted,fresh.length),{
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5,
-        ensureFiveSubjectMix:false
-      });
+  return result.questions;
 }
 
 function bestAdaptiveProfileForSubject(subject){
@@ -641,22 +804,19 @@ function startPlacementPractice(subject,count=10){
   const pool=placementPracticeSelection(subject,count,true);
   if(!pool.length){showToast('這個科目目前沒有可用的會考導向題。');return null;}
 
-  let sessionPool=pool;
+  const sessionPool=pool;
   let background=null;
   let aiPlanned=false;
   const profile=bestAdaptiveProfileForSubject(subject);
-  if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50){
+  const targetCount=Math.max(1,Math.min(15,Math.round(Number(count)||10)));
+  const shortage=Math.max(0,targetCount-pool.length);
+  if(shortage>0&&AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50){
     const sourceQuestion=pool.find(question=>skillIdentity(question).key===profile.key)??pool[0];
     const wanted=profile.diagnosticRequired?3:(profile.priorityScore>=70?2:1);
-    const cached=cachedAiForProfile(profile,subject,wanted);
-    if(cached.length){
-      sessionPool=mergeAiWithFallback(cached,pool,Math.min(pool.length,Math.max(Number(count)||10,cached.length)));
-      aiPlanned=true;
-    }
-    const allowance=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+    const allowance=aiAllowance(state.aiUsage,taipeiDate(),Math.min(shortage,wanted));
     if(allowance>0){
       aiPlanned=true;
-      background={profile,sourceQuestion,count:allowance};
+      background={profile,sourceQuestion,count:allowance,targetCount};
     }
   }
 
@@ -680,53 +840,37 @@ function startPlacementPractice(subject,count=10){
       sessionId:started.id,
       profile:background.profile,
       sourceQuestion:background.sourceQuestion,
-      count:background.count
+      count:background.count,
+      targetCount:background.targetCount
     });
   }
   return started;
 }
 
-function practiceSelection(shuffle=false) {
-  const subject=document.querySelector('#practice-subject').value;
-  const grade=Number(document.querySelector('#practice-grade').value);
-  const type=document.querySelector('#practice-type').value;
-  const focus=document.querySelector('#practice-focus').value;
-  const criteria={};
+function practiceFilters(){
+  const subject=document.querySelector('#practice-subject')?.value??'all';
+  const grade=Number(document.querySelector('#practice-grade')?.value??9);
+  const type=document.querySelector('#practice-type')?.value??'';
+  const focus=document.querySelector('#practice-focus')?.value??'aligned';
+  const criteria={maxGrade:grade};
   if(subject!=='all')criteria.subject=subject;
+  if(type)criteria.questionType=type;
   if(focus!=='all')criteria.examAligned=focus!=='basic';
-  const localCandidates=bank.filter(criteria)
-    .filter(q=>q.grade<=grade&&(!type||q.questionType===type));
-  const generatedCandidates=(state.generatedQuestions??[])
-    .filter(isAnswerableQuestion)
-    .filter(q=>(subject==='all'||q.subject===subject))
-    .filter(q=>focus==='all'||(focus==='aligned'?q.examAligned===true:q.examAligned!==true))
-    .filter(q=>(q.grade??9)<=grade&&(!type||q.questionType===type));
-  const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
+  return {subject,grade,type,focus,criteria};
+}
+
+function practiceSelection(shuffle=false) {
+  const filters=practiceFilters();
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
   state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
-  const recentIds=recentQuestionIds(state.answerHistory,30);
-  const candidatePool=preferFreshQuestions(
-    candidates,
-    recentIds,
-    state.adaptiveSkills,
-    taipeiDate(),
-    Math.min(10,candidates.length)
-  );
-  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
-  const pool=hasAdaptiveData
-    ? buildAdaptivePractice(candidatePool,Math.min(10,candidatePool.length),{
-        skills:state.adaptiveSkills,
-        subjectWeights:state.adaptiveSubjectWeights,
-        today:taipeiDate(),
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5
-      })
-    : buildStarterPractice(candidatePool,Math.min(10,candidatePool.length),{
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5,
-        ensureFiveSubjectMix:subject==='all'
-      });
-  return {subject,grade,type,focus,pool,matchCount:candidates.length};
+  const context=practiceProviderContext({count:10,shuffle});
+  const result=provider.getPracticeSet(filters.criteria,context);
+  const matchCount=provider.countPracticeCandidates(filters.criteria,{
+    ...context,
+    recentIds:new Set(),
+    recentFingerprints:new Set()
+  });
+  return {...filters,pool:result.questions,matchCount,warnings:result.warnings};
 }
 
 app.addEventListener('click', async (event) => {
@@ -763,8 +907,8 @@ app.addEventListener('click', async (event) => {
     if (battle && (battle.index >= battle.questions.length || battle.playerHp === 0)) settleBattle();
     else renderRoute();
   }
-  if (action === 'start-revenge') startRevenge(control.dataset.id);
-  if (action === 'start-revenge-session') startRevengeSession();
+  if (action === 'start-revenge') { await startRevenge(control.dataset.id); return; }
+  if (action === 'start-revenge-session') { await startRevengeSession(); return; }
   if (action === 'start-ai-remediation') {
     if(aiRemediationInFlight) {
       showToast('AI 弱點驗收正在準備中，請稍候。');
@@ -870,10 +1014,10 @@ app.addEventListener('click', async (event) => {
     save(); renderRoute(); showToast('寶箱開啟：+150 EXP、+100 金幣！');
   }
   if (action === 'reset-adaptive' && window.confirm('只重置 AI／自適應記憶？歷屆成績、錯題與玩家進度會保留。')) {
-    state=applyResetMode(state,'adaptive',taipeiDate()); save(); renderRoute(); showToast('AI／自適應記憶已重新開始。');
+    state=applyResetMode(state,'adaptive',taipeiDate()); rebuildQuestionRuntime(); save(); renderRoute(); showToast('AI／自適應記憶已重新開始。');
   }
   if (action === 'start-new-cycle' && window.confirm('建立新的學習週期？目前弱點與錯題會封存，歷屆報告與玩家進度保留。')) {
-    state=applyResetMode(state,'new-cycle',taipeiDate()); save(); renderRoute(); showToast('新的學習週期已建立。');
+    state=applyResetMode(state,'new-cycle',taipeiDate()); rebuildQuestionRuntime(); save(); renderRoute(); showToast('新的學習週期已建立。');
   }
   if (action === 'start-diagnostic') await startDiagnostic();
   if (action === 'export-backup') {
@@ -888,7 +1032,7 @@ app.addEventListener('click', async (event) => {
   }
   if (action === 'import-backup') document.querySelector('#backup-file-input')?.click();
   if (action === 'reset-progress' && window.confirm('確定完整重設全部學習進度嗎？此動作無法復原。')) {
-    state = store.reset(); ensureDailyQuest(); renderRoute(); showToast('全部進度已重設。');
+    state = store.reset(); rebuildQuestionRuntime(); ensureDailyQuest(); renderRoute(); showToast('全部進度已重設。');
   }
   if(action==='start-paper') {
     const paper=OFFICIAL_PAPERS.find(p=>p.id===control.dataset.id);
@@ -911,46 +1055,44 @@ app.addEventListener('click', async (event) => {
     changePaperPage((state.activeExam?.paperPage??1)+(action==='paper-page-next'?1:-1));
   }
   if(action==='start-practice') {
-    const {subject,grade,type,focus,pool}=practiceSelection(true);
+    const {subject,grade,type,focus,pool,warnings}=practiceSelection(true);
     save();
     if(!pool.length) {showToast('這個範圍目前沒有題目，請調整科目或題型。'); return;}
 
-    let sessionPool=pool;
     let aiPlanned=false;
     let background=null;
+    const shortage=Math.max(0,10-pool.length);
     const dashboard=adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate());
     const profile=dashboard.topSkills.find((item)=>subject==='all'||item.subject===subject);
 
-    if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
+    if(shortage>0&&AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50) {
       const sourceQuestion=pool.find((question)=>skillIdentity(question).key===profile.key)??pool[0];
-      const wanted=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
-      const cached=cachedAiForProfile(profile,subject,wanted);
-      if(cached.length) {
-        sessionPool=mergeAiWithFallback(cached,pool,Math.min(10,pool.length));
-        aiPlanned=true;
-      }
-      const count=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+      const wantedBase=profile.diagnosticRequired?4:(profile.priorityScore>=70?3:2);
+      const count=aiAllowance(state.aiUsage,taipeiDate(),Math.min(shortage,wantedBase));
       if(count>0) {
         aiPlanned=true;
-        background={profile,sourceQuestion,count};
-      } else if(!cached.length) {
-        showToast('今日 AI 題目額度已用完，先用本地題庫開始。');
+        background={profile,sourceQuestion,count,targetCount:10};
+      } else {
+        showToast('這個範圍本地新題不足，且今日 AI 題目額度已用完。');
       }
+    } else if(warnings?.length) {
+      showToast(warnings[0]);
     }
 
     const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
-    const started=startSession(sessionPool,{
+    const started=startSession(pool,{
       title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiPlanned?'＋AI弱點':''}練習`,
       kind:'practice',
       durationMinutes:20
     });
     if(started&&background) {
-      showToast(`已立即開始；AI 正在背景準備 ${background.profile.competency} 變形題。`);
+      showToast(`已立即開始；AI 正在背景補 ${background.profile.competency} 新題。`);
       void generateAiForActivePractice({
         sessionId:started.id,
         profile:background.profile,
         sourceQuestion:background.sourceQuestion,
-        count:background.count
+        count:background.count,
+        targetCount:background.targetCount
       });
     }
   }
@@ -1086,7 +1228,7 @@ app.addEventListener('change',async(event)=>{
     const restored=store.importBackup(text);
     if(!restored.ok){showToast('備份格式不正確，未修改目前資料。');event.target.value='';return;}
     state=restored.state;
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    rebuildQuestionRuntime();
     event.target.value='';
     renderRoute();showToast('學習資料已還原。');
     return;
@@ -1114,7 +1256,7 @@ async function boot() {
     const coreQuestions=(await Promise.all(responses.map(r=>r.json()))).flat();
     bank = createQuestionBank([...coreQuestions,...supplemental.questions]);
     if(supplemental.warnings.length)console.warn('Supplemental question pack warnings',supplemental.warnings);
-    questionMap=new Map([...bank.all(),...(state.generatedQuestions??[]),...OFFICIAL_PAPERS.flatMap(getOfficialQuestions)].map(q=>[q.id,q]));
+    rebuildQuestionRuntime();
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
