@@ -820,6 +820,46 @@ it('deletes only the selected mock exam record and falls back to the newest rema
 });
 
 
+it('does not call AI when a full local practice set is available',async()=>{
+  const source=practice.find(q=>q.subject==='english'&&q.examAligned);
+  const domain=source.examProfile?.domain??source.domain??source.chapter;
+  const competency=source.examProfile?.competency??source.competency??source.questionType;
+  const skillKey=`english::${domain}::${competency}`;
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    adaptiveSkills:{
+      [skillKey]:{
+        subject:'english',domain,competency,subSkill:source.questionType??competency,
+        mastery:10,attempts:2,correct:0,wrong:2,consecutiveCorrect:0,consecutiveWrong:2,
+        attemptsLast7Days:2,wrongLast7Days:2,wrongInMockExam:0,nextReviewDate:'2026-09-17',
+        diagnosticRequired:false,reviewStage:0
+      }
+    },
+    answerHistory:[],
+    aiUsage:{date:'2026-09-17',count:0,limit:12}
+  }));
+  let aiRequests=0;
+  vi.stubGlobal('fetch',vi.fn(async url=>{
+    const value=String(url);
+    if(value.includes('/api/generate-question')) {
+      aiRequests+=1;
+      return new Response(JSON.stringify({questions:[]}),{status:200,headers:{'content-type':'application/json'}});
+    }
+    return {ok:true,json:async()=>value.includes('cap-practice')?practice:questions};
+  }));
+
+  window.history.replaceState(null,'','#/exam-center');
+  await boot();
+  document.querySelector('#practice-subject').value='english';
+  document.querySelector('[data-action="start-practice"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session).not.toBeNull();
+  expect(session.questionIds).toHaveLength(10);
+  expect(aiRequests).toBe(0);
+});
+
 it('starts adaptive practice immediately while AI questions load in the background',async()=>{
   const source=practice.find(q=>q.subject==='english'&&q.examAligned);
   const domain=source.examProfile?.domain??source.domain??source.chapter;
@@ -884,6 +924,8 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
   window.history.replaceState(null,'','#/exam-center');
   await boot();
   document.querySelector('#practice-subject').value='english';
+  document.querySelector('#practice-grade').value=String(source.grade);
+  document.querySelector('#practice-type').value=source.questionType;
   document.querySelector('[data-action="start-practice"]').click();
 
   const immediate=JSON.parse(localStorage.getItem(key)).activeExam;
@@ -958,6 +1000,8 @@ it('rejects a malformed background AI question before it can poison answer selec
   window.history.replaceState(null,'','#/exam-center');
   await boot();
   document.querySelector('#practice-subject').value='english';
+  document.querySelector('#practice-grade').value=String(source.grade);
+  document.querySelector('#practice-type').value=source.questionType;
   document.querySelector('[data-action="start-practice"]').click();
   await vi.advanceTimersByTimeAsync(1);
 
