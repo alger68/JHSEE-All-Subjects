@@ -308,25 +308,25 @@
     "topic": "分數",
     "competency": "異分母分數相加",
     "grade": 7,
-    "difficulty": 3,
+    "difficulty": 2,
     "variationForm": "standalone",
-    "passage": "1/3+1/4等於多少？",
-    "question": [
+    "passage": "計算異分母分數相加。",
+    "question": "1/3+1/4等於多少？",
+    "choices": [
       "2/7",
       "7/12",
       "1/2",
       "5/12"
     ],
-    "choices": 1,
-    "answer": "通分為4/12+3/12=7/12。",
-    "explanation": "最小公倍數是12。",
-    "hint1": "分子相加。",
-    "hint2": [
+    "answer": 1,
+    "explanation": "通分為4/12+3/12=7/12。",
+    "hint1": "最小公倍數是12。",
+    "hint2": "分子相加。",
+    "source": "original",
+    "tags": [
       "分數",
       "運算"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
