@@ -32,13 +32,13 @@ describe('three-year curriculum blueprint',()=>{
 describe('supplemental question packs',()=>{
   const manifest=readJson('public/question-packs/manifest.json');
 
-  it('ships five enabled subject packs with 75 high-priority questions',()=>{
+  it('ships ten enabled subject packs with 150 high-priority questions',()=>{
     const enabled=manifest.packs.filter(pack=>pack.enabled!==false);
-    expect(enabled).toHaveLength(5);
+    expect(enabled).toHaveLength(10);
     const all=enabled.flatMap(pack=>readJson('public/question-packs/'+pack.file));
-    expect(all).toHaveLength(75);
+    expect(all).toHaveLength(150);
     for(const subject of subjects){
-      expect(all.filter(q=>q.subject===subject)).toHaveLength(15);
+      expect(all.filter(q=>q.subject===subject)).toHaveLength(30);
     }
   });
 
@@ -86,7 +86,7 @@ describe('supplemental question packs',()=>{
       manifestUrl:'https://example.test/question-packs/manifest.json',
       fetchImpl
     });
-    expect(loaded.questions).toHaveLength(75);
+    expect(loaded.questions).toHaveLength(150);
     expect(loaded.warnings).toEqual([]);
     expect(new Set(loaded.questions.map(q=>q.packId)).size).toBe(5);
   });
@@ -101,9 +101,9 @@ describe('coverage audit',()=>{
     const before=auditBlueprintCoverage(core,blueprint);
     const after=auditBlueprintCoverage([...core,...packed],blueprint);
     expect(before.totalQuestions).toBe(205);
-    expect(after.totalQuestions).toBe(280);
+    expect(after.totalQuestions).toBe(355);
     for(const subject of subjects){
-      expect(after.bySubject[subject].total).toBe(before.bySubject[subject].total+15);
+      expect(after.bySubject[subject].total).toBe(before.bySubject[subject].total+30);
       expect(after.bySubject[subject].coveredSkills).toBe(12);
       expect(after.bySubject[subject].coveredSkills).toBeGreaterThanOrEqual(before.bySubject[subject].coveredSkills);
     }
