@@ -1,0 +1,550 @@
+[
+  {
+    "id": "HP-EN-001",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "情境應用",
+    "topic": "Vocabulary in context",
+    "competency": "Use context clues to choose vocabulary",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "Ben always checks the doors before leaving home. His sister says he is very careful.",
+    "question": "Which word is closest in meaning to careful here?",
+    "choices": [
+      "lazy",
+      "careless",
+      "cautious",
+      "noisy"
+    ],
+    "answer": 2,
+    "explanation": "Cautious means careful and trying to avoid problems, which matches Ben's behavior.",
+    "hint1": "Look for a word that means careful.",
+    "hint2": "Ben checks things before leaving.",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP-EN-002",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "情境應用",
+    "topic": "Present and past tense",
+    "competency": "Choose verb tense from time clues",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "Every Friday, Nora _____ her grandmother after school.",
+    "question": "Which word best completes the sentence?",
+    "choices": [
+      "visit",
+      "visits",
+      "visited",
+      "visiting"
+    ],
+    "answer": 1,
+    "explanation": "Every Friday shows a repeated habit. Nora is third-person singular, so the verb is visits.",
+    "hint1": "Find the time clue.",
+    "hint2": "Nora needs a third-person singular verb.",
+    "source": "original",
+    "tags": [
+      "grammar",
+      "present tense"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP-EN-003",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Dialogue detail",
+    "competency": "Locate explicit details in a short dialogue",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "A: Do you want to meet at the library at four?\nB: I have basketball practice until four-thirty. How about five?\nA: Sounds good.",
+    "question": "When will they meet?",
+    "choices": [
+      "4:00",
+      "4:30",
+      "5:00",
+      "5:30"
+    ],
+    "answer": 2,
+    "explanation": "Speaker B suggests five, and Speaker A agrees.",
+    "hint1": "Read the final agreement.",
+    "hint2": "The first time is changed.",
+    "source": "original",
+    "tags": [
+      "dialogue",
+      "detail"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-dialogue"
+  },
+  {
+    "id": "HP-EN-004",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "情境應用",
+    "topic": "Modal verbs",
+    "competency": "Use grammar to express obligation and advice",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "The sign says, “Visitors _____ leave their bags at the front desk before entering.”",
+    "question": "Which word best completes the sentence?",
+    "choices": [
+      "must",
+      "might",
+      "would",
+      "could"
+    ],
+    "answer": 0,
+    "explanation": "The sign gives a rule, so must is the best choice for obligation.",
+    "hint1": "Is this a rule or a possibility?",
+    "hint2": "Choose the modal for obligation.",
+    "source": "original",
+    "tags": [
+      "grammar",
+      "modal"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-grammar"
+  },
+  {
+    "id": "HP-EN-005",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "閱讀理解",
+    "topic": "Cloze connector",
+    "competency": "Use discourse clues to choose a connector",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "Eric wanted to join the trip, _____ he had already promised to help his uncle that day.",
+    "question": "Which word best completes the sentence?",
+    "choices": [
+      "so",
+      "but",
+      "because",
+      "and"
+    ],
+    "answer": 1,
+    "explanation": "The two ideas contrast: Eric wanted to go, but he had another promise.",
+    "hint1": "The second idea blocks the first.",
+    "hint2": "Choose a contrast word.",
+    "source": "original",
+    "tags": [
+      "cloze",
+      "connector"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP-EN-006",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Email inference",
+    "competency": "Infer purpose from an email message",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "Hi Amy,\nThe science club meeting has moved from Room 201 to the lab. Please bring your worksheet. We will start at 4:10 instead of 4:00.\n—Leo",
+    "question": "Why did Leo most likely send this message?",
+    "choices": [
+      "To cancel the science club",
+      "To tell Amy about changes to the meeting",
+      "To ask Amy to finish his worksheet",
+      "To invite Amy to a new club"
+    ],
+    "answer": 1,
+    "explanation": "The message gives a new place, a new start time, and a reminder, so its purpose is to update Amy about changes.",
+    "hint1": "What information changed?",
+    "hint2": "Focus on place and time.",
+    "source": "original",
+    "tags": [
+      "email",
+      "inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-email"
+  },
+  {
+    "id": "HP-EN-007",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Schedule",
+    "competency": "Read a schedule and combine two conditions",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "Movie Club Schedule\nTue 4:00—Room 3\nWed 5:00—Room 2\nFri 4:30—Room 5",
+    "question": "Kevin is free only after 4:20 and cannot come on Friday. Which meeting can he attend?",
+    "choices": [
+      "Tuesday in Room 3",
+      "Wednesday in Room 2",
+      "Friday in Room 5",
+      "None of them"
+    ],
+    "answer": 1,
+    "explanation": "Tuesday starts too early, Friday is unavailable, and Wednesday at 5:00 fits both conditions.",
+    "hint1": "Check the time condition first.",
+    "hint2": "Then remove Friday.",
+    "source": "original",
+    "tags": [
+      "schedule",
+      "table"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-table",
+    "table": {
+      "headers": [
+        "Day",
+        "Time",
+        "Room"
+      ],
+      "rows": [
+        [
+          "Tue",
+          "4:00",
+          "3"
+        ],
+        [
+          "Wed",
+          "5:00",
+          "2"
+        ],
+        [
+          "Fri",
+          "4:30",
+          "5"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP-EN-008",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "推論",
+    "topic": "Notice",
+    "competency": "Infer an action from a notice",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "NOTICE\nThe west entrance will be closed on Thursday morning. Students should use the north entrance until noon.",
+    "question": "What should a student do at 9 a.m. on Thursday?",
+    "choices": [
+      "Use the west entrance",
+      "Use the north entrance",
+      "Wait until Friday",
+      "Enter through the library"
+    ],
+    "answer": 1,
+    "explanation": "The notice says to use the north entrance until noon on Thursday.",
+    "hint1": "Look at the time: 9 a.m.",
+    "hint2": "Which entrance is open then?",
+    "source": "original",
+    "tags": [
+      "notice",
+      "life message"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-table"
+  },
+  {
+    "id": "HP-EN-009",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Identify the main idea of a longer passage",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Some students study better with music, while others lose focus. One teacher asked her class to try three settings: silence, soft music, and music with lyrics. Students then recorded how long they stayed focused. The results were different for each student.",
+    "question": "What is the main idea of the passage?",
+    "choices": [
+      "Music always improves studying.",
+      "Students should never listen to lyrics.",
+      "The best study setting may differ from person to person.",
+      "Silence is the only useful study setting."
+    ],
+    "answer": 2,
+    "explanation": "The passage emphasizes that the results differed among students, so one study setting does not fit everyone.",
+    "hint1": "Look at the final sentence.",
+    "hint2": "Avoid choices using always or only.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP-EN-010",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Inference",
+    "competency": "Make an inference from multiple details",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Maya arrived at the station at 7:55. The board showed her train would leave at 8:05 from Platform 2. At 8:00, an announcement said all northbound trains would use Platform 4 instead.",
+    "question": "What should Maya most likely do next?",
+    "choices": [
+      "Leave the station",
+      "Go to Platform 4",
+      "Wait at Platform 2",
+      "Buy a new ticket"
+    ],
+    "answer": 1,
+    "explanation": "The announcement changes the platform for northbound trains, so Maya should go to Platform 4.",
+    "hint1": "Which detail changed after she arrived?",
+    "hint2": "The ticket is not said to be invalid.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-inference"
+  },
+  {
+    "id": "HP-EN-011",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-paragraph integration",
+    "competency": "Combine information across paragraphs",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Paragraph 1: The school garden used 120 liters of water each week in April.\nParagraph 2: In May, students added a layer of dry leaves around the plants. Weekly water use then fell to 85 liters, while plant growth stayed similar.",
+    "question": "Which statement is best supported by both paragraphs?",
+    "choices": [
+      "The plants stopped growing in May.",
+      "The dry leaves may have helped reduce water use.",
+      "April had less water use than May.",
+      "The school removed most plants in May."
+    ],
+    "answer": 1,
+    "explanation": "Water use dropped after the leaf layer was added while growth stayed similar, so the change may have helped conserve water.",
+    "hint1": "Compare April and May.",
+    "hint2": "Use may, not a stronger claim than the evidence.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "integration"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP-EN-012",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Chart evidence",
+    "competency": "Use data to choose a supported conclusion",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "A class counted reusable bottle use: Monday 18, Tuesday 22, Wednesday 20, Thursday 25, Friday 25.",
+    "question": "Which statement is supported by the data?",
+    "choices": [
+      "Use increased every day.",
+      "Thursday and Friday had the same highest number.",
+      "Monday had more users than Wednesday.",
+      "The weekly total was 100."
+    ],
+    "answer": 1,
+    "explanation": "The highest value is 25, and it occurs on both Thursday and Friday.",
+    "hint1": "Find the maximum first.",
+    "hint2": "Check whether it occurs more than once.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "data"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart",
+    "table": {
+      "headers": [
+        "Day",
+        "Users"
+      ],
+      "rows": [
+        [
+          "Mon",
+          18
+        ],
+        [
+          "Tue",
+          22
+        ],
+        [
+          "Wed",
+          20
+        ],
+        [
+          "Thu",
+          25
+        ],
+        [
+          "Fri",
+          25
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP-EN-013",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Author attitude",
+    "competency": "Infer attitude from word choice",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "After trying the new bus route for a week, Tina wrote, “The ride is ten minutes longer, but I no longer need to change buses in the rain. For me, that trade-off is worth it.”",
+    "question": "How does Tina feel about the new route?",
+    "choices": [
+      "She strongly dislikes it.",
+      "She thinks its benefit is worth the extra time.",
+      "She thinks it is exactly the same as before.",
+      "She plans to stop taking buses."
+    ],
+    "answer": 1,
+    "explanation": "Tina recognizes a disadvantage but explicitly says the trade-off is worth it.",
+    "hint1": "Pay attention to “worth it.”",
+    "hint2": "Her opinion is mixed but overall positive.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "attitude"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-inference"
+  },
+  {
+    "id": "HP-EN-014",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-text comparison",
+    "competency": "Compare two short texts",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Text A: “Our library should stay open one hour later during exam week because many students need a quiet place to study.”\nText B: “Later hours could help, but the school should first check whether enough staff are available.”",
+    "question": "How are the two texts different?",
+    "choices": [
+      "Text A supports later hours directly; Text B adds a condition.",
+      "Text A is about sports; Text B is about study.",
+      "Both texts reject later hours.",
+      "Text B says students do not need the library."
+    ],
+    "answer": 0,
+    "explanation": "Text A directly supports later hours, while Text B is conditionally supportive based on staffing.",
+    "hint1": "Find each writer's position.",
+    "hint2": "Text B is not a rejection.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "comparison"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP-EN-015",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Evidence limits",
+    "competency": "Distinguish correlation from a stronger conclusion",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "A survey found that students who slept at least eight hours reported higher average energy scores than students who slept less. The survey did not control exercise, diet, or illness.",
+    "question": "Which conclusion is most reasonable?",
+    "choices": [
+      "Eight hours of sleep is the only cause of higher energy.",
+      "The survey shows an association, but other factors may matter.",
+      "Exercise has no effect on energy.",
+      "Every student must sleep exactly eight hours."
+    ],
+    "answer": 1,
+    "explanation": "The survey shows a relationship but does not control other possible factors, so it cannot prove a single cause.",
+    "hint1": "Notice what the survey did not control.",
+    "hint2": "Choose the cautious conclusion.",
+    "source": "original",
+    "tags": [
+      "data",
+      "evidence",
+      "inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart"
+  }
+]
