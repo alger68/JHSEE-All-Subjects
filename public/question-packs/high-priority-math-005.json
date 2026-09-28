@@ -1,0 +1,552 @@
+[
+  {
+    "id": "HP5-MA-001",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "平均數",
+    "competency": "由資料計算平均",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "四次成績為65、75、85、95。",
+    "question": "平均是多少？",
+    "choices": [
+      "75",
+      "80",
+      "82.5",
+      "85"
+    ],
+    "answer": 1,
+    "explanation": "總和320，除以4得80。",
+    "hint1": "先加總。",
+    "hint2": "320÷4。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "平均"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-stat",
+    "table": {
+      "headers": [
+        "次數",
+        "成績"
+      ],
+      "rows": [
+        [
+          1,
+          65
+        ],
+        [
+          2,
+          75
+        ],
+        [
+          3,
+          85
+        ],
+        [
+          4,
+          95
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP5-MA-002",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "全距",
+    "competency": "由最大最小值求全距",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "資料為6、9、11、15、20。",
+    "question": "全距是多少？",
+    "choices": [
+      "9",
+      "11",
+      "14",
+      "20"
+    ],
+    "answer": 2,
+    "explanation": "全距=最大值20−最小值6=14。",
+    "hint1": "找最大與最小。",
+    "hint2": "20−6。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "全距"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-stat"
+  },
+  {
+    "id": "HP5-MA-003",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "計算題",
+    "topic": "一元一次方程式",
+    "competency": "解一元一次方程式",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "解方程式。",
+    "question": "5x+3=28，x是多少？",
+    "choices": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": 1,
+    "explanation": "5x=25，所以x=5。",
+    "hint1": "先減3。",
+    "hint2": "再除以5。",
+    "source": "original",
+    "tags": [
+      "方程式",
+      "代數"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-linear"
+  },
+  {
+    "id": "HP5-MA-004",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "一元一次方程式",
+    "competency": "由長度關係求未知量",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "一條繩子剪掉7公尺後剩18公尺。",
+    "question": "原來長多少公尺？",
+    "choices": [
+      "11",
+      "18",
+      "25",
+      "32"
+    ],
+    "answer": 2,
+    "explanation": "設原長x，x−7=18，所以x=25。",
+    "hint1": "把剪掉的加回去。",
+    "hint2": "18+7。",
+    "source": "original",
+    "tags": [
+      "方程式",
+      "情境"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-linear"
+  },
+  {
+    "id": "HP5-MA-005",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "計算題",
+    "topic": "扇形弧長",
+    "competency": "由圓心角求弧長",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "standalone",
+    "passage": "圓周長為36π，某扇形圓心角60°。",
+    "question": "弧長是多少？",
+    "choices": [
+      "3π",
+      "6π",
+      "9π",
+      "12π"
+    ],
+    "answer": 1,
+    "explanation": "60/360=1/6，36π×1/6=6π。",
+    "hint1": "先算角度比例。",
+    "hint2": "60°是整圓1/6。",
+    "source": "original",
+    "tags": [
+      "圓",
+      "弧長"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-circle"
+  },
+  {
+    "id": "HP5-MA-006",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "圓心角",
+    "competency": "利用圓心角比例",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "diagram",
+    "passage": "一個圓中，某弧占整個圓周的1/4。",
+    "question": "該弧對應的圓心角是多少？",
+    "choices": [
+      "45°",
+      "60°",
+      "90°",
+      "120°"
+    ],
+    "answer": 2,
+    "explanation": "整圓360°，1/4為90°。",
+    "hint1": "360×1/4。",
+    "hint2": "弧比例與圓心角比例相同。",
+    "source": "original",
+    "tags": [
+      "圓",
+      "圓心角"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-circle"
+  },
+  {
+    "id": "HP5-MA-007",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "推論",
+    "topic": "相似比",
+    "competency": "由對應邊求倍率",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "diagram",
+    "passage": "相似圖形中，小圖一邊5，大圖對應邊8。",
+    "question": "放大倍率是多少？",
+    "choices": [
+      "5/8",
+      "8/5",
+      "3/5",
+      "13/5"
+    ],
+    "answer": 1,
+    "explanation": "大對小倍率=8/5。",
+    "hint1": "用大邊除小邊。",
+    "hint2": "8÷5。",
+    "source": "original",
+    "tags": [
+      "相似形",
+      "比例"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-similarity"
+  },
+  {
+    "id": "HP5-MA-008",
+    "subject": "math",
+    "chapter": "幾何與圖形",
+    "domain": "幾何與圖形",
+    "questionType": "情境應用",
+    "topic": "比例尺",
+    "competency": "用相似比例估算高度",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "1公尺高的標竿影長0.8公尺；同時一棵樹影長4公尺。",
+    "question": "樹高約多少公尺？",
+    "choices": [
+      "3.2",
+      "4",
+      "5",
+      "6.25"
+    ],
+    "answer": 2,
+    "explanation": "1/0.8=h/4，所以h=5。",
+    "hint1": "同時刻高度與影長成比例。",
+    "hint2": "4÷0.8。",
+    "source": "original",
+    "tags": [
+      "相似形",
+      "影長"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-similarity"
+  },
+  {
+    "id": "HP5-MA-009",
+    "subject": "math",
+    "chapter": "數與數線",
+    "domain": "數與數線",
+    "questionType": "計算題",
+    "topic": "負數乘除",
+    "competency": "進行正負數乘法",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "計算。",
+    "question": "(−6)×4等於多少？",
+    "choices": [
+      "−24",
+      "−10",
+      "10",
+      "24"
+    ],
+    "answer": 0,
+    "explanation": "負數乘正數為負，6×4=24。",
+    "hint1": "先判斷符號。",
+    "hint2": "異號乘積為負。",
+    "source": "original",
+    "tags": [
+      "整數",
+      "乘法"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-number"
+  },
+  {
+    "id": "HP5-MA-010",
+    "subject": "math",
+    "chapter": "數與數線",
+    "domain": "數與數線",
+    "questionType": "推論",
+    "topic": "絕對值",
+    "competency": "理解絕對值與距離",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "standalone",
+    "passage": "數線上−7到0的距離是多少？",
+    "question": "請選出答案。",
+    "choices": [
+      "−7",
+      "0",
+      "7",
+      "14"
+    ],
+    "answer": 2,
+    "explanation": "距離為非負，|−7|=7。",
+    "hint1": "距離不會是負數。",
+    "hint2": "取絕對值。",
+    "source": "original",
+    "tags": [
+      "數線",
+      "絕對值"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-number"
+  },
+  {
+    "id": "HP5-MA-011",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "計算題",
+    "topic": "因式分解",
+    "competency": "利用提公因式與平方差",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "standalone",
+    "passage": "將3x²−27因式分解。",
+    "question": "哪一式正確？",
+    "choices": [
+      "3(x−3)(x+3)",
+      "3(x−9)(x+1)",
+      "(3x−3)(x+9)",
+      "3(x−27)"
+    ],
+    "answer": 0,
+    "explanation": "3x²−27=3(x²−9)=3(x−3)(x+3)。",
+    "hint1": "先提出3。",
+    "hint2": "剩下平方差。",
+    "source": "original",
+    "tags": [
+      "因式分解",
+      "平方差"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-quadratic"
+  },
+  {
+    "id": "HP5-MA-012",
+    "subject": "math",
+    "chapter": "統計與機率",
+    "domain": "統計與機率",
+    "questionType": "資料分析",
+    "topic": "平均數變化",
+    "competency": "理解新增資料對平均的影響",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "四個數平均為10，加入一個20。",
+    "question": "新的平均是多少？",
+    "choices": [
+      "10",
+      "12",
+      "14",
+      "15"
+    ],
+    "answer": 1,
+    "explanation": "原總和40，加20得60，共5個，平均12。",
+    "hint1": "平均×個數先求總和。",
+    "hint2": "(40+20)/5。",
+    "source": "original",
+    "tags": [
+      "統計",
+      "平均"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-9-data"
+  },
+  {
+    "id": "HP5-MA-013",
+    "subject": "math",
+    "chapter": "數與比例",
+    "domain": "數與比例",
+    "questionType": "情境應用",
+    "topic": "比例",
+    "competency": "依比例分配",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "紅、藍球數量比3：2，共有25顆。",
+    "question": "紅球有幾顆？",
+    "choices": [
+      "10",
+      "12",
+      "15",
+      "18"
+    ],
+    "answer": 2,
+    "explanation": "共5份，每份5顆，紅球3份=15。",
+    "hint1": "先算總份數。",
+    "hint2": "25÷5×3。",
+    "source": "original",
+    "tags": [
+      "比例",
+      "分配"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-7-ratio"
+  },
+  {
+    "id": "HP5-MA-014",
+    "subject": "math",
+    "chapter": "代數與方程式",
+    "domain": "代數與方程式",
+    "questionType": "情境應用",
+    "topic": "二元一次",
+    "competency": "由和與價值求數量",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "成人票120元、學生票80元，共10張，總價960元。",
+    "question": "成人票有幾張？",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": 2,
+    "explanation": "若全學生800元，差160；每換成人多40，因此4張。",
+    "hint1": "先假設全學生票。",
+    "hint2": "160÷40。",
+    "source": "original",
+    "tags": [
+      "聯立",
+      "票價"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-system"
+  },
+  {
+    "id": "HP5-MA-015",
+    "subject": "math",
+    "chapter": "函數",
+    "domain": "函數",
+    "questionType": "資料分析",
+    "topic": "一次函數",
+    "competency": "由兩點求變化率",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "x=2時y=7，x=5時y=16。",
+    "question": "y對x的變化率是多少？",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "9"
+    ],
+    "answer": 1,
+    "explanation": "(16−7)/(5−2)=9/3=3。",
+    "hint1": "用y變化除以x變化。",
+    "hint2": "9÷3。",
+    "source": "original",
+    "tags": [
+      "函數",
+      "變化率"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ma-8-function",
+    "table": {
+      "headers": [
+        "x",
+        "y"
+      ],
+      "rows": [
+        [
+          2,
+          7
+        ],
+        [
+          5,
+          16
+        ]
+      ]
+    }
+  }
+]
