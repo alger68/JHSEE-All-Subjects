@@ -26,6 +26,10 @@ function hasValidQuestionShape(question) {
     && question.answer < question.choices.length;
 }
 
+export function isAnswerableQuestion(question) {
+  return hasValidQuestionShape(question);
+}
+
 function hasValidTiming(session, now = Date.now()) {
   if (!Number.isFinite(session?.durationMinutes)
     || session.durationMinutes <= 0
@@ -99,13 +103,17 @@ export function validateSession(session, questions) {
 }
 
 export function answerSession(session, questions, questionId, choice, now = Date.now()) {
-  if (!validateSession(session, questions)
+  if (!isRecord(session)
     || session.status !== ACTIVE_STATUS
-    || remainingSeconds(session, now) === 0) return session;
-
-  const question = questions.find((item) => item.id === questionId);
-  if (!question
+    || remainingSeconds(session, now) === 0
+    || !Array.isArray(session.questionIds)
     || !session.questionIds.includes(questionId)
+    || !isRecord(session.answers)) return session;
+
+  const question = Array.isArray(questions)
+    ? questions.find((item) => item?.id === questionId)
+    : null;
+  if (!hasValidQuestionShape(question)
     || !Number.isInteger(choice)
     || choice < 0
     || choice >= question.choices.length) return session;
