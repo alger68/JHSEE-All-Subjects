@@ -50,4 +50,44 @@ describe('adventure storage', () => {
     expect(store.load().player.exp).toBe(55);
   });
 
+  it('preserves review-v2 fields through save and load without changing the storage key',()=>{
+    const memory=fakeStorage();
+    const store=createStore(memory);
+    const wrong={
+      questionId:'Q1',
+      reviewStage:'near-transfer',
+      originalReviewCount:1,
+      anchorFingerprint:'fp-anchor',
+      variantHistory:[{questionId:'Q2',fingerprint:'fp2',correct:true,date:'2026-09-29',evidenceKind:'same-skill'}],
+      passedFingerprints:['fp-anchor','fp2'],
+      wrongCount:1,
+      mastery:1,
+      resolved:false,
+      nextReview:'2026-10-06'
+    };
+    store.save({version:1,wrongQuestions:[wrong]});
+    expect([...memory.values.keys()]).toEqual(['jhsee.adventure.v1']);
+    expect(store.load().wrongQuestions[0]).toMatchObject(wrong);
+  });
+
+  it('round-trips review-v2 wrong items through the existing jhsee-backup-v1 format',()=>{
+    const memory=fakeStorage();
+    const store=createStore(memory);
+    const wrong={
+      questionId:'Q1',
+      reviewStage:'delayed-transfer',
+      originalReviewCount:1,
+      variantHistory:[{questionId:'Q3',fingerprint:'fp3',correct:true,date:'2026-09-29',evidenceKind:'near-transfer'}],
+      passedFingerprints:['fp1','fp2','fp3'],
+      wrongCount:1,
+      mastery:2,
+      resolved:false
+    };
+    store.save({version:1,wrongQuestions:[wrong]});
+    const backup=store.exportBackup('2026-09-29T00:00:00.000Z');
+    expect(backup.meta).toMatchObject({format:'jhsee-backup-v1',version:1});
+    const restored=createStore(fakeStorage());
+    expect(restored.importBackup(backup).ok).toBe(true);
+    expect(restored.load().wrongQuestions[0]).toMatchObject(wrong);
+  });
 });
