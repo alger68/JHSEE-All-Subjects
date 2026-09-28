@@ -1,0 +1,543 @@
+[
+  {
+    "id": "HP2-EN-001",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Identify the central idea of a multi-sentence passage",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "People often think taking breaks wastes time. However, several students in one class tried a 25-minute study period followed by a 5-minute break. Many reported that they could stay focused longer across the whole evening. The teacher reminded them that breaks work best when they are short and planned.",
+    "question": "What is the main idea?",
+    "choices": [
+      "All breaks improve learning no matter how long they are.",
+      "Planned short breaks may help students maintain focus.",
+      "Students should study only twenty-five minutes a day.",
+      "Teachers should stop giving homework."
+    ],
+    "answer": 1,
+    "explanation": "The passage focuses on how short, planned breaks may help students maintain focus over time.",
+    "hint1": "Look for the idea repeated across the passage.",
+    "hint2": "Avoid extreme choices such as all or only.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP2-EN-002",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Distinguish examples from the overall point",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "A small town changed some streetlights so they became dimmer after midnight when fewer people were outside. The town still kept brighter lights at busy intersections. After six months, energy use fell, and residents reported no increase in safety problems.",
+    "question": "What is the passage mainly about?",
+    "choices": [
+      "A town tested a way to save energy while keeping key areas lit.",
+      "All streetlights should be turned off at midnight.",
+      "Residents refused to use busy intersections.",
+      "Energy use can never be reduced safely."
+    ],
+    "answer": 0,
+    "explanation": "The passage describes a targeted lighting change that reduced energy use while maintaining safety at important locations.",
+    "hint1": "Which choice covers the whole passage?",
+    "hint2": "Do not choose an extreme claim not supported by the text.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP2-EN-003",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Summarize an informational passage",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "At one school, students can borrow sports equipment during lunch. At first, the equipment was kept in the office, and few students used it. Later, the school placed a checkout station near the playground and posted clear borrowing rules. Use increased greatly.",
+    "question": "What is the best main idea?",
+    "choices": [
+      "Students dislike sports equipment.",
+      "Making a service easier to access can increase its use.",
+      "Borrowing rules always reduce participation.",
+      "The office should be closed during lunch."
+    ],
+    "answer": 1,
+    "explanation": "The change in access and clear rules led to greater use, so accessibility is the central idea.",
+    "hint1": "Compare the situation before and after.",
+    "hint2": "Focus on what changed and the result.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP2-EN-004",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Infer the message of a reflective passage",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Jin used to review only the questions he got wrong. Then he began marking questions he answered correctly but only guessed on. A month later, he noticed that these 'lucky correct' questions often revealed topics he had not truly mastered.",
+    "question": "What is the passage mainly saying?",
+    "choices": [
+      "Only wrong answers matter when reviewing.",
+      "Correct guesses can also show learning weaknesses.",
+      "Students should guess more often.",
+      "Reviewing for a month guarantees perfect scores."
+    ],
+    "answer": 1,
+    "explanation": "The passage shows that guessed correct answers can still reveal weak understanding and should be reviewed.",
+    "hint1": "What changed in Jin's review method?",
+    "hint2": "Why were the guessed questions useful?",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea",
+      "metacognition"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP2-EN-005",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Inference",
+    "competency": "Infer a likely next action from changing information",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Rita checked the weather app before leaving home. It showed heavy rain starting at 5 p.m. Her soccer practice begins outdoors at 4:30, and the coach wrote, 'If the rain starts early, check the team chat for a location update.' At 4:15, dark clouds were already forming.",
+    "question": "What should Rita most likely do before practice?",
+    "choices": [
+      "Ignore the weather and turn off her phone.",
+      "Check the team chat for an update.",
+      "Cancel the whole season.",
+      "Go to the library instead."
+    ],
+    "answer": 1,
+    "explanation": "The coach specifically says to check the team chat if rain may start early, and the dark clouds make that relevant.",
+    "hint1": "Use the coach's instruction.",
+    "hint2": "Choose the action directly supported by the passage.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-inference"
+  },
+  {
+    "id": "HP2-EN-006",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Inference",
+    "competency": "Infer a person's reason from several clues",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Leo normally buys lunch at school. Today he brought a lunch box, checked the cafeteria menu, and smiled when he saw 'seafood pasta.' He had told his friend yesterday that he cannot eat shellfish.",
+    "question": "Why did Leo most likely bring his own lunch today?",
+    "choices": [
+      "He forgot his lunch money.",
+      "He expected the school lunch might not suit him.",
+      "He wanted to sell food to friends.",
+      "He planned to skip lunch."
+    ],
+    "answer": 1,
+    "explanation": "The menu contains seafood, and Leo cannot eat shellfish, so bringing his own lunch is the most reasonable inference.",
+    "hint1": "Connect yesterday's statement with today's menu.",
+    "hint2": "Which choice explains the lunch box?",
+    "source": "original",
+    "tags": [
+      "reading",
+      "inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-inference"
+  },
+  {
+    "id": "HP2-EN-007",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Inference",
+    "competency": "Infer meaning from context rather than a direct statement",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "The sign on the classroom door says, 'Please leave the room as you found it.' After the meeting, Mei puts the chairs back in rows and throws away the empty cups.",
+    "question": "What does the sign most likely mean?",
+    "choices": [
+      "Do not enter the room.",
+      "Return the room to its original condition.",
+      "Move all chairs outside.",
+      "Leave immediately after arriving."
+    ],
+    "answer": 1,
+    "explanation": "Mei's actions show that the sign means restoring the room to its original condition.",
+    "hint1": "Use Mei's actions as a clue.",
+    "hint2": "What condition was the room in before?",
+    "source": "original",
+    "tags": [
+      "reading",
+      "context inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-inference"
+  },
+  {
+    "id": "HP2-EN-008",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Evidence limit",
+    "competency": "Choose the most cautious inference",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "A class tried a new vocabulary app for two weeks. Average quiz scores rose from 72 to 78. During the same two weeks, students also had an extra review session with the teacher.",
+    "question": "Which conclusion is most reasonable?",
+    "choices": [
+      "The app alone caused all of the improvement.",
+      "The extra review alone caused all of the improvement.",
+      "Scores improved, but the data cannot separate the effects of the app and extra review.",
+      "The app made students forget vocabulary."
+    ],
+    "answer": 2,
+    "explanation": "Two changes happened together, so the score increase cannot be assigned to only one of them.",
+    "hint1": "How many things changed?",
+    "hint2": "Avoid claiming a single cause when two factors changed.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "evidence",
+      "inference"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-inference"
+  },
+  {
+    "id": "HP2-EN-009",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-text integration",
+    "competency": "Combine information from two short texts",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Text A: 'The city library added self-check machines so visitors can borrow books faster.'\nText B: 'Some older visitors still prefer staff help, so the library keeps one staffed desk open at all times.'",
+    "question": "Which statement best combines the two texts?",
+    "choices": [
+      "The library uses technology while still keeping human help available.",
+      "The library removed all staff.",
+      "Older visitors are not allowed to borrow books.",
+      "Self-check machines make borrowing slower."
+    ],
+    "answer": 0,
+    "explanation": "Text A shows technology for speed, while Text B shows continued staff support, so both are used together.",
+    "hint1": "Do not choose only one text's idea.",
+    "hint2": "Look for a statement that includes both technology and staff help.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "integration"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP2-EN-010",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Cross-text comparison",
+    "competency": "Compare two viewpoints on the same issue",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Text A: 'Homework should be shorter so students have more time to sleep.'\nText B: 'Shorter homework may help, but teachers should also check whether students are using study time effectively.'",
+    "question": "How do the writers differ?",
+    "choices": [
+      "Text A favors shorter homework directly; Text B supports it with an added condition.",
+      "Text A supports more homework; Text B wants no homework.",
+      "Both writers oppose sleep.",
+      "Text B says study habits never matter."
+    ],
+    "answer": 0,
+    "explanation": "Text A gives direct support, while Text B is conditionally supportive and adds another factor to consider.",
+    "hint1": "Identify each writer's position.",
+    "hint2": "Text B does not reject shorter homework.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "viewpoint"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP2-EN-011",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-paragraph connection",
+    "competency": "Connect a problem in one paragraph to a response in another",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Paragraph 1: A school garden lost many seedlings during a hot week because the soil dried quickly.\nParagraph 2: The next month, students added mulch around new seedlings and watered early in the morning. Fewer plants dried out.",
+    "question": "What connection between the paragraphs is best supported?",
+    "choices": [
+      "The second paragraph describes changes made in response to the earlier problem.",
+      "The second paragraph proves heat can never harm plants.",
+      "The first paragraph explains why the school stopped gardening.",
+      "The two paragraphs are unrelated."
+    ],
+    "answer": 0,
+    "explanation": "The second paragraph presents actions that address the drying problem described in the first paragraph.",
+    "hint1": "What problem appears first?",
+    "hint2": "Which later actions respond to that problem?",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "paragraph integration"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP2-EN-012",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Source comparison",
+    "competency": "Identify what additional evidence would resolve a disagreement",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Source A says the new bus route shortened travel time for most riders. Source B contains complaints from several riders whose trips became longer.",
+    "question": "What information would best help explain the difference?",
+    "choices": [
+      "The color of the buses",
+      "Travel-time data separated by riders' starting locations",
+      "The driver's favorite route",
+      "The number of seats on each bus"
+    ],
+    "answer": 1,
+    "explanation": "Different starting locations may explain why some riders improved while others did not, so location-based travel-time data would help.",
+    "hint1": "What factor could make the route affect riders differently?",
+    "hint2": "Choose evidence directly related to travel time.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "evidence"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP2-EN-013",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Chart evidence",
+    "competency": "Read a trend without overstating it",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Weekly library visits were 120, 145, 138, and 160 over four weeks.",
+    "question": "Which statement is supported by the data?",
+    "choices": [
+      "Visits increased every single week.",
+      "Week 4 had the highest number of visits.",
+      "Week 2 had fewer visits than Week 1.",
+      "The total was exactly 500."
+    ],
+    "answer": 1,
+    "explanation": "Week 4 has the highest value, 160. The values do not increase every week because Week 3 is lower than Week 2.",
+    "hint1": "Find the maximum value.",
+    "hint2": "Check whether the pattern rises every week.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "data"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart",
+    "table": {
+      "headers": [
+        "Week",
+        "Visits"
+      ],
+      "rows": [
+        [
+          1,
+          120
+        ],
+        [
+          2,
+          145
+        ],
+        [
+          3,
+          138
+        ],
+        [
+          4,
+          160
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP2-EN-014",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Percent comparison",
+    "competency": "Compare percentages rather than raw counts",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "Class A: 12 of 20 students bike to school. Class B: 18 of 40 students bike to school.",
+    "question": "Which statement is correct?",
+    "choices": [
+      "Class B has the higher biking percentage.",
+      "Class A has the higher biking percentage.",
+      "The percentages are equal.",
+      "Percentages cannot be calculated."
+    ],
+    "answer": 1,
+    "explanation": "Class A is 12/20=60%, while Class B is 18/40=45%, so Class A has the higher percentage.",
+    "hint1": "Compare rates, not just counts.",
+    "hint2": "Convert both fractions to percentages.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "percentage"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart",
+    "table": {
+      "headers": [
+        "Class",
+        "Total",
+        "Bike"
+      ],
+      "rows": [
+        [
+          "A",
+          20,
+          12
+        ],
+        [
+          "B",
+          40,
+          18
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP2-EN-015",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Evidence limit",
+    "competency": "Use chart data without making an unsupported causal claim",
+    "grade": 9,
+    "difficulty": 4,
+    "passage": "After a school opened a new study room, average evening library attendance changed from 45 to 62 students. The school also extended library hours that same month.",
+    "question": "Which conclusion is best?",
+    "choices": [
+      "The study room alone caused the increase.",
+      "Longer hours alone caused the increase.",
+      "Attendance increased, but the data cannot show which change mattered more.",
+      "The changes had no relationship to attendance."
+    ],
+    "answer": 2,
+    "explanation": "Because two changes occurred together, the attendance increase cannot be assigned to one cause based on this data alone.",
+    "hint1": "How many changes occurred at the same time?",
+    "hint2": "Choose the conclusion that stays within the evidence.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "evidence",
+      "causality"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart"
+  }
+]
