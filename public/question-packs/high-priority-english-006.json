@@ -1,0 +1,468 @@
+[
+  {
+    "id": "HP6-EN-001",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Present perfect intro",
+    "competency": "Use time clues to choose a tense",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "A: Is Mia still at the library?\nB: No. She _____ home already.",
+    "question": "Which phrase best completes B's sentence?",
+    "choices": [
+      "goes",
+      "went",
+      "has gone",
+      "going"
+    ],
+    "answer": 2,
+    "explanation": "Already with a present result can use has gone.",
+    "hint1": "She is no longer there now.",
+    "hint2": "Choose the form connecting past action to the present.",
+    "source": "original",
+    "tags": [
+      "grammar",
+      "tense"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP6-EN-002",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-source",
+    "competency": "Combine two sources",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Text A: The new park path is easier for wheelchairs.\nText B: Some visitors say signs at the entrances are still unclear.",
+    "question": "Which statement best combines both texts?",
+    "choices": [
+      "Access improved, but wayfinding can still improve.",
+      "The path made access worse.",
+      "Signs are no longer needed.",
+      "Wheelchairs cannot use the park."
+    ],
+    "answer": 0,
+    "explanation": "One source reports improved physical access; the other identifies a remaining information problem.",
+    "hint1": "Use both texts.",
+    "hint2": "Keep the benefit and the remaining issue.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "integration"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP6-EN-003",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "字彙題",
+    "topic": "Context meaning",
+    "competency": "Infer verb meaning",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "Please avoid touching the wet paint. It needs another hour to dry.",
+    "question": "What does avoid mean here?",
+    "choices": [
+      "try not to",
+      "begin to",
+      "forget to",
+      "enjoy"
+    ],
+    "answer": 0,
+    "explanation": "The warning tells people not to touch the wet paint.",
+    "hint1": "Use the warning context.",
+    "hint2": "Avoid means stay away from an action.",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP6-EN-004",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "字彙題",
+    "topic": "Context meaning",
+    "competency": "Infer adjective meaning",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "A: Is the bridge safe?\nB: Yes. Engineers inspected it yesterday.",
+    "question": "What does inspected most likely mean?",
+    "choices": [
+      "checked carefully",
+      "painted quickly",
+      "closed forever",
+      "walked under"
+    ],
+    "answer": 0,
+    "explanation": "Engineers check a bridge to make sure it is safe.",
+    "hint1": "Use the safety context.",
+    "hint2": "Think of a careful examination.",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP6-EN-005",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "克漏字",
+    "topic": "Relative meaning",
+    "competency": "Choose a connector for contrast",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Emma was tired. _____, she finished the final page before going to bed.",
+    "question": [
+      "However",
+      "Because",
+      "For example",
+      "Therefore only"
+    ],
+    "choices": 0,
+    "answer": "However signals the contrast between being tired and still finishing.",
+    "explanation": "The second sentence is unexpected.",
+    "hint1": "Choose a contrast transition.",
+    "hint2": [
+      "cloze",
+      "transition"
+    ],
+    "source": "original",
+    "tags": 3,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP6-EN-006",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "克漏字",
+    "topic": "Sequence",
+    "competency": "Choose a sequencing word",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "First, wash the vegetables. _____, cut them into small pieces.",
+    "question": [
+      "Next",
+      "Although",
+      "Because",
+      "Unless"
+    ],
+    "choices": 0,
+    "answer": "Next correctly introduces the following step.",
+    "explanation": "This is an instruction sequence.",
+    "hint1": "Choose a time/order word.",
+    "hint2": [
+      "cloze",
+      "sequence"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP6-EN-007",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "細節理解",
+    "topic": "Notice exception",
+    "competency": "Read a special rule",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "notice",
+    "passage": "NOTICE\nThe reading room closes at 6 p.m. daily. During exam week, it stays open until 8 p.m. except Friday.",
+    "question": "When does it close on Friday during exam week?",
+    "choices": [
+      "6 p.m.",
+      "7 p.m.",
+      "8 p.m.",
+      "9 p.m."
+    ],
+    "answer": 0,
+    "explanation": "Friday is the exception to the exam-week extension, so the normal 6 p.m. time applies.",
+    "hint1": "Find the exception.",
+    "hint2": "Use the normal rule on Friday.",
+    "source": "original",
+    "tags": [
+      "notice",
+      "exception"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-notice"
+  },
+  {
+    "id": "HP6-EN-008",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "推論題",
+    "topic": "Instruction",
+    "competency": "Infer the correct action",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "notice",
+    "passage": "NOTICE\nBicycles must be parked in the marked area. Bikes blocking the emergency exit will be moved.",
+    "question": "What should a student do?",
+    "choices": [
+      "Park in the marked area",
+      "Leave the bike at the emergency exit",
+      "Take the bike into class",
+      "Block the doorway"
+    ],
+    "answer": 0,
+    "explanation": "The notice directly instructs students to use the marked area.",
+    "hint1": "Follow the main rule.",
+    "hint2": "Avoid the emergency exit.",
+    "source": "original",
+    "tags": [
+      "notice",
+      "instruction"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-notice"
+  },
+  {
+    "id": "HP6-EN-009",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Summarize cause and response",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "During hot months, the school garden dried quickly. Students then added mulch and watered early in the morning. Water use decreased while most plants remained healthy.",
+    "question": "What is the main idea?",
+    "choices": [
+      "Simple changes helped the garden use water more efficiently.",
+      "Plants do not need water.",
+      "Morning watering always solves every problem.",
+      "Mulch made all plants grow twice as fast."
+    ],
+    "answer": 0,
+    "explanation": "The passage focuses on changes that reduced water use while maintaining plant health.",
+    "hint1": "What problem and response appear?",
+    "hint2": "Choose the broad supported idea.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP6-EN-010",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Summarize an argument",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Keeping every old file may feel safe, but searching becomes harder when folders are crowded. A monthly review can remove duplicates while keeping important records.",
+    "question": "What is the main idea?",
+    "choices": [
+      "Regular file review can improve organization.",
+      "All old files should be deleted.",
+      "Duplicates are always important.",
+      "Folders should never be used."
+    ],
+    "answer": 0,
+    "explanation": "The passage recommends periodic review to reduce clutter while preserving important files.",
+    "hint1": "Find the recommendation.",
+    "hint2": "Avoid extreme deletion claims.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  },
+  {
+    "id": "HP6-EN-011",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Conditional",
+    "competency": "Choose a conditional form",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "A: What will we do if it rains?\nB: We _____ the game indoors.",
+    "question": [
+      "move",
+      "moved",
+      "will move",
+      "moving"
+    ],
+    "choices": 2,
+    "answer": "In a real future condition, the main clause can use will move.",
+    "explanation": "The if-clause refers to a future possibility.",
+    "hint1": "Choose the future result.",
+    "hint2": [
+      "grammar",
+      "conditional"
+    ],
+    "source": "original",
+    "tags": 3,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-grammar"
+  },
+  {
+    "id": "HP6-EN-012",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Passive voice",
+    "competency": "Recognize passive construction",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "The classroom _____ every afternoon by the cleaning team.",
+    "question": [
+      "cleans",
+      "cleaned",
+      "is cleaned",
+      "is cleaning"
+    ],
+    "choices": 2,
+    "answer": "The classroom receives the action, so the present passive is is cleaned.",
+    "explanation": "Who performs the action?",
+    "hint1": "The classroom is the receiver.",
+    "hint2": [
+      "grammar",
+      "passive"
+    ],
+    "source": "original",
+    "tags": 3,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-grammar"
+  },
+  {
+    "id": "HP6-EN-013",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Timetable",
+    "competency": "Combine time and location constraints",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Bus schedule: A—4:10 Gate 1; B—4:35 Gate 2; C—5:00 Gate 1.",
+    "question": "Leo reaches Gate 1 at 4:20 and cannot go to Gate 2. Which bus can he take?",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "None"
+    ],
+    "answer": 2,
+    "explanation": "Bus A already left, B uses Gate 2, so C is the first available at Gate 1.",
+    "hint1": "Check both time and gate.",
+    "hint2": "A is too early.",
+    "source": "original",
+    "tags": [
+      "schedule",
+      "table"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-table",
+    "table": {
+      "headers": [
+        "Bus",
+        "Time",
+        "Gate"
+      ],
+      "rows": [
+        [
+          "A",
+          "4:10",
+          "1"
+        ],
+        [
+          "B",
+          "4:35",
+          "2"
+        ],
+        [
+          "C",
+          "5:00",
+          "1"
+        ]
+      ]
+    }
+  }
+]
