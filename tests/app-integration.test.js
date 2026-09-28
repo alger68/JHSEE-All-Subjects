@@ -354,18 +354,21 @@ it('starts one continuous revenge session for all wrong questions',async()=>{
   expect(document.querySelector('[data-exam-progress]').textContent).toContain('0 / 2');
 });
 
-it('advances to the next revenge question after recording an answer',async()=>{
+it('keeps a selected revenge answer visible until the learner chooses next',async()=>{
   localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[
     {questionId:'CHI-WORD-001',mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false},
     {questionId:'CHI-WORD-002',mastery:1,wrongCount:2,nextReview:'2026-09-18',resolved:false}
   ]}));
   window.history.replaceState(null,'','#/revenge');await boot();
   document.querySelector('[data-action="start-revenge-session"]').click();
-  const first=document.querySelector('[data-action="exam-answer"]');first.click();
+  document.querySelector('[data-action="exam-answer"][data-choice="0"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
-  expect(session.index).toBe(1);expect(session.answers['CHI-WORD-001']).toBe(0);
+  expect(session.index).toBe(0);
+  expect(session.answers['CHI-WORD-001']).toBe(0);
+  expect(document.querySelector('[data-choice="0"]').getAttribute('aria-pressed')).toBe('true');
   expect(document.querySelector('[data-exam-progress]').textContent).toContain('1 / 2');
-  expect(document.querySelector('[data-action="exam-prev"]')).not.toBeNull();
+  document.querySelector('[data-action="exam-next"]').click();
+  expect(JSON.parse(localStorage.getItem(key)).activeExam.index).toBe(1);
 });
 
 it('does not create blank or unclickable revenge entries for stale question ids',async()=>{
