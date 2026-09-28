@@ -445,6 +445,74 @@ it('starts AI weakness validation from a completed report and stores generated q
 });
 
 
+
+it('locks AI weakness validation while its first request is still in flight',async()=>{
+  window.history.replaceState(null,'','#/exam-center');
+  const pending=[];
+  let aiRequests=0;
+  fetch.mockImplementation((url,options={})=>{
+    if(String(url).includes('/api/generate-question')){
+      aiRequests+=1;
+      const {brief}=JSON.parse(options.body);
+      const generated={
+        id:'ai-remediation-race-1',
+        subject:brief.subject,
+        domain:brief.domain,
+        questionType:brief.subSkill||'推論題',
+        competency:brief.coreSkill,
+        difficulty:brief.targetDifficulty,
+        passage:'新的競態驗收情境。',
+        question:'哪一個推論最合理？',
+        choices:['A','B','C','D'],
+        answer:1,
+        explanation:'驗收解析',
+        hint1:'提示一',
+        hint2:'提示二',
+        errorTags:['錯因A','錯因B','錯因C','錯因D'],
+        source:'ai_generated',
+        chapter:brief.domain,
+        topic:brief.coreSkill,
+        grade:9,
+        tags:['ai-generated','remediation'],
+        examAligned:true,
+        examProfile:{domain:brief.domain,type:brief.subSkill||'推論題',competency:brief.coreSkill},
+        aiGenerated:true,
+        aiPracticeMode:brief.practiceMode
+      };
+      return new Promise(resolve=>pending.push(()=>resolve(
+        new Response(JSON.stringify({questions:[generated]}),{status:200,headers:{'content-type':'application/json'}})
+      )));
+    }
+    return Promise.resolve({ok:true,json:async()=>String(url).includes('cap-practice')?practice:questions});
+  });
+
+  await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  const first=[...questions,...practice].find(q=>q.id===session.questionIds[0]);
+  const wrongChoice=(Number(first.answer)+1)%first.choices.length;
+  document.querySelector(`[data-action="exam-answer"][data-choice="${wrongChoice}"]`).click();
+  submitExam();
+
+  const button=document.querySelector('[data-action="start-ai-remediation"]');
+  expect(button).not.toBeNull();
+  button.click();
+  button.click();
+  await vi.advanceTimersByTimeAsync(0);
+
+  expect(aiRequests).toBe(1);
+  expect(button.disabled).toBe(true);
+  expect(button.textContent).toContain('正在準備');
+
+  pending[0]();
+  await vi.advanceTimersByTimeAsync(1);
+
+  const saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.activeExam?.kind).toBe('review');
+  expect(saved.activeExam?.questionIds).toContain('ai-remediation-race-1');
+  expect(window.confirm).not.toHaveBeenCalled();
+});
+
 it('mixes up to five AI questions into the 25-question re-diagnosis and records quota',async()=>{
   window.history.replaceState(null,'','#/profile');
   fetch.mockImplementation(async (url,options={})=>{
