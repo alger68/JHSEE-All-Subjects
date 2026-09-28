@@ -32,13 +32,14 @@ describe('three-year curriculum blueprint',()=>{
 describe('supplemental question packs',()=>{
   const manifest=readJson('public/question-packs/manifest.json');
 
-  it('ships twenty enabled subject packs with 300 high-priority questions',()=>{
+  it('ships thirty enabled subject packs with 450 high-priority questions',()=>{
     const enabled=manifest.packs.filter(pack=>pack.enabled!==false);
-    expect(enabled).toHaveLength(20);
+    expect(enabled).toHaveLength(30);
     const all=enabled.flatMap(pack=>readJson('public/question-packs/'+pack.file));
-    expect(all).toHaveLength(300);
+    expect(all).toHaveLength(450);
+    const expectedBySubject={chinese:93,english:88,math:84,science:95,social:90};
     for(const subject of subjects){
-      expect(all.filter(q=>q.subject===subject)).toHaveLength(60);
+      expect(all.filter(q=>q.subject===subject)).toHaveLength(expectedBySubject[subject]);
     }
   });
 
@@ -86,9 +87,9 @@ describe('supplemental question packs',()=>{
       manifestUrl:'https://example.test/question-packs/manifest.json',
       fetchImpl
     });
-    expect(loaded.questions).toHaveLength(300);
+    expect(loaded.questions).toHaveLength(450);
     expect(loaded.warnings).toEqual([]);
-    expect(new Set(loaded.questions.map(q=>q.packId)).size).toBe(20);
+    expect(new Set(loaded.questions.map(q=>q.packId)).size).toBe(30);
   });
 });
 
@@ -101,14 +102,16 @@ describe('coverage audit',()=>{
     const before=auditBlueprintCoverage(core,blueprint);
     const after=auditBlueprintCoverage([...core,...packed],blueprint);
     expect(before.totalQuestions).toBe(205);
-    expect(after.totalQuestions).toBe(505);
+    expect(after.totalQuestions).toBe(655);
+    const expectedAdded={chinese:93,english:88,math:84,science:95,social:90};
     for(const subject of subjects){
-      expect(after.bySubject[subject].total).toBe(before.bySubject[subject].total+60);
+      expect(after.bySubject[subject].total).toBe(before.bySubject[subject].total+expectedAdded[subject]);
       expect(after.bySubject[subject].coveredSkills).toBe(12);
       expect(after.bySubject[subject].coveredSkills).toBeGreaterThanOrEqual(before.bySubject[subject].coveredSkills);
+      expect(after.bySubject[subject].gap).toBe(0);
     }
     expect(Object.values(after.bySubject).reduce((sum,row)=>sum+row.coveredSkills,0)).toBe(60);
-    expect(after.totalGap).toBeLessThan(before.totalGap);
+    expect(after.totalGap).toBe(0);
   });
   it('provides multiple variation forms across supplemental content',()=>{
     const manifest=readJson('public/question-packs/manifest.json');
