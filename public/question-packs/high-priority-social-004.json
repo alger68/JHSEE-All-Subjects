@@ -1,0 +1,567 @@
+[
+  {
+    "id": "HP4-SO-001",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "公共規範",
+    "competency": "理解規範與共同生活",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "甲：「公共場所為什麼要排隊？」乙：「因為大家都想使用同一項服務。」",
+    "question": "排隊規範最主要的作用是什麼？",
+    "choices": [
+      "協調使用順序並降低衝突",
+      "保證每個人想法相同",
+      "讓服務永遠變慢",
+      "取消所有人的選擇"
+    ],
+    "answer": 0,
+    "explanation": "排隊規範提供可預期的使用順序，有助降低衝突。",
+    "hint1": "想公共資源多人使用時會發生什麼。",
+    "hint2": "規範的功能是協調互動。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "規範"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-civics"
+  },
+  {
+    "id": "HP4-SO-002",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "權利界線",
+    "competency": "理解自由與他人權益的關係",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "notice",
+    "passage": "公園公告：可播放音樂，但晚上九點後請降低音量，以免影響附近住戶。",
+    "question": "這項規定最能說明什麼？",
+    "choices": [
+      "自由行使仍需兼顧他人權益",
+      "有自由就不能有任何限制",
+      "住戶沒有休息權",
+      "公共空間只能保持完全安靜"
+    ],
+    "answer": 0,
+    "explanation": "使用公共空間與表達自由仍需兼顧附近居民的休息權益。",
+    "hint1": "看規定想平衡哪兩方。",
+    "hint2": "權利不是無限制。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "權利",
+      "責任"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-civics"
+  },
+  {
+    "id": "HP4-SO-003",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "制度理解",
+    "topic": "社會角色",
+    "competency": "辨識不同社會角色責任",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "小明在班上是學生，在球隊是隊長，在家是哥哥。",
+    "question": "這個例子最能說明什麼？",
+    "choices": [
+      "一個人可能同時具有不同社會角色",
+      "一個人只能有一種角色",
+      "角色永遠不會改變",
+      "只有職業才算角色"
+    ],
+    "answer": 0,
+    "explanation": "同一個人在不同情境中可具有不同角色與相應責任。",
+    "hint1": "比較三個情境。",
+    "hint2": "角色會隨情境不同。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "社會角色"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-civics"
+  },
+  {
+    "id": "HP4-SO-004",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "抽樣偏差",
+    "competency": "判斷樣本代表性",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "學校想了解全校學生對早自習的看法，只訪問早自習社團幹部。",
+    "question": "這項調查最大的問題是什麼？",
+    "choices": [
+      "樣本可能不具全校代表性",
+      "訪問人數只要大就一定沒問題",
+      "早自習不能被調查",
+      "只有老師能填問卷"
+    ],
+    "answer": 0,
+    "explanation": "樣本來源集中於特定群體，可能產生選樣偏差。",
+    "hint1": "看受訪者是否代表所有學生。",
+    "hint2": "抽樣來源很重要。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "抽樣"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence"
+  },
+  {
+    "id": "HP4-SO-005",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "百分比",
+    "competency": "由表格比較不同母數的比例",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "甲校200人中有80人搭大眾運輸；乙校100人中有50人搭大眾運輸。",
+    "question": "哪校比例較高？",
+    "choices": [
+      "甲校",
+      "乙校",
+      "相同",
+      "無法計算"
+    ],
+    "answer": 1,
+    "explanation": "甲校40%，乙校50%，乙校較高。",
+    "hint1": "分別除以總人數。",
+    "hint2": "不要只看搭乘人數。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "百分比"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence",
+    "table": {
+      "headers": [
+        "學校",
+        "總人數",
+        "搭大眾運輸"
+      ],
+      "rows": [
+        [
+          "甲",
+          200,
+          80
+        ],
+        [
+          "乙",
+          100,
+          50
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP4-SO-006",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "因果限制",
+    "competency": "區分同時變化與因果",
+    "grade": 8,
+    "difficulty": 4,
+    "variationForm": "chart",
+    "passage": "某地公園新增步道後，使用人數上升；同一期間附近捷運站也啟用。",
+    "question": "哪個結論最適當？",
+    "choices": [
+      "使用人數增加，但無法只歸因於步道",
+      "步道一定是唯一原因",
+      "捷運一定完全無關",
+      "兩件事都不可能影響使用人數"
+    ],
+    "answer": 0,
+    "explanation": "步道與捷運同時改變，都可能影響使用人數，因此不能判定單一原因。",
+    "hint1": "找同時改變的另一因素。",
+    "hint2": "相關不代表唯一因果。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence"
+  },
+  {
+    "id": "HP4-SO-007",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "史料判讀",
+    "topic": "移墾社會",
+    "competency": "由水利史料判斷社會需求",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "史料記載：「數十戶共同出資修築圳道，依田地面積分配灌溉時間。」",
+    "question": "這段資料最能反映什麼？",
+    "choices": [
+      "農業開墾需要合作管理水資源",
+      "當地完全不從事農業",
+      "居民只靠海上貿易",
+      "水圳與土地利用無關"
+    ],
+    "answer": 0,
+    "explanation": "共同修築與分配灌溉時間反映農業開墾對水利合作的需求。",
+    "hint1": "抓住圳道與灌溉。",
+    "hint2": "想農業需要什麼資源。",
+    "source": "original",
+    "tags": [
+      "臺灣史",
+      "水圳"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twhistory"
+  },
+  {
+    "id": "HP4-SO-008",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "史料判讀",
+    "topic": "近代交通",
+    "competency": "由交通建設判讀歷史變化",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "地方紀錄提到鐵路通車後，農產品運到港口的時間大幅縮短。",
+    "question": "這項變化最直接影響什麼？",
+    "choices": [
+      "運輸效率提高",
+      "農產品立即停止生產",
+      "港口完全失去功能",
+      "所有人口搬到山區"
+    ],
+    "answer": 0,
+    "explanation": "鐵路縮短運輸時間，直接提升農產品運輸效率。",
+    "hint1": "看時間縮短代表什麼。",
+    "hint2": "重點是交通效率。",
+    "source": "original",
+    "tags": [
+      "臺灣史",
+      "交通"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twhistory"
+  },
+  {
+    "id": "HP4-SO-009",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "地圖判讀",
+    "topic": "比例尺",
+    "competency": "利用比例尺換算距離",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "map",
+    "passage": "地圖比例尺1：50,000，圖上兩點相距4公分。",
+    "question": "實際距離約多少？",
+    "choices": [
+      "0.5公里",
+      "1公里",
+      "2公里",
+      "20公里"
+    ],
+    "answer": 2,
+    "explanation": "1公分代表50,000公分=0.5公里，4公分代表2公里。",
+    "hint1": "先換算1公分代表多少公里。",
+    "hint2": "0.5×4。",
+    "source": "original",
+    "tags": [
+      "地圖",
+      "比例尺"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-mapdata"
+  },
+  {
+    "id": "HP4-SO-010",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "人口結構",
+    "competency": "由人口表判讀高齡比例",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "甲區總人口50,000，其中65歲以上10,000；乙區總人口20,000，其中65歲以上5,000。",
+    "question": "哪區高齡人口比例較高？",
+    "choices": [
+      "甲區",
+      "乙區",
+      "相同",
+      "無法計算"
+    ],
+    "answer": 1,
+    "explanation": "甲20%，乙25%，乙區比例較高。",
+    "hint1": "高齡人口除以總人口。",
+    "hint2": "1/5和1/4相比。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "人口"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-mapdata",
+    "table": {
+      "headers": [
+        "地區",
+        "總人口",
+        "65歲以上"
+      ],
+      "rows": [
+        [
+          "甲",
+          50000,
+          10000
+        ],
+        [
+          "乙",
+          20000,
+          5000
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP4-SO-011",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "全球供應鏈",
+    "competency": "理解單一來源風險",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "某產業八成原料來自同一海外地區。該地港口因天災暫停一週。",
+    "question": "最可能出現什麼影響？",
+    "choices": [
+      "相關產業可能面臨原料短缺",
+      "所有商品價格一定歸零",
+      "國內產業完全不受影響",
+      "出口國天災不可能影響進口國"
+    ],
+    "answer": 0,
+    "explanation": "高度依賴單一來源會增加供應鏈中斷風險。",
+    "hint1": "想原料來源過度集中的風險。",
+    "hint2": "供應鏈具有跨國連動。",
+    "source": "original",
+    "tags": [
+      "全球化",
+      "供應鏈"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-global"
+  },
+  {
+    "id": "HP4-SO-012",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "情境思辨",
+    "topic": "公共政策",
+    "competency": "整合多方利害",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "店家支持增加路邊卸貨區；行人團體擔心人行空間縮減；居民希望降低違停。",
+    "question": "較完整的政策評估應怎麼做？",
+    "choices": [
+      "只聽店家",
+      "同時評估物流、人行安全與違停問題",
+      "只聽行人團體",
+      "因為意見不同就不決策"
+    ],
+    "answer": 1,
+    "explanation": "公共議題應同時考量不同利害與可能配套。",
+    "hint1": "找能涵蓋三方需求的選項。",
+    "hint2": "公共決策需要權衡。",
+    "source": "original",
+    "tags": [
+      "公共議題",
+      "多元觀點"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-public"
+  },
+  {
+    "id": "HP4-SO-013",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "人口分布",
+    "competency": "由地形交通推論人口集中",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "map",
+    "passage": "某區沿海平原道路密集、人口多；內陸高山道路少、人口稀疏。",
+    "question": "哪個解釋最合理？",
+    "choices": [
+      "地形與交通條件可能影響人口分布",
+      "人口只由海拔一個因素決定",
+      "道路越多人口一定越少",
+      "高山永遠不能居住"
+    ],
+    "answer": 0,
+    "explanation": "平原與交通便利通常有利聚落發展，但人口分布仍可能受多因素影響。",
+    "hint1": "同時看地形與道路。",
+    "hint2": "用「可能」而非絕對。",
+    "source": "original",
+    "tags": [
+      "臺灣地理",
+      "人口"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twgeo"
+  },
+  {
+    "id": "HP4-SO-014",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "跨來源證據",
+    "competency": "整合文字與統計資料",
+    "grade": 9,
+    "difficulty": 4,
+    "variationForm": "table",
+    "passage": "文字資料指出某港口擴建後貨輪停靠更方便；統計顯示年貨運量由8萬噸增至11萬噸，但同期出口需求也上升。",
+    "question": "哪個結論最適當？",
+    "choices": [
+      "貨運增加與港口改善同時出現，但出口需求也可能影響",
+      "港口擴建一定是唯一原因",
+      "出口需求一定無關",
+      "貨運量一定每年增加相同比例"
+    ],
+    "answer": 0,
+    "explanation": "兩項變化同時存在，因此可描述現象，但不能只歸因於港口擴建。",
+    "hint1": "同時看文字與數據。",
+    "hint2": "注意另一個可能因素。",
+    "source": "original",
+    "tags": [
+      "跨資料",
+      "證據"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-crosssource",
+    "table": {
+      "headers": [
+        "時期",
+        "年貨運量"
+      ],
+      "rows": [
+        [
+          "擴建前",
+          "8萬噸"
+        ],
+        [
+          "擴建後",
+          "11萬噸"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP4-SO-015",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "資料分析",
+    "topic": "供需",
+    "competency": "由需求變化推論市場影響",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "chart",
+    "passage": "某水果產量固定，但節日前購買需求明顯增加。",
+    "question": "若其他條件不變，價格通常有何壓力？",
+    "choices": [
+      "上升",
+      "下降到零",
+      "完全不變",
+      "一定變負數"
+    ],
+    "answer": 0,
+    "explanation": "供給固定、需求增加時，價格通常面臨上升壓力。",
+    "hint1": "比較供給和需求的變化。",
+    "hint2": "想買的人增加。",
+    "source": "original",
+    "tags": [
+      "經濟",
+      "供需"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-goveco"
+  }
+]

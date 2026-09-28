@@ -137,6 +137,51 @@
       "kind": "local-pack",
       "subject": "social",
       "questionCount": 15
+    },
+    {
+      "id": "hp-chinese-004",
+      "version": 1,
+      "file": "high-priority-chinese-004.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "chinese",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-english-004",
+      "version": 1,
+      "file": "high-priority-english-004.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "english",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-math-004",
+      "version": 1,
+      "file": "high-priority-math-004.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "math",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-science-004",
+      "version": 1,
+      "file": "high-priority-science-004.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "science",
+      "questionCount": 15
+    },
+    {
+      "id": "hp-social-004",
+      "version": 1,
+      "file": "high-priority-social-004.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "social",
+      "questionCount": 15
     }
   ]
 }
