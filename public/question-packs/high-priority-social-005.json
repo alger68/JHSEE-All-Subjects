@@ -1,0 +1,548 @@
+[
+  {
+    "id": "HP5-SO-001",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "公共規範",
+    "competency": "理解共同規範的功能",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "notice",
+    "passage": "圖書館公告：請將手機調成靜音，以免影響其他讀者。",
+    "question": "這項規範最主要在保障什麼？",
+    "choices": [
+      "共同使用空間的秩序與他人權益",
+      "所有人不能帶手機",
+      "只有管理員可以說話",
+      "讀者必須完全相同"
+    ],
+    "answer": 0,
+    "explanation": "靜音規範是在平衡個人使用手機與他人閱讀的需求。",
+    "hint1": "想公共空間有很多使用者。",
+    "hint2": "規範用來協調彼此權益。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "規範"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-civics"
+  },
+  {
+    "id": "HP5-SO-002",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "制度理解",
+    "topic": "權利義務",
+    "competency": "辨識權利與責任關係",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "dialogue",
+    "passage": "甲：「我可以借公共腳踏車。」乙：「但使用後也要依規定歸還。」",
+    "question": "這段對話最能說明什麼？",
+    "choices": [
+      "享有權利也伴隨責任",
+      "只有責任沒有權利",
+      "公共資源可以不歸還",
+      "規定與權利完全無關"
+    ],
+    "answer": 0,
+    "explanation": "使用公共資源是權利，依規定歸還是相應責任。",
+    "hint1": "看甲與乙各談什麼。",
+    "hint2": "權利與責任常同時存在。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "權利",
+      "責任"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-civics"
+  },
+  {
+    "id": "HP5-SO-003",
+    "subject": "social",
+    "chapter": "公民與社會",
+    "domain": "公民與社會",
+    "questionType": "情境思辨",
+    "topic": "社會角色",
+    "competency": "理解角色衝突",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "小明既是班長，也是球隊隊員。班會與重要比賽同時舉行，他需要協調兩邊責任。",
+    "question": "這最能說明哪個概念？",
+    "choices": [
+      "角色衝突",
+      "只有一種社會角色",
+      "角色永遠沒有責任",
+      "法律衝突"
+    ],
+    "answer": 0,
+    "explanation": "同一人不同角色的責任在同一時間發生衝突，屬角色衝突。",
+    "hint1": "注意他有兩個身分。",
+    "hint2": "兩邊責任同時出現。",
+    "source": "original",
+    "tags": [
+      "公民",
+      "社會角色"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-civics"
+  },
+  {
+    "id": "HP5-SO-004",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "抽樣",
+    "competency": "判斷自願樣本限制",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "網站讓讀者自願投票評價新政策，結果九成支持。",
+    "question": "若用此結果代表所有市民，最需要注意什麼？",
+    "choices": [
+      "自願參與者可能不具代表性",
+      "九成一定算錯",
+      "網站不能做問卷",
+      "所有市民都支持"
+    ],
+    "answer": 0,
+    "explanation": "自願樣本容易受到參與意願影響，不能直接代表整體人口。",
+    "hint1": "誰會主動去投票？",
+    "hint2": "抽樣方式影響代表性。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "抽樣"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence"
+  },
+  {
+    "id": "HP5-SO-005",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "相關與因果",
+    "competency": "區分相關與因果",
+    "grade": 8,
+    "difficulty": 4,
+    "variationForm": "chart",
+    "passage": "某地公園使用人數增加，同期氣溫也上升。",
+    "question": "哪個推論較適當？",
+    "choices": [
+      "兩者可能相關，但不能直接判定氣溫是唯一原因",
+      "氣溫一定是唯一原因",
+      "公園使用造成氣溫上升",
+      "兩者一定完全無關"
+    ],
+    "answer": 0,
+    "explanation": "同時變化只顯示可能關聯，因果仍需更多證據。",
+    "hint1": "注意「同期」。",
+    "hint2": "相關不等於因果。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence"
+  },
+  {
+    "id": "HP5-SO-006",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "百分比",
+    "competency": "比較不同母數的比率",
+    "grade": 8,
+    "difficulty": 2,
+    "variationForm": "table",
+    "passage": "甲地300戶中90戶使用太陽能；乙地150戶中60戶使用。",
+    "question": "哪地使用比例較高？",
+    "choices": [
+      "甲地",
+      "乙地",
+      "相同",
+      "無法算"
+    ],
+    "answer": 1,
+    "explanation": "甲30%，乙40%，乙較高。",
+    "hint1": "用戶數除以總戶數。",
+    "hint2": "不要只看90比60。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "比例"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-8-evidence",
+    "table": {
+      "headers": [
+        "地區",
+        "總戶數",
+        "太陽能戶數"
+      ],
+      "rows": [
+        [
+          "甲",
+          300,
+          90
+        ],
+        [
+          "乙",
+          150,
+          60
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP5-SO-007",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "史料判讀",
+    "topic": "移墾",
+    "competency": "由契約史料理解土地開發",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "史料記載數戶共同出資開墾，並約定灌溉用水輪流使用。",
+    "question": "這最能反映哪種情況？",
+    "choices": [
+      "開墾需要合作管理資源",
+      "居民完全不需要農業",
+      "土地沒有任何規則",
+      "所有人只從事漁業"
+    ],
+    "answer": 0,
+    "explanation": "共同出資與輪流灌溉反映農業開墾需合作管理水資源。",
+    "hint1": "抓住開墾與灌溉。",
+    "hint2": "想水資源如何分配。",
+    "source": "original",
+    "tags": [
+      "臺灣史",
+      "移墾"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twhistory"
+  },
+  {
+    "id": "HP5-SO-008",
+    "subject": "social",
+    "chapter": "臺灣與世界歷史",
+    "domain": "臺灣與世界歷史",
+    "questionType": "史料判讀",
+    "topic": "近代化",
+    "competency": "由新式建設判斷時代特徵",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "某時期臺灣開始鋪設鐵路、電報並改善港口。",
+    "question": "這最能代表什麼變化？",
+    "choices": [
+      "近代交通與通訊建設發展",
+      "回到石器生活",
+      "完全停止對外交流",
+      "只有農具改良"
+    ],
+    "answer": 0,
+    "explanation": "鐵路、電報與港口是近代交通通訊建設。",
+    "hint1": "看技術類型。",
+    "hint2": "鐵路與電報是近代化象徵。",
+    "source": "original",
+    "tags": [
+      "臺灣史",
+      "近代化"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twhistory"
+  },
+  {
+    "id": "HP5-SO-009",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "地圖判讀",
+    "topic": "等高線",
+    "competency": "由等高線疏密判斷坡度",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "map",
+    "passage": "地圖上甲地等高線很密，乙地等高線較疏。",
+    "question": "通常哪地坡度較陡？",
+    "choices": [
+      "甲地",
+      "乙地",
+      "一定相同",
+      "無法使用等高線判斷"
+    ],
+    "answer": 0,
+    "explanation": "等高線越密代表短距離內高度變化越大，坡度較陡。",
+    "hint1": "看線距。",
+    "hint2": "密代表高度變化快。",
+    "source": "original",
+    "tags": [
+      "地圖",
+      "等高線"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-mapdata"
+  },
+  {
+    "id": "HP5-SO-010",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "人口金字塔",
+    "competency": "由年齡比例判斷人口結構",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "某地0-14歲15%、15-64歲60%、65歲以上25%。",
+    "question": "最值得注意的人口特徵是？",
+    "choices": [
+      "高齡人口比例較高",
+      "兒童占一半以上",
+      "工作年齡人口為0",
+      "沒有老年人口"
+    ],
+    "answer": 0,
+    "explanation": "65歲以上占25%，顯示高齡人口比例相對高。",
+    "hint1": "看65歲以上比例。",
+    "hint2": "25%不是0。",
+    "source": "original",
+    "tags": [
+      "人口",
+      "資料"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-mapdata"
+  },
+  {
+    "id": "HP5-SO-011",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "跨國分工",
+    "competency": "由生產鏈理解全球化",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "一台筆電在甲國設計、乙國製造晶片、丙國組裝，最後銷往多國。",
+    "question": "這最能說明什麼？",
+    "choices": [
+      "全球供應鏈與跨國分工",
+      "所有產品都在單一國家完成",
+      "國際貿易停止",
+      "設計與製造必須同地"
+    ],
+    "answer": 0,
+    "explanation": "不同生產階段分散多國，是全球供應鏈典型現象。",
+    "hint1": "看流程跨幾個國家。",
+    "hint2": "重點是分工。",
+    "source": "original",
+    "tags": [
+      "全球化",
+      "供應鏈"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-global"
+  },
+  {
+    "id": "HP5-SO-012",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "推論",
+    "topic": "運輸成本",
+    "competency": "由交通改善推論區域連結",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "map",
+    "passage": "新高速鐵路縮短兩城市旅行時間，沿線商務往來增加。",
+    "question": "最合理的解釋是？",
+    "choices": [
+      "交通時間成本降低可能促進區域互動",
+      "鐵路一定使所有產業消失",
+      "商務與交通完全無關",
+      "兩城市距離在地圖上消失"
+    ],
+    "answer": 0,
+    "explanation": "交通時間縮短可降低往來成本，促進商務與人口流動。",
+    "hint1": "想時間成本。",
+    "hint2": "交通改善會強化連結。",
+    "source": "original",
+    "tags": [
+      "全球化",
+      "交通"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-global"
+  },
+  {
+    "id": "HP5-SO-013",
+    "subject": "social",
+    "chapter": "公共議題思辨",
+    "domain": "公共議題思辨",
+    "questionType": "情境思辨",
+    "topic": "多元觀點",
+    "competency": "比較不同政策價值",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "甲支持增加公園停車格；乙主張保留綠地；丙希望增加無障礙空間。",
+    "question": "較完整決策方式是？",
+    "choices": [
+      "同時評估交通、綠地與無障礙需求",
+      "只採甲意見",
+      "只採乙意見",
+      "有不同意見就不決策"
+    ],
+    "answer": 0,
+    "explanation": "公共政策需兼顧多方需求與可能取捨。",
+    "hint1": "找能包含三方的選項。",
+    "hint2": "不要只看單一利害。",
+    "source": "original",
+    "tags": [
+      "公共議題",
+      "多元觀點"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-public"
+  },
+  {
+    "id": "HP5-SO-014",
+    "subject": "social",
+    "chapter": "地理環境與區域",
+    "domain": "地理環境與區域",
+    "questionType": "資料分析",
+    "topic": "河川",
+    "competency": "由地形推論河川特徵",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "map",
+    "passage": "島嶼中央山高，東西寬度小，河川多由山地快速流向海岸。",
+    "question": "河川通常有何特徵？",
+    "choices": [
+      "短而坡陡",
+      "流程極長且平緩",
+      "全部由北往南",
+      "全年流量完全相同"
+    ],
+    "answer": 0,
+    "explanation": "高差大、距海近，使河川流程短且坡度較大。",
+    "hint1": "想高山到海的距離。",
+    "hint2": "高差大造成坡陡。",
+    "source": "original",
+    "tags": [
+      "臺灣地理",
+      "河川"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-7-twgeo"
+  },
+  {
+    "id": "HP5-SO-015",
+    "subject": "social",
+    "chapter": "圖表與資料判讀",
+    "domain": "圖表與資料判讀",
+    "questionType": "資料分析",
+    "topic": "跨來源",
+    "competency": "整合文字與數據但保留因果限制",
+    "grade": 9,
+    "difficulty": 4,
+    "variationForm": "table",
+    "passage": "報導指出新車站啟用後商圈人潮增加；數據顯示月均人次由5萬增至6.8萬，但同期也舉辦大型活動。",
+    "question": "哪個結論最適當？",
+    "choices": [
+      "人潮增加，但無法只歸因於新車站",
+      "車站一定是唯一原因",
+      "活動一定沒有影響",
+      "數據不能證明人潮增加"
+    ],
+    "answer": 0,
+    "explanation": "數據支持人潮增加，但活動也是可能因素，無法判定唯一因果。",
+    "hint1": "同時看兩個變化。",
+    "hint2": "現象與原因要分開。",
+    "source": "original",
+    "tags": [
+      "跨資料",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-so-9-crosssource",
+    "table": {
+      "headers": [
+        "時期",
+        "月均人次"
+      ],
+      "rows": [
+        [
+          "啟用前",
+          "5萬"
+        ],
+        [
+          "啟用後",
+          "6.8萬"
+        ]
+      ]
+    }
+  }
+]
