@@ -88,7 +88,7 @@ describe('supplemental question packs',()=>{
     });
     expect(loaded.questions).toHaveLength(150);
     expect(loaded.warnings).toEqual([]);
-    expect(new Set(loaded.questions.map(q=>q.packId)).size).toBe(5);
+    expect(new Set(loaded.questions.map(q=>q.packId)).size).toBe(10);
   });
 });
 
