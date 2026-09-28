@@ -1,5 +1,7 @@
 import { beforeEach, afterEach, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { skillIdentity } from '../js/core/adaptive-learning.js';
+import { questionFingerprint } from '../js/core/question-dedup.js';
 
 const questions = JSON.parse(readFileSync('data/questions.json','utf8'));
 const practice = JSON.parse(readFileSync('data/cap-practice.json','utf8'));
@@ -16,6 +18,7 @@ beforeEach(() => {
 function disconnect(){ for(const [type,fn] of window.addEventListener.mock.calls)window.removeEventListener(type,fn);vi.clearAllTimers(); }
 afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals();});
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
+function questionMapForTest(id){return [...questions,...practice].find(question=>question.id===id);}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
 
@@ -392,6 +395,106 @@ it('can include all original questions with an accurate live count',async()=>{
   expect(JSON.parse(localStorage.getItem(key)).activeExam.title).toContain('全部原創');
 });
 
+
+
+function reviewVariantPair(){
+  const groups=new Map();
+  for(const question of practice){
+    const key=skillIdentity(question).key;
+    const list=groups.get(key)??[];
+    list.push(question);groups.set(key,list);
+  }
+  const group=[...groups.values()].find(list=>list.length>=3);
+  if(!group)throw new Error('test fixture needs a skill with at least 3 local questions');
+  return group.slice(0,3);
+}
+
+it('uses the original wrong question exactly once, then switches to a same-skill variant',async()=>{
+  const [anchor,variant]=reviewVariantPair();
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    wrongQuestions:[{questionId:anchor.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false}]
+  }));
+  window.history.replaceState(null,'','#/revenge');await boot();
+
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  let session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds).toEqual([anchor.id]);
+  document.querySelector(`[data-action="exam-answer"][data-choice="${anchor.answer}"]`).click();
+  submitExam();
+
+  let saved=JSON.parse(localStorage.getItem(key)).wrongQuestions.find(item=>item.questionId===anchor.id);
+  expect(saved).toMatchObject({originalReviewCount:1,reviewStage:'same-skill',resolved:false});
+
+  await go('#/revenge');
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.questionIds).toHaveLength(1);
+  expect(session.questionIds[0]).not.toBe(anchor.id);
+  expect(skillIdentity(questionMapForTest(session.questionIds[0])).key).toBe(skillIdentity(anchor).key);
+  expect(session.questionIds).toContain(variant.id);
+});
+
+it('switches away from the anchor after one review even when the anchor answer was wrong',async()=>{
+  const [anchor]=reviewVariantPair();
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    wrongQuestions:[{questionId:anchor.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false}]
+  }));
+  window.history.replaceState(null,'','#/revenge');await boot();
+
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  const wrongChoice=(Number(anchor.answer)+1)%anchor.choices.length;
+  document.querySelector(`[data-action="exam-answer"][data-choice="${wrongChoice}"]`).click();
+  submitExam();
+
+  const saved=JSON.parse(localStorage.getItem(key)).wrongQuestions.find(item=>item.questionId===anchor.id);
+  expect(saved).toMatchObject({originalReviewCount:1,reviewStage:'same-skill',wrongCount:2});
+
+  await go('#/revenge');
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  expect(JSON.parse(localStorage.getItem(key)).activeExam.questionIds).not.toContain(anchor.id);
+});
+
+it('does not reuse one variant for multiple review items in a continuous review session',async()=>{
+  const [anchor1,anchor2,onlyVariant]=reviewVariantPair();
+  const first={questionId:anchor1.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false,originalReviewCount:1,reviewStage:'same-skill',...skillIdentity(anchor1),difficulty:anchor1.difficulty,anchorFingerprint:questionFingerprint(anchor1),variantHistory:[],passedFingerprints:[]};
+  const second={questionId:anchor2.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false,originalReviewCount:1,reviewStage:'same-skill',...skillIdentity(anchor2),difficulty:anchor2.difficulty,anchorFingerprint:questionFingerprint(anchor2),variantHistory:[],passedFingerprints:[]};
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[first,second]}));
+  window.history.replaceState(null,'','#/revenge');await boot();
+  document.querySelector('[data-action="start-revenge-session"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(new Set(session.questionIds).size).toBe(session.questionIds.length);
+  expect(session.questionIds).not.toContain(anchor1.id);
+  expect(session.questionIds).not.toContain(anchor2.id);
+  expect(session.questionIds.filter(id=>id===onlyVariant.id)).toHaveLength(1);
+});
+
+it('does not advance transfer evidence for a correct but uncertain review answer',async()=>{
+  const [anchor]=reviewVariantPair();
+  const identity=skillIdentity(anchor);
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[{
+    questionId:anchor.id,mastery:0,wrongCount:1,nextReview:'2026-09-17',resolved:false,
+    originalReviewCount:1,reviewStage:'same-skill',...identity,difficulty:anchor.difficulty,
+    anchorFingerprint:questionFingerprint(anchor),variantHistory:[],passedFingerprints:[questionFingerprint(anchor)]
+  }]}));
+  window.history.replaceState(null,'','#/revenge');await boot();
+  document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
+  await vi.advanceTimersByTimeAsync(1);
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  const selected=questionMapForTest(session.questionIds[0]);
+  document.querySelector(`[data-action="exam-answer"][data-choice="${selected.answer}"]`).click();
+  document.querySelector('[data-action="exam-uncertain"]').click();
+  submitExam();
+  const saved=JSON.parse(localStorage.getItem(key)).wrongQuestions.find(item=>item.questionId===anchor.id);
+  expect(saved.reviewStage).toBe('same-skill');
+  expect(saved.passedFingerprints).toEqual([questionFingerprint(anchor)]);
+});
 
 it('starts AI weakness validation from a completed report and stores generated questions',async()=>{
   window.history.replaceState(null,'','#/exam-center');
