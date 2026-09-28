@@ -939,6 +939,7 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
   await vi.advanceTimersByTimeAsync(1);
   const after=JSON.parse(localStorage.getItem(key));
   expect(after.generatedQuestions.some(q=>q.id==='ai-fast-background-1')).toBe(true);
+  expect(after.aiUsage.count).toBe(1);
   expect(after.activeExam.questionIds).toContain('ai-fast-background-1');
 });
 
@@ -1008,11 +1009,61 @@ it('rejects a malformed background AI question before it can poison answer selec
 
   const saved=JSON.parse(localStorage.getItem(key));
   expect(saved.generatedQuestions.some(q=>q.id==='ai-malformed-answer')).toBe(false);
+  expect(saved.aiUsage.count).toBe(0);
   expect(saved.activeExam.questionIds).not.toContain('ai-malformed-answer');
 
   document.querySelector('[data-action="exam-answer"][data-choice="0"]').click();
   const after=JSON.parse(localStorage.getItem(key)).activeExam;
   expect(Object.keys(after.answers)).toHaveLength(1);
+});
+
+it('clears runtime AI cache when adaptive memory is reset',async()=>{
+  const cached={
+    id:'ai-cache-reset-1',
+    subject:'english',
+    domain:'閱讀理解',
+    questionType:'推論',
+    competency:'上下文推論',
+    difficulty:3,
+    passage:'A cached passage that must disappear after reset.',
+    question:'What can the reader infer?',
+    choices:['A','B','C','D'],
+    answer:0,
+    explanation:'A is supported.',
+    hint1:'Read the passage.',
+    hint2:'Use evidence.',
+    errorTags:['correct','b','c','d'],
+    source:'ai_generated',
+    chapter:'閱讀理解',
+    topic:'上下文推論',
+    grade:9,
+    tags:['ai-generated','near-transfer','上下文推論'],
+    examAligned:true,
+    examProfile:{domain:'閱讀理解',type:'推論',competency:'上下文推論'},
+    aiGenerated:true,
+    aiPracticeMode:'near-transfer'
+  };
+  localStorage.setItem(key,JSON.stringify({
+    version:1,
+    generatedQuestions:[cached],
+    adaptiveSkills:{'english::閱讀理解::上下文推論':{
+      subject:'english',domain:'閱讀理解',competency:'上下文推論',subSkill:'推論',
+      mastery:40,priorityScore:80
+    }}
+  }));
+  window.history.replaceState(null,'','#/profile');
+  await boot();
+  document.querySelector('[data-action="reset-adaptive"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+
+  let saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.generatedQuestions).toEqual([]);
+
+  await go('#/exam-center');
+  document.querySelector('#practice-subject').value='english';
+  document.querySelector('[data-action="start-practice"]').click();
+  saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.activeExam.questionIds).not.toContain('ai-cache-reset-1');
 });
 
 it('opens admission placement from the latest mock and supports a manual what-if grade change',async()=>{
