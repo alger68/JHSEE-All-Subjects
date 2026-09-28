@@ -77,4 +77,16 @@ describe('question registry',()=>{
     expect(registry.byCompetency('english','閱讀推論')).toHaveLength(2500);
     expect(registry.byCompetency('english','主旨理解')).toHaveLength(2500);
   });
+  it('infers stable variation forms when content does not provide one',()=>{
+    const registry=createQuestionRegistry([
+      makeQuestion('table',{table:{headers:['A','B'],rows:[[1,2]]},questionType:'資料分析'}),
+      makeQuestion('dialogue',{passage:'A: Hi!\nB: Hello!',questionType:'閱讀理解'}),
+      makeQuestion('notice',{passage:'NOTICE\nLibrary closed Friday.',questionType:'閱讀理解'}),
+      makeQuestion('plain',{passage:'This is a short paragraph.',questionType:'推論'})
+    ]);
+    expect(registry.getById('table').variationForm).toBe('table');
+    expect(registry.getById('dialogue').variationForm).toBe('dialogue');
+    expect(registry.getById('notice').variationForm).toBe('notice');
+    expect(registry.getById('plain').variationForm).toBe('passage');
+  });
 });
