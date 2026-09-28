@@ -793,41 +793,17 @@ async function generateAiForActivePractice({
 function placementPracticeSelection(subject,count=10,shuffle=true){
   if(!SUBJECTS[subject])return [];
   const wanted=Math.max(1,Math.min(15,Math.round(Number(count)||10)));
-  const localCandidates=bank.filter({subject,examAligned:true}).filter(q=>(q.grade??9)<=9);
-  const generatedCandidates=(state.generatedQuestions??[])
-    .filter(isAnswerableQuestion)
-    .filter(q=>q.subject===subject&&q.examAligned===true&&(q.grade??9)<=9);
-  const candidates=buildPracticeReservoir(localCandidates,generatedCandidates);
-
   state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
   state.adaptiveSubjectWeights=calculateSubjectWeights(
     state.adaptiveSkills,
     state.adaptiveSubjectWeights,
     currentDiagnostic()
   );
-
-  const recentIds=recentQuestionIds(state.answerHistory,30);
-  const fresh=preferFreshQuestions(
-    candidates,
-    recentIds,
-    state.adaptiveSkills,
-    taipeiDate(),
-    Math.min(wanted,candidates.length)
+  const result=provider.getPracticeSet(
+    {subject,examAligned:true,maxGrade:9},
+    practiceProviderContext({count:wanted,shuffle})
   );
-  const hasAdaptiveData=Object.keys(state.adaptiveSkills??{}).length>0;
-  return hasAdaptiveData
-    ? buildAdaptivePractice(fresh,Math.min(wanted,fresh.length),{
-        skills:state.adaptiveSkills,
-        subjectWeights:state.adaptiveSubjectWeights,
-        today:taipeiDate(),
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5
-      })
-    : buildStarterPractice(fresh,Math.min(wanted,fresh.length),{
-        diagnostic:currentDiagnostic(),
-        rng:shuffle?Math.random:()=>0.5,
-        ensureFiveSubjectMix:false
-      });
+  return result.questions;
 }
 
 function bestAdaptiveProfileForSubject(subject){
@@ -841,22 +817,19 @@ function startPlacementPractice(subject,count=10){
   const pool=placementPracticeSelection(subject,count,true);
   if(!pool.length){showToast('這個科目目前沒有可用的會考導向題。');return null;}
 
-  let sessionPool=pool;
+  const sessionPool=pool;
   let background=null;
   let aiPlanned=false;
   const profile=bestAdaptiveProfileForSubject(subject);
-  if(AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50){
+  const targetCount=Math.max(1,Math.min(15,Math.round(Number(count)||10)));
+  const shortage=Math.max(0,targetCount-pool.length);
+  if(shortage>0&&AI_SERVICE_URL&&profile&&(profile.priorityScore??0)>=50){
     const sourceQuestion=pool.find(question=>skillIdentity(question).key===profile.key)??pool[0];
     const wanted=profile.diagnosticRequired?3:(profile.priorityScore>=70?2:1);
-    const cached=cachedAiForProfile(profile,subject,wanted);
-    if(cached.length){
-      sessionPool=mergeAiWithFallback(cached,pool,Math.min(pool.length,Math.max(Number(count)||10,cached.length)));
-      aiPlanned=true;
-    }
-    const allowance=aiAllowance(state.aiUsage,taipeiDate(),wanted);
+    const allowance=aiAllowance(state.aiUsage,taipeiDate(),Math.min(shortage,wanted));
     if(allowance>0){
       aiPlanned=true;
-      background={profile,sourceQuestion,count:allowance};
+      background={profile,sourceQuestion,count:allowance,targetCount};
     }
   }
 
@@ -880,7 +853,8 @@ function startPlacementPractice(subject,count=10){
       sessionId:started.id,
       profile:background.profile,
       sourceQuestion:background.sourceQuestion,
-      count:background.count
+      count:background.count,
+      targetCount:background.targetCount
     });
   }
   return started;
