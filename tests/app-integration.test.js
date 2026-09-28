@@ -907,6 +907,7 @@ it('starts adaptive practice immediately while AI questions load in the backgrou
             chapter:domain,
             topic:competency,
             grade:9,
+            tags:['ai-generated','near-transfer',competency],
             examAligned:true,
             examProfile:{domain,type:source.questionType??'推論',competency},
             aiGenerated:true,
