@@ -1,0 +1,560 @@
+[
+  {
+    "id": "HP5-EN-001",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Trend",
+    "competency": "Read a changing trend",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "chart",
+    "passage": "Bus riders by month: 420, 460, 445, 490.",
+    "question": "Which statement is supported?",
+    "choices": [
+      "Riders rose every month.",
+      "Month 4 was highest.",
+      "Month 1 was highest.",
+      "All months were equal."
+    ],
+    "answer": 1,
+    "explanation": "490 is highest; Month 3 dropped below Month 2.",
+    "hint1": "Find the maximum.",
+    "hint2": "Check every month before saying always.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "trend"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart",
+    "table": {
+      "headers": [
+        "Month",
+        "Riders"
+      ],
+      "rows": [
+        [
+          1,
+          420
+        ],
+        [
+          2,
+          460
+        ],
+        [
+          3,
+          445
+        ],
+        [
+          4,
+          490
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP5-EN-002",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Rate comparison",
+    "competency": "Compare proportions",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Group A: 14 of 20 finished. Group B: 18 of 30 finished.",
+    "question": "Which group had the higher completion rate?",
+    "choices": [
+      "A",
+      "B",
+      "Same",
+      "Cannot tell"
+    ],
+    "answer": 0,
+    "explanation": "A is 70%; B is 60%.",
+    "hint1": "Use rates, not raw counts.",
+    "hint2": "14/20 vs 18/30.",
+    "source": "original",
+    "tags": [
+      "table",
+      "percentage"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart"
+  },
+  {
+    "id": "HP5-EN-003",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Causality",
+    "competency": "Avoid unsupported causal claims",
+    "grade": 9,
+    "difficulty": 4,
+    "variationForm": "chart",
+    "passage": "After a school changed lunch tables, average waiting time fell from 9 to 6 minutes. It also added one serving line that week.",
+    "question": "Which conclusion is best?",
+    "choices": [
+      "Tables alone caused the drop.",
+      "The extra line alone caused the drop.",
+      "Waiting time fell, but the data cannot separate the two changes.",
+      "Nothing changed."
+    ],
+    "answer": 2,
+    "explanation": "Two changes happened together, so a single cause cannot be identified.",
+    "hint1": "How many changes occurred?",
+    "hint2": "Choose the cautious conclusion.",
+    "source": "original",
+    "tags": [
+      "chart",
+      "evidence"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart"
+  },
+  {
+    "id": "HP5-EN-004",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Average",
+    "competency": "Interpret an average with an outlier",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Study times were 20, 22, 24, 25, and 80 minutes.",
+    "question": "Which statement is most reasonable?",
+    "choices": [
+      "80 may pull the average upward.",
+      "The average cannot be calculated.",
+      "80 must be an error.",
+      "All students studied about the same."
+    ],
+    "answer": 0,
+    "explanation": "80 is much larger than the other values and can raise the mean.",
+    "hint1": "Look for an outlier.",
+    "hint2": "Compare 80 with the rest.",
+    "source": "original",
+    "tags": [
+      "data",
+      "average"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-chart"
+  },
+  {
+    "id": "HP5-EN-009",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-text",
+    "competency": "Integrate benefit and condition",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Text A: Later library hours may help students study. Text B: Extra hours require enough staff and security.",
+    "question": "Which statement best combines both?",
+    "choices": [
+      "Later hours may help, but staffing conditions matter.",
+      "Later hours are always bad.",
+      "Staffing never matters.",
+      "Libraries should close earlier."
+    ],
+    "answer": 0,
+    "explanation": "Text A gives a benefit; Text B adds conditions.",
+    "hint1": "Use both texts.",
+    "hint2": "Avoid extreme claims.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "integration"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP5-EN-010",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "推論",
+    "topic": "Source comparison",
+    "competency": "Identify a missing comparison",
+    "grade": 9,
+    "difficulty": 4,
+    "variationForm": "passage",
+    "passage": "Source A says a new bike lane increased cycling. Source B notes fuel prices rose during the same period.",
+    "question": "What data would best help separate the effects?",
+    "choices": [
+      "Cycling rates in a similar area without the new lane",
+      "Bike colors",
+      "Street names",
+      "Weather from ten years ago only"
+    ],
+    "answer": 0,
+    "explanation": "A comparison area can help distinguish lane effects from broader fuel-price effects.",
+    "hint1": "Look for a control comparison.",
+    "hint2": "Choose evidence related to both explanations.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "evidence"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP5-EN-011",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Cross-paragraph",
+    "competency": "Connect problem and response",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Paragraph 1: Students often forgot reusable cups. Paragraph 2: The school placed reminder signs near exits, and cup use increased.",
+    "question": "How are the paragraphs related?",
+    "choices": [
+      "The second describes a response to the first problem.",
+      "They discuss unrelated topics.",
+      "The first proves signs never work.",
+      "The second cancels the program."
+    ],
+    "answer": 0,
+    "explanation": "The signs directly address the forgetting problem.",
+    "hint1": "Identify the problem first.",
+    "hint2": "Then find the response.",
+    "source": "original",
+    "tags": [
+      "cross-text",
+      "paragraph"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-cross"
+  },
+  {
+    "id": "HP5-EN-005",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Schedule",
+    "competency": "Choose an option under two constraints",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Workshop schedule: Tue 4:00 Art; Wed 5:00 Science; Thu 4:30 Music.",
+    "question": "Ken is busy Tuesday and must finish before 6:00. Which can he attend?",
+    "choices": [
+      "Art only",
+      "Science or Music",
+      "Music only",
+      "None"
+    ],
+    "answer": 1,
+    "explanation": "Tuesday is unavailable; both Wednesday and Thursday fit the time limit.",
+    "hint1": "Remove Tuesday.",
+    "hint2": "Check the remaining times.",
+    "source": "original",
+    "tags": [
+      "schedule",
+      "table"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-table",
+    "table": {
+      "headers": [
+        "Day",
+        "Time",
+        "Workshop"
+      ],
+      "rows": [
+        [
+          "Tue",
+          "4:00",
+          "Art"
+        ],
+        [
+          "Wed",
+          "5:00",
+          "Science"
+        ],
+        [
+          "Thu",
+          "4:30",
+          "Music"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP5-EN-006",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "資料分析",
+    "topic": "Price table",
+    "competency": "Compare package prices",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "table",
+    "passage": "Pens: Shop A $18 each; Shop B 3 for $48; Shop C 5 for $85.",
+    "question": "If Amy needs exactly 3 pens, which is cheapest?",
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "A and C"
+    ],
+    "answer": 1,
+    "explanation": "A costs 54; B costs 48; C requires five pens for 85.",
+    "hint1": "Calculate exactly three.",
+    "hint2": "Package size matters.",
+    "source": "original",
+    "tags": [
+      "table",
+      "price"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-table"
+  },
+  {
+    "id": "HP5-EN-007",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Present continuous",
+    "competency": "Choose tense from now",
+    "grade": 7,
+    "difficulty": 3,
+    "variationForm": "dialogue",
+    "passage": "A: Where is Mia?\nB: She _____ in the library right now.",
+    "question": [
+      "studies",
+      "studied",
+      "is studying",
+      "will study"
+    ],
+    "choices": 2,
+    "answer": "Right now calls for the present continuous.",
+    "explanation": "Find the time clue.",
+    "hint1": "Use be + verb-ing.",
+    "hint2": [
+      "grammar",
+      "tense"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP5-EN-008",
+    "subject": "english",
+    "chapter": "基本文法",
+    "domain": "基本文法",
+    "questionType": "文法題",
+    "topic": "Past tense",
+    "competency": "Use irregular past tense",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "Two days ago, we _____ to the science museum.",
+    "question": "Which word best completes the sentence?",
+    "choices": [
+      "go",
+      "goes",
+      "went",
+      "going"
+    ],
+    "answer": 2,
+    "explanation": "Two days ago requires the simple past; go becomes went.",
+    "hint1": "Find the past-time phrase.",
+    "hint2": "Recall the irregular form.",
+    "source": "original",
+    "tags": [
+      "grammar",
+      "past tense"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-tense"
+  },
+  {
+    "id": "HP5-EN-012",
+    "subject": "english",
+    "chapter": "字彙與片語",
+    "domain": "字彙與片語",
+    "questionType": "字彙題",
+    "topic": "Context meaning",
+    "competency": "Infer adjective meaning",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "passage",
+    "passage": "The path was narrow, so only one person could walk through at a time.",
+    "question": "What does narrow most likely mean?",
+    "choices": [
+      "not wide",
+      "very noisy",
+      "very long",
+      "very bright"
+    ],
+    "answer": 0,
+    "explanation": "The clue says only one person could pass at a time, so the path was not wide.",
+    "hint1": "Use the result as a clue.",
+    "hint2": "Think about width.",
+    "source": "original",
+    "tags": [
+      "vocabulary",
+      "context"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-vocab"
+  },
+  {
+    "id": "HP5-EN-013",
+    "subject": "english",
+    "chapter": "克漏字",
+    "domain": "克漏字",
+    "questionType": "克漏字",
+    "topic": "Time connector",
+    "competency": "Choose a time connector",
+    "grade": 8,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "Please turn off the lights _____ you leave the room.",
+    "question": [
+      "before",
+      "although",
+      "because of",
+      "unless if"
+    ],
+    "choices": 0,
+    "answer": "Before correctly shows the action should happen prior to leaving.",
+    "explanation": "Think about order of actions.",
+    "hint1": "Turn off lights first.",
+    "hint2": [
+      "cloze",
+      "connector"
+    ],
+    "source": "original",
+    "tags": 2,
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-8-cloze"
+  },
+  {
+    "id": "HP5-EN-014",
+    "subject": "english",
+    "chapter": "圖表與生活情境",
+    "domain": "圖表與生活情境",
+    "questionType": "細節理解",
+    "topic": "Notice",
+    "competency": "Read an exception in a notice",
+    "grade": 7,
+    "difficulty": 2,
+    "variationForm": "notice",
+    "passage": "NOTICE\nThe pool opens at 9:00 daily. On Saturday only, it opens at 10:00 for cleaning.",
+    "question": "When can visitors enter this Saturday?",
+    "choices": [
+      "8:00",
+      "9:00",
+      "10:00",
+      "11:00 only"
+    ],
+    "answer": 2,
+    "explanation": "Saturday is the exception, with opening at 10:00.",
+    "hint1": "Look for 'Saturday only'.",
+    "hint2": "Use the special rule.",
+    "source": "original",
+    "tags": [
+      "notice",
+      "detail"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-7-notice"
+  },
+  {
+    "id": "HP5-EN-015",
+    "subject": "english",
+    "chapter": "閱讀理解",
+    "domain": "閱讀理解",
+    "questionType": "閱讀理解",
+    "topic": "Main idea",
+    "competency": "Identify main idea from examples",
+    "grade": 9,
+    "difficulty": 3,
+    "variationForm": "passage",
+    "passage": "A school tested refill stations in two hallways. Students used more reusable bottles after the stations became easier to reach, though teachers noted that reminders were still helpful.",
+    "question": "What is the main idea?",
+    "choices": [
+      "Convenient access may encourage reusable bottle use.",
+      "Reminders are useless.",
+      "Students should never buy drinks.",
+      "Two hallways are always enough."
+    ],
+    "answer": 0,
+    "explanation": "The passage centers on easier access increasing reusable-bottle use, with reminders as support.",
+    "hint1": "Choose the idea covering the whole passage.",
+    "hint2": "Do not turn a supporting detail into the main point.",
+    "source": "original",
+    "tags": [
+      "reading",
+      "main idea"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-en-9-main"
+  }
+]
