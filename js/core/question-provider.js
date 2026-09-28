@@ -265,7 +265,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
         generatedAt:context.generatedAt
       });
       const candidate=qa.accepted.find(question=>!hardExcluded(question,item,context));
-      if(candidate)return {question:candidate,evidenceKind:stage,rejected:qa.rejected};
+      if(candidate)return {question:candidate,evidenceKind:stage,rejected:qa.rejected,generatedAccepted:qa.accepted};
     }
 
     for(const tier of reviewTiers(item,context)){
@@ -277,7 +277,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
   }
 
   async function getReviewSession(reviewItems=[],context={}){
-    const questions=[],warnings=[],skippedReviewIds=[],evidenceByQuestionId={};
+    const questions=[],warnings=[],skippedReviewIds=[],evidenceByQuestionId={},generatedAccepted=[];
     const allAnchorIds=new Set(reviewItems.map(item=>item.questionId).filter(Boolean));
     const allAnchorFingerprints=new Set(reviewItems.map(item=>item.anchorFingerprint).filter(Boolean));
     const chosenIds=asSet(context.excludeIds);
@@ -289,6 +289,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
         excludeIds:new Set([...chosenIds,...allAnchorIds]),
         excludeFingerprints:new Set([...chosenFingerprints,...allAnchorFingerprints])
       });
+      if(result.generatedAccepted?.length)generatedAccepted.push(...result.generatedAccepted);
       if(!result.question){
         skippedReviewIds.push(item.questionId);
         if(result.warning)warnings.push(result.warning);
@@ -303,7 +304,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
         fingerprint:result.question.fingerprint
       };
     }
-    return {questions,evidenceByQuestionId,warnings,skippedReviewIds};
+    return {questions,evidenceByQuestionId,warnings,skippedReviewIds,generatedAccepted};
   }
 
   return {
