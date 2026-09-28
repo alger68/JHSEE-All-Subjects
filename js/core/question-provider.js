@@ -106,6 +106,26 @@ export function createQuestionProvider({registry,generateAi=null}={}){
       },question=>question.sourceKind==='ai-cache');
       questions=[...questions,...cache.slice(0,requested-questions.length)];
     }
+    if(questions.length<requested){
+      const selectedIds=new Set(questions.map(item=>item.id));
+      const selectedFingerprints=new Set(questions.map(item=>item.fingerprint).filter(Boolean));
+      const cooled=(criteria.subject&&criteria.subject!=='all'
+        ? registry.query({subject:criteria.subject,variantEligible:true})
+        : registry.query({variantEligible:true}))
+        .filter(question=>
+          (isLocal(question)||question.sourceKind==='ai-cache') &&
+          matchesPracticeCriteria(question,criteria) &&
+          !selectedIds.has(question.id) &&
+          !selectedFingerprints.has(question.fingerprint) &&
+          !asSet(context.excludeIds).has(question.id) &&
+          !asSet(context.excludeFingerprints).has(question.fingerprint)
+        );
+      const needed=requested-questions.length;
+      if(cooled.length){
+        questions=[...questions,...orderByVariation(cooled,context.recentVariationForms).slice(0,needed)];
+        warnings.push('使用已冷卻的舊題補足練習');
+      }
+    }
     return {
       questions:questions.slice(0,requested),
       sourceSummary:{local:localCount,aiCache:Math.max(0,questions.length-localCount)},
@@ -145,7 +165,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
     const target=context.target??{};
     const references=[...(context.references??[])];
     for(const raw of questions??[]){
-      const validation=validateQuestion(raw);
+      const validation=validateQuestion({...raw,source:'original'});
       if(!validation.ok){
         rejected.push({question:raw,reason:'invalid-question',errors:validation.errors});
         continue;
