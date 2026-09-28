@@ -1,0 +1,550 @@
+[
+  {
+    "id": "HP-CH-001",
+    "subject": "chinese",
+    "chapter": "字音字形與詞語",
+    "domain": "字音字形與詞語",
+    "questionType": "情境應用",
+    "topic": "成語語境",
+    "competency": "依語境選擇適切詞語",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "校慶前一天，大家忙著布置教室。小芸從早到晚反覆檢查每個細節，直到最後一張海報貼正才離開。",
+    "question": "下列哪個成語最適合形容小芸的態度？",
+    "choices": [
+      "敷衍了事",
+      "一絲不苟",
+      "臨渴掘井",
+      "漫不經心"
+    ],
+    "answer": 1,
+    "explanation": "「一絲不苟」指做事認真細密，與反覆檢查細節最符合。",
+    "hint1": "找描述做事仔細的詞。",
+    "hint2": "注意她不是拖延，而是要求精確。",
+    "source": "original",
+    "tags": [
+      "成語",
+      "詞義",
+      "語境"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-word-context"
+  },
+  {
+    "id": "HP-CH-002",
+    "subject": "chinese",
+    "chapter": "語文運用",
+    "domain": "語文運用",
+    "questionType": "推論",
+    "topic": "複句關係",
+    "competency": "辨識語句邏輯關係",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "「即使比賽延期，我們仍照原計畫完成訓練。」",
+    "question": "這句話的前後關係最接近下列哪一項？",
+    "choices": [
+      "因果",
+      "假設讓步",
+      "並列",
+      "遞進"
+    ],
+    "answer": 1,
+    "explanation": "「即使……仍……」表示在某條件成立下，後件仍不改變，屬讓步關係。",
+    "hint1": "觀察關聯詞「即使、仍」。",
+    "hint2": "想想前件是否改變後件。",
+    "source": "original",
+    "tags": [
+      "複句",
+      "語句判讀"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-sentence"
+  },
+  {
+    "id": "HP-CH-003",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "敘事因果",
+    "competency": "擷取事件因果並歸納重點",
+    "grade": 7,
+    "difficulty": 3,
+    "passage": "阿哲每天放學後先整理書包，再把隔天要交的作業放在最上層。幾週後，他不再常常忘記帶作業，也較少在早上匆忙翻找。",
+    "question": "這段文字主要說明什麼？",
+    "choices": [
+      "整理書包會讓功課變簡單",
+      "固定整理習慣能減少遺漏與慌亂",
+      "作業應全部放在書包最底層",
+      "早上整理書包一定比晚上有效"
+    ],
+    "answer": 1,
+    "explanation": "文章以阿哲的固定整理習慣及其結果，說明規律整理可減少遺漏與慌亂。",
+    "hint1": "找「幾週後」的改變。",
+    "hint2": "用一個句子概括行動與結果。",
+    "source": "original",
+    "tags": [
+      "閱讀",
+      "主旨",
+      "因果"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-narrative"
+  },
+  {
+    "id": "HP-CH-004",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "閱讀理解",
+    "topic": "文言句意",
+    "competency": "理解基礎文言詞義與句意",
+    "grade": 7,
+    "difficulty": 2,
+    "passage": "「知之為知之，不知為不知，是知也。」",
+    "question": "這句話最強調下列哪種態度？",
+    "choices": [
+      "遇到問題應假裝了解",
+      "誠實面對自己知道與不知道的部分",
+      "知識只靠記憶即可",
+      "不懂的事不需要再學"
+    ],
+    "answer": 1,
+    "explanation": "句意強調能誠實分辨自己懂與不懂，才是真正的明智。",
+    "hint1": "注意前兩個「知」與最後的「知」語意。",
+    "hint2": "重點是面對自己知識狀態的態度。",
+    "source": "original",
+    "tags": [
+      "文言文",
+      "句意",
+      "態度"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-7-classic-basic"
+  },
+  {
+    "id": "HP-CH-005",
+    "subject": "chinese",
+    "chapter": "語文運用",
+    "domain": "語文運用",
+    "questionType": "推論",
+    "topic": "修辭效果",
+    "competency": "判讀修辭及其表達效果",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "「夜色把街道輕輕蓋上一條黑色的毯子。」",
+    "question": "這句話的表達效果最適合如何說明？",
+    "choices": [
+      "以擬人與譬喻讓夜色的籠罩更具畫面感",
+      "用設問引導讀者回答",
+      "以排比強調街道十分熱鬧",
+      "用反語批評夜晚太黑"
+    ],
+    "answer": 0,
+    "explanation": "句中把夜色寫成會「蓋」毯子的動作，並以毯子比喻黑暗，增加畫面感。",
+    "hint1": "找出非人事物被賦予的動作。",
+    "hint2": "「黑色的毯子」也形成比喻。",
+    "source": "original",
+    "tags": [
+      "修辭",
+      "擬人",
+      "譬喻"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-rhetoric"
+  },
+  {
+    "id": "HP-CH-006",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "資料分析",
+    "topic": "資訊文本",
+    "competency": "擷取並整合說明文本資訊",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某校圖書館公告：本週三因盤點延後至中午十二點開館；還書箱仍全天開放。預約書保留期限不因盤點延長。",
+    "question": "根據公告，下列哪個敘述正確？",
+    "choices": [
+      "週三上午可以進館借書",
+      "週三上午仍可使用還書箱",
+      "預約書一律多保留一天",
+      "週三圖書館整天休館"
+    ],
+    "answer": 1,
+    "explanation": "公告明確指出還書箱全天開放；只有開館時間延後，預約保留期限不變。",
+    "hint1": "分別看開館、還書箱、預約三項資訊。",
+    "hint2": "不要把「延後開館」理解成整天休館。",
+    "source": "original",
+    "tags": [
+      "資訊文本",
+      "公告",
+      "閱讀"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-info"
+  },
+  {
+    "id": "HP-CH-007",
+    "subject": "chinese",
+    "chapter": "文言文閱讀",
+    "domain": "文言文閱讀",
+    "questionType": "推論",
+    "topic": "上下文推論",
+    "competency": "依上下文推論文言語意",
+    "grade": 8,
+    "difficulty": 2,
+    "passage": "「人不知而不慍，不亦君子乎？」",
+    "question": "若依句意判斷，「不慍」最接近下列哪個意思？",
+    "choices": [
+      "不生氣",
+      "不說話",
+      "不學習",
+      "不知道"
+    ],
+    "answer": 0,
+    "explanation": "「人不知」指別人不了解自己，「而不慍」是仍不怨怒，因此為不生氣。",
+    "hint1": "從前後情境判斷情緒。",
+    "hint2": "君子面對別人不了解自己仍能保持平和。",
+    "source": "original",
+    "tags": [
+      "文言文",
+      "上下文",
+      "詞義"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-classic-context"
+  },
+  {
+    "id": "HP-CH-008",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "論點理由",
+    "competency": "辨識論點與支持理由",
+    "grade": 8,
+    "difficulty": 3,
+    "passage": "某同學說：「學校應增加飲水機，因為午休後現有飲水機常排長隊，很多人要等上十分鐘。」",
+    "question": "這段話中「常排長隊、等待十分鐘」的功能是什麼？",
+    "choices": [
+      "提出反方立場",
+      "提供支持主張的具體理由",
+      "轉換討論主題",
+      "證明所有學生都缺水"
+    ],
+    "answer": 1,
+    "explanation": "排隊與等待時間是用來支持「應增加飲水機」這個主張的具體理由。",
+    "hint1": "先找出主張是什麼。",
+    "hint2": "後面的現象是在支持前面的建議。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "論點",
+      "理由"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-8-argument"
+  },
+  {
+    "id": "HP-CH-009",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "閱讀理解",
+    "topic": "跨文本統整",
+    "competency": "比較兩文本並整合共同訊息",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲文：校園種樹能提供遮蔭，也能降低部分地表溫度。乙文：若種植位置不當，樹根可能影響鋪面，因此規畫前應評估空間與樹種。",
+    "question": "綜合兩文，下列結論何者最適當？",
+    "choices": [
+      "校園不應種樹",
+      "種樹只有降溫效果",
+      "種樹有益處，但需要適當規畫",
+      "任何樹種都適合種在走道旁"
+    ],
+    "answer": 2,
+    "explanation": "甲文指出益處，乙文提醒限制；綜合後應是肯定種樹效益但需妥善規畫。",
+    "hint1": "不要只選甲文或乙文單一觀點。",
+    "hint2": "找能同時容納效益與限制的選項。",
+    "source": "original",
+    "tags": [
+      "跨文本",
+      "統整",
+      "閱讀"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-cross-text"
+  },
+  {
+    "id": "HP-CH-010",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "作者意圖",
+    "competency": "根據文本證據推論作者意圖",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "作者寫道：「與其把錯誤答案擦得乾乾淨淨，不如在旁邊留下一句：我當時為什麼會這樣想。那句話往往比正確答案更能提醒你。」",
+    "question": "作者最可能希望讀者怎麼做？",
+    "choices": [
+      "只記住正確答案",
+      "保留並分析錯誤思路",
+      "不要修改任何錯題",
+      "每題都重新抄寫三次"
+    ],
+    "answer": 1,
+    "explanation": "作者強調記錄「為什麼會這樣想」，目的是分析錯誤思路，而不只是留下正解。",
+    "hint1": "抓住「為什麼會這樣想」。",
+    "hint2": "作者認為錯誤過程具有學習價值。",
+    "source": "original",
+    "tags": [
+      "閱讀",
+      "推論",
+      "作者意圖"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-evidence"
+  },
+  {
+    "id": "HP-CH-011",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "圖表文字整合",
+    "competency": "整合數據與文字提出合理結論",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某班問卷統計每週閱讀時間：少於1小時8人、1至3小時14人、3小時以上8人。老師補充：「問卷只記錄閱讀時間，沒有測量成績。」",
+    "question": "下列哪個結論最符合資料？",
+    "choices": [
+      "超過一半學生每週閱讀3小時以上",
+      "閱讀越久成績一定越高",
+      "1至3小時是人數最多的區間",
+      "全班共有40人"
+    ],
+    "answer": 2,
+    "explanation": "三區人數為8、14、8，最多的是1至3小時；資料沒有成績資訊，也總共只有30人。",
+    "hint1": "先算各區人數與總數。",
+    "hint2": "不要推出問卷沒有測量的成績關係。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "圖表",
+      "推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-data-text",
+    "table": {
+      "headers": [
+        "每週閱讀時間",
+        "人數"
+      ],
+      "rows": [
+        [
+          "少於1小時",
+          8
+        ],
+        [
+          "1至3小時",
+          14
+        ],
+        [
+          "3小時以上",
+          8
+        ]
+      ]
+    }
+  },
+  {
+    "id": "HP-CH-012",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "推論",
+    "topic": "論證謬誤",
+    "competency": "評估推論是否超出證據",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "某社團把活動海報改成彩色後，報名人數從30人增加到45人。幹部因此說：「只要海報改成彩色，任何活動報名都會增加50%。」",
+    "question": "這個推論最大的問題是什麼？",
+    "choices": [
+      "沒有計算人數",
+      "把單一事件的結果過度推廣到所有活動",
+      "彩色一定比黑白昂貴",
+      "30人不能增加到45人"
+    ],
+    "answer": 1,
+    "explanation": "單次活動同時可能受主題、時間、宣傳等因素影響，不能據此推論所有活動都會同幅度增加。",
+    "hint1": "注意「任何活動」與「一定」。",
+    "hint2": "證據只來自一次活動。",
+    "source": "original",
+    "tags": [
+      "論證",
+      "邏輯",
+      "過度推論"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-logic"
+  },
+  {
+    "id": "HP-CH-013",
+    "subject": "chinese",
+    "chapter": "跨文本與論證",
+    "domain": "跨文本與論證",
+    "questionType": "資料分析",
+    "topic": "觀點比較",
+    "competency": "比較不同立場的證據重點",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲：「午休應全面禁用手機，因為安靜有助休息。」乙：「可保留指定區使用，因為有些同學需要聯絡家長，但不應影響他人。」",
+    "question": "兩人的主要差異是什麼？",
+    "choices": [
+      "是否認為休息重要",
+      "是否完全禁止手機使用",
+      "是否允許聯絡家長",
+      "是否支持午休制度"
+    ],
+    "answer": 1,
+    "explanation": "甲主張全面禁止，乙主張有限度開放；兩者都在討論如何降低干擾。",
+    "hint1": "先找兩人的政策做法。",
+    "hint2": "共同點不是差異。",
+    "source": "original",
+    "tags": [
+      "跨文本",
+      "觀點",
+      "比較"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-cross-text"
+  },
+  {
+    "id": "HP-CH-014",
+    "subject": "chinese",
+    "chapter": "白話文閱讀",
+    "domain": "白話文閱讀",
+    "questionType": "推論",
+    "topic": "隱含訊息",
+    "competency": "根據細節推論未明說資訊",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "雨停後，店員把門口的「小心地滑」立牌又往外移了一點，接著拿拖把把靠近入口的水痕擦乾。",
+    "question": "從這段文字最合理推論什麼？",
+    "choices": [
+      "店家準備關門",
+      "入口附近仍可能濕滑",
+      "店員不希望客人進店",
+      "外面正在下大雪"
+    ],
+    "answer": 1,
+    "explanation": "立牌與擦拭水痕都顯示入口附近仍有濕滑風險。",
+    "hint1": "找兩個動作共同指向的情況。",
+    "hint2": "不要加入文中沒有的天氣或營業資訊。",
+    "source": "original",
+    "tags": [
+      "閱讀",
+      "推論",
+      "證據"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-evidence"
+  },
+  {
+    "id": "HP-CH-015",
+    "subject": "chinese",
+    "chapter": "資料閱讀",
+    "domain": "資料閱讀",
+    "questionType": "資料分析",
+    "topic": "比例資料",
+    "competency": "辨識比例與人數的限制",
+    "grade": 9,
+    "difficulty": 3,
+    "passage": "甲班20人中有12人搭公車上學；乙班40人中有20人搭公車上學。",
+    "question": "下列敘述何者正確？",
+    "choices": [
+      "甲班搭公車人數較多",
+      "乙班搭公車比例較高",
+      "甲班搭公車比例較高",
+      "兩班搭公車比例相同"
+    ],
+    "answer": 2,
+    "explanation": "甲班比例為12/20=60%，乙班為20/40=50%，所以甲班比例較高，雖然乙班人數較多。",
+    "hint1": "分開比較「人數」和「比例」。",
+    "hint2": "先各自算百分比。",
+    "source": "original",
+    "tags": [
+      "資料",
+      "比例",
+      "判讀"
+    ],
+    "examAligned": true,
+    "reviewStatus": "reviewed",
+    "reviewedAt": "2026-09-29",
+    "alignmentBasis": "https://cap.rcpet.edu.tw/；依116年會考題型方向與十二年國教第四學習階段能力設計，本站原創並核對唯一答案。",
+    "curriculumSkillId": "jhsee-ch-9-data-text",
+    "table": {
+      "headers": [
+        "班級",
+        "總人數",
+        "搭公車"
+      ],
+      "rows": [
+        [
+          "甲",
+          20,
+          12
+        ],
+        [
+          "乙",
+          40,
+          20
+        ]
+      ]
+    }
+  }
+]
