@@ -38,6 +38,7 @@ let router;
 let feedback = null;
 let questionMap = new Map();
 let toastTimer;
+let aiRemediationInFlight = false;
 
 const currentDiagnostic=()=>buildMockAdjustedDiagnostic(PERSONAL_DIAGNOSTIC,state.mockExamRecords??[]);
 const currentMockWarRoom=()=>buildMockWarRoom(state.mockExamRecords??[],PERSONAL_DIAGNOSTIC.subjectWeights);
@@ -763,7 +764,26 @@ app.addEventListener('click', async (event) => {
   }
   if (action === 'start-revenge') startRevenge(control.dataset.id);
   if (action === 'start-revenge-session') startRevengeSession();
-  if (action === 'start-ai-remediation') await startAiRemediation();
+  if (action === 'start-ai-remediation') {
+    if(aiRemediationInFlight) {
+      showToast('AI 弱點驗收正在準備中，請稍候。');
+      return;
+    }
+    aiRemediationInFlight=true;
+    const originalLabel=control.textContent;
+    control.disabled=true;
+    control.textContent='正在準備 AI 驗收…';
+    try {
+      await startAiRemediation();
+    } finally {
+      aiRemediationInFlight=false;
+      if(control.isConnected) {
+        control.disabled=false;
+        control.textContent=originalLabel;
+      }
+    }
+    return;
+  }
   if (action === 'save-mock-exam') {
     const grades=Object.fromEntries(['chinese','english','math','science','social'].map(subject=>[
       subject,
