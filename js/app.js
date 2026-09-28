@@ -13,8 +13,11 @@ import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './u
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
-import { recentQuestionIds, buildPracticeReservoir, preferFreshQuestions, recentAvoidQuestions } from './core/question-diversity.js';
+import { recentQuestionIds, recentQuestionFingerprints, recentAvoidQuestions } from './core/question-diversity.js';
 import { loadSupplementalQuestionPacks } from './core/question-pack-loader.js';
+import { createQuestionRegistry } from './core/question-registry.js';
+import { createQuestionProvider } from './core/question-provider.js';
+import { migrateWrongQuestions, recordReviewEvidence } from './core/review-state.js';
 import { buildEnglishSpeechText, englishVoices, voiceKey, getEnglishSpeechRate, setEnglishSpeechRate, getEnglishVoicePreference, setEnglishVoicePreference, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
@@ -35,6 +38,8 @@ const app = document.querySelector('#app');
 const store = createStore();
 let state = store.load();
 let bank;
+let registry;
+let provider;
 let router;
 let feedback = null;
 let questionMap = new Map();
@@ -56,6 +61,87 @@ const aiAvoidExamples=()=>{
   }
   return recentAvoidQuestions(merged,8);
 };
+
+async function generateProviderAi({target,sourceQuestion,avoidQuestions=[],count=1}={}){
+  if(!AI_SERVICE_URL||!sourceQuestion)return null;
+  const profile={
+    ...defaultSkillProfile(sourceQuestion),
+    ...target,
+    subject:target?.subject??sourceQuestion.subject,
+    domain:target?.domain??sourceQuestion.domain??sourceQuestion.examProfile?.domain,
+    competency:target?.competency??sourceQuestion.competency??sourceQuestion.examProfile?.competency,
+    subSkill:target?.subSkill??sourceQuestion.questionType,
+    mastery:target?.mastery??60,
+    priorityScore:target?.priorityScore??60
+  };
+  return requestAiQuestions({
+    endpoint:AI_SERVICE_URL,
+    brief:generationBrief(profile,sourceQuestion),
+    sourceQuestion,
+    avoidQuestions,
+    count
+  });
+}
+
+function rebuildQuestionRuntime(){
+  registry=createQuestionRegistry(bank?.all?.()??[]);
+  registry.registerQuestions(
+    (state.generatedQuestions??[]).filter(isAnswerableQuestion),
+    {sourceKind:'ai-cache'}
+  );
+  registry.registerQuestions(
+    OFFICIAL_PAPERS.flatMap(getOfficialQuestions),
+    {sourceKind:'official',variantEligible:false,lookupOnly:true}
+  );
+  provider=createQuestionProvider({registry,generateAi:generateProviderAi});
+  questionMap=new Map(registry.allLookupQuestions().map(question=>[question.id,question]));
+  state.wrongQuestions=migrateWrongQuestions(state.wrongQuestions??[],questionMap);
+}
+
+function practiceProviderContext({count=10,shuffle=false}={}){
+  return {
+    today:taipeiDate(),
+    recentIds:recentQuestionIds(state.answerHistory??[],30),
+    recentFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+    recentVariationForms:(state.answerHistory??[]).slice(-6)
+      .map(row=>questionMap.get(row.questionId)?.variationForm)
+      .filter(Boolean),
+    excludeIds:new Set(),
+    excludeFingerprints:new Set(),
+    skills:state.adaptiveSkills??{},
+    subjectWeights:state.adaptiveSubjectWeights,
+    diagnostic:currentDiagnostic(),
+    hasAdaptiveData:Object.keys(state.adaptiveSkills??{}).length>0,
+    rng:shuffle?Math.random:()=>0.5,
+    count
+  };
+}
+
+function reviewProviderContext(item){
+  return {
+    today:taipeiDate(),
+    recentIds:recentQuestionIds(state.answerHistory??[],30),
+    recentFingerprints:recentQuestionFingerprints(state.answerHistory??[],questionMap,30),
+    recentVariationForms:(item?.variantHistory??[]).slice(-3).map(row=>row.variationForm).filter(Boolean),
+    excludeIds:new Set(),
+    excludeFingerprints:new Set(),
+    skills:state.adaptiveSkills??{},
+    subjectWeights:state.adaptiveSubjectWeights,
+    allowAi:Boolean(AI_SERVICE_URL),
+    aiAllowance:aiAllowance(state.aiUsage,taipeiDate(),2),
+    aiCount:2,
+    avoidQuestions:aiAvoidExamples()
+  };
+}
+
+function mergeAcceptedGeneratedQuestions(accepted=[]){
+  if(!accepted.length)return;
+  const known=new Map((state.generatedQuestions??[]).filter(isAnswerableQuestion).map(question=>[question.id,question]));
+  for(const question of accepted)known.set(question.id,question);
+  state.generatedQuestions=[...known.values()].slice(-200);
+  questionMap=new Map(registry.allLookupQuestions().map(question=>[question.id,question]));
+}
+
 
 function showToast(message) {
   document.querySelector('.toast')?.remove();
