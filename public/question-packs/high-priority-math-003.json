@@ -110,42 +110,25 @@
     "topic": "比例",
     "competency": "利用比例求未知量",
     "grade": 7,
-    "difficulty": {
-      "table": {
-        "headers": [
-          "成分",
-          "比例"
-        ],
-        "rows": [
-          [
-            "果汁",
-            2
-          ],
-          [
-            "水",
-            5
-          ]
-        ]
-      }
-    },
+    "difficulty": 2,
     "variationForm": "table",
-    "passage": "果汁與水比例為2：5。若果汁400 mL，水是多少？",
-    "question": [
+    "passage": "果汁與水比例為2：5。若果汁有400 mL。",
+    "question": "水是多少 mL？",
+    "choices": [
       "600 mL",
       "800 mL",
       "1000 mL",
       "1200 mL"
     ],
-    "choices": 2,
-    "answer": "2份是400，所以1份200；水5份=1000 mL。",
-    "explanation": "先求1份。",
-    "hint1": "400÷2×5。",
-    "hint2": [
+    "answer": 2,
+    "explanation": "2份是400，所以1份200；水5份=1000 mL。",
+    "hint1": "先求1份。",
+    "hint2": "400÷2×5。",
+    "source": "original",
+    "tags": [
       "比例",
       "生活"
     ],
-    "source": "original",
-    "tags": 2,
     "examAligned": true,
     "reviewStatus": "reviewed",
     "reviewedAt": "2026-09-29",
