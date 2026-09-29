@@ -26,7 +26,8 @@ assert.deepEqual(
   packManifest,
   'Supplemental pack manifest missing or altered'
 );
-console.log(`Built question banks verified: ${205+supplementalCount} original questions available (${supplementalCount} supplemental).`);
+const coreCount=['questions','cap-practice'].reduce((count,name)=>count+JSON.parse(readFileSync(`data/${name}.json`,'utf8')).length,0);
+console.log(`Built question banks verified: ${coreCount+supplementalCount} original questions available (${supplementalCount} supplemental).`);
 const official=JSON.parse(readFileSync('data/official-115-layout.json','utf8'));
 let pageCount=0;
 for(const layout of Object.values(official))for(const page of layout.pages) {

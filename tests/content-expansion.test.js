@@ -101,8 +101,8 @@ describe('coverage audit',()=>{
     const packed=manifest.packs.flatMap(pack=>readJson('public/question-packs/'+pack.file));
     const before=auditBlueprintCoverage(core,blueprint);
     const after=auditBlueprintCoverage([...core,...packed],blueprint);
-    expect(before.totalQuestions).toBe(205);
-    expect(after.totalQuestions).toBe(655);
+    expect(before.totalQuestions).toBe(222);
+    expect(after.totalQuestions).toBe(672);
     const expectedAdded={chinese:93,english:88,math:84,science:95,social:90};
     for(const subject of subjects){
       expect(after.bySubject[subject].total).toBe(before.bySubject[subject].total+expectedAdded[subject]);
