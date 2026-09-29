@@ -1,5 +1,5 @@
 import { summarizeSkills, updateSkillStats } from './core/analytics.js';
-import { daysUntil, makeBossQuestions, pickLevelQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
+import { daysUntil, levelQuestionPool, makeBossQuestions, pickLevelQuestions, pickQuickExam, taipeiDate } from './core/app-model.js';
 import { PERSONAL_DIAGNOSTIC } from './core/personalization.js';
 import { adaptiveDashboard, calculateSubjectWeights, defaultSkillProfile, generationBrief, recordAdaptiveAttempt, refreshPriorities, skillIdentity } from './core/adaptive-learning.js';
 import { mergeAiWithFallback, requestAiQuestions } from './core/ai-question-client.js';
@@ -266,11 +266,15 @@ function routes() {
       const quest = { ...questProgress(state.dailyQuest), chestClaimed: state.dailyQuest.chestClaimed };
       return renderLobby({ player: state.player, countdown: daysUntil('2027-05-15'), quest, wrongCount: state.wrongQuestions.filter((item) => !item.resolved).length, subjectProgress: state.subjectProgress });
     },
-    '#/world/:subject': ({ subject }) => renderWorld({ subject: SUBJECTS[subject] ? subject : 'math', levelProgress: state.levelProgress }),
+    '#/world/:subject': ({ subject }) => {
+      const world = SUBJECTS[subject] ? subject : 'math';
+      return renderWorld({ subject: world, levelProgress: state.levelProgress,
+        levelPoolSizes: [1, 2, 3].map((level) => levelQuestionPool(bank, world, level).length) });
+    },
     '#/battle/:subject/:levelId': ({ subject, levelId }) => {
       const battle = ensureBattle(subject, levelId, 'normal');
       const question = battle.questions[Math.min(battle.index, battle.questions.length - 1)];
-      return renderBattle({ subject, battle, question, feedback, ttsRate:getEnglishSpeechRate() });
+      return renderBattle({ subject, levelNumber: Number(String(levelId).split('-').at(-1)), battle, question, feedback, ttsRate:getEnglishSpeechRate() });
     },
     '#/boss/:subject': ({ subject }) => {
       const battle = ensureBattle(subject, `${subject}-boss`, 'boss');

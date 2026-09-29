@@ -36,26 +36,27 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
   </div>`;
 }
 
-export function renderWorld({ subject, levelProgress: progress = {} }) {
+export function renderWorld({ subject, levelProgress: progress = {}, levelPoolSizes = [] }) {
   const item = SUBJECTS[subject] ?? SUBJECTS.math;
   return `<div class="app-shell world-page" style="--subject:${item.color}">
     <header class="page-header"><a href="#/" aria-label="回首頁">←</a><div><span class="eyebrow">${item.name} WORLD</span><h1>${item.icon} ${item.world}</h1></div><span></span></header>
-    <section class="world-banner"><span class="monster-orb">${item.monster}</span><div><p>目前區域</p><h2>${item.levels[0]}</h2><span>完成關卡後解鎖 Boss 挑戰</span></div></section>
+    <section class="world-banner"><span class="monster-orb">${item.monster}</span><div><p>目前區域</p><h2>${item.levels[0]}</h2><span>每關含本站原創會考導向題；完成關卡後解鎖下一關</span></div></section>
     <ol class="level-path">
       ${item.levels.map((level, index) => {
         const id = `${subject}-${index + 1}`; const unlocked = index === 0 || Boolean(progress[`${subject}-${index}`]?.cleared);
         const cleared = Boolean(progress[id]?.cleared);
-        const status = cleared ? '已完成・再次挑戰' : unlocked ? '5 題・約 3 分鐘' : '完成上一關後解鎖';
-        return `<li class="level-node ${unlocked ? '' : 'locked'}"><span class="path-line"></span><a ${unlocked ? `href="#/battle/${subject}/${id}"` : 'aria-disabled="true"'} aria-label="${level}，${status}"><b>${unlocked ? index + 1 : '🔒'}</b><div><small>LEVEL ${index + 1}</small><h3>${level}</h3><p>${status}</p></div><span>${progress[id]?.stars ? '★'.repeat(progress[id].stars) : '›'}</span></a></li>`;
+        const status = cleared ? '已完成・再次挑戰' : unlocked ? '每回 5 題・約 3 分鐘' : '完成上一關後解鎖';
+        const poolLabel = Number.isInteger(levelPoolSizes[index]) ? `・題庫 ${levelPoolSizes[index]} 題` : '';
+        return `<li class="level-node ${unlocked ? '' : 'locked'}"><span class="path-line"></span><a ${unlocked ? `href="#/battle/${subject}/${id}"` : 'aria-disabled="true"'} aria-label="${level}，${status}${poolLabel}"><b>${unlocked ? index + 1 : '🔒'}</b><div><small>LEVEL ${index + 1}</small><h3>${level}</h3><p>${status}${poolLabel}</p></div><span>${progress[id]?.stars ? '★'.repeat(progress[id].stars) : '›'}</span></a></li>`;
       }).join('')}
       <li class="level-node boss-node"><span class="path-line"></span><a href="#/boss/${subject}"><b>👹</b><div><small>BOSS BATTLE</small><h3>${item.boss}</h3><p>10 題綜合挑戰・80% 擊敗</p></div><span>⚔</span></a></li>
     </ol>${nav('worlds')}
   </div>`;
 }
 
-export function renderBattle({ subject, battle, question, feedback, ttsRate=1 }) {
+export function renderBattle({ subject, levelNumber, battle, question, feedback, ttsRate=1 }) {
   const item = SUBJECTS[subject] ?? SUBJECTS.math;
-  const levelName = item.levels.find((level) => level === question?.chapter) ?? item.levels[0];
+  const levelName = item.levels[Number(levelNumber) - 1] ?? item.levels.find((level) => level === question?.chapter) ?? item.levels[0];
   const total = battle.questions.length;
   const hp = '♥'.repeat(battle.playerHp) + '♡'.repeat(5 - battle.playerHp);
   const enemyMax = battle.mode === 'boss' ? 500 : 100;

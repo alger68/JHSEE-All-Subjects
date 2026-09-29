@@ -22,14 +22,16 @@ function questionMapForTest(id){return [...questions,...practice].find(question=
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
 
-it('starts each world level with its own chapter question pool',async()=>{
+it('starts each world level with its matching adventure and CAP-oriented units',async()=>{
   window.history.replaceState(null,'','#/battle/english/english-2');await boot();
   let run=JSON.parse(localStorage.getItem(key)).activeRun;
   expect(run.battle.questions).toHaveLength(5);
-  expect(run.battle.questions.every(question=>question.chapter==='Grammar Ridge')).toBe(true);
+  expect(run.battle.questions.every(question=>['Grammar Ridge','基本文法','克漏字'].includes(question.chapter))).toBe(true);
+  expect(document.querySelector('.enemy-name').textContent).toContain('Grammar Ridge怪物');
   await go('#/battle/english/english-3');
   run=JSON.parse(localStorage.getItem(key)).activeRun;
-  expect(run.battle.questions.every(question=>question.chapter==='Reading Sky')).toBe(true);
+  expect(run.battle.questions.every(question=>['Reading Sky','閱讀理解','圖表與生活情境'].includes(question.chapter))).toBe(true);
+  expect(document.querySelector('.enemy-name').textContent).toContain('Reading Sky怪物');
 });
 it('keeps a cleared level unlocked after an unsuccessful replay',async()=>{
   window.history.replaceState(null,'','#/battle/english/english-1');
