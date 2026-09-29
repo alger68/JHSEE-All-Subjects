@@ -23,10 +23,12 @@ describe('adventure views', () => {
   });
 
   it('renders a world path and boss gate', () => {
-    const html = renderWorld({ subject: 'math', levelProgress: {} });
+    const html = renderWorld({ subject: 'math', levelProgress: {}, levelPoolSizes: [17, 33, 49] });
     expect(html).toContain('數學之塔');
     expect(html).toContain('基礎森林');
     expect(html).toContain('數學魔王');
+    expect(html).toContain('題庫 17 題');
+    expect(html).toContain('題庫 33 題');
   });
 
   it('unlocks each subject level after clearing its preceding level', () => {
@@ -100,7 +102,8 @@ describe('adventure views', () => {
   it('labels a battle with the chapter-specific level name', () => {
     const html = renderBattle({
       subject: 'english', battle: { index: 0, playerHp: 5, enemyHp: 100, combo: 0, mode: 'normal', questions: [{}] },
-      question: { chapter: 'Grammar Ridge', question: 'Choose the correct form.', choices: ['A', 'B'] }, feedback: null
+      levelNumber: 2,
+      question: { chapter: '基本文法', question: 'Choose the correct form.', choices: ['A', 'B'] }, feedback: null
     });
     expect(html).toContain('Grammar Ridge怪物');
   });

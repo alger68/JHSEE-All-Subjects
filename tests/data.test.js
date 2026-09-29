@@ -3,11 +3,14 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { validateQuestion } from '../js/core/question-bank.js';
 import { createQuestionBank } from '../js/core/question-bank.js';
-import { pickLevelQuestions } from '../js/core/app-model.js';
+import { levelQuestionPool, pickLevelQuestions } from '../js/core/app-model.js';
 import { classifyQuestion } from '../js/core/exam-blueprint.js';
 
 const questions = JSON.parse(readFileSync(join(process.cwd(), 'data/questions.json'), 'utf8'));
 const practice = JSON.parse(readFileSync(join(process.cwd(), 'data/cap-practice.json'), 'utf8'));
+const manifest = JSON.parse(readFileSync(join(process.cwd(), 'public/question-packs/manifest.json'), 'utf8'));
+const packs = manifest.packs.filter((pack) => pack.enabled !== false)
+  .flatMap((pack) => JSON.parse(readFileSync(join(process.cwd(), 'public/question-packs', pack.file), 'utf8')));
 
 describe('V1 question content', () => {
   it('contains at least six valid original questions per subject', () => {
@@ -30,6 +33,22 @@ describe('V1 question content', () => {
         expect(deck, `${subject} level ${level}`).toHaveLength(5);
         expect(new Set(deck.map((question) => question.id)).size, `${subject} level ${level} ids`).toBe(5);
         expect(new Set(deck.map((question) => `${question.passage ?? ''}\n${question.question}`)).size, `${subject} level ${level} prompts`).toBe(5);
+      }
+    }
+  });
+
+  it('draws from expanded reviewed CAP-oriented pools throughout the adventure map', () => {
+    const bank = createQuestionBank([...questions, ...practice, ...packs]);
+    for (const subject of ['chinese', 'english', 'math', 'science', 'social']) {
+      for (const level of [1, 2, 3]) {
+        const label = `${subject} level ${level}`;
+        const pool = levelQuestionPool(bank, subject, level);
+        expect(pool.length, label).toBeGreaterThanOrEqual(13);
+        expect(pool.filter((question) => question.examAligned).length, label).toBeGreaterThanOrEqual(8);
+        expect(new Set(pool.map((question) => question.id)).size, label).toBe(pool.length);
+        const deck = pickLevelQuestions(bank, subject, level, 5, () => 0.5);
+        expect(new Set(deck.map((question) => question.id)).size, label).toBe(5);
+        expect(deck.every((question) => pool.includes(question)), label).toBe(true);
       }
     }
   });

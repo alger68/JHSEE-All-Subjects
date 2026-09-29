@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { daysUntil, makeBossQuestions, pickLevelQuestions, pickQuickExam } from '../js/core/app-model.js';
+import { daysUntil, levelQuestionPool, makeBossQuestions, pickLevelQuestions, pickQuickExam } from '../js/core/app-model.js';
 
 describe('application model helpers', () => {
   it('counts calendar days until the first exam day', () => {
@@ -42,5 +42,22 @@ describe('application model helpers', () => {
     expect(pickLevelQuestions(bank, 'math', 3, 1)[0].chapter).toBe('幾何山');
     expect(pickLevelQuestions(bank, 'science', 2, 1)[0].chapter).toBe('理化工坊');
     expect(pickLevelQuestions(bank, 'social', 3, 1)[0].chapter).toBe('公民議會');
+  });
+
+  it('includes reviewed CAP-oriented units in their matching level only', () => {
+    const reviewed = (id, subject, chapter) => ({ id, subject, chapter, examAligned: true, reviewStatus: 'reviewed' });
+    const bank = { all: () => [
+      { id: 'legacy', subject: 'english', chapter: 'Grammar Ridge' },
+      reviewed('grammar', 'english', '基本文法'),
+      reviewed('cloze', 'english', '克漏字'),
+      reviewed('reading', 'english', '閱讀理解'),
+      reviewed('other-subject', 'chinese', '基本文法'),
+      { ...reviewed('draft', 'english', '基本文法'), reviewStatus: 'draft' },
+      { ...reviewed('unclassified', 'english', '基本文法'), examAligned: false }
+    ], pick: () => [] };
+
+    expect(levelQuestionPool(bank, 'english', 2).map((question) => question.id)).toEqual(['legacy', 'grammar', 'cloze']);
+    expect(pickLevelQuestions(bank, 'english', 2, 3, () => 0.5).map((question) => question.id).sort()).toEqual(['cloze', 'grammar', 'legacy']);
+    expect(levelQuestionPool(bank, 'english', 3).map((question) => question.id)).toEqual(['reading']);
   });
 });
