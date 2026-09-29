@@ -29,6 +29,30 @@ describe('adventure views', () => {
     expect(html).toContain('數學魔王');
   });
 
+  it('unlocks each subject level after clearing its preceding level', () => {
+    for (const subject of ['chinese', 'english', 'math', 'science', 'social']) {
+      const path = (progress) => {
+        const container = document.createElement('div');
+        container.innerHTML = renderWorld({ subject, levelProgress: progress });
+        return container.querySelectorAll('.level-node');
+      };
+      const fresh = path({});
+      expect(fresh[0].querySelector('a').getAttribute('href')).toBe(`#/battle/${subject}/${subject}-1`);
+      expect(fresh[1].querySelector('a').hasAttribute('href')).toBe(false);
+      expect(fresh[2].querySelector('a').hasAttribute('href')).toBe(false);
+
+      const afterOne = path({ [`${subject}-1`]: { cleared: true, stars: 1 } });
+      expect(afterOne[1].querySelector('a').getAttribute('href')).toBe(`#/battle/${subject}/${subject}-2`);
+      expect(afterOne[2].querySelector('a').hasAttribute('href')).toBe(false);
+
+      const afterTwo = path({
+        [`${subject}-1`]: { cleared: true, stars: 1 },
+        [`${subject}-2`]: { cleared: true, stars: 2 }
+      });
+      expect(afterTwo[2].querySelector('a').getAttribute('href')).toBe(`#/battle/${subject}/${subject}-3`);
+    }
+  });
+
   it('renders a battle question with accessible choices', () => {
     const html = renderBattle({
       subject: 'math', battle: { index: 0, playerHp: 5, enemyHp: 100, combo: 0, mode: 'normal', questions: [{}] },

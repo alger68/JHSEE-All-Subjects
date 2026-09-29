@@ -331,7 +331,7 @@ function settleBattle() {
   state.player = rewardPlayer(state.player, { exp: result.expGained, coins: result.coinsGained });
   if (active.kind === 'boss' && result.cleared) state.player.bossesDefeated += 1;
   const levelRecord = state.levelProgress[active.levelId] ?? {};
-  state.levelProgress[active.levelId] = { cleared: result.cleared, stars: Math.max(levelRecord.stars ?? 0, result.stars) };
+  state.levelProgress[active.levelId] = { cleared: Boolean(levelRecord.cleared || result.cleared), stars: Math.max(levelRecord.stars ?? 0, result.stars) };
   const subjectRecord = state.subjectProgress[active.subject] ?? {};
   state.subjectProgress[active.subject] = { ...subjectRecord, stars: Math.max(subjectRecord.stars ?? 0, result.stars) };
   if (active.kind === 'boss') state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'boss' }, taipeiDate());

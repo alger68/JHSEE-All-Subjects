@@ -31,6 +31,21 @@ it('starts each world level with its own chapter question pool',async()=>{
   run=JSON.parse(localStorage.getItem(key)).activeRun;
   expect(run.battle.questions.every(question=>question.chapter==='Reading Sky')).toBe(true);
 });
+it('keeps a cleared level unlocked after an unsuccessful replay',async()=>{
+  window.history.replaceState(null,'','#/battle/english/english-1');
+  localStorage.setItem(key,JSON.stringify({version:1,levelProgress:{'english-1':{cleared:true,stars:2}}}));
+  await boot();
+  for(let index=0;index<5;index++){
+    const run=JSON.parse(localStorage.getItem(key)).activeRun;
+    const question=run.battle.questions[run.battle.index];
+    document.querySelector(`[data-action="answer"][data-choice="${(question.answer+1)%question.choices.length}"]`).click();
+    document.querySelector('[data-action="next"]').click();
+  }
+  const saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.levelProgress['english-1']).toMatchObject({cleared:true,stars:2});
+  await go('#/world/english');
+  expect(document.querySelector('a[href="#/battle/english/english-2"]')).not.toBeNull();
+});
 it('shows official question images in-site and preserves answers, zoom and deadline across reader modes',async()=>{
   window.history.replaceState(null,'','#/paper/cap115-math');await boot();
   document.querySelector('[data-action="start-paper"]').click();
