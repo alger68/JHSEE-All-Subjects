@@ -14,6 +14,8 @@ export function defaultState() {
     adaptiveSkills: {},
     answerHistory: [],
     adaptiveSubjectWeights: null,
+    diagnosticSeedVersion: 2,
+    repairPlan: null,
     generatedQuestions: [],
     aiUsage: { date: null, count: 0, limit: 12 },
     learningCycles: [],
@@ -30,13 +32,20 @@ export function defaultState() {
   };
 }
 
+function restoreState(saved){
+  const migrated=saved.diagnosticSeedVersion===2
+    ?saved
+    :{...saved,adaptiveSubjectWeights:null,diagnosticSeedVersion:2};
+  return {...defaultState(),...migrated,player:{...createPlayer(),...saved.player}};
+}
+
 export function createStore(storage = window.localStorage) {
   return {
     load() {
       try {
         const parsed = JSON.parse(storage.getItem(STORAGE_KEY));
         if (!parsed || parsed.version !== 1) return defaultState();
-        return { ...defaultState(), ...parsed, player: { ...createPlayer(), ...parsed.player } };
+        return restoreState(parsed);
       } catch {
         return defaultState();
       }
@@ -62,7 +71,7 @@ export function createStore(storage = window.localStorage) {
         if(parsed?.meta?.format!=='jhsee-backup-v1'||parsed?.meta?.version!==1||parsed?.state?.version!==1){
           return {ok:false,error:'unsupported_backup'};
         }
-        const next={...defaultState(),...parsed.state,player:{...createPlayer(),...parsed.state.player},version:1};
+        const next={...restoreState(parsed.state),version:1};
         storage.setItem(STORAGE_KEY,JSON.stringify(next));
         return {ok:true,state:next};
       } catch(error) {

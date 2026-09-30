@@ -90,4 +90,29 @@ describe('adventure storage', () => {
     expect(restored.importBackup(backup).ok).toBe(true);
     expect(restored.load().wrongQuestions[0]).toMatchObject(wrong);
   });
+
+  it('clears old fixed-student subject weights while keeping study history and stages',()=>{
+    const memory=fakeStorage();
+    const history=[{questionId:'EN-1',subject:'english',correct:false}];
+    memory.values.set('jhsee.adventure.v1',JSON.stringify({
+      version:1,adaptiveSubjectWeights:{english:30,science:20,math:20,social:15,chinese:10},
+      answerHistory:history,levelProgress:{'english-1':{cleared:true}}
+    }));
+    const restored=createStore(memory).load();
+    expect(restored.adaptiveSubjectWeights).toBeNull();
+    expect(restored.answerHistory).toEqual(history);
+    expect(restored.levelProgress['english-1'].cleared).toBe(true);
+  });
+
+  it('keeps current personalized weights and seven-day task progress after backup restore',()=>{
+    const original=createStore(fakeStorage());
+    original.save({
+      adaptiveSubjectWeights:{english:25,science:15,math:20,social:25,chinese:15},
+      repairPlan:{mockId:'m1',startedOn:'2026-09-17',progress:{'2026-09-17:english':4}}
+    });
+    const restored=createStore(fakeStorage());
+    expect(restored.importBackup(original.exportBackup()).ok).toBe(true);
+    expect(restored.load().adaptiveSubjectWeights.english).toBe(25);
+    expect(restored.load().repairPlan.progress['2026-09-17:english']).toBe(4);
+  });
 });

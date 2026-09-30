@@ -86,7 +86,7 @@ export function buildMockAdjustedDiagnostic(baseDiagnostic,records=[]){
   if(!room.latest)return baseDiagnostic;
   return {
     ...(baseDiagnostic??{}),
-    source:`${baseDiagnostic?.source??'初始'}＋最新模考`,
+    source:room.latest.title,
     subjectWeights:room.studyWeights
   };
 }
@@ -133,6 +133,37 @@ export function buildSevenDayRepairPlan(room,startDate){
     tasks.push({date:iso,tasks:daily});
   }
   return tasks;
+}
+
+export function repairTopicMatchesQuestion(question,topic){
+  const requested=String(topic??'').normalize('NFKC').trim().toLowerCase();
+  if(!requested)return false;
+  return [question?.chapter,question?.topic,question?.domain,question?.competency,
+    question?.questionType,question?.examProfile?.domain,question?.examProfile?.competency,
+    question?.examProfile?.type]
+    .filter(value=>typeof value==='string'&&value.trim().length>=2)
+    .some(value=>{
+      const field=value.normalize('NFKC').trim().toLowerCase();
+      return field.includes(requested)||requested.includes(field);
+    });
+}
+
+export function recordRepairProgress(plan,task,answered=0){
+  if(!task?.mockId||!normalizeDate(task.date)||!SUBJECT_ORDER.includes(task.subject))return plan;
+  if(plan?.mockId&&plan.mockId!==task.mockId)return plan;
+  const current=plan??{mockId:task.mockId,startedOn:task.date,progress:{}};
+  const amount=Math.max(0,Math.floor(Number(answered)||0));
+  if(!amount)return current;
+  const key=`${task.date}:${task.subject}`;
+  return {...current,progress:{...current.progress,[key]:Math.min(999,(Number(current.progress?.[key])||0)+amount)}};
+}
+
+export function applyRepairProgress(days=[],plan,mockId){
+  const progress=plan?.mockId===mockId?plan.progress??{}:{};
+  return days.map(day=>({...day,tasks:day.tasks.map(task=>{
+    const answered=Math.max(0,Number(progress[`${day.date}:${task.subject}`])||0);
+    return {...task,answered,completed:answered>=task.questionTarget};
+  })}));
 }
 
 export function buildCoverageReport(questions=[],history=[]){

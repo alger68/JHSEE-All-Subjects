@@ -16,15 +16,30 @@ function nav(active = 'home') {
   return `<nav class="bottom-nav" aria-label="主要導覽">${items.map(([id, href, icon, label]) => `<a href="${href}" class="${active === id ? 'active' : ''}"><span>${icon}</span>${label}</a>`).join('')}</nav>`;
 }
 
-export function renderLobby({ player, countdown, quest, wrongCount, subjectProgress }) {
+export function renderLobby({ player, countdown, quest, wrongCount, subjectProgress, todayAction = null }) {
   const progress = levelProgress(player);
   const questItems = quest.items ?? [];
   const questLabels = ['完成 10 題', '練習 3 個科目', '錯題復仇 3 題', '挑戰 Boss', '單科完成 5 題'];
+  const recommendation = todayAction ?? {
+    kind: 'practice', label: '開始每日練習', reason: '先完成一輪會考導向短練習，找出下一個需要補強的觀念。', href: '#/exam-center'
+  };
+  const actionLabel = escapeHtml(recommendation.label ?? '開始每日練習');
+  const actionControl = recommendation.action
+    ? `<button type="button" class="primary-button" data-action="${escapeHtml(recommendation.action)}">${actionLabel} →</button>`
+    : `<a class="primary-button" href="${escapeHtml(recommendation.href ?? '#/exam-center')}">${actionLabel} →</a>`;
+  const actionType = recommendation.kind === 'diagnostic' ? '先找出起點' : recommendation.kind === 'review' ? '到期複習' : '今日練習';
   return `<div class="app-shell">
     <header class="topbar"><div><span class="eyebrow">116 會考大冒險</span><h1>知識遠征基地</h1></div><div class="player-badge"><span>LV.${player.level}</span><b>${escapeHtml(player.name)}</b></div></header>
     <section class="hero-panel jh-hero">
       <div class="countdown"><span>距離會考</span><strong>${countdown}</strong><small>DAYS</small></div>
       <div class="hero-copy"><span class="status-chip">🔥 ${player.streak} 天連續學習</span><h2>今天，前進一個關卡。</h2><div class="xp-row"><span>EXP ${player.exp}</span><span>下一級 ${progress.required}</span></div><div class="progress"><i style="width:${progress.percent}%"></i></div><div class="currency">💰 ${player.coins} 金幣　・　👹 ${player.bossesDefeated} Boss</div></div>
+    </section>
+    <section class="today-study" aria-label="今日學習入口">
+      <article class="today-study-main jh-card"><span class="eyebrow">TODAY'S NEXT STEP・${actionType}</span><h2>今天先完成這一件事</h2><p>${escapeHtml(recommendation.reason ?? '')}</p>${actionControl}</article>
+      <nav class="today-study-shortcuts" aria-label="其他學習入口">
+        <a class="today-study-exam jh-card" href="#/exam-center"><span aria-hidden="true">⏱</span><strong>限時模考</strong><small>用歷屆試卷檢查作答節奏</small><b aria-hidden="true">↗</b></a>
+        <a class="today-study-review jh-card" href="#/revenge"><span aria-hidden="true">↻</span><strong>錯題複習</strong><small>${wrongCount} 題待複習・確認是否真正學會</small><b aria-hidden="true">↗</b></a>
+      </nav>
     </section>
     <section class="section-heading"><div><span class="eyebrow">ADVENTURE MAP</span><h2>選擇今天的世界</h2></div><a href="#/exam-center" class="text-link">🏆 官方會考與補強</a></section>
     <section class="world-grid">${SUBJECT_ORDER.map((id) => {
@@ -74,7 +89,7 @@ export function renderResults({ subject, result }) {
 
 export function renderRevenge({ items = [], date = '' }) {
   const sorted=[...items].sort((a,b)=>String(a.nextReview??'').localeCompare(String(b.nextReview??'')));
-  const due=sorted.filter(i=>String(i.nextReview??'')<=date).length;
+  const due=sorted.filter(i=>i.available!==false&&!i.resolved&&String(i.nextReview??'')<=date).length;
   const available=sorted.filter(item=>item.available!==false&&!item.resolved);
   const missing=sorted.filter(item=>item.available===false).length;
   const stageLabel={
@@ -86,7 +101,7 @@ export function renderRevenge({ items = [], date = '' }) {
   };
   const sessionButton=available.length?`<section class="review-start-panel"><div><span class="eyebrow">CONTINUOUS REVIEW</span><h2>一次完成這批複習</h2><p>每題選完答案會先停在原題，確認選取後再按「下一題」。系統會逐步改用同能力新題驗證，不讓你只靠記住原答案。</p></div><button class="primary-button" data-action="start-revenge-session">開始連續複習（${available.length} 題）</button></section>`:'';
   const missingNotice=missing?`<p class="notice warning">${missing} 筆題目資料目前無法載入，已暫停這些項目的作答；原紀錄仍保留，不會變成空白題目。</p>`:'';
-  return `<div class="app-shell"><header class="page-header"><a href="#/exam-center">←</a><div><span class="eyebrow">SPACED REVIEW</span><h1>錯題與不確定題複習</h1></div></header><p class="notice">今天到期 ${due} 題・共 ${items.length} 題。第一次會確認原題；之後改用同能力新題、近遷移與延遲驗證，確認是真的掌握而不是記住答案。</p>${missingNotice}${sessionButton}${items.length?`<section class="review-list">${sorted.map(item=>{const valid=item.available!==false;const stage=item.reviewStage??((item.originalReviewCount??0)>0?'same-skill':'anchor');return `<article class="${valid?'':'review-missing'}"><b>${valid?(['🔴','🟠','🟡','🟢'][item.mastery]??'🔴'):'⚠️'}</b><div><h3>${escapeHtml(item.topic??item.questionId)}</h3><p>${valid?`${item.source==='official'?'官方原題':'原創練習'}・${stageLabel[stage]??'能力驗證'}・熟練度 ${item.mastery}/3・答錯 ${item.wrongCount} 次${item.uncertainCount?`・不確定 ${item.uncertainCount} 次`:''}`:'題目資料目前無法載入，無法開始作答'}</p><p>${item.resolved?'已完成跨題驗證':item.nextReview<=date?'今天到期':'下次複習：'+escapeHtml(item.nextReview)}</p>${valid&&!item.resolved?`${reasonSelect(item.questionId,item.reason)}<button class="primary-button" data-action="start-revenge" data-id="${escapeHtml(item.questionId)}">${item.nextReview<=date?'開始到期複習':'提前練習'}</button>`:item.resolved?'<span class="muted">已掌握・之後由自適應練習維持</span>':'<span class="muted">請重新整理頁面後再試</span>'}</div></article>`;}).join('')}</section>`:'<section class="empty-state"><span>✨</span><h2>目前沒有待複習題目</h2><p>答錯或標記不確定的題目會出現在這裡。</p><a href="#/exam-center">選擇練習</a></section>'}${nav('revenge')}</div>`;
+  return `<div class="app-shell"><header class="page-header"><a href="#/exam-center">←</a><div><span class="eyebrow">SPACED REVIEW</span><h1>錯題與不確定題複習</h1></div></header><p class="notice">今天到期 ${due} 題・共 ${items.length} 題。第一次會確認原題；之後改用同能力新題、近遷移與延遲驗證，確認是真的掌握而不是記住答案。</p>${missingNotice}${sessionButton}${items.length?`<section class="review-list">${sorted.map(item=>{const valid=item.available!==false;const stage=item.reviewStage??((item.originalReviewCount??0)>0?'same-skill':'anchor');return `<article class="${valid?'':'review-missing'}"><b>${valid?(['🔴','🟠','🟡','🟢'][item.mastery]??'🔴'):'⚠️'}</b><div><h3>${escapeHtml(item.topic??item.questionId)}</h3><p>${valid?`${item.source==='official'?'官方原題':'原創練習'}・${stageLabel[stage]??'能力驗證'}・熟練度 ${item.mastery}/3・答錯 ${item.wrongCount} 次${item.uncertainCount?`・不確定 ${item.uncertainCount} 次`:''}`:'題目資料目前無法載入，無法開始作答'}</p><p>${!valid?'題目暫不可用':item.resolved?'已完成跨題驗證':item.nextReview<=date?'今天到期':'下次複習：'+escapeHtml(item.nextReview)}</p>${valid&&!item.resolved?`${reasonSelect(item.questionId,item.reason)}<button class="primary-button" data-action="start-revenge" data-id="${escapeHtml(item.questionId)}">${item.nextReview<=date?'開始到期複習':'提前練習'}</button>`:item.resolved?'<span class="muted">已掌握・之後由自適應練習維持</span>':'<span class="muted">請重新整理頁面後再試</span>'}</div></article>`;}).join('')}</section>`:'<section class="empty-state"><span>✨</span><h2>目前沒有待複習題目</h2><p>答錯或標記不確定的題目會出現在這裡。</p><a href="#/exam-center">選擇練習</a></section>'}${nav('revenge')}</div>`;
 }
 
 export function renderAnalysis(summary, { diagnostic = null, adaptive = null, trend = {}, parentSummary = null, errorReasons = [], cycleComparison = {}, latestBaseline = null } = {}) {
@@ -94,7 +109,13 @@ export function renderAnalysis(summary, { diagnostic = null, adaptive = null, tr
     const stat = summary.subjects[id]; const item = SUBJECTS[id];
     return `<article style="--subject:${item.color}"><span>${item.icon}</span><div><h3>${item.name}</h3><div class="progress"><i style="width:${stat.accuracy}%"></i></div><p>${stat.status === 'insufficient-data' ? '資料不足' : `正確率 ${stat.accuracy}%`}</p></div><strong>${stat.accuracy}%</strong></article>`;
   }).join('');
-  const diagnosticPanel = diagnostic ? `<section class="diagnostic-panel jh-card"><div class="section-heading"><div><span class="eyebrow">PERSONAL DIAGNOSTIC</span><h2>${escapeHtml(diagnostic.student)}・${escapeHtml(diagnostic.source)}診斷</h2></div></div><p class="muted">推薦順序：英文閱讀 → 自然理化 → 數學非選 → 歷史／公民。這是初始底盤；後續會依實際作答動態修訂。</p><div class="diagnostic-list">${diagnosticCards(diagnostic).map((card) => `<article><div><strong>${escapeHtml(card.label)}</strong><span>${escapeHtml(card.result)}</span></div><b>${escapeHtml(card.priority)}</b><p>${escapeHtml(card.recommendation)}</p></article>`).join('')}</div></section>` : '';
+  const diagnosticFocuses = diagnostic?.focuses?.length ? diagnosticCards(diagnostic) : [];
+  const neutralDiagnostic = !diagnostic?.source || ['尚未輸入模考', '初始'].includes(diagnostic.source);
+  const diagnosticPanel = diagnostic ? `<section class="diagnostic-panel jh-card"><div class="section-heading"><div><span class="eyebrow">PERSONAL DIAGNOSTIC</span><h2>${escapeHtml(diagnostic.student ?? '學生')}・${escapeHtml(diagnostic.source ?? '初始')}診斷</h2></div></div>${diagnosticFocuses.length
+    ? `<p class="muted">目前優先：${diagnosticFocuses.map(card => escapeHtml(card.label)).join(' → ')}。後續會依實際作答調整。</p><div class="diagnostic-list">${diagnosticFocuses.map((card) => `<article><div><strong>${escapeHtml(card.label)}</strong><span>${escapeHtml(card.result)}</span></div><b>${escapeHtml(card.priority)}</b><p>${escapeHtml(card.recommendation)}</p></article>`).join('')}</div>`
+    : neutralDiagnostic
+      ? '<p class="muted">尚無個人弱點資料。輸入自己的模考等級，或完成 25 題五科診斷後再安排補強順序。</p><div class="diagnostic-actions"><a class="primary-button" href="#/exam-center">輸入模考成績</a><button type="button" class="secondary-button" data-action="start-diagnostic">開始 25 題診斷</button></div>'
+      : '<p class="muted">已依模考五科等級調整練習比例；此處尚無題型弱點分析。題型弱點需從實際作答確認，或在戰情中心補登模考錯題主題供修復計畫使用。</p><div class="diagnostic-actions"><a class="primary-button" href="#/exam-center">查看／補登模考錯題</a><button type="button" class="secondary-button" data-action="start-diagnostic">開始 25 題診斷</button></div>'}</section>` : '';
   const weightNames={english:'英文',science:'自然',math:'數學',social:'社會',chinese:'國文'};
   const adaptivePanel = adaptive ? `<section class="diagnostic-panel adaptive-panel"><div class="section-heading"><div><span class="eyebrow">ADAPTIVE ENGINE</span><h2>動態學習引擎</h2></div></div>
     <p class="muted">每次作答後重新計算核心能力熟練度、優先級與科目比例。單一弱點不會無限霸佔題量。</p>

@@ -67,6 +67,14 @@ describe('wrong-answer revenge mastery', () => {
     expect(dueWrongQuestions(list, '2026-09-23').map((item) => item.questionId)).toEqual(['Q1']);
   });
 
+  it('does not schedule a resolved transfer review again after its old review date',()=>{
+    const items=[
+      {questionId:'resolved',nextReview:'2026-09-01',resolved:true},
+      {questionId:'still-due',nextReview:'2026-09-17',resolved:false}
+    ];
+    expect(dueWrongQuestions(items,'2026-09-30').map(item=>item.questionId)).toEqual(['still-due']);
+  });
+
   it('queues an uncertain answer without counting it wrong', () => {
     const list = recordUncertain([], 'Q2', '2026-09-17');
     expect(list[0]).toMatchObject({

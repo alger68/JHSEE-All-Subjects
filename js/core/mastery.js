@@ -51,7 +51,7 @@ export function reviewWrong(list, questionId, correct, date) {
 }
 
 export function dueWrongQuestions(list, date) {
-  return list.filter((item) => item.nextReview <= date);
+  return list.filter((item) => !item.resolved && item.nextReview <= date);
 }
 
 export function recordUncertain(list, questionId, date) {

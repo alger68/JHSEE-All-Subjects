@@ -44,6 +44,13 @@ const context=(extra={})=>({
 });
 
 describe('question provider',()=>{
+  it('limits a repair practice set to questions about the selected topic',()=>{
+    const physics=makeQuestion('physics',{examProfile:{domain:'理化',competency:'受力分析',type:'資料分析'}});
+    const chemistry=makeQuestion('chemistry',{examProfile:{domain:'理化',competency:'酸鹼反應',type:'資料分析'}});
+    const provider=createQuestionProvider({registry:createQuestionRegistry([physics,chemistry])});
+    const selected=provider.getPracticeSet({subject:'english',examAligned:true,topic:'受力分析'},context({count:2}));
+    expect(selected.questions.map(q=>q.id)).toEqual(['physics']);
+  });
   it('uses a fresh local same-skill variant before AI',async()=>{
     const anchor=makeQuestion('anchor');
     const local=makeQuestion('local-variant',{variationForm:'email'});

@@ -1,6 +1,7 @@
 import { validateQuestion } from './question-bank.js';
 import { buildAdaptivePractice, skillIdentity } from './adaptive-learning.js';
 import { buildStarterPractice } from './personalization.js';
+import { repairTopicMatchesQuestion } from './cap-war-room.js';
 import { isNearDuplicate, questionFingerprint } from './question-dedup.js';
 
 const LOCAL_KINDS=new Set(['local-core','local-pack']);
@@ -57,6 +58,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
     if(criteria.examAligned!==undefined&&criteria.examAligned!==null&&question.examAligned!==criteria.examAligned)return false;
     if(Number.isFinite(Number(criteria.maxGrade))&&Number(question.grade??9)>Number(criteria.maxGrade))return false;
     if(criteria.questionType&&question.questionType!==criteria.questionType)return false;
+    if(criteria.topic&&!repairTopicMatchesQuestion(question,criteria.topic))return false;
     return true;
   }
 

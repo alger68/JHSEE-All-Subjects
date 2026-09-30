@@ -6,6 +6,9 @@ import {
   buildMockAdjustedDiagnostic,
   normalizeMockErrorImport,
   buildSevenDayRepairPlan,
+  repairTopicMatchesQuestion,
+  recordRepairProgress,
+  applyRepairProgress,
   buildCoverageReport
 } from '../js/core/cap-war-room.js';
 
@@ -52,11 +55,12 @@ describe('CAP mock war room',()=>{
   it('builds a diagnostic whose subject weights reflect latest mock weakness',()=>{
     const records=[normalizeMockExamRecord({
       date:'2026-09-18',
+      title:'本次模考',
       grades:{chinese:'A',english:'C',math:'A+',science:'A',social:'B++'}
     })];
     const adjusted=buildMockAdjustedDiagnostic(baseDiagnostic,records);
     expect(adjusted.subjectWeights.english).toBeGreaterThan(adjusted.subjectWeights.chinese);
-    expect(adjusted.source).toContain('模考');
+    expect(adjusted.source).toBe('本次模考');
   });
 });
 
@@ -88,6 +92,24 @@ it('builds a seven-day repair plan from mock weaknesses',()=>{
   expect(plan).toHaveLength(7);
   expect(plan[0].tasks.length).toBeGreaterThan(0);
   expect(plan.flatMap(day=>day.tasks).some(task=>task.subject==='english')).toBe(true);
+});
+
+it('counts only submitted answers for the matching mock and task',()=>{
+  const task={mockId:'my-mock',date:'2026-09-19',subject:'english',questionTarget:10};
+  let progress=recordRepairProgress(null,task,4);
+  progress=recordRepairProgress(progress,task,6);
+  progress=recordRepairProgress(progress,{...task,mockId:'another-mock'},3);
+  const plan=[{date:task.date,tasks:[{subject:'english',questionTarget:10},{subject:'science',questionTarget:5}]}];
+  const view=applyRepairProgress(plan,progress,'my-mock');
+  expect(view[0].tasks[0]).toMatchObject({answered:10,completed:true});
+  expect(view[0].tasks[1]).toMatchObject({answered:0,completed:false});
+});
+
+it('matches a repair topic to a reviewed question capability, not arbitrary subject text',()=>{
+  const question={subject:'science',chapter:'理化工坊',examProfile:{domain:'物理',competency:'受力分析'}};
+  expect(repairTopicMatchesQuestion(question,'受力分析')).toBe(true);
+  expect(repairTopicMatchesQuestion(question,'酸鹼')).toBe(false);
+  expect(repairTopicMatchesQuestion(question,'')).toBe(false);
 });
 
 it('builds coverage by practiced competencies',()=>{

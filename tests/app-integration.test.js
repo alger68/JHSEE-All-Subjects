@@ -22,6 +22,155 @@ function questionMapForTest(id){return [...questions,...practice].find(question=
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
 
+it('offers a neutral first step on the lobby and starts a five-subject diagnosis',async()=>{
+  window.history.replaceState(null,'','#/');await boot();
+  expect(document.body.textContent).not.toContain('宥廷');
+  expect(document.querySelector('[data-action="start-diagnostic"]')).not.toBeNull();
+  document.querySelector('[data-action="start-diagnostic"]').click();
+  await vi.advanceTimersByTimeAsync(1);
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.kind).toBe('diagnostic');
+  expect(session.questionIds).toHaveLength(25);
+});
+
+it('starts the current mock repair task from the seven-day plan and records it only on submission',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,mockExamRecords:[{
+    id:'student-mock',date:'2026-09-17',title:'我的模考',
+    grades:{chinese:'A',english:'C',math:'A',science:'A',social:'A'},
+    errors:{english:{wrong:8,topics:['閱讀理解']}}
+  }],repairPlan:{mockId:'student-mock',startedOn:'2026-09-17',progress:{}}}));
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  const task=document.querySelector('[data-action="start-repair-task"][data-day="0"][data-task="0"]');
+  expect(task).not.toBeNull();
+  task.click();
+  const started=JSON.parse(localStorage.getItem(key));
+  expect(started.repairPlan.progress).toEqual({});
+  expect(started.activeExam.repairTask).toMatchObject({mockId:'student-mock',subject:'english',date:'2026-09-17'});
+  expect(started.activeExam.questionIds).toHaveLength(10);
+  expect(started.activeExam.questionIds.some(id=>{
+    const q=practice.find(question=>question.id===id);
+    return q?.chapter==='閱讀理解'||q?.domain==='閱讀理解';
+  })).toBe(true);
+  document.querySelector('[data-action="exam-answer"]').click();
+  submitExam();
+  const after=JSON.parse(localStorage.getItem(key));
+  expect(after.repairPlan.progress['2026-09-17:english']).toBe(1);
+  await go('#/exam-center');
+  expect(document.querySelector('[data-action="start-repair-task"][data-day="0"][data-task="0"]').textContent).toContain('1 / 10');
+  disconnect();document.body.innerHTML='<main id="app"></main>';vi.resetModules();await boot();
+  expect(document.body.textContent).toContain('1 / 10');
+});
+
+it('uses an honest same-subject fallback when a mock topic has no mapped questions',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,mockExamRecords:[{
+    id:'unknown-topic',date:'2026-09-17',title:'模考',
+    grades:{chinese:'A',english:'C',math:'A',science:'A',social:'A'},
+    errors:{english:{wrong:8,topics:['不存在的星球語法']}}
+  }],repairPlan:{mockId:'unknown-topic',startedOn:'2026-09-17',progress:{}}}));
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  expect(document.querySelector('.repair-plan').textContent).toContain('同科題');
+  document.querySelector('[data-action="start-repair-task"][data-day="0"][data-task="0"]').click();
+  const ids=JSON.parse(localStorage.getItem(key)).activeExam.questionIds;
+  expect(ids).toHaveLength(10);
+  expect(ids.every(id=>practice.find(q=>q.id===id)?.subject==='english')).toBe(true);
+});
+
+it('keeps a saved repair plan date and allows a fresh week after it expires',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,mockExamRecords:[{
+    id:'old-mock',date:'2026-09-01',title:'舊模考',
+    grades:{chinese:'A',english:'C',math:'A',science:'A',social:'A'},errors:{}
+  }],repairPlan:{mockId:'old-mock',startedOn:'2026-09-01',progress:{'2026-09-01:english':5}}}));
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  expect(document.querySelector('.repair-plan').textContent).toContain('2026-09-01');
+  document.querySelector('[data-action="restart-repair-plan"]').click();
+  const saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.repairPlan.startedOn).toBe('2026-09-17');
+  expect(saved.repairPlan.progress).toEqual({});
+  expect(document.querySelector('.repair-plan').textContent).toContain('2026-09-17');
+});
+
+it('keeps completed repair work when the learner cancels a plan restart',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,mockExamRecords:[{
+    id:'m1',date:'2026-09-01',title:'模考',
+    grades:{chinese:'A',english:'C',math:'A',science:'A',social:'A'},errors:{}
+  }],repairPlan:{mockId:'m1',startedOn:'2026-09-01',progress:{'2026-09-01:english':5}}}));
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  window.confirm.mockReturnValueOnce(false);
+  document.querySelector('[data-action="restart-repair-plan"]').click();
+  expect(JSON.parse(localStorage.getItem(key)).repairPlan).toMatchObject({
+    startedOn:'2026-09-01',progress:{'2026-09-01:english':5}
+  });
+});
+
+it('uses only the learner mock for study weighting and returns to a neutral start after deleting it',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,levelProgress:{'social-1':{cleared:true}},mockExamRecords:[{
+    id:'own-mock',date:'2026-09-17',title:'我的模考',
+    grades:{chinese:'A',english:'A',math:'A',science:'A',social:'C'},errors:{}
+  }]}));
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  let state=JSON.parse(localStorage.getItem(key));
+  expect(state.adaptiveSubjectWeights.social).toBeGreaterThan(state.adaptiveSubjectWeights.english);
+  expect(document.body.textContent).not.toContain('宥廷');
+  document.querySelector('[data-action="delete-mock-exam"]').click();
+  state=JSON.parse(localStorage.getItem(key));
+  expect(state.adaptiveSubjectWeights).toMatchObject({chinese:20,english:20,math:20,science:20,social:20});
+  expect(state.levelProgress['social-1'].cleared).toBe(true);
+});
+
+it('starts a current seven-day plan for a pre-upgrade mock without one',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,mockExamRecords:[{
+    id:'legacy-mock',date:'2026-09-01',title:'以前的模考',
+    grades:{chinese:'A',english:'C',math:'A',science:'A',social:'A'},errors:{}
+  }]}));
+  window.history.replaceState(null,'','#/');await boot();
+  expect(JSON.parse(localStorage.getItem(key)).repairPlan).toMatchObject({
+    mockId:'legacy-mock',startedOn:'2026-09-17',progress:{}
+  });
+  expect(document.querySelector('[data-action="start-today-practice"]')).not.toBeNull();
+  await go('#/exam-center');
+  expect(document.querySelector('.repair-plan').textContent).toContain('Day 1・2026-09-17');
+});
+
+it('persists a migrated repair plan after importing an older learner backup',async()=>{
+  window.history.replaceState(null,'','#/profile');await boot();
+  const backup={meta:{format:'jhsee-backup-v1',version:1,exportedAt:'2026-09-01T00:00:00Z'},state:{
+    version:1,mockExamRecords:[{
+      id:'imported-mock',date:'2026-09-01',title:'以前的模考',
+      grades:{chinese:'A',english:'C',math:'A',science:'A',social:'A'},errors:{}
+    }]
+  }};
+  const input=document.querySelector('#backup-file-input');
+  Object.defineProperty(input,'files',{configurable:true,value:[{text:async()=>JSON.stringify(backup)}]});
+  input.dispatchEvent(new Event('change',{bubbles:true}));
+  await vi.advanceTimersByTimeAsync(1);
+  expect(JSON.parse(localStorage.getItem(key)).repairPlan).toMatchObject({
+    mockId:'imported-mock',startedOn:'2026-09-17'
+  });
+});
+
+it('keeps seven-day answers when editing the current mock title',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,mockExamRecords:[{
+    id:'edited-mock',date:'2026-09-17',title:'模考',
+    grades:{chinese:'A',english:'C',math:'A',science:'A',social:'A'},errors:{}
+  }],repairPlan:{mockId:'edited-mock',startedOn:'2026-09-17',progress:{'2026-09-17:english':5}}}));
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('#mock-title').value='更正後的模考';
+  document.querySelector('[data-action="save-mock-exam"]').click();
+  expect(JSON.parse(localStorage.getItem(key)).repairPlan).toMatchObject({
+    mockId:'edited-mock',startedOn:'2026-09-17',progress:{'2026-09-17:english':5}
+  });
+});
+
+it('does not recommend resolved or unavailable old wrong answers as todays next step',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,wrongQuestions:[
+    {questionId:'CHI-WORD-001',mastery:2,wrongCount:1,nextReview:'2026-09-01',resolved:true},
+    {questionId:'missing-old-id',mastery:0,wrongCount:1,nextReview:'2026-09-01',resolved:false}
+  ]}));
+  window.history.replaceState(null,'','#/');await boot();
+  expect(document.querySelector('[data-action="start-diagnostic"]')).not.toBeNull();
+  expect(document.querySelector('.today-study-main').textContent).not.toContain('到期錯題');
+});
+
 it('starts each world level with its matching adventure and CAP-oriented units',async()=>{
   window.history.replaceState(null,'','#/battle/english/english-2');await boot();
   let run=JSON.parse(localStorage.getItem(key)).activeRun;
@@ -338,7 +487,7 @@ it('starts the default practice with weak-point weighting but keeps all five sub
   ]));
   expect(ids).toHaveLength(10);
   expect(new Set(ids).size).toBe(10);
-  expect(counts).toEqual({english:3,science:2,math:2,social:2,chinese:1});
+  expect(counts).toEqual({english:2,science:2,math:2,social:2,chinese:2});
 });
 it('allows a separate basic practice without mixing reviewed contextual questions',async()=>{
   window.history.replaceState(null,'','#/exam-center');await boot();
@@ -739,7 +888,7 @@ it('fresh user five-subject practice is mixed and contains no duplicate question
   const counts=Object.fromEntries(['english','science','math','social','chinese'].map(subject=>[
     subject,subjects.filter(value=>value===subject).length
   ]));
-  expect(counts).toEqual({english:3,science:2,math:2,social:2,chinese:1});
+  expect(counts).toEqual({english:2,science:2,math:2,social:2,chinese:2});
 });
 
 for(const [paperId,count] of [

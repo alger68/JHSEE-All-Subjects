@@ -22,7 +22,7 @@ import { buildEnglishSpeechText, englishVoices, voiceKey, getEnglishSpeechRate, 
 import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
-import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, buildCoverageReport } from './core/cap-war-room.js';
+import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, repairTopicMatchesQuestion, recordRepairProgress, applyRepairProgress, buildCoverageReport } from './core/cap-war-room.js';
 import { buildPlacementModel } from './core/admission-placement.js';
 import { renderAdmissionPlacement } from './ui/admission-view.js';
 import { createRouter } from './router.js';
@@ -48,7 +48,37 @@ let aiRemediationInFlight = false;
 
 const currentDiagnostic=()=>buildMockAdjustedDiagnostic(PERSONAL_DIAGNOSTIC,state.mockExamRecords??[]);
 const currentMockWarRoom=()=>buildMockWarRoom(state.mockExamRecords??[],PERSONAL_DIAGNOSTIC.subjectWeights);
-const currentRepairPlan=()=>buildSevenDayRepairPlan(currentMockWarRoom(),taipeiDate());
+function ensureRepairPlan(){
+  const mockId=currentMockWarRoom().latest?.id;
+  if(!mockId){state.repairPlan=null;return;}
+  if(state.repairPlan?.mockId!==mockId||!state.repairPlan?.startedOn){
+    state.repairPlan={mockId,startedOn:taipeiDate(),progress:{}};
+  }
+}
+const currentRepairPlan=()=>{
+  const room=currentMockWarRoom();
+  if(!room.latest)return [];
+  const plan=state.repairPlan?.mockId===room.latest.id?state.repairPlan:null;
+  const days=buildSevenDayRepairPlan(room,plan?.startedOn??taipeiDate());
+  return applyRepairProgress(days,plan,room.latest.id).map(day=>({...day,tasks:day.tasks.map(task=>({
+    ...task,
+    topicAvailable:!task.topic||bank?.all?.().some(question=>
+      question.subject===task.subject&&question.examAligned&&repairTopicMatchesQuestion(question,task.topic)
+    )
+  }))}));
+};
+const todayRepairTask=()=>currentRepairPlan().find(day=>day.date===taipeiDate())?.tasks.find(task=>!task.completed)??null;
+const dueReviewItems=()=>dueWrongQuestions(state.wrongQuestions,taipeiDate())
+  .filter(item=>questionMap.has(item.questionId));
+function todayAction(){
+  if(state.activeExam)return {kind:'practice',label:'繼續尚未交卷的練習',reason:'接著完成這一回，再查看答錯原因。',href:'#/exam'};
+  const due=dueReviewItems().length;
+  if(due)return {kind:'review',label:`複習 ${due} 題到期錯題`,reason:'先確認之前錯過的觀念，答題後再看下一項任務。',href:'#/revenge'};
+  const task=todayRepairTask();
+  if(task)return {kind:'practice',label:`練 ${SUBJECTS[task.subject].name}・${task.questionTarget-task.answered} 題`,reason:`依自己的模考結果補強${task.topic?`「${task.topic}」`:SUBJECTS[task.subject].name}，交卷後才計入進度。`,action:'start-today-practice'};
+  if(!(state.answerHistory??[]).length&&!(state.mockExamRecords??[]).length)return {kind:'diagnostic',label:'建立五科起點・25 題',reason:'先用五科平衡題認識目前狀況，也可以直接到補強中心輸入自己的模考成績。',action:'start-diagnostic'};
+  return {kind:'practice',label:'開始今日五科短練習',reason:'約 20 分鐘，完成後依真正答題紀錄安排下一次複習。',action:'start-today-practice'};
+}
 const currentCoverage=()=>buildCoverageReport(bank?.all?.()??[],state.answerHistory??[]);
 const aiAvoidExamples=()=>{
   const recentAnswered=(state.answerHistory??[]).slice(-20)
@@ -264,7 +294,7 @@ function routes() {
     '#/': () => {
       ensureDailyQuest();
       const quest = { ...questProgress(state.dailyQuest), chestClaimed: state.dailyQuest.chestClaimed };
-      return renderLobby({ player: state.player, countdown: daysUntil('2027-05-15'), quest, wrongCount: state.wrongQuestions.filter((item) => !item.resolved).length, subjectProgress: state.subjectProgress });
+      return renderLobby({ player: state.player, countdown: daysUntil('2027-05-15'), quest, wrongCount: state.wrongQuestions.filter((item) => !item.resolved).length, subjectProgress: state.subjectProgress, todayAction:todayAction() });
     },
     '#/world/:subject': ({ subject }) => {
       const world = SUBJECTS[subject] ? subject : 'math';
@@ -311,7 +341,7 @@ function routes() {
     '#/exam-check': () => state.activeExam
       ? renderExamCheck({session:state.activeExam,questions:sessionQuestions(state.activeExam),paper:paperFor(state.activeExam),remaining:remainingSeconds(state.activeExam,Date.now())})
       : renderExamCenter({papers:OFFICIAL_PAPERS,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,reports:state.examReports,mockWarRoom:currentMockWarRoom(),repairPlan:currentRepairPlan(),coverage:currentCoverage()}),
-    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueWrongQuestions(state.wrongQuestions,taipeiDate()).length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:currentDiagnostic(),adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate()),mockWarRoom:currentMockWarRoom(),repairPlan:currentRepairPlan(),coverage:currentCoverage()}),
+    '#/exam-center': () => renderExamCenter({papers:OFFICIAL_PAPERS,activeSession:state.activeExam,attempts:state.attempts.filter(a=>a.title),reports:state.examReports,dueCount:dueReviewItems().length,alignedCount:bank.filter({examAligned:true}).length,practiceCount:bank.all().length,diagnostic:currentDiagnostic(),adaptive:adaptiveDashboard(state.adaptiveSkills,state.adaptiveSubjectWeights,taipeiDate()),mockWarRoom:currentMockWarRoom(),repairPlan:currentRepairPlan(),coverage:currentCoverage()}),
     '#/placement': () => {
       const room=currentMockWarRoom();
       const model=buildPlacementModel({
@@ -538,6 +568,10 @@ function completeExam() {
   const attemptKey=session.paperId??session.title;
   if(session.kind!=='review') state.examAttemptCounts[attemptKey]=(state.examAttemptCounts[attemptKey]??0)+1;
   state.attempts = [...state.attempts, { title:session.title, subject:paperFor(session)?.subject??'all',kind:session.kind,paperId:session.paperId,attemptNumber:session.attemptNumber,hintCount:result.items.filter(i=>i.hinted).length, accuracy: result.accuracy, at: new Date().toISOString() }].slice(-50);
+  if(session.repairTask){
+    state.repairPlan=recordRepairProgress(state.repairPlan,session.repairTask,
+      result.items.filter(item=>item.choice!==undefined).length);
+  }
   state.lastExamResult = result;
   state.examReports = [...state.examReports,result].slice(-10);
   if(session.kind==='diagnostic') {
@@ -705,6 +739,7 @@ function startSession(questions,options) {
   state.activeExam=createSession(sessionQuestions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
   if(options.reviewItemIds)state.activeExam.reviewItemIds=[...options.reviewItemIds];
   if(options.reviewEvidenceByQuestionId)state.activeExam.reviewEvidenceByQuestionId={...options.reviewEvidenceByQuestionId};
+  if(options.repairTask)state.activeExam.repairTask={...options.repairTask};
   if(options.paperId) {
     state.activeExam.paperMode=options.paperMode==='whole'?'whole':'question';
     state.activeExam.paperPage=1;
@@ -877,6 +912,41 @@ function practiceSelection(shuffle=false) {
   return {...filters,pool:result.questions,matchCount,warnings:result.warnings};
 }
 
+function startRepairPractice(task,date){
+  if(!task||task.completed||!SUBJECTS[task.subject])return null;
+  const room=currentMockWarRoom();
+  if(!room.latest)return null;
+  const wanted=Math.max(1,Math.min(15,task.questionTarget-task.answered||task.questionTarget));
+  const context=practiceProviderContext({count:wanted,shuffle:true});
+  const criteria={subject:task.subject,examAligned:true,maxGrade:9};
+  const targeted=task.topic&&task.topicAvailable
+    ?provider.getPracticeSet({...criteria,topic:task.topic},context).questions:[];
+  const filled=targeted.length<wanted
+    ?provider.getPracticeSet(criteria,{
+      ...context,count:wanted-targeted.length,
+      excludeIds:new Set(targeted.map(question=>question.id)),
+      excludeFingerprints:new Set(targeted.map(question=>question.fingerprint).filter(Boolean))
+    }).questions:[];
+  const pool=[...targeted,...filled];
+  if(!pool.length){showToast('這項任務目前沒有可用題目，請先練習其他科目。');return null;}
+  if(task.topic&&targeted.length<wanted)showToast(targeted.length
+    ?`此主題可用 ${targeted.length} 題，不足部分補同科題。`
+    :'題庫暫無這個主題，改用同科會考導向題。');
+  return startSession(pool,{
+    title:`${SUBJECTS[task.subject].name}・${task.topic&&targeted.length?task.topic+'・':''}七天補強`,
+    kind:'practice',durationMinutes:Math.max(10,Math.round(pool.length*2)),
+    repairTask:{mockId:room.latest.id,date,subject:task.subject,topic:task.topic??null,questionTarget:task.questionTarget}
+  });
+}
+
+function startTodayPractice(){
+  const task=todayRepairTask();
+  if(task)return startRepairPractice(task,taipeiDate());
+  const pool=provider.getPracticeSet({examAligned:true,maxGrade:9},practiceProviderContext({count:10,shuffle:true})).questions;
+  if(!pool.length){showToast('目前沒有可用的會考導向題。');return null;}
+  return startSession(pool,{title:'今日五科會考導向短練習',kind:'practice',durationMinutes:20});
+}
+
 app.addEventListener('click', async (event) => {
   const control = event.target.closest('[data-action]');
   if (!control) return;
@@ -962,9 +1032,10 @@ app.addEventListener('click', async (event) => {
     state.mockExamRecords=updated
       .sort((a,b)=>a.date.localeCompare(b.date))
       .slice(-20);
+    ensureRepairPlan();
     state.adaptiveSubjectWeights=calculateSubjectWeights(
       state.adaptiveSkills,
-      state.adaptiveSubjectWeights,
+      null,
       currentDiagnostic()
     );
     save();renderRoute(false);showToast(recordId?'模考資料已更新，後續出題權重已重新計算。':'模考已加入戰情中心，後續出題權重已更新。');
@@ -1002,9 +1073,10 @@ app.addEventListener('click', async (event) => {
     if(!record)return;
     if(!window.confirm(`確定刪除「${record.title}・${record.date}」這筆模考紀錄嗎？`))return;
     state.mockExamRecords=(state.mockExamRecords??[]).filter(item=>item.id!==id);
+    ensureRepairPlan();
     state.adaptiveSubjectWeights=calculateSubjectWeights(
       state.adaptiveSkills,
-      state.adaptiveSubjectWeights,
+      null,
       currentDiagnostic()
     );
     save();
@@ -1024,6 +1096,18 @@ app.addEventListener('click', async (event) => {
     state=applyResetMode(state,'new-cycle',taipeiDate()); rebuildQuestionRuntime(); save(); renderRoute(); showToast('新的學習週期已建立。');
   }
   if (action === 'start-diagnostic') await startDiagnostic();
+  if (action === 'start-today-practice') startTodayPractice();
+  if (action === 'start-repair-task') {
+    const dayIndex=Number(control.dataset.day),taskIndex=Number(control.dataset.task);
+    const day=currentRepairPlan()[dayIndex],task=day?.tasks?.[taskIndex];
+    if(task)startRepairPractice(task,day.date);
+  }
+  if (action === 'restart-repair-plan') {
+    const mockId=currentMockWarRoom().latest?.id;
+    if(mockId&&window.confirm('重新安排會清除目前七天計畫的進度。確定重新開始嗎？')){
+      state.repairPlan={mockId,startedOn:taipeiDate(),progress:{}};save();renderRoute(false);
+    }
+  }
   if (action === 'export-backup') {
     const backup=store.exportBackup();
     const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
@@ -1233,6 +1317,8 @@ app.addEventListener('change',async(event)=>{
     if(!restored.ok){showToast('備份格式不正確，未修改目前資料。');event.target.value='';return;}
     state=restored.state;
     rebuildQuestionRuntime();
+    ensureRepairPlan();
+    save();
     event.target.value='';
     renderRoute();showToast('學習資料已還原。');
     return;
@@ -1261,6 +1347,7 @@ async function boot() {
     bank = createQuestionBank([...coreQuestions,...supplemental.questions]);
     if(supplemental.warnings.length)console.warn('Supplemental question pack warnings',supplemental.warnings);
     rebuildQuestionRuntime();
+    ensureRepairPlan();
     if (bank.diagnostics.length) console.warn('Question bank diagnostics', bank.diagnostics);
     ensureDailyQuest();
     state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
