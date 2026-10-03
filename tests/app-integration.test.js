@@ -6,6 +6,7 @@ import { questionFingerprint } from '../js/core/question-dedup.js';
 import { createQuestionBank } from '../js/core/question-bank.js';
 import { levelQuestionPool } from '../js/core/app-model.js';
 import { createBattle, answerBattle } from '../js/core/battle.js';
+import { orderPracticeChoices } from '../js/core/choice-order.js';
 
 const questions = JSON.parse(readFileSync('data/questions.json','utf8'));
 const practice = JSON.parse(readFileSync('data/cap-practice.json','utf8'));
@@ -42,6 +43,65 @@ function useFullQuestionBank(){
     return path.includes('cap-practice')?practice:questions;
   }})));
 }
+
+function captureEnglishSpeech(){
+  const spoken=[],utterances=[];
+  const voices=[{lang:'en-US',name:'Google US English',voiceURI:'google-us'},
+    {lang:'en-GB',name:'Google UK English',voiceURI:'google-uk'}];
+  vi.stubGlobal('speechSynthesis',{
+    getVoices:()=>voices,cancel:()=>{},speak:utterance=>{spoken.push(utterance.text);utterances.push(utterance);},
+    addEventListener:()=>{}
+  });
+  vi.stubGlobal('SpeechSynthesisUtterance',class {constructor(text){this.text=text;}});
+  return {spoken,utterances};
+}
+
+it('reads the displayed A–D order in an English world battle after choice rotation',async()=>{
+  const q=allOriginal.find(q=>q.id==='HP5-EN-012');
+  const {spoken,utterances}=captureEnglishSpeech();
+  useFullQuestionBank();
+  localStorage.setItem(key,JSON.stringify({version:1,activeRun:{kind:'normal',subject:'english',levelId:'english-1',battle:createBattle([orderPracticeChoices(q)])}}));
+  window.history.replaceState(null,'','#/battle/english/english-1');
+  await boot();
+  expect([...document.querySelectorAll('[data-action="answer"] span')].map(x=>x.textContent)).toEqual(['very long','very bright','not wide','very noisy']);
+  document.querySelector('[data-action="tts-choices"]').click();
+  expect(spoken).toEqual(['Option A. very long Option B. very bright Option C. not wide Option D. very noisy']);
+  document.querySelector('[data-action="tts-question"]').click();
+  expect(spoken.at(-1)).toBe('What does narrow most likely mean?');
+  document.querySelector('[data-action="tts-full"]').click();
+  expect(spoken.at(-1)).toBe('The path was narrow, so only one person could walk through at a time. Question. What does narrow most likely mean? Choices. Option A. very long Option B. very bright Option C. not wide Option D. very noisy');
+  expect(utterances.at(-1)).toMatchObject({lang:'en-US',rate:1,voice:{name:'Google US English'}});
+  const rate=document.querySelector('[data-english-tts-rate]');
+  rate.value='0.75';rate.dispatchEvent(new Event('change',{bubbles:true}));
+  const voice=document.querySelector('[data-english-tts-voice]');
+  voice.value=[...voice.options].find(option=>option.textContent.includes('Google UK English')).value;
+  voice.dispatchEvent(new Event('change',{bubbles:true}));
+  document.querySelector('[data-action="tts-choices"]').click();
+  expect(utterances.at(-1)).toMatchObject({lang:'en-GB',rate:0.75,voice:{name:'Google UK English'}});
+  document.querySelector('[data-action="tts-stop"]').click();
+});
+
+it('reads the displayed order in an English practice session after choice rotation',async()=>{
+  const q=allOriginal.find(q=>q.id==='HP5-EN-012');
+  const {spoken}=captureEnglishSpeech();
+  useFullQuestionBank();
+  localStorage.setItem(key,JSON.stringify({version:1,activeExam:createSession([q],{title:'英文練習',kind:'practice',durationMinutes:20,choiceOrderVersion:2})}));
+  await boot();
+  expect([...document.querySelectorAll('[data-action="exam-answer"] span')].map(x=>x.textContent)).toEqual(['very long','very bright','not wide','very noisy']);
+  document.querySelector('[data-action="tts-choices"]').click();
+  expect(spoken).toEqual(['Option A. very long Option B. very bright Option C. not wide Option D. very noisy']);
+});
+
+it('keeps an older English practice session in its saved A–D order when reading',async()=>{
+  const q=allOriginal.find(q=>q.id==='HP5-EN-012');
+  const {spoken}=captureEnglishSpeech();
+  useFullQuestionBank();
+  localStorage.setItem(key,JSON.stringify({version:1,activeExam:createSession([q],{title:'舊版英文練習',kind:'practice',durationMinutes:20})}));
+  await boot();
+  expect([...document.querySelectorAll('[data-action="exam-answer"] span')].map(x=>x.textContent)).toEqual(['not wide','very noisy','very long','very bright']);
+  document.querySelector('[data-action="tts-choices"]').click();
+  expect(spoken).toEqual(['Option A. not wide Option B. very noisy Option C. very long Option D. very bright']);
+});
 
 it('offers a neutral first step on the lobby and starts a five-subject diagnosis',async()=>{
   window.history.replaceState(null,'','#/');await boot();

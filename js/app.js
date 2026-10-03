@@ -980,7 +980,14 @@ app.addEventListener('click', async (event) => {
       stopEnglishSpeech();
       return;
     }
-    const q=questionMap.get(control.dataset.id);
+    // Use the same question instance that renders the visible option order.
+    const run=state.activeRun?.battle;
+    const visibleQuestion=window.location.hash==='#/exam'
+      ?sessionQuestions(state.activeExam)[state.activeExam.index]
+      :/^#\/(?:battle|boss)\//.test(window.location.hash)&&run
+        ?run.questions[Math.min(run.index,run.questions.length-1)]
+        :null;
+    const q=visibleQuestion?.id===control.dataset.id?visibleQuestion:null;
     if(!q||q.subject!=='english') {
       showToast('這題目前沒有可朗讀的英文文字。');
       return;
