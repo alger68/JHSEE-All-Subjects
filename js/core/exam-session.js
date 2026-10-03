@@ -65,6 +65,7 @@ export function createSession(questions, options = {}) {
     hinted: {},
     notes: {},
     attemptNumber: options.attemptNumber ?? 1,
+    ...(options.choiceOrderVersion ? { choiceOrderVersion: options.choiceOrderVersion } : {}),
     status: ACTIVE_STATUS
   };
 }
@@ -84,6 +85,7 @@ export function validateSession(session, questions) {
   if (session.paperId !== null && session.paperId !== undefined && typeof session.paperId !== 'string') return false;
   if (!hasValidTiming(session)) return false;
   if (!Number.isInteger(session.attemptNumber) || session.attemptNumber < 1) return false;
+  if (session.choiceOrderVersion !== undefined && session.choiceOrderVersion !== 2) return false;
   if (!SESSION_STATUSES.has(session.status)) return false;
   if (!Array.isArray(session.questionIds) || new Set(session.questionIds).size !== session.questionIds.length) return false;
   if (!session.questionIds.every((id) => typeof id === 'string' && catalog.has(id) && hasValidQuestionShape(catalog.get(id)))) return false;
@@ -147,6 +149,7 @@ export function finishSession(session, questions, now = Date.now()) {
     kind: session.kind,
     paperId: session.paperId ?? null,
     attemptNumber: session.attemptNumber,
+    ...(session.choiceOrderVersion ? { choiceOrderVersion: session.choiceOrderVersion } : {}),
     total: items.length,
     correct,
     accuracy: items.length ? Math.round((correct / items.length) * 100) : 0,

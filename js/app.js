@@ -13,6 +13,7 @@ import { officialLayout, renderOfficialAudio, renderOfficialQuestion } from './u
 import { rewardPlayer } from './core/game-state.js';
 import { recordWrong, recordUncertain, reviewWrong, dueWrongQuestions, setWrongReason } from './core/mastery.js';
 import { createQuestionBank } from './core/question-bank.js';
+import { orderPracticeChoices } from './core/choice-order.js';
 import { recentQuestionIds, recentQuestionFingerprints, recentAvoidQuestions } from './core/question-diversity.js';
 import { loadSupplementalQuestionPacks } from './core/question-pack-loader.js';
 import { createQuestionRegistry } from './core/question-registry.js';
@@ -204,7 +205,7 @@ function ensureBattle(subject, levelId, mode) {
   const questions = mode === 'boss'
     ? makeBossQuestions(bank, subject, 10)
     : pickLevelQuestions(bank, subject, levelNumber, 5);
-  const battle = createBattle(questions, mode);
+  const battle = createBattle(questions.map(orderPracticeChoices), mode);
   state.activeRun = { kind: mode, subject, levelId, battle };
   feedback = null;
   save();
@@ -213,19 +214,20 @@ function ensureBattle(subject, levelId, mode) {
 
 function ensureExam() {
   if (!state.activeExam) {
-    state.activeExam = createSession(pickQuickExam(bank, 2), { title:'五科基礎短練習',kind:'quick-exam',durationMinutes:20,attemptNumber:1+(state.examAttemptCounts?.['五科基礎短練習']??0) });
+    state.activeExam = createSession(pickQuickExam(bank, 2), { title:'五科基礎短練習',kind:'quick-exam',durationMinutes:20,choiceOrderVersion:2,attemptNumber:1+(state.examAttemptCounts?.['五科基礎短練習']??0) });
     save();
   }
   return state.activeExam;
 }
 
-const sessionQuestions = (session) => (session?.questionIds??[]).map(id=>questionMap.get(id)).filter(Boolean);
+const questionForOrder = (question, version) => version===2 ? orderPracticeChoices(question) : question;
+const sessionQuestions = (session) => (session?.questionIds??[]).map(id=>questionMap.get(id)).filter(Boolean).map(q=>questionForOrder(q,session.choiceOrderVersion));
 const paperFor = (session) => OFFICIAL_PAPERS.find(p=>p.id===session?.paperId);
 const reviewEntries = () => state.wrongQuestions
   .map((entry) => ({ ...entry, ...questionMap.get(entry.questionId), available: questionMap.has(entry.questionId) }))
   .sort((a,b)=>String(a.nextReview??'').localeCompare(String(b.nextReview??'')));
 const renderReport = (result) => result
-  ? renderSessionResults({result,questions:result.items.map(x=>questionMap.get(x.id)).filter(Boolean),paper:paperFor(result),wrongQuestions:state.wrongQuestions})
+  ? renderSessionResults({result,questions:result.items.map(x=>questionMap.get(x.id)).filter(Boolean).map(q=>questionForOrder(q,result.choiceOrderVersion)),paper:paperFor(result),wrongQuestions:state.wrongQuestions})
   : '<div class="app-shell"><h1>此份完整報告已不在最近 10 份紀錄中</h1><a href="#/exam-center">返回會考中心</a></div>';
 
 function renderRoute(scroll = true) {
@@ -560,10 +562,10 @@ function completeExam() {
         }
       }
       if(item.choice!==undefined)state.dailyQuest=updateDailyQuest(state.dailyQuest,{type:'revenge'},taipeiDate());
-    } else if (!item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
+    } else if (item.choice!==undefined && !item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
     else if (item.uncertain||item.hinted) state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
   }
-  if (result.items.some(item=>item.choice!==undefined)) state.dailyQuest = updateDailyQuest(state.dailyQuest, {type:'round'}, taipeiDate());
+  if (result.items.filter(item=>item.choice!==undefined).length>=Math.min(5,result.total) && result.total>0) state.dailyQuest = updateDailyQuest(state.dailyQuest, {type:'round'}, taipeiDate());
   state.player.totalAnswered += result.items.filter(i=>i.choice!==undefined).length;
   const answeredWrong=result.items.filter(item=>item.choice!==undefined&&!item.correct).length;
   state.player = rewardPlayer(state.player, { exp: result.correct * 20 + answeredWrong * 5, coins: result.correct * 5 });
@@ -739,7 +741,7 @@ function startSession(questions,options) {
     showToast('目前沒有可正常作答的題目，請重新選擇練習。');
     return null;
   }
-  state.activeExam=createSession(sessionQuestions,{...options,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
+  state.activeExam=createSession(sessionQuestions,{...options,choiceOrderVersion:2,attemptNumber:1+(state.examAttemptCounts?.[options.paperId??options.title]??0)});
   if(options.reviewItemIds)state.activeExam.reviewItemIds=[...options.reviewItemIds];
   if(options.reviewEvidenceByQuestionId)state.activeExam.reviewEvidenceByQuestionId={...options.reviewEvidenceByQuestionId};
   if(options.repairTask)state.activeExam.repairTask={...options.repairTask};

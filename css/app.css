@@ -36,6 +36,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .official-audio h2 { margin:0; font-size:1.1rem; }
 .official-audio audio { display:block; width:100%; }
 .report-original { margin-top:12px; }
+.report-choices { padding-left:0; list-style:none; margin:10px 0; display:grid; gap:4px; }
+.report-choices li { padding:7px 10px; border-radius:8px; background:rgba(255,255,255,.04); font-size:.88rem; }
+.report-choices li.correct { color:var(--success); background:rgba(84,224,164,.1); font-weight:700; }
 .official-review-steps { margin:12px 0; padding:10px 12px; border-left:3px solid var(--gold); background:rgba(255,255,255,.04); border-radius:8px; }
 .official-review-steps button { margin-top:10px; }
 

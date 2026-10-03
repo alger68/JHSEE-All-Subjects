@@ -1,10 +1,14 @@
 import { beforeEach, afterEach, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { skillIdentity } from '../js/core/adaptive-learning.js';
+import { createSession } from '../js/core/exam-session.js';
 import { questionFingerprint } from '../js/core/question-dedup.js';
 
 const questions = JSON.parse(readFileSync('data/questions.json','utf8'));
 const practice = JSON.parse(readFileSync('data/cap-practice.json','utf8'));
+const packManifest = JSON.parse(readFileSync('public/question-packs/manifest.json','utf8'));
+const allOriginal=[...questions,...practice,...packManifest.packs.filter(pack=>pack.enabled!==false)
+  .flatMap(pack=>JSON.parse(readFileSync(`public/question-packs/${pack.file}`,'utf8')))];
 const key = 'jhsee.adventure.v1';
 beforeEach(() => {
   vi.resetModules(); vi.useFakeTimers(); vi.setSystemTime(new Date('2026-09-17T01:00:00Z'));
@@ -19,6 +23,12 @@ function disconnect(){ for(const [type,fn] of window.addEventListener.mock.calls
 afterEach(()=>{disconnect();vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals();});
 async function boot(){await import('../js/app.js'); await vi.advanceTimersByTimeAsync(0);}
 function questionMapForTest(id){return [...questions,...practice].find(question=>question.id===id);}
+function clickWrongExamChoice(question){
+  const correctText=String(question.choices[question.answer]);
+  const button=[...document.querySelectorAll('[data-action="exam-answer"]')]
+    .find(option=>option.querySelector('span')?.textContent!==correctText);
+  expect(button).toBeDefined();button.click();
+}
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
 
@@ -349,11 +359,60 @@ it('earns the daily chest after an ordinary practice round without review backlo
   document.querySelector('[data-action="start-practice"]').click();
   document.querySelector('[data-action="exam-answer"]').click();
   submitExam();await go('#/');
+  expect(document.querySelector('.quest-card').textContent).toContain('4 / 5');
+  await go('#/exam-center');
+  document.querySelector('[data-action="start-practice"]').click();
+  for(let index=0;index<5;index++){
+    document.querySelector('[data-action="exam-answer"]').click();
+    if(index<4)document.querySelector('[data-action="exam-next"]').click();
+  }
+  submitExam();await go('#/');
   expect(document.querySelector('.quest-card').textContent).toContain('5 / 5');
   document.querySelector('[data-action="claim-chest"]').click();
   const saved=JSON.parse(localStorage.getItem(key));
   expect(saved.dailyQuest.chestClaimed).toBe(true);
   expect(saved.player.exp).toBeGreaterThanOrEqual(150);
+});
+it('keeps a legacy in-progress original exam in its original answer order after an upgrade',async()=>{
+  const q=practice.find(item=>item.subject==='math');
+  const session=createSession([q],{title:'舊測驗',kind:'practice',durationMinutes:20,startedAt:Date.now()});
+  localStorage.setItem(key,JSON.stringify({version:1,activeExam:session}));
+  await boot();
+  const originalChoice=q.choices[q.answer];
+  expect(document.querySelector(`[data-action="exam-answer"][data-choice="${q.answer}"]`).textContent).toContain(originalChoice);
+  document.querySelector(`[data-action="exam-answer"][data-choice="${q.answer}"]`).click();
+  submitExam();
+  expect(JSON.parse(localStorage.getItem(key)).lastExamResult.correct).toBe(1);
+});
+it('uses a stable balanced option order in new original practice and preserves it after reload',async()=>{
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('#practice-subject').value='math';
+  document.querySelector('[data-action="start-practice"]').click();
+  const before=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(before.choiceOrderVersion).toBe(2);
+  const q=allOriginal.find(item=>item.id===before.questionIds[0]);
+  const first=document.querySelectorAll('[data-action="exam-answer"]');
+  const answerIndex=[...first].findIndex(button=>button.textContent.includes(q.choices[q.answer]));
+  expect(answerIndex).toBeGreaterThanOrEqual(0);
+  disconnect();vi.setSystemTime(before.startedAt+1000);document.body.innerHTML='<main id="app"></main>';vi.resetModules();await boot();
+  expect(document.querySelectorAll('[data-action="exam-answer"]')[answerIndex].textContent).toContain(q.choices[q.answer]);
+  document.querySelectorAll('[data-action="exam-answer"]')[answerIndex].click();
+  submitExam();
+  const after=JSON.parse(localStorage.getItem(key)).lastExamResult;
+  expect(after.correct).toBe(1);
+  expect(after.items[0].answer).toBe(answerIndex);
+  expect(document.querySelector('.review-list').textContent).toContain(q.choices[q.answer]);
+});
+it('does not add untouched official questions to the wrong-question queue',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-listening');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  document.querySelector('[data-choice="2"]').click();
+  submitExam();
+  const saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.lastExamResult.items.filter(item=>item.choice===undefined)).toHaveLength(20);
+  expect(saved.wrongQuestions).toHaveLength(0);
+  expect(saved.dailyQuest.rounds).toBe(0);
+  expect(document.body.textContent).toContain('20 題未作答');
 });
 it('blocks an answer arriving after deadline before the next timer tick',async()=>{
   await boot();vi.setSystemTime(Date.now()+1200000);
@@ -645,8 +704,7 @@ it('switches away from the anchor after one review even when the anchor answer w
 
   document.querySelector(`[data-action="start-revenge"][data-id="${anchor.id}"]`).click();
   await vi.advanceTimersByTimeAsync(1);
-  const wrongChoice=(Number(anchor.answer)+1)%anchor.choices.length;
-  document.querySelector(`[data-action="exam-answer"][data-choice="${wrongChoice}"]`).click();
+  clickWrongExamChoice(anchor);
   submitExam();
 
   const saved=JSON.parse(localStorage.getItem(key)).wrongQuestions.find(item=>item.questionId===anchor.id);
@@ -732,8 +790,7 @@ it('starts AI weakness validation from a completed report and stores generated q
   document.querySelector('[data-action="start-practice"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
   const first=[...questions,...practice].find(q=>q.id===session.questionIds[0]);
-  const wrongChoice=(Number(first.answer)+1)%4;
-  document.querySelector(`[data-action="exam-answer"][data-choice="${wrongChoice}"]`).click();
+  clickWrongExamChoice(first);
   submitExam();
   expect(document.querySelector('[data-action="start-ai-remediation"]')).not.toBeNull();
   document.querySelector('[data-action="start-ai-remediation"]').click();
@@ -791,8 +848,7 @@ it('locks AI weakness validation while its first request is still in flight',asy
   document.querySelector('[data-action="start-practice"]').click();
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
   const first=[...questions,...practice].find(q=>q.id===session.questionIds[0]);
-  const wrongChoice=(Number(first.answer)+1)%first.choices.length;
-  document.querySelector(`[data-action="exam-answer"][data-choice="${wrongChoice}"]`).click();
+  clickWrongExamChoice(first);
   submitExam();
 
   const button=document.querySelector('[data-action="start-ai-remediation"]');
