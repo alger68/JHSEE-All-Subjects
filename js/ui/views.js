@@ -2,6 +2,7 @@ import { SUBJECT_ORDER, SUBJECTS } from '../config/subjects.js';
 import { levelProgress } from '../core/game-state.js';
 import { diagnosticCards } from '../core/personalization.js';
 import { questionMaterial, reasonSelect, renderEnglishTtsControls } from './exam-views.js';
+import { renderMockCalendar } from './mock-calendar.js';
 
 const escapeHtml = (value) => String(value ?? '')
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
@@ -48,6 +49,7 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
       return `<a class="world-card jh-card world-${id}" href="#/world/${id}" style="--subject:${item.color}"><span class="world-icon">${item.icon}</span><div><small>${item.name}</small><h3>${item.world}</h3><p>${stats?`題庫 ${stats.total} 題・本機紀錄已練 ${stats.practiced} 題`:item.levels[0]+'等待挑戰'}</p></div><span class="world-score">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</span></a>`;
     }).join('')}</section>
     <section class="dashboard-grid"><article class="quest-card jh-card"><div><span class="eyebrow">TODAY</span><h2>今日任務</h2></div><strong>${quest.complete} / ${quest.total}</strong><div class="progress"><i style="width:${quest.total ? (quest.complete / quest.total) * 100 : 0}%"></i></div><ul class="quest-list">${questLabels.map((label, index) => `<li class="${questItems[index] ? 'done' : ''}"><span>${questItems[index] ? '✓' : '○'}</span>${label}</li>`).join('')}</ul><p>完成 5 項任務，開啟每日寶箱。Boss 挑戰可自行安排，無須每日完成。</p>${quest.complete === quest.total && !quest.chestClaimed ? '<button data-action="claim-chest">🎁 開啟寶箱</button>' : ''}</article><a class="revenge-card jh-card" href="#/revenge"><span>👿</span><div><small>REVENGE LIST</small><h2>${wrongCount} 隻錯題怪物</h2><p>把錯過的題目練成真正實力。</p></div></a><a class="revenge-card placement-entry jh-card" href="#/placement"><span>🎯</span><div><small>ADMISSION PLACEMENT</small><h2>基北區升學落點</h2><p>從最新模考帶入，查看學校區間與目標高中差距。</p></div></a></section>
+    ${renderMockCalendar()}
     ${nav('home')}
   </div>`;
 }
