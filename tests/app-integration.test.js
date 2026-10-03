@@ -3,6 +3,9 @@ import { readFileSync } from 'node:fs';
 import { skillIdentity } from '../js/core/adaptive-learning.js';
 import { createSession } from '../js/core/exam-session.js';
 import { questionFingerprint } from '../js/core/question-dedup.js';
+import { createQuestionBank } from '../js/core/question-bank.js';
+import { levelQuestionPool } from '../js/core/app-model.js';
+import { createBattle, answerBattle } from '../js/core/battle.js';
 
 const questions = JSON.parse(readFileSync('data/questions.json','utf8'));
 const practice = JSON.parse(readFileSync('data/cap-practice.json','utf8'));
@@ -31,6 +34,14 @@ function clickWrongExamChoice(question){
 }
 function submitExam(){document.querySelector('[data-action="submit-exam"]').click();document.querySelector('[data-action="confirm-submit-exam"]').click();}
 async function go(hash){window.location.hash=hash;await vi.advanceTimersByTimeAsync(1);}
+function useFullQuestionBank(){
+  vi.stubGlobal('fetch',vi.fn(async url=>({ok:true,json:async()=>{
+    const path=String(url);
+    if(path.endsWith('/question-packs/manifest.json'))return packManifest;
+    if(path.includes('/question-packs/'))return JSON.parse(readFileSync(`public/question-packs/${path.split('/').pop()}`,'utf8'));
+    return path.includes('cap-practice')?practice:questions;
+  }})));
+}
 
 it('offers a neutral first step on the lobby and starts a five-subject diagnosis',async()=>{
   window.history.replaceState(null,'','#/');await boot();
@@ -69,7 +80,7 @@ it('loads the full production bundle in three requests and resumes an existing s
     expect(requests).toHaveLength(3);
     expect(requests.some(url=>url.endsWith('/question-packs/bundle-test.json'))).toBe(true);
     await go('#/exam-center');
-    expect(document.body.textContent).toContain('672 題原創練習');
+    expect(document.body.textContent).toContain('692 題原創練習');
   }finally{vi.unstubAllEnvs();}
 });
 
@@ -212,9 +223,10 @@ it('does not recommend resolved or unavailable old wrong answers as todays next 
 });
 
 it('starts each world level with its matching adventure and CAP-oriented units',async()=>{
+  useFullQuestionBank();
   window.history.replaceState(null,'','#/battle/english/english-2');await boot();
   let run=JSON.parse(localStorage.getItem(key)).activeRun;
-  expect(run.battle.questions).toHaveLength(5);
+  expect(run.battle.questions).toHaveLength(10);
   expect(run.battle.questions.every(question=>['Grammar Ridge','基本文法','克漏字'].includes(question.chapter))).toBe(true);
   expect(document.querySelector('.enemy-name').textContent).toContain('Grammar Ridge怪物');
   await go('#/battle/english/english-3');
@@ -238,10 +250,12 @@ it('keeps a cleared level unlocked after an unsuccessful replay',async()=>{
   expect(document.querySelector('a[href="#/battle/english/english-2"]')).not.toBeNull();
 });
 it('unlocks level 2 after a level 1 win in each subject and preserves it after reload',async()=>{
+  useFullQuestionBank();
   window.history.replaceState(null,'','#/world/chinese');await boot();
   for(const subject of ['chinese','english','math','science','social']){
     await go(`#/battle/${subject}/${subject}-1`);
-    for(let index=0;index<5;index++){
+    const total=JSON.parse(localStorage.getItem(key)).activeRun.battle.questions.length;
+    for(let index=0;index<total;index++){
       const run=JSON.parse(localStorage.getItem(key)).activeRun;
       const answer=run.battle.questions[run.battle.index].answer;
       document.querySelector(`[data-action="answer"][data-choice="${answer}"]`).click();
@@ -256,6 +270,50 @@ it('unlocks level 2 after a level 1 win in each subject and preserves it after r
     await go(`#/world/${subject}`);
     expect(document.querySelector(`a[href="#/battle/${subject}/${subject}-2"]`)).not.toBeNull();
   }
+});
+it('uses ten fresh world questions, updates visible progress and offers another fresh replay',async()=>{
+  useFullQuestionBank();
+  const pool=levelQuestionPool(createQuestionBank(allOriginal),'english',1);
+  const previouslyAnswered=pool.slice(0,10).map(q=>({questionId:q.id}));
+  localStorage.setItem(key,JSON.stringify({version:1,answerHistory:previouslyAnswered}));
+  window.history.replaceState(null,'','#/world/english');await boot();
+  expect(document.querySelector('#adventure-round-size').value).toBe('10');
+  expect(document.querySelector('a[href="#/battle/english/english-1"]').textContent).toContain('題庫 33 題・已練 10 題');
+  await go('#/battle/english/english-1');
+  const first=JSON.parse(localStorage.getItem(key)).activeRun.battle.questions;
+  expect(first).toHaveLength(10);
+  expect(first.every(q=>!previouslyAnswered.some(row=>row.questionId===q.id))).toBe(true);
+  for(let i=0;i<first.length;i++){
+    const run=JSON.parse(localStorage.getItem(key)).activeRun;
+    document.querySelector(`[data-action="answer"][data-choice="${run.battle.questions[run.battle.index].answer}"]`).click();
+    document.querySelector('[data-action="next"]').click();
+  }
+  await go('#/world/english');
+  expect(document.querySelector('a[href="#/battle/english/english-1"]').textContent).toContain('已練 20 題');
+  expect(document.querySelector('a[href="#/battle/english/english-2"]')).not.toBeNull();
+  await go('#/battle/english/english-1');
+  const second=JSON.parse(localStorage.getItem(key)).activeRun.battle.questions;
+  expect(second).toHaveLength(10);
+  expect(second.every(q=>!first.some(old=>old.id===q.id))).toBe(true);
+});
+
+it('saves the five-question preference while preserving an old in-progress round',async()=>{
+  const deck=questions.filter(q=>q.subject==='english').slice(0,5);
+  const battle=answerBattle(createBattle(deck),deck[0],deck[0].answer);
+  localStorage.setItem(key,JSON.stringify({version:1,activeRun:{kind:'normal',subject:'english',levelId:'english-1',battle}}));
+  window.history.replaceState(null,'','#/world/english');await boot();
+  expect(document.body.textContent).toContain('尚未完成的回合有 5 題');
+  const select=document.querySelector('#adventure-round-size');select.value='5';
+  select.dispatchEvent(new Event('change',{bubbles:true}));
+  disconnect();document.body.innerHTML='<main id="app"></main>';vi.resetModules();await boot();
+  expect(document.querySelector('#adventure-round-size').value).toBe('5');
+  await go('#/battle/english/english-1');
+  const resumed=JSON.parse(localStorage.getItem(key)).activeRun.battle;
+  expect(resumed.questions).toEqual(deck);
+  expect(resumed.index).toBe(1);
+  expect(resumed.answers).toHaveLength(1);
+  await go('#/battle/math/math-1');
+  expect(JSON.parse(localStorage.getItem(key)).activeRun.battle.questions).toHaveLength(5);
 });
 it('shows official question images in-site and preserves answers, zoom and deadline across reader modes',async()=>{
   window.history.replaceState(null,'','#/paper/cap115-math');await boot();

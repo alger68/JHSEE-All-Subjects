@@ -8,6 +8,7 @@ export function defaultState() {
     player: createPlayer(),
     subjectProgress: {},
     levelProgress: {},
+    adventureRoundSize: 10,
     dailyQuest: null,
     wrongQuestions: [],
     skillStats: {},

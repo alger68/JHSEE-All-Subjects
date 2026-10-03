@@ -203,8 +203,8 @@ function ensureBattle(subject, levelId, mode) {
   if (active?.subject === subject && active?.levelId === levelId && active?.battle?.status === 'active') return active.battle;
   const levelNumber = Number(String(levelId).split('-').at(-1));
   const questions = mode === 'boss'
-    ? makeBossQuestions(bank, subject, 10)
-    : pickLevelQuestions(bank, subject, levelNumber, 5);
+    ? makeBossQuestions(bank, subject, 10,Math.random,state.answerHistory??[])
+    : pickLevelQuestions(bank, subject, levelNumber,state.adventureRoundSize===5?5:10,Math.random,state.answerHistory??[]);
   const battle = createBattle(questions.map(orderPracticeChoices), mode);
   state.activeRun = { kind: mode, subject, levelId, battle };
   feedback = null;
@@ -297,12 +297,23 @@ function routes() {
     '#/': () => {
       ensureDailyQuest();
       const quest = { ...questProgress(state.dailyQuest), chestClaimed: state.dailyQuest.chestClaimed };
-      return renderLobby({ player: state.player, countdown: daysUntil('2027-05-15'), quest, wrongCount: state.wrongQuestions.filter((item) => !item.resolved).length, subjectProgress: state.subjectProgress, todayAction:todayAction() });
+      const practiced=recentQuestionIds(state.answerHistory??[],1000);
+      const worldStats=Object.fromEntries(Object.keys(SUBJECTS).map(subject=>{
+        const pool=bank.filter({subject});
+        return [subject,{total:pool.length,practiced:pool.filter(q=>practiced.has(q.id)).length}];
+      }));
+      return renderLobby({ player: state.player, countdown: daysUntil('2027-05-15'), quest, wrongCount: state.wrongQuestions.filter((item) => !item.resolved).length, subjectProgress: state.subjectProgress, todayAction:todayAction(),worldStats });
     },
     '#/world/:subject': ({ subject }) => {
       const world = SUBJECTS[subject] ? subject : 'math';
+      const pools=[1,2,3].map(level=>levelQuestionPool(bank,world,level));
+      const practiced=recentQuestionIds(state.answerHistory??[],1000);
       return renderWorld({ subject: world, levelProgress: state.levelProgress,
-        levelPoolSizes: [1, 2, 3].map((level) => levelQuestionPool(bank, world, level).length) });
+        levelPoolSizes:pools.map(pool=>pool.length),
+        levelPracticedCounts:pools.map(pool=>pool.filter(q=>practiced.has(q.id)).length),
+        roundSize:state.adventureRoundSize===5?5:10,
+        activeRoundSize:state.activeRun?.subject===world&&state.activeRun.kind==='normal'?state.activeRun.battle.questions.length:null
+      });
     },
     '#/battle/:subject/:levelId': ({ subject, levelId }) => {
       const battle = ensureBattle(subject, levelId, 'normal');
@@ -1339,6 +1350,10 @@ app.addEventListener('change',async(event)=>{
     return;
   }
   if(event.target.matches('[data-paper-page-select]'))changePaperPage(Number(event.target.value));
+  if(event.target.matches('#adventure-round-size')){
+    state.adventureRoundSize=Number(event.target.value)===5?5:10;
+    save();renderRoute(false);return;
+  }
   if(['practice-subject','practice-grade','practice-type','practice-focus'].includes(event.target.id)) {
     const selection=practiceSelection();
     const count=selection.matchCount;

@@ -6,9 +6,11 @@ describe('application model helpers', () => {
     expect(daysUntil('2027-05-15', new Date('2026-09-16T12:00:00+08:00'))).toBe(241);
   });
 
-  it('creates a ten-question boss deck even from a small subject pool', () => {
+  it('keeps a short boss deck unique rather than repeating questions to fill ten slots', () => {
     const bank = { pick: () => [{ id: 'A' }, { id: 'B' }, { id: 'C' }] };
-    expect(makeBossQuestions(bank, 'math', 10, () => 0)).toHaveLength(10);
+    const deck=makeBossQuestions(bank,'math',10,()=>0);
+    expect(deck).toHaveLength(3);
+    expect(new Set(deck.map(q=>q.id)).size).toBe(3);
   });
 
   it('picks an equal number of quick-exam questions from every subject', () => {
@@ -59,5 +61,25 @@ describe('application model helpers', () => {
     expect(levelQuestionPool(bank, 'english', 2).map((question) => question.id)).toEqual(['legacy', 'grammar', 'cloze']);
     expect(pickLevelQuestions(bank, 'english', 2, 3, () => 0.5).map((question) => question.id).sort()).toEqual(['cloze', 'grammar', 'legacy']);
     expect(levelQuestionPool(bank, 'english', 3).map((question) => question.id)).toEqual(['reading']);
+  });
+
+  it('draws unattempted level questions before replaying earlier answers',()=>{
+    const pool=Array.from({length:12},(_,i)=>({id:`Q${i}`,subject:'english',chapter:'Grammar Ridge'}));
+    const bank={all:()=>pool};
+    const history=pool.slice(0,7).map(q=>({questionId:q.id}));
+    const deck=pickLevelQuestions(bank,'english',2,5,()=>0.5,history);
+    expect(deck.map(q=>q.id).sort()).toEqual(pool.slice(7).map(q=>q.id).sort());
+  });
+
+  it('replays the least recently attempted questions only after the fresh pool is exhausted',()=>{
+    const pool=Array.from({length:5},(_,i)=>({id:`Q${i}`,subject:'english',chapter:'Grammar Ridge'}));
+    const history=[...pool.map(q=>({questionId:q.id})),{questionId:'Q0'}];
+    const deck=pickLevelQuestions({all:()=>pool},'english',2,2,()=>0.5,history);
+    expect(deck.map(q=>q.id)).toEqual(['Q1','Q2']);
+  });
+
+  it('never pads a short adventure pool with duplicate questions',()=>{
+    const pool=[{id:'only',subject:'english',chapter:'Grammar Ridge'}];
+    expect(pickLevelQuestions({all:()=>pool},'english',2,10)).toHaveLength(1);
   });
 });

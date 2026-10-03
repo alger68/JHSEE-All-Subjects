@@ -18,7 +18,7 @@ const packResponse=url=>response(String(url)===manifestUrl?manifest:
   read(`public/question-packs/${String(url).split('/').pop()}`));
 afterEach(()=>vi.useRealTimers());
 
-it('loads all 450 supplemental questions with one bundled request',async()=>{
+it('loads all supplemental questions with one bundled request',async()=>{
   const fetchImpl=vi.fn(async url=>String(url)===bundleUrl?response(bundled):{ok:false});
   const loaded=await loader.loadSupplementalQuestionPacks({manifestUrl,bundleUrl,fetchImpl});
   expect(loaded.questions).toEqual(questions);
@@ -38,7 +38,7 @@ it('resolves the actual production bundle URL under the GitHub Pages subdirector
   const loaded=await loader.loadSupplementalQuestionPacks({
     manifestUrl:root+'question-packs/manifest.json',bundleUrl:productionUrl,fetchImpl
   });
-  expect(loaded.questions.length).toBe(450);
+  expect(loaded.questions.length).toBe(questions.length);
   expect(loaded.warnings).toEqual([]);
 });
 
@@ -50,14 +50,14 @@ it('falls back to individual packs if a bundle silently loses a question',async(
   expect(loaded.warnings.join(' ')).toContain('bundle');
 });
 
-it('finishes fallback loading in two network rounds rather than 31 serial rounds',async()=>{
+it('finishes fallback loading in two network rounds rather than one serial round per pack',async()=>{
   vi.useFakeTimers();
   const fetchImpl=url=>new Promise(resolve=>setTimeout(()=>resolve(packResponse(url)),10));
   let loaded;
   const pending=loader.loadSupplementalQuestionPacks({manifestUrl,fetchImpl}).then(value=>{loaded=value;});
   try{
     await vi.advanceTimersByTimeAsync(20);
-    expect(loaded?.questions).toHaveLength(450);
+    expect(loaded?.questions).toHaveLength(questions.length);
     expect(loaded?.questions.map(q=>q.id)).toEqual(questions.map(q=>q.id));
   }finally{
     await vi.runAllTimersAsync();await pending;

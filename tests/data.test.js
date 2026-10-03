@@ -53,6 +53,24 @@ describe('V1 question content', () => {
     }
   });
 
+  it('makes every available original question reachable from its subject adventure levels',()=>{
+    const bank=createQuestionBank([...questions,...practice,...packs]);
+    for(const subject of ['chinese','english','math','science','social']){
+      const reachable=new Set([1,2,3].flatMap(level=>levelQuestionPool(bank,subject,level).map(q=>q.id)));
+      const missing=bank.filter({subject}).filter(q=>!reachable.has(q.id)).map(q=>q.id);
+      expect(missing,subject).toEqual([]);
+      const allIds=[1,2,3].flatMap(level=>levelQuestionPool(bank,subject,level).map(q=>q.id));
+      expect(new Set(allIds).size,`${subject} has one primary level per question`).toBe(allIds.length);
+    }
+  });
+
+  it('provides at least 25 distinct questions in every subject first level',()=>{
+    const bank=createQuestionBank([...questions,...practice,...packs]);
+    for(const subject of ['chinese','english','math','science','social']){
+      expect(levelQuestionPool(bank,subject,1).length,subject).toBeGreaterThanOrEqual(25);
+    }
+  });
+
   it('does not infer reviewed exam alignment or a domain from legacy tags and RPG chapters', () => {
     const classified = classifyQuestion(questions[0]);
     expect(classified.examAligned).toBe(false);

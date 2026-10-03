@@ -10,12 +10,15 @@ function damageFor(combo, mode) {
 }
 
 export function createBattle(questions, mode = 'normal') {
+  const enemyMaxHp=mode==='boss'?500:questions.length>5
+    ?questions.reduce((total,_,index)=>total+damageFor(index+1,mode),0):100;
   return {
     mode,
     questions: [...questions],
     index: 0,
     playerHp: 5,
-    enemyHp: mode === 'boss' ? 500 : 100,
+    enemyHp: enemyMaxHp,
+    enemyMaxHp,
     combo: 0,
     maxCombo: 0,
     expGained: 0,

@@ -32,12 +32,12 @@ describe('three-year curriculum blueprint',()=>{
 describe('supplemental question packs',()=>{
   const manifest=readJson('public/question-packs/manifest.json');
 
-  it('ships thirty enabled subject packs with 450 high-priority questions',()=>{
+  it('ships 31 enabled subject packs with 470 high-priority questions',()=>{
     const enabled=manifest.packs.filter(pack=>pack.enabled!==false);
-    expect(enabled).toHaveLength(30);
+    expect(enabled).toHaveLength(31);
     const all=enabled.flatMap(pack=>readJson('public/question-packs/'+pack.file));
-    expect(all).toHaveLength(450);
-    const expectedBySubject={chinese:93,english:88,math:84,science:95,social:90};
+    expect(all).toHaveLength(470);
+    const expectedBySubject={chinese:93,english:108,math:84,science:95,social:90};
     for(const subject of subjects){
       expect(all.filter(q=>q.subject===subject)).toHaveLength(expectedBySubject[subject]);
     }
@@ -87,9 +87,9 @@ describe('supplemental question packs',()=>{
       manifestUrl:'https://example.test/question-packs/manifest.json',
       fetchImpl
     });
-    expect(loaded.questions).toHaveLength(450);
+    expect(loaded.questions).toHaveLength(470);
     expect(loaded.warnings).toEqual([]);
-    expect(new Set(loaded.questions.map(q=>q.packId)).size).toBe(30);
+    expect(new Set(loaded.questions.map(q=>q.packId)).size).toBe(31);
   });
 });
 
@@ -102,8 +102,8 @@ describe('coverage audit',()=>{
     const before=auditBlueprintCoverage(core,blueprint);
     const after=auditBlueprintCoverage([...core,...packed],blueprint);
     expect(before.totalQuestions).toBe(222);
-    expect(after.totalQuestions).toBe(672);
-    const expectedAdded={chinese:93,english:88,math:84,science:95,social:90};
+    expect(after.totalQuestions).toBe(692);
+    const expectedAdded={chinese:93,english:108,math:84,science:95,social:90};
     for(const subject of subjects){
       expect(after.bySubject[subject].total).toBe(before.bySubject[subject].total+expectedAdded[subject]);
       expect(after.bySubject[subject].coveredSkills).toBe(12);

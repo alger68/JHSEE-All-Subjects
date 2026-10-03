@@ -16,7 +16,7 @@ function nav(active = 'home') {
   return `<nav class="bottom-nav" aria-label="主要導覽">${items.map(([id, href, icon, label]) => `<a href="${href}" class="${active === id ? 'active' : ''}"><span>${icon}</span>${label}</a>`).join('')}</nav>`;
 }
 
-export function renderLobby({ player, countdown, quest, wrongCount, subjectProgress, todayAction = null }) {
+export function renderLobby({ player, countdown, quest, wrongCount, subjectProgress, todayAction = null, worldStats = {} }) {
   const progress = levelProgress(player);
   const questItems = quest.items ?? [];
   const questLabels = ['完成 10 題', '練習 3 個科目', quest.reviewTarget ? `複習 ${quest.reviewTarget} 題或答對 5 題` : '答對 5 題', '完成一輪練習', '單科完成 5 題'];
@@ -44,25 +44,28 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
     <section class="section-heading"><div><span class="eyebrow">ADVENTURE MAP</span><h2>選擇今天的世界</h2></div><a href="#/exam-center" class="text-link">🏆 官方會考與補強</a></section>
     <section class="world-grid">${SUBJECT_ORDER.map((id) => {
       const item = SUBJECTS[id]; const stars = subjectProgress[id]?.stars ?? 0;
-      return `<a class="world-card jh-card world-${id}" href="#/world/${id}" style="--subject:${item.color}"><span class="world-icon">${item.icon}</span><div><small>${item.name}</small><h3>${item.world}</h3><p>${item.levels[0]}等待挑戰</p></div><span class="world-score">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</span></a>`;
+      const stats=worldStats[id];
+      return `<a class="world-card jh-card world-${id}" href="#/world/${id}" style="--subject:${item.color}"><span class="world-icon">${item.icon}</span><div><small>${item.name}</small><h3>${item.world}</h3><p>${stats?`題庫 ${stats.total} 題・本機紀錄已練 ${stats.practiced} 題`:item.levels[0]+'等待挑戰'}</p></div><span class="world-score">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</span></a>`;
     }).join('')}</section>
     <section class="dashboard-grid"><article class="quest-card jh-card"><div><span class="eyebrow">TODAY</span><h2>今日任務</h2></div><strong>${quest.complete} / ${quest.total}</strong><div class="progress"><i style="width:${quest.total ? (quest.complete / quest.total) * 100 : 0}%"></i></div><ul class="quest-list">${questLabels.map((label, index) => `<li class="${questItems[index] ? 'done' : ''}"><span>${questItems[index] ? '✓' : '○'}</span>${label}</li>`).join('')}</ul><p>完成 5 項任務，開啟每日寶箱。Boss 挑戰可自行安排，無須每日完成。</p>${quest.complete === quest.total && !quest.chestClaimed ? '<button data-action="claim-chest">🎁 開啟寶箱</button>' : ''}</article><a class="revenge-card jh-card" href="#/revenge"><span>👿</span><div><small>REVENGE LIST</small><h2>${wrongCount} 隻錯題怪物</h2><p>把錯過的題目練成真正實力。</p></div></a><a class="revenge-card placement-entry jh-card" href="#/placement"><span>🎯</span><div><small>ADMISSION PLACEMENT</small><h2>基北區升學落點</h2><p>從最新模考帶入，查看學校區間與目標高中差距。</p></div></a></section>
     ${nav('home')}
   </div>`;
 }
 
-export function renderWorld({ subject, levelProgress: progress = {}, levelPoolSizes = [] }) {
+export function renderWorld({ subject, levelProgress: progress = {}, levelPoolSizes = [], levelPracticedCounts = [], roundSize = 10, activeRoundSize = null }) {
   const item = SUBJECTS[subject] ?? SUBJECTS.math;
   return `<div class="app-shell world-page" style="--subject:${item.color}">
     <header class="page-header"><a href="#/" aria-label="回首頁">←</a><div><span class="eyebrow">${item.name} WORLD</span><h1>${item.icon} ${item.world}</h1></div><span></span></header>
     <section class="world-banner"><span class="monster-orb">${item.monster}</span><div><p>目前區域</p><h2>${item.levels[0]}</h2><span>每關含本站原創會考導向題；完成關卡後解鎖下一關</span></div></section>
+    <section class="practice-panel"><label for="adventure-round-size">新回合題數</label><select id="adventure-round-size"><option value="10" ${roundSize===10?'selected':''}>10 題・完整練習</option><option value="5" ${roundSize===5?'selected':''}>5 題・快速練習</option></select><p>優先抽本機作答紀錄中未練過的題目；練完後再從最久未做的題目複習。答對六成解鎖下一關。</p>${activeRoundSize?`<p>尚未完成的回合有 ${activeRoundSize} 題；新題數會套用到下一回。</p>`:''}</section>
     <ol class="level-path">
       ${item.levels.map((level, index) => {
         const id = `${subject}-${index + 1}`; const unlocked = index === 0 || Boolean(progress[`${subject}-${index}`]?.cleared);
         const cleared = Boolean(progress[id]?.cleared);
-        const status = cleared ? '已完成・再次挑戰' : unlocked ? '每回 5 題・約 3 分鐘' : '完成上一關後解鎖';
+        const status = cleared ? `已完成・再練 ${roundSize} 題` : unlocked ? `每回 ${roundSize} 題` : '完成上一關後解鎖';
         const poolLabel = Number.isInteger(levelPoolSizes[index]) ? `・題庫 ${levelPoolSizes[index]} 題` : '';
-        return `<li class="level-node ${unlocked ? '' : 'locked'}"><span class="path-line"></span><a ${unlocked ? `href="#/battle/${subject}/${id}"` : 'aria-disabled="true"'} aria-label="${level}，${status}${poolLabel}"><b>${unlocked ? index + 1 : '🔒'}</b><div><small>LEVEL ${index + 1}</small><h3>${level}</h3><p>${status}${poolLabel}</p></div><span>${progress[id]?.stars ? '★'.repeat(progress[id].stars) : '›'}</span></a></li>`;
+        const practicedLabel=Number.isInteger(levelPracticedCounts[index])?`・已練 ${levelPracticedCounts[index]} 題`:'';
+        return `<li class="level-node ${unlocked ? '' : 'locked'}"><span class="path-line"></span><a ${unlocked ? `href="#/battle/${subject}/${id}"` : 'aria-disabled="true"'} aria-label="${level}，${status}${poolLabel}${practicedLabel}"><b>${unlocked ? index + 1 : '🔒'}</b><div><small>LEVEL ${index + 1}</small><h3>${level}</h3><p>${status}${poolLabel}${practicedLabel}</p></div><span>${progress[id]?.stars ? '★'.repeat(progress[id].stars) : '›'}</span></a></li>`;
       }).join('')}
       <li class="level-node boss-node"><span class="path-line"></span><a href="#/boss/${subject}"><b>👹</b><div><small>BOSS BATTLE</small><h3>${item.boss}</h3><p>10 題綜合挑戰・80% 擊敗</p></div><span>⚔</span></a></li>
     </ol>${nav('worlds')}
@@ -74,7 +77,7 @@ export function renderBattle({ subject, levelNumber, battle, question, feedback,
   const levelName = item.levels[Number(levelNumber) - 1] ?? item.levels.find((level) => level === question?.chapter) ?? item.levels[0];
   const total = battle.questions.length;
   const hp = '♥'.repeat(battle.playerHp) + '♡'.repeat(5 - battle.playerHp);
-  const enemyMax = battle.mode === 'boss' ? 500 : 100;
+  const enemyMax = battle.enemyMaxHp ?? (battle.mode === 'boss' ? 500 : 100);
   return `<div class="battle-screen" style="--subject:${item.color}">
     <header class="battle-top"><a href="#/world/${subject}" aria-label="離開戰鬥">×</a><div><small>${battle.mode === 'boss' ? 'BOSS BATTLE' : item.world}</small><strong>問題 ${Math.min(battle.index + 1, total)} / ${total}</strong></div><span class="combo">🔥 ×${battle.combo}</span></header>
     <section class="enemy-stage"><div class="enemy-name"><span>${battle.mode === 'boss' ? item.boss : levelName + '怪物'}</span><b>${battle.enemyHp} HP</b></div><div class="hp-bar enemy"><i style="width:${Math.max(0, (battle.enemyHp / enemyMax) * 100)}%"></i></div><div class="monster ${feedback?.correct === true ? 'hit' : ''}">${battle.mode === 'boss' ? '🐲' : item.monster}</div><div class="player-hp" aria-label="玩家生命 ${battle.playerHp} 點">${hp}</div></section>

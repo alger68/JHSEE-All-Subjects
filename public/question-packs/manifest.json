@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-29",
+  "updatedAt": "2026-10-03",
   "description": "JHSEE All Subjects supplemental reviewed question packs. Add a new JSON file and manifest entry; app code does not need to change.",
   "packs": [
     {
@@ -272,6 +272,15 @@
       "kind": "local-pack",
       "subject": "social",
       "questionCount": 15
+    },
+    {
+      "id": "hp-english-007",
+      "version": 1,
+      "file": "high-priority-english-007.json",
+      "enabled": true,
+      "kind": "local-pack",
+      "subject": "english",
+      "questionCount": 20
     }
   ]
 }

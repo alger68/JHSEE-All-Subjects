@@ -6,6 +6,15 @@ const questions = Array.from({ length: 5 }, (_, index) => ({
 }));
 
 describe('battle rules', () => {
+  it('keeps a ten-question normal enemy alive until the final perfect answer',()=>{
+    const deck=Array.from({length:10},(_,index)=>({id:`L${index}`,answer:0}));
+    let battle=createBattle(deck);
+    for(const question of deck.slice(0,9))battle=answerBattle(battle,question,0);
+    expect(battle.enemyHp).toBeGreaterThan(0);
+    battle=answerBattle(battle,deck[9],0);
+    expect(battle.enemyHp).toBe(0);
+    expect(finishBattle(battle)).toMatchObject({total:10,correct:10,cleared:true});
+  });
   it('builds combo damage and grants answer rewards', () => {
     let battle = createBattle(questions, 'normal');
     battle = answerBattle(battle, questions[0], 1);
