@@ -207,6 +207,26 @@ it('keeps a cleared level unlocked after an unsuccessful replay',async()=>{
   await go('#/world/english');
   expect(document.querySelector('a[href="#/battle/english/english-2"]')).not.toBeNull();
 });
+it('unlocks level 2 after a level 1 win in each subject and preserves it after reload',async()=>{
+  window.history.replaceState(null,'','#/world/chinese');await boot();
+  for(const subject of ['chinese','english','math','science','social']){
+    await go(`#/battle/${subject}/${subject}-1`);
+    for(let index=0;index<5;index++){
+      const run=JSON.parse(localStorage.getItem(key)).activeRun;
+      const answer=run.battle.questions[run.battle.index].answer;
+      document.querySelector(`[data-action="answer"][data-choice="${answer}"]`).click();
+      document.querySelector('[data-action="next"]').click();
+    }
+    expect(JSON.parse(localStorage.getItem(key)).levelProgress[`${subject}-1`].cleared).toBe(true);
+    await go(`#/world/${subject}`);
+    expect(document.querySelector(`a[href="#/battle/${subject}/${subject}-2"]`)).not.toBeNull();
+  }
+  disconnect();document.body.innerHTML='<main id="app"></main>';vi.resetModules();await boot();
+  for(const subject of ['chinese','english','math','science','social']){
+    await go(`#/world/${subject}`);
+    expect(document.querySelector(`a[href="#/battle/${subject}/${subject}-2"]`)).not.toBeNull();
+  }
+});
 it('shows official question images in-site and preserves answers, zoom and deadline across reader modes',async()=>{
   window.history.replaceState(null,'','#/paper/cap115-math');await boot();
   document.querySelector('[data-action="start-paper"]').click();
