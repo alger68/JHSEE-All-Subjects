@@ -110,6 +110,9 @@ button.primary-button:disabled { opacity:.5; cursor:not-allowed; }
 .table-scroll table { width:100%; border-collapse:collapse; }
 .table-scroll th,.table-scroll td { border:1px solid #596280; text-align:left; padding:12px; }
 .table-scroll th { background:#273053; }
+.mock-calendar .table-scroll th { background:#e8f3f0; color:#183b35; }
+.mock-calendar .table-scroll td { color:#25324b; }
+.mock-calendar .table-scroll th,.mock-calendar .table-scroll td { border-color:#c9d8d4; }
 .manual-notes { border-top:1px solid var(--line); margin-top:24px; padding-top:18px; }
 .manual-notes label { display:block; margin:20px 0; }
 .manual-notes textarea { display:block; resize:vertical; line-height:1.8; margin-top:8px; }
