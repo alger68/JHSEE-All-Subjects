@@ -32,4 +32,13 @@ describe('original question option order',()=>{
     expect(ordered.errorTags[position]).toBe('reading');
     expect(orderPracticeChoices(original)).toEqual(ordered);
   });
+
+  it('has no fixed option letters in explanations or hints that could contradict rotated choices',()=>{
+    const fixedLetter=/(?:選項\s*[A-DＡ-Ｄ]|[A-DＡ-Ｄ]\s*選項|(?:故選|應選|答案為)\s*[A-DＡ-Ｄ])/i;
+    for(const q of questions){
+      for(const field of ['explanation','hint1','hint2']){
+        expect(fixedLetter.test(q[field]??''),`${q.id} ${field}`).toBe(false);
+      }
+    }
+  });
 });
