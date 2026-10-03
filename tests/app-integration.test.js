@@ -43,6 +43,36 @@ it('offers a neutral first step on the lobby and starts a five-subject diagnosis
   expect(session.questionIds).toHaveLength(25);
 });
 
+it('loads the full production bundle in three requests and resumes an existing supplemental question',async()=>{
+  const packedQuestion=allOriginal.find(q=>q.id==='HP6-CH-001');
+  expect(packedQuestion).toBeDefined();
+  const session=createSession([packedQuestion],{title:'已保存的補充題練習',kind:'practice',durationMinutes:20,choiceOrderVersion:2});
+  localStorage.setItem(key,JSON.stringify({version:1,activeExam:session}));
+  vi.stubEnv('VITE_SUPPLEMENTAL_BUNDLE_URL','bundle-test.json');
+  const packs=packManifest.packs.filter(pack=>pack.enabled!==false);
+  const bundled={version:1,packs,questions:packs.flatMap(pack=>
+    JSON.parse(readFileSync(`public/question-packs/${pack.file}`,'utf8')).map(q=>({
+      ...q,packId:pack.id,packVersion:pack.version,sourceKind:'local-pack'
+    })))};
+  const requests=[];
+  vi.stubGlobal('fetch',async url=>{
+    requests.push(String(url));
+    return {ok:true,json:async()=>String(url).includes('bundle-test')?bundled:
+      String(url).includes('cap-practice')?practice:questions};
+  });
+  try{
+    await boot();
+    expect(document.body.textContent).toContain(packedQuestion.question);
+    const saved=JSON.parse(localStorage.getItem(key));
+    expect(saved.activeExam.questionIds).toEqual([packedQuestion.id]);
+    expect(saved.recoveredExam).toBeUndefined();
+    expect(requests).toHaveLength(3);
+    expect(requests.some(url=>url.endsWith('/question-packs/bundle-test.json'))).toBe(true);
+    await go('#/exam-center');
+    expect(document.body.textContent).toContain('672 題原創練習');
+  }finally{vi.unstubAllEnvs();}
+});
+
 it('starts the current mock repair task from the seven-day plan and records it only on submission',async()=>{
   localStorage.setItem(key,JSON.stringify({version:1,mockExamRecords:[{
     id:'student-mock',date:'2026-09-17',title:'我的模考',

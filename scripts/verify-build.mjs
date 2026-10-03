@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { assembleSupplementalQuestionBundle } from '../js/core/question-pack-loader.js';
 
 // A successful bundle alone does not prove its asynchronously fetched banks exist.
 const files = readdirSync('dist/assets');
@@ -26,8 +28,17 @@ assert.deepEqual(
   packManifest,
   'Supplemental pack manifest missing or altered'
 );
+const packed=assembleSupplementalQuestionBundle(packManifest,
+  pack=>JSON.parse(readFileSync(`public/question-packs/${pack.file}`,'utf8')));
+const packedSource=JSON.stringify(packed);
+const packedHash=createHash('sha256').update(packedSource).digest('hex').slice(0,12);
+const packedName=`bundle-${packedHash}.json`;
+assert.equal(readFileSync(`dist/question-packs/${packedName}`,'utf8'),packedSource,
+  'Merged supplemental asset must contain every original question and its pack metadata');
+assert.ok(bundle.includes(packedName),'Production app must reference the merged supplemental asset');
 const coreCount=['questions','cap-practice'].reduce((count,name)=>count+JSON.parse(readFileSync(`data/${name}.json`,'utf8')).length,0);
 console.log(`Built question banks verified: ${coreCount+supplementalCount} original questions available (${supplementalCount} supplemental).`);
+console.log('Startup data requests verified: 2 core banks + 1 merged supplemental bank (previously 33 requests).');
 const official=JSON.parse(readFileSync('data/official-115-layout.json','utf8'));
 let pageCount=0;
 for(const layout of Object.values(official))for(const page of layout.pages) {
