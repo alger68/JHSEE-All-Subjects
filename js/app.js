@@ -19,7 +19,7 @@ import { createQuestionRegistry } from './core/question-registry.js';
 import { createQuestionProvider } from './core/question-provider.js';
 import { migrateWrongQuestions, recordReviewEvidence } from './core/review-state.js';
 import { buildEnglishSpeechText, englishVoices, voiceKey, getEnglishSpeechRate, setEnglishSpeechRate, getEnglishVoicePreference, setEnglishVoicePreference, speakEnglish, stopEnglishSpeech } from './core/english-tts.js';
-import { claimDailyChest, createDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
+import { claimDailyChest, migrateDailyQuest, questProgress, updateDailyQuest } from './core/quests.js';
 import { createStore } from './core/storage.js';
 import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildParentSummary, buildErrorReasonStats, pickDiagnosticQuestions, buildDiagnosticBaseline, compareLearningCycles } from './core/learning-cycle.js';
 import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, repairTopicMatchesQuestion, recordRepairProgress, applyRepairProgress, buildCoverageReport } from './core/cap-war-room.js';
@@ -190,8 +190,9 @@ function save() {
 
 function ensureDailyQuest() {
   const date = taipeiDate();
-  if (!state.dailyQuest || state.dailyQuest.date !== date) {
-    state.dailyQuest = createDailyQuest(date, state.dailyQuest ?? {});
+  const migrated = migrateDailyQuest(state.dailyQuest, date, state.wrongQuestions.filter(item=>!item.resolved).length);
+  if (migrated !== state.dailyQuest) {
+    state.dailyQuest = migrated;
     save();
   }
 }
@@ -368,6 +369,7 @@ function settleBattle() {
   state.levelProgress[active.levelId] = { cleared: Boolean(levelRecord.cleared || result.cleared), stars: Math.max(levelRecord.stars ?? 0, result.stars) };
   const subjectRecord = state.subjectProgress[active.subject] ?? {};
   state.subjectProgress[active.subject] = { ...subjectRecord, stars: Math.max(subjectRecord.stars ?? 0, result.stars) };
+  state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'round' }, taipeiDate());
   if (active.kind === 'boss') state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'boss' }, taipeiDate());
   state.attempts = [...state.attempts, { subject: active.subject, mode: active.kind, accuracy: result.accuracy, at: new Date().toISOString() }].slice(-50);
   state.lastResult = { subject: active.subject, result };
@@ -386,7 +388,7 @@ function handleBattleAnswer(choice) {
   const answer = updated.answers.at(-1);
   state.activeRun = { ...active, battle: updated };
   state.player.totalAnswered += 1;
-  state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
+  state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject, correct: answer.correct }, taipeiDate());
   state.skillStats = updateSkillStats(state.skillStats, question, answer.correct);
   {
     const adaptive = recordAdaptiveAttempt(state.adaptiveSkills, state.answerHistory, question, {
@@ -525,7 +527,7 @@ function completeExam() {
       state.adaptiveSkills = adaptive.skills;
       state.answerHistory = adaptive.history;
       state.adaptiveSubjectWeights = calculateSubjectWeights(state.adaptiveSkills, state.adaptiveSubjectWeights, currentDiagnostic());
-      state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject }, taipeiDate());
+      state.dailyQuest = updateDailyQuest(state.dailyQuest, { type: 'answered', subject: question.subject, correct: item.correct }, taipeiDate());
     }
     if (session.kind==='review') {
       const evidence=session.reviewEvidenceByQuestionId?.[item.id];
@@ -561,6 +563,7 @@ function completeExam() {
     } else if (!item.correct) state.wrongQuestions = recordWrong(state.wrongQuestions, item.id, taipeiDate());
     else if (item.uncertain||item.hinted) state.wrongQuestions=recordUncertain(state.wrongQuestions,item.id,taipeiDate());
   }
+  if (result.items.some(item=>item.choice!==undefined)) state.dailyQuest = updateDailyQuest(state.dailyQuest, {type:'round'}, taipeiDate());
   state.player.totalAnswered += result.items.filter(i=>i.choice!==undefined).length;
   const answeredWrong=result.items.filter(item=>item.choice!==undefined&&!item.correct).length;
   state.player = rewardPlayer(state.player, { exp: result.correct * 20 + answeredWrong * 5, coins: result.correct * 5 });
@@ -947,6 +950,13 @@ function startTodayPractice(){
   return startSession(pool,{title:'今日五科會考導向短練習',kind:'practice',durationMinutes:20});
 }
 
+function startOfficialRepair(subject){
+  if(!SUBJECTS[subject])return;
+  const pool=provider.getPracticeSet({subject,examAligned:true,maxGrade:9},practiceProviderContext({count:5,shuffle:true})).questions;
+  if(!pool.length){showToast('這個科目目前沒有可用的會考導向題。');return;}
+  return startSession(pool,{title:`${SUBJECTS[subject].name}・官方卷考後同科練習`,kind:'practice',durationMinutes:15});
+}
+
 app.addEventListener('click', async (event) => {
   const control = event.target.closest('[data-action]');
   if (!control) return;
@@ -1066,6 +1076,9 @@ app.addEventListener('click', async (event) => {
     const subject=String(control.dataset.subject||'');
     const count=Math.max(1,Math.min(15,Number(control.dataset.count)||10));
     startPlacementPractice(subject,count);
+  }
+  if (action === 'start-official-repair') {
+    startOfficialRepair(control.dataset.subject);
   }
   if (action === 'delete-mock-exam') {
     const id=String(control.dataset.id||'').trim();

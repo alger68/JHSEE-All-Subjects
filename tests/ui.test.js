@@ -18,7 +18,9 @@ describe('adventure views', () => {
     expect(html).toContain('科學實驗島');
     expect(html).toContain('時空大陸');
     expect(html).toContain('完成 10 題');
-    expect(html).toContain('挑戰 Boss');
+    expect(html).toContain('完成一輪練習');
+    expect(html).toContain('答對 5 題');
+    expect(html).not.toContain('錯題復仇 3 題');
   });
 
   it('gives the student one actionable daily recommendation next to exam and review entrances', () => {

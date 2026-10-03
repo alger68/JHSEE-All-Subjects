@@ -323,6 +323,38 @@ it('keeps official answers hidden until submission and accepts only three listen
   expect(JSON.parse(localStorage.getItem(key)).wrongQuestions.find(x=>x.questionId==='cap115-listening-1').reason).toBe('guess');
   expect(document.body.textContent).toContain('正確答案：C');
 });
+it('puts official review needs first and starts an honest same-subject five-question repair',async()=>{
+  window.history.replaceState(null,'','#/paper/cap115-listening');await boot();
+  document.querySelector('[data-action="start-paper"]').click();
+  document.querySelector('[data-choice="2"]').click();
+  submitExam();await vi.advanceTimersByTimeAsync(1);
+  const report=document.querySelector('.review-list');
+  expect(report.firstElementChild.textContent).toContain('第 2 題');
+  expect(report.textContent).toContain('本站尚未提供逐題解析');
+  expect(report.textContent).toContain('先在原題找出判斷依據');
+  const original=report.firstElementChild.querySelector('.report-original');
+  original.open=true;original.dispatchEvent(new Event('toggle',{bubbles:true}));
+  expect(original.querySelector('[data-official-question="2"]')).not.toBeNull();
+  const repair=report.querySelector('[data-action="start-official-repair"]');
+  expect(repair.dataset.subject).toBe('english');
+  repair.click();
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.kind).toBe('practice');
+  expect(session.questionIds).toHaveLength(5);
+  expect(session.questionIds.every(id=>practice.find(q=>q.id===id)?.subject==='english')).toBe(true);
+});
+it('earns the daily chest after an ordinary practice round without review backlog or boss',async()=>{
+  localStorage.setItem(key,JSON.stringify({version:1,dailyQuest:{schemaVersion:2,date:'2026-09-17',answered:10,correct:5,rounds:0,reviewTarget:0,subjectCounts:{math:5,english:3,science:2},revenge:0,boss:0,streak:1,lastQualifiedDate:'2026-09-17',chestClaimed:false}}));
+  window.history.replaceState(null,'','#/exam-center');await boot();
+  document.querySelector('[data-action="start-practice"]').click();
+  document.querySelector('[data-action="exam-answer"]').click();
+  submitExam();await go('#/');
+  expect(document.querySelector('.quest-card').textContent).toContain('5 / 5');
+  document.querySelector('[data-action="claim-chest"]').click();
+  const saved=JSON.parse(localStorage.getItem(key));
+  expect(saved.dailyQuest.chestClaimed).toBe(true);
+  expect(saved.player.exp).toBeGreaterThanOrEqual(150);
+});
 it('blocks an answer arriving after deadline before the next timer tick',async()=>{
   await boot();vi.setSystemTime(Date.now()+1200000);
   document.querySelector('[data-action="exam-answer"]').click();

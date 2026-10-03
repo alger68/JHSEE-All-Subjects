@@ -36,6 +36,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .official-audio h2 { margin:0; font-size:1.1rem; }
 .official-audio audio { display:block; width:100%; }
 .report-original { margin-top:12px; }
+.official-review-steps { margin:12px 0; padding:10px 12px; border-left:3px solid var(--gold); background:rgba(255,255,255,.04); border-radius:8px; }
+.official-review-steps button { margin-top:10px; }
 
 :root {
   --bg: var(--jh-bg);
