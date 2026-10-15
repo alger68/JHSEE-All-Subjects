@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { renderAnalysis, renderBattle, renderExam, renderLobby, renderRevenge, renderWorld } from '../js/ui/views.js';
+import { renderAnalysis, renderBattle, renderExam, renderLobby, renderProfile, renderRevenge, renderWorld } from '../js/ui/views.js';
+import { renderExamCenter, renderSession, renderSessionResults } from '../js/ui/exam-views.js';
 import { createPlayer } from '../js/core/game-state.js';
 
 describe('adventure views', () => {
@@ -40,6 +41,45 @@ describe('adventure views', () => {
     expect(container.querySelector('.today-study-review[href="#/revenge"]')).not.toBeNull();
     expect(container.querySelectorAll('.world-card')).toHaveLength(5);
     expect(container.querySelector('.quest-card')).not.toBeNull();
+  });
+
+  it('keeps the first screen to three actions and puts secondary home content behind disclosure', () => {
+    const container=document.createElement('div');
+    container.innerHTML=renderLobby({player:createPlayer(),countdown:200,quest:{complete:0,total:5},wrongCount:0,subjectProgress:{}});
+    expect(container.querySelector('.today-study-main')).not.toBeNull();
+    expect(container.querySelectorAll('.today-study-shortcuts a')).toHaveLength(2);
+    expect(container.querySelector('.world-grid').closest('details').open).toBe(false);
+    expect(container.querySelector('#mock-calendar').closest('details').open).toBe(false);
+    expect(container.querySelector('.quest-card').closest('details').open).toBe(false);
+  });
+
+  it('shows official papers first and keeps score entry and coverage available in advanced details', () => {
+    const container=document.createElement('div');
+    container.innerHTML=renderExamCenter({papers:[{id:'sample',title:'官方試卷',subject:'math',count:25,durationMinutes:80}],practiceCount:10,alignedCount:8,coverage:{}});
+    const paper=container.querySelector('.paper-grid');
+    const warRoom=container.querySelector('.cap-war-room');
+    expect(paper).not.toBeNull();
+    expect(paper.compareDocumentPosition(warRoom)&Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(warRoom.closest('details').open).toBe(false);
+    expect(container.querySelector('#mock-calendar').closest('details').open).toBe(false);
+    expect(container.querySelector('#practice-focus')).not.toBeNull();
+  });
+
+  it('labels generated AI questions in the exam and its report', () => {
+    const q={id:'ai-1',subject:'math',question:'2+2?',choices:['1','2','3','4'],sourceKind:'ai-cache',aiGenerated:true,explanation:'4',answer:3,examAligned:true};
+    const session={title:'弱點練習',kind:'review',index:0,questionIds:[q.id],answers:{},uncertain:{},hinted:{}};
+    expect(renderSession({session,questions:[q],remaining:600})).toContain('AI 生成練習題');
+    const result={title:'弱點練習',kind:'review',total:1,correct:0,accuracy:0,elapsedSeconds:20,items:[{id:q.id,answer:3,choice:0,correct:false}]};
+    expect(renderSessionResults({result,questions:[q]})).toContain('AI 生成練習題');
+  });
+
+  it('puts placement and learning settings in More while hiding advanced controls initially', () => {
+    const container=document.createElement('div');
+    container.innerHTML=renderProfile({player:createPlayer()});
+    expect(container.querySelector('a[href="#/placement"]')).not.toBeNull();
+    expect(container.querySelector('a[href="#/analysis"]')).not.toBeNull();
+    expect(container.querySelector('#ai-daily-limit').closest('details').open).toBe(false);
+    expect(container.querySelector('[data-action="reset-progress"]').closest('details').open).toBe(false);
   });
 
   it('links directly to the active exam when the daily recommendation supplies a route', () => {

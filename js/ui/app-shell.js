@@ -7,7 +7,7 @@ const APPS = [
 function activeSection(route) {
   if (route === '#/revenge') return 'review';
   if (route.startsWith('#/exam') || route.startsWith('#/paper/')) return 'exam';
-  if (route === '#/placement') return 'placement';
+  if (route === '#/placement') return 'more';
   if (route === '#/analysis' || route === '#/profile' || route === '#/results') return 'more';
   return 'practice';
 }
@@ -15,9 +15,8 @@ function activeSection(route) {
 export function renderAppShell(content, route = '#/') {
   const active = activeSection(route);
   const primary = [
-    ['practice','#/','練習'],
+    ['practice','#/','今日'],
     ['exam','#/exam-center','模考'],
-    ['placement','#/placement','落點'],
     ['review','#/revenge','錯題'],
     ['more','#/profile','更多']
   ];
@@ -30,9 +29,9 @@ export function renderAppShell(content, route = '#/') {
     <header class="jh-suite-header">
       <a class="jh-suite-brand" href="#/"><span>JHSEE</span><strong>All Subjects</strong><small>116 會考準備</small></a>
       <nav class="jh-section-nav" aria-label="All Subjects 導覽">${nav}</nav>
-      <nav class="jh-app-switcher" aria-label="切換 JHSEE 產品">
+      <details class="jh-app-switcher"><summary>其他網站</summary><nav aria-label="切換 JHSEE 產品">
         ${APPS.map(([href,label])=>`<a href="${href}" ${label==='All Subjects'?'aria-current="page"':''}>${label}</a>`).join('')}
-      </nav>
+      </nav></details>
     </header>
     <div class="jh-suite-content">${content}</div>
     <nav class="mobile-bottom-nav jh-mobile-nav" aria-label="手機主要導覽">${nav}</nav>

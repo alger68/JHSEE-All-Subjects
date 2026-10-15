@@ -77,8 +77,8 @@ function todayAction(){
   if(due)return {kind:'review',label:`複習 ${due} 題到期錯題`,reason:'先確認之前錯過的觀念，答題後再看下一項任務。',href:'#/revenge'};
   const task=todayRepairTask();
   if(task)return {kind:'practice',label:`練 ${SUBJECTS[task.subject].name}・${task.questionTarget-task.answered} 題`,reason:`依自己的模考結果補強${task.topic?`「${task.topic}」`:SUBJECTS[task.subject].name}，交卷後才計入進度。`,action:'start-today-practice'};
-  if(!(state.answerHistory??[]).length&&!(state.mockExamRecords??[]).length)return {kind:'diagnostic',label:'建立五科起點・25 題',reason:'先用五科平衡題認識目前狀況，也可以直接到補強中心輸入自己的模考成績。',action:'start-diagnostic'};
-  return {kind:'practice',label:'開始今日五科短練習',reason:'約 20 分鐘，完成後依真正答題紀錄安排下一次複習。',action:'start-today-practice'};
+  if(!(state.answerHistory??[]).length&&!(state.mockExamRecords??[]).length)return {kind:'practice',label:'開始今日 10 題',reason:'先用五科題找出起點；交卷後再看弱點與 AI 補強。',action:'start-today-practice'};
+  return {kind:'practice',label:'開始今日 10 題',reason:'約 20 分鐘，系統會依作答紀錄安排下一次練習。',action:'start-today-practice'};
 }
 const currentCoverage=()=>buildCoverageReport(bank?.all?.()??[],state.answerHistory??[]);
 const aiAvoidExamples=()=>{
@@ -663,7 +663,7 @@ async function startAiRemediation(result=state.lastExamResult) {
   save();
   if(!generated?.length) showToast('AI 暫時不可用，已改用本地同能力題驗收。');
   startSession(sessionPool,{
-    title:`AI 弱點驗收・${profile.competency}`,
+    title:`${generated.length?'AI':'本地'} 弱點驗收・${profile.competency}`,
     kind:'review',
     durationMinutes:Math.max(10,count*4)
   });

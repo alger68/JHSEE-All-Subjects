@@ -6,7 +6,7 @@ describe('All Subjects professional light views', () => {
   const css = readFileSync('css/app.css','utf8');
 
   it('uses shared professional card hooks on normal dashboards', () => {
-    expect(views).toContain('hero-panel jh-hero');
+    expect(views).toContain('today-study-main jh-card');
     expect(views).toContain('quest-card jh-card');
     expect(views).toContain('world-card jh-card');
     expect(views).toContain('diagnostic-panel jh-card');

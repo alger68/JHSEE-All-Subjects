@@ -556,7 +556,11 @@ body.focus-mode textarea:focus-visible {
 .jh-suite-brand small{grid-column:1/-1;color:var(--jh-muted);font-size:.72rem;margin-top:2px}
 .jh-section-nav,.jh-app-switcher{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .jh-section-nav{justify-content:center}
-.jh-app-switcher{justify-content:flex-end}
+.jh-app-switcher{position:relative;justify-self:end}
+.jh-app-switcher summary{list-style:none;min-height:44px;display:flex;align-items:center;gap:6px;padding:0 14px;border:1px solid var(--jh-border);border-radius:999px;background:var(--jh-surface);color:var(--jh-muted);font-size:.82rem;font-weight:750;cursor:pointer}
+.jh-app-switcher summary::-webkit-details-marker{display:none}
+.jh-app-switcher summary::after{content:'⌄';font-size:1rem}
+.jh-app-switcher nav{position:absolute;top:calc(100% + 8px);right:0;z-index:65;display:grid;gap:4px;min-width:195px;padding:8px;border:1px solid var(--jh-border);border-radius:14px;background:#fff;box-shadow:var(--jh-shadow-card)}
 .jh-section-nav a,.jh-app-switcher a{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 11px;border-radius:999px;text-decoration:none;color:var(--jh-muted);font-size:.78rem;font-weight:750;border:1px solid transparent}
 .jh-section-nav a[aria-current="page"],.jh-app-switcher a[aria-current="page"]{background:var(--jh-primary-soft);color:var(--jh-primary);border-color:#CDE8E3}
 .jh-app-switcher a{border-color:var(--jh-border);background:var(--jh-surface)}
@@ -566,7 +570,7 @@ body.focus-mode textarea:focus-visible {
 .jh-mobile-nav{display:none}
 @media(max-width:899px){
   .jh-suite-header{grid-template-columns:1fr auto;min-height:66px;padding:10px 16px}
-  .jh-section-nav,.jh-app-switcher{display:none}
+  .jh-section-nav{display:none}
   .jh-suite-shell{padding-bottom:82px}
   .jh-suite-shell .app-shell{padding:20px 16px 32px}
   .jh-mobile-nav{position:fixed;z-index:60;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:rgba(255,255,255,.98);border-top:1px solid var(--jh-border);box-shadow:0 -8px 24px rgba(31,42,68,.06)}
@@ -911,3 +915,19 @@ body.focus-mode .question-card .choice[aria-pressed="true"] b {
   .repair-plan .repair-task > div { align-items:flex-start; flex-direction:column; gap:4px; }
   .repair-plan .repair-task button { width:100%; }
 }
+
+.home-status{margin:12px 0 0;color:var(--jh-muted);font-weight:700}
+.home-extra,.profile-advanced,.advanced-exam{margin:18px 0;border:1px solid var(--jh-border);border-radius:18px;background:var(--jh-surface);box-shadow:var(--jh-shadow-card)}
+.home-extra>summary,.profile-advanced>summary,.advanced-exam>summary{list-style:none;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;cursor:pointer;font-weight:800;color:var(--jh-text)}
+.home-extra>summary::-webkit-details-marker,.profile-advanced>summary::-webkit-details-marker,.advanced-exam>summary::-webkit-details-marker{display:none}
+.home-extra>summary::after,.profile-advanced>summary::after,.advanced-exam>summary::after{content:'⌄';color:var(--jh-primary);font-size:1.3rem}
+.home-extra[open]>summary::after,.profile-advanced[open]>summary::after,.advanced-exam[open]>summary::after{transform:rotate(180deg)}
+.home-extra>section,.profile-advanced>section,.advanced-exam>section{margin-left:16px;margin-right:16px}
+.home-extra>.section-heading{margin-top:10px}
+.home-extra>.world-grid{padding:0 16px 18px;margin:0}
+.home-extra>.dashboard-grid{margin-top:0}
+.more-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;margin:16px 0}
+.more-links a{display:flex;align-items:center;min-height:68px;padding:16px;border:1px solid var(--jh-border);border-radius:16px;background:var(--jh-surface);font-weight:800;box-shadow:var(--jh-shadow-card)}
+.more-links a:hover{border-color:var(--jh-primary)}
+.source-chip{color:var(--jh-primary);font-size:.85rem;font-weight:800}
+@media(max-width:899px){.jh-mobile-nav{grid-template-columns:repeat(4,1fr)}}

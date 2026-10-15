@@ -1,5 +1,4 @@
 import { SUBJECT_ORDER, SUBJECTS } from '../config/subjects.js';
-import { levelProgress } from '../core/game-state.js';
 import { diagnosticCards } from '../core/personalization.js';
 import { questionMaterial, reasonSelect, renderEnglishTtsControls } from './exam-views.js';
 import { renderMockCalendar } from './mock-calendar.js';
@@ -18,7 +17,6 @@ function nav(active = 'home') {
 }
 
 export function renderLobby({ player, countdown, quest, wrongCount, subjectProgress, todayAction = null, worldStats = {} }) {
-  const progress = levelProgress(player);
   const questItems = quest.items ?? [];
   const questLabels = ['完成 10 題', '練習 3 個科目', quest.reviewTarget ? `複習 ${quest.reviewTarget} 題或答對 5 題` : '答對 5 題', '完成一輪練習', '單科完成 5 題'];
   const recommendation = todayAction ?? {
@@ -30,11 +28,8 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
     : `<a class="primary-button" href="${escapeHtml(recommendation.href ?? '#/exam-center')}">${actionLabel} →</a>`;
   const actionType = recommendation.kind === 'diagnostic' ? '先找出起點' : recommendation.kind === 'review' ? '到期複習' : '今日練習';
   return `<div class="app-shell">
-    <header class="topbar"><div><span class="eyebrow">116 會考大冒險</span><h1>知識遠征基地</h1></div><div class="player-badge"><span>LV.${player.level}</span><b>${escapeHtml(player.name)}</b></div></header>
-    <section class="hero-panel jh-hero">
-      <div class="countdown"><span>距離會考</span><strong>${countdown}</strong><small>DAYS</small></div>
-      <div class="hero-copy"><span class="status-chip">🔥 ${player.streak} 天連續學習</span><h2>今天，前進一個關卡。</h2><div class="xp-row"><span>EXP ${player.exp}</span><span>下一級 ${progress.required}</span></div><div class="progress"><i style="width:${progress.percent}%"></i></div><div class="currency">💰 ${player.coins} 金幣　・　👹 ${player.bossesDefeated} Boss</div></div>
-    </section>
+    <header class="topbar"><div><span class="eyebrow">116 會考大冒險</span><h1>今天的會考練習</h1></div><div class="player-badge"><span>LV.${player.level}</span><b>${escapeHtml(player.name)}</b></div></header>
+    <p class="home-status">距離會考 ${countdown} 天・連續學習 ${player.streak} 天</p>
     <section class="today-study" aria-label="今日學習入口">
       <article class="today-study-main jh-card"><span class="eyebrow">TODAY'S NEXT STEP・${actionType}</span><h2>今天先完成這一件事</h2><p>${escapeHtml(recommendation.reason ?? '')}</p>${actionControl}</article>
       <nav class="today-study-shortcuts" aria-label="其他學習入口">
@@ -42,14 +37,16 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
         <a class="today-study-review jh-card" href="#/revenge"><span aria-hidden="true">↻</span><strong>錯題複習</strong><small>${wrongCount} 題待複習・確認是否真正學會</small><b aria-hidden="true">↗</b></a>
       </nav>
     </section>
-    <section class="section-heading"><div><span class="eyebrow">ADVENTURE MAP</span><h2>選擇今天的世界</h2></div><a href="#/exam-center" class="text-link">🏆 官方會考與補強</a></section>
+    <details class="home-extra"><summary>想練單科？展開五科闖關地圖</summary>
+    <section class="section-heading"><div><span class="eyebrow">ADVENTURE MAP</span><h2>選擇今天的世界</h2></div></section>
     <section class="world-grid">${SUBJECT_ORDER.map((id) => {
       const item = SUBJECTS[id]; const stars = subjectProgress[id]?.stars ?? 0;
       const stats=worldStats[id];
       return `<a class="world-card jh-card world-${id}" href="#/world/${id}" style="--subject:${item.color}"><span class="world-icon">${item.icon}</span><div><small>${item.name}</small><h3>${item.world}</h3><p>${stats?`題庫 ${stats.total} 題・本機紀錄已練 ${stats.practiced} 題`:item.levels[0]+'等待挑戰'}</p></div><span class="world-score">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</span></a>`;
-    }).join('')}</section>
-    <section class="dashboard-grid"><article class="quest-card jh-card"><div><span class="eyebrow">TODAY</span><h2>今日任務</h2></div><strong>${quest.complete} / ${quest.total}</strong><div class="progress"><i style="width:${quest.total ? (quest.complete / quest.total) * 100 : 0}%"></i></div><ul class="quest-list">${questLabels.map((label, index) => `<li class="${questItems[index] ? 'done' : ''}"><span>${questItems[index] ? '✓' : '○'}</span>${label}</li>`).join('')}</ul><p>完成 5 項任務，開啟每日寶箱。Boss 挑戰可自行安排，無須每日完成。</p>${quest.complete === quest.total && !quest.chestClaimed ? '<button data-action="claim-chest">🎁 開啟寶箱</button>' : ''}</article><a class="revenge-card jh-card" href="#/revenge"><span>👿</span><div><small>REVENGE LIST</small><h2>${wrongCount} 隻錯題怪物</h2><p>把錯過的題目練成真正實力。</p></div></a><a class="revenge-card placement-entry jh-card" href="#/placement"><span>🎯</span><div><small>ADMISSION PLACEMENT</small><h2>基北區升學落點</h2><p>從最新模考帶入，查看學校區間與目標高中差距。</p></div></a></section>
-    ${renderMockCalendar()}
+    }).join('')}</section></details>
+    <details class="home-extra"><summary>查看每日任務、升學落點與模考日程</summary>
+    <section class="dashboard-grid"><article class="quest-card jh-card"><div><span class="eyebrow">TODAY</span><h2>今日任務</h2></div><strong>${quest.complete} / ${quest.total}</strong><div class="progress"><i style="width:${quest.total ? (quest.complete / quest.total) * 100 : 0}%"></i></div><ul class="quest-list">${questLabels.map((label, index) => `<li class="${questItems[index] ? 'done' : ''}"><span>${questItems[index] ? '✓' : '○'}</span>${label}</li>`).join('')}</ul><p>完成 5 項任務，開啟每日寶箱。Boss 挑戰可自行安排，無須每日完成。</p>${quest.complete === quest.total && !quest.chestClaimed ? '<button data-action="claim-chest">🎁 開啟寶箱</button>' : ''}</article><a class="revenge-card placement-entry jh-card" href="#/placement"><span>🎯</span><div><small>ADMISSION PLACEMENT</small><h2>基北區升學落點</h2><p>從最新模考帶入，查看學校區間與目標高中差距。</p></div></a></section>
+    ${renderMockCalendar()}</details>
     ${nav('home')}
   </div>`;
 }
@@ -138,8 +135,10 @@ export function renderAnalysis(summary, { diagnostic = null, adaptive = null, tr
 
 export function renderProfile({ player, aiUsage={count:0,limit:12}, cycleCount=0, currentCycleStartedOn=null }) {
   const used=Number(aiUsage.count??0),limit=Number(aiUsage.limit??12);
-  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">PLAYER</span><h1>我的冒險資料</h1></div><span></span></header>
+  return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">MORE</span><h1>更多學習工具</h1></div><span></span></header>
   <section class="profile-card jh-card"><span class="avatar">🧑‍🚀</span><h2>${escapeHtml(player.name)}</h2><strong>LV.${player.level}</strong><dl><div><dt>累積 EXP</dt><dd>${player.exp}</dd></div><div><dt>金幣</dt><dd>${player.coins}</dd></div><div><dt>總答題</dt><dd>${player.totalAnswered}</dd></div><div><dt>擊敗 Boss</dt><dd>${player.bossesDefeated}</dd></div></dl></section>
+  <nav class="more-links" aria-label="更多學習工具"><a class="jh-card" href="#/placement">🎯 升學落點 →</a><a class="jh-card" href="#/analysis">📊 能力分析 →</a><a class="jh-card" href="#/world/math">🗺️ 單科闖關 →</a></nav>
+  <details class="profile-advanced"><summary>進階設定、重新診斷與資料管理</summary>
   <section class="practice-panel"><span class="eyebrow">AI BUDGET</span><h2>今日 AI 題目額度</h2><p>已使用 ${used} / ${limit} 題。超過上限後會自動改用本地題庫，不會中斷練習。</p><label>每日 AI 題目上限<select id="ai-daily-limit">${[0,6,12,20,30,50].map(value=>`<option value="${value}" ${value===limit?'selected':''}>${value===0?'停用 AI':value+' 題'}</option>`).join('')}</select></label></section>
   <section class="practice-panel"><span class="eyebrow">BACKUP</span><h2>學習資料備份／還原</h2><p>重置或更換裝置前，建議先下載 JSON 備份。還原會覆蓋目前這台裝置的學習資料。</p><button class="secondary-button" data-action="export-backup">下載備份</button><button class="secondary-button" data-action="import-backup">選擇備份還原</button><input id="backup-file-input" type="file" accept="application/json,.json" hidden></section>
   <section class="practice-panel"><span class="eyebrow">RE-DIAGNOSIS</span><h2>重新建立學習底盤</h2><p>進行 25 題五科平衡診斷，每科 5 題；AI 額度允許時最多混入 5 題 AI 診斷題，其餘使用本地題庫。完成後會用這次結果重建核心能力 Mastery 與 Priority。</p><button class="primary-button" data-action="start-diagnostic">開始 25 題重新診斷</button></section>
@@ -147,7 +146,7 @@ export function renderProfile({ player, aiUsage={count:0,limit:12}, cycleCount=0
     <button class="secondary-button" data-action="reset-adaptive">只重置 AI／自適應記憶</button>
     <button class="secondary-button" data-action="start-new-cycle">建立新學習週期</button>
     <button class="danger-button" data-action="reset-progress">完整重置全部資料</button>
-  </section>${nav('profile')}</div>`;
+  </section></details>${nav('profile')}</div>`;
 }
 
 export function renderExam({ exam, index, answers, remaining }) {

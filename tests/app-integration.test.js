@@ -103,15 +103,15 @@ it('keeps an older English practice session in its saved A–D order when readin
   expect(spoken).toEqual(['Option A. not wide Option B. very noisy Option C. very long Option D. very bright']);
 });
 
-it('offers a neutral first step on the lobby and starts a five-subject diagnosis',async()=>{
+it('offers a neutral ten-question first step without resetting adaptive memory',async()=>{
   window.history.replaceState(null,'','#/');await boot();
   expect(document.body.textContent).not.toContain('宥廷');
-  expect(document.querySelector('[data-action="start-diagnostic"]')).not.toBeNull();
-  document.querySelector('[data-action="start-diagnostic"]').click();
+  expect(document.querySelector('.today-study-main [data-action="start-today-practice"]')).not.toBeNull();
+  document.querySelector('.today-study-main [data-action="start-today-practice"]').click();
   await vi.advanceTimersByTimeAsync(1);
   const session=JSON.parse(localStorage.getItem(key)).activeExam;
-  expect(session.kind).toBe('diagnostic');
-  expect(session.questionIds).toHaveLength(25);
+  expect(session.kind).toBe('practice');
+  expect(session.questionIds).toHaveLength(10);
 });
 
 it('loads the full production bundle in three requests and resumes an existing supplemental question',async()=>{
@@ -278,7 +278,7 @@ it('does not recommend resolved or unavailable old wrong answers as todays next 
     {questionId:'missing-old-id',mastery:0,wrongCount:1,nextReview:'2026-09-01',resolved:false}
   ]}));
   window.history.replaceState(null,'','#/');await boot();
-  expect(document.querySelector('[data-action="start-diagnostic"]')).not.toBeNull();
+  expect(document.querySelector('.today-study-main [data-action="start-today-practice"]')).not.toBeNull();
   expect(document.querySelector('.today-study-main').textContent).not.toContain('到期錯題');
 });
 
@@ -560,10 +560,10 @@ it('uses a stable balanced option order in new original practice and preserves i
   expect(before.choiceOrderVersion).toBe(2);
   const q=allOriginal.find(item=>item.id===before.questionIds[0]);
   const first=document.querySelectorAll('[data-action="exam-answer"]');
-  const answerIndex=[...first].findIndex(button=>button.textContent.includes(q.choices[q.answer]));
+  const answerIndex=[...first].findIndex(button=>button.querySelector('span')?.textContent===q.choices[q.answer]);
   expect(answerIndex).toBeGreaterThanOrEqual(0);
   disconnect();vi.setSystemTime(before.startedAt+1000);document.body.innerHTML='<main id="app"></main>';vi.resetModules();await boot();
-  expect(document.querySelectorAll('[data-action="exam-answer"]')[answerIndex].textContent).toContain(q.choices[q.answer]);
+  expect(document.querySelectorAll('[data-action="exam-answer"]')[answerIndex].querySelector('span')?.textContent).toBe(q.choices[q.answer]);
   document.querySelectorAll('[data-action="exam-answer"]')[answerIndex].click();
   submitExam();
   const after=JSON.parse(localStorage.getItem(key)).lastExamResult;
@@ -1576,9 +1576,10 @@ it('turns the target-school seven-day plan into one-click subject practice',asyn
   })).toBe(true);
 });
 
-it('shows placement as a primary suite navigation destination',async()=>{
+it('keeps placement one tap away inside More',async()=>{
   window.history.replaceState(null,'','#/');
   await boot();
-  expect(document.querySelector('.jh-section-nav a[href="#/placement"]')).not.toBeNull();
+  expect(document.querySelector('.jh-section-nav a[href="#/placement"]')).toBeNull();
+  await go('#/profile');
   expect(document.querySelector('a[href="#/placement"]')?.textContent).toBeTruthy();
 });

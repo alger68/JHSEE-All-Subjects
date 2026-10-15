@@ -2,11 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { renderAppShell } from '../js/ui/app-shell.js';
 
 describe('All Subjects unified app shell', () => {
-  it('renders family identity, three suite destinations and five primary entries', () => {
+  it('renders four primary entries and keeps other suite destinations in a disclosure', () => {
     const html = renderAppShell('<section>content</section>', '#/');
     expect(html).toContain('JHSEE');
     expect(html).toContain('All Subjects');
-    for (const label of ['練習','模考','落點','錯題','更多']) expect(html).toContain(label);
+    const container=document.createElement('div');
+    container.innerHTML=html;
+    expect([...container.querySelectorAll('.jh-section-nav a')].map(a=>a.textContent)).toEqual(['今日','模考','錯題','更多']);
+    expect(container.querySelector('details.jh-app-switcher').open).toBe(false);
     for (const url of [
       'https://alger68.github.io/JHSEE-Study-Planner/',
       'https://alger68.github.io/JHSEE-All-Subjects/',
