@@ -37,6 +37,14 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
         <a class="today-study-review jh-card" href="#/revenge"><span aria-hidden="true">↻</span><strong>錯題複習</strong><small>${wrongCount} 題待複習・確認是否真正學會</small><b aria-hidden="true">↗</b></a>
       </nav>
     </section>
+    <details class="home-extra study-guide"><summary>讀書怎麼安排？看 4 步簡單做</summary>
+      <ol class="study-steps">
+        <li><strong>先找弱點與目標</strong><p>做一次歷屆題或模考，從<a href="#/analysis">作答分析</a>找出最需要加強的科目與題型，再決定本週重點。</p></li>
+        <li><strong>排本週的 2～3 科</strong><p>弱科多排一點時間，強科維持練習；基礎期先弄懂觀念，考前逐漸增加限時題與訂正。可從<a href="#/exam-center">官方試卷</a>檢查進度。</p></li>
+        <li><strong>今天只列 3 件具體任務</strong><p>例如完成今日 10 題、讀 15～20 個英文單字、訂正 1 組錯題。專注約 50 分鐘後起身休息，保持規律睡眠。</p></li>
+        <li><strong>寫完要訂正</strong><p>記下錯因、重做同觀念題；用<a href="#/revenge">錯題複習</a>確認真的學會，再調整下週安排。</p></li>
+      </ol>
+    </details>
     <details class="home-extra"><summary>想練單科？展開五科闖關地圖</summary>
     <section class="section-heading"><div><span class="eyebrow">ADVENTURE MAP</span><h2>選擇今天的世界</h2></div></section>
     <section class="world-grid">${SUBJECT_ORDER.map((id) => {

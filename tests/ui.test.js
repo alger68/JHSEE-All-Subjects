@@ -53,6 +53,19 @@ describe('adventure views', () => {
     expect(container.querySelector('.quest-card').closest('details').open).toBe(false);
   });
 
+  it('offers a concise study routine behind a closed disclosure with routes to existing tools', () => {
+    const container=document.createElement('div');
+    container.innerHTML=renderLobby({player:createPlayer(),countdown:200,quest:{complete:0,total:5},wrongCount:0,subjectProgress:{}});
+    const guide=container.querySelector('.study-guide');
+    expect(guide.open).toBe(false);
+    expect(guide.querySelectorAll('ol > li')).toHaveLength(4);
+    expect(guide.textContent).toContain('本週');
+    expect(guide.textContent).toContain('訂正');
+    expect(guide.querySelector('a[href="#/analysis"]')).not.toBeNull();
+    expect(guide.querySelector('a[href="#/revenge"]')).not.toBeNull();
+    expect(container.querySelectorAll('.today-study-shortcuts a')).toHaveLength(2);
+  });
+
   it('shows official papers first and keeps score entry and coverage available in advanced details', () => {
     const container=document.createElement('div');
     container.innerHTML=renderExamCenter({papers:[{id:'sample',title:'官方試卷',subject:'math',count:25,durationMinutes:80}],practiceCount:10,alignedCount:8,coverage:{}});

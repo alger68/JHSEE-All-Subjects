@@ -926,6 +926,9 @@ body.focus-mode .question-card .choice[aria-pressed="true"] b {
 .home-extra>.section-heading{margin-top:10px}
 .home-extra>.world-grid{padding:0 16px 18px;margin:0}
 .home-extra>.dashboard-grid{margin-top:0}
+.study-steps{margin:0 18px 18px;padding-left:26px;display:grid;gap:12px}
+.study-steps li{padding-left:4px}
+.study-steps p{margin:4px 0 0;color:var(--jh-muted);line-height:1.6}
 .more-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;margin:16px 0}
 .more-links a{display:flex;align-items:center;min-height:68px;padding:16px;border:1px solid var(--jh-border);border-radius:16px;background:var(--jh-surface);font-weight:800;box-shadow:var(--jh-shadow-card)}
 .more-links a:hover{border-color:var(--jh-primary)}
