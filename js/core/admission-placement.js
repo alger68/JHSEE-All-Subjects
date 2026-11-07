@@ -1,8 +1,8 @@
 import { SUBJECT_ORDER } from '../config/subjects.js';
-import { KB_ADMISSION_RULE, KB_SCHOOLS } from '../config/admission-kb.js';
+import { KB_ADMISSION_RULE, KB_SCHOOLS, SUBJECT_ERROR_TOLERANCE, HSNU_MALE_STRATEGIES } from '../config/admission-kb.js';
 
 const LEVELS=['C','B','B+','B++','A','A+','A++'];
-const cleanGender=value=>['all','male','female'].includes(value)?value:'all';
+const cleanGender=(value,fallback='all')=>['all','male','female'].includes(value)?value:fallback;
 
 export function normalizeAdmissionGrades(grades={}){
   const result={};
@@ -11,6 +11,74 @@ export function normalizeAdmissionGrades(grades={}){
     result[subject]=KB_ADMISSION_RULE.subjectPoints[level]!==undefined?level:'';
   }
   return result;
+}
+
+export function analyzeCapGradeMarks(grades={}){
+  const normalized=normalizeAdmissionGrades(grades);
+  let aCount=0,bCount=0,cCount=0,aPlusMarks=0,totalPlusMarks=0;
+  for(const subject of SUBJECT_ORDER){
+    const level=normalized[subject];
+    if(!level)continue;
+    const plusCount=(level.match(/\+/g)??[]).length;
+    totalPlusMarks+=plusCount;
+    if(level.startsWith('A')){
+      aCount+=1;
+      aPlusMarks+=plusCount;
+    }else if(level.startsWith('B')){
+      bCount+=1;
+    }else if(level==='C'){
+      cCount+=1;
+    }
+  }
+  const parts=[];
+  if(aCount)parts.push(`${aCount}A`);
+  if(bCount)parts.push(`${bCount}B`);
+  if(cCount)parts.push(`${cCount}C`);
+  const summaryLabel=parts.length
+    ? `${parts.join('')}${aCount===5?`${aPlusMarks}+`:totalPlusMarks?`（共 ${totalPlusMarks}+）`:''}`
+    : '尚未完整輸入';
+  return {
+    aCount,
+    bCount,
+    cCount,
+    aPlusMarks,
+    totalPlusMarks,
+    summaryLabel,
+    missingFor5A:Math.max(0,5-aCount),
+    missingPlusFor5A7:Math.max(0,7-aPlusMarks),
+    missingPlusFor5A8:Math.max(0,8-aPlusMarks)
+  };
+}
+
+export function analyzeTieBreakOrder(grades={},writing=4){
+  const normalized=normalizeAdmissionGrades(grades);
+  const writingGrade=Math.max(1,Math.min(6,Math.round(Number(writing)||4)));
+  const order=KB_ADMISSION_RULE.tieBreakSubjectOrder??['chinese','math','english','social','science'];
+  const subjects=order.map((subject,index)=>{
+    const current=normalized[subject]||'';
+    const next=nextGrade(current);
+    const points=KB_ADMISSION_RULE.subjectPoints[current]??0;
+    const tolerance=SUBJECT_ERROR_TOLERANCE[subject]??null;
+    const targetLevel=current.startsWith('A')?(next??'A++'):'A';
+    return {
+      order:index+1,
+      subject,
+      current,
+      next,
+      points,
+      isTopMark:current==='A++',
+      isA:current.startsWith('A'),
+      tolerance,
+      targetLevel,
+      targetTolerance:tolerance?.[targetLevel]??tolerance?.['A++']??''
+    };
+  });
+  return {
+    writingGrade,
+    writingPoints:KB_ADMISSION_RULE.writingPoints[writingGrade]??0,
+    writingAdvantage:writingGrade>=5,
+    subjects
+  };
 }
 
 export function calculateExamPlacementScore(grades={},writing=4){
@@ -27,7 +95,8 @@ export function calculateExamPlacementScore(grades={},writing=4){
     subjectPoints,
     writingPoints,
     examScore:Math.round((subjectPoints+writingPoints)*10)/10,
-    max:KB_ADMISSION_RULE.examMax
+    max:KB_ADMISSION_RULE.examMax,
+    marks:analyzeCapGradeMarks(normalized)
   };
 }
 
@@ -56,7 +125,7 @@ export function calculateTotalAdmissionScore(examResult={},profile={}){
 }
 
 export function visibleSchools(gender='all',schools=KB_SCHOOLS){
-  const selected=cleanGender(gender);
+  const selected=cleanGender(gender,'all');
   if(selected==='all')return [...schools];
   return schools.filter(school=>school.gender==='all'||school.gender===selected);
 }
@@ -96,26 +165,36 @@ export function nextGrade(level){
 
 export function subjectUpgradePlan(grades={},adaptiveWeights={}){
   const normalized=normalizeAdmissionGrades(grades);
+  const tieBreakOrder=KB_ADMISSION_RULE.tieBreakSubjectOrder??SUBJECT_ORDER;
   return SUBJECT_ORDER.map(subject=>{
     const current=normalized[subject];
     const next=nextGrade(current);
     if(!current||!next)return null;
     const gain=(KB_ADMISSION_RULE.subjectPoints[next]??0)-(KB_ADMISSION_RULE.subjectPoints[current]??0);
+    const tieBreakRank=tieBreakOrder.indexOf(subject)+1||5;
+    const tieBreakBonus=(6-tieBreakRank)*1.5;
+    const tolerance=SUBJECT_ERROR_TOLERANCE[subject]??null;
     return {
       subject,
       current,
       next,
       gain,
+      tieBreakRank,
+      nextTolerance:tolerance?.[next]??tolerance?.['A']??'',
+      keyPoint:tolerance?.keyPoint??'',
       adaptiveWeight:Number(adaptiveWeights?.[subject]??0),
-      priority:(8-(KB_ADMISSION_RULE.subjectPoints[current]??0))*10+Number(adaptiveWeights?.[subject]??0)
+      priority:(8-(KB_ADMISSION_RULE.subjectPoints[current]??0))*10+Number(adaptiveWeights?.[subject]??0)+tieBreakBonus
     };
   }).filter(Boolean).sort((a,b)=>b.priority-a.priority||b.gain-a.gain);
 }
 
-export function targetSchoolAnalysis(score,grades,targetSchoolId,adaptiveWeights={},schools=KB_SCHOOLS){
+export function targetSchoolAnalysis(score,grades,targetSchoolId,adaptiveWeights={},schools=KB_SCHOOLS,writing=4){
   const school=schools.find(item=>item.id===targetSchoolId)??null;
   if(!school||!Number.isFinite(score))return null;
   const midpoint=Math.round(((school.low+school.high)/2)*10)/10;
+  const marks=analyzeCapGradeMarks(grades);
+  const tieBreak=analyzeTieBreakOrder(grades,writing);
+  const isHsnu=school.id==='hsnu-m'||school.id==='hsnu-f';
   return {
     school,
     score,
@@ -123,6 +202,10 @@ export function targetSchoolAnalysis(score,grades,targetSchoolId,adaptiveWeights
     gapToLow:Math.max(0,Math.round((school.low-score)*10)/10),
     gapToMid:Math.max(0,Math.round((midpoint-score)*10)/10),
     band:placementBand(score,school),
+    marks,
+    tieBreak,
+    isHsnu,
+    hsnuStrategies:isHsnu?HSNU_MALE_STRATEGIES:[],
     upgrades:subjectUpgradePlan(grades,adaptiveWeights).slice(0,5)
   };
 }
@@ -195,8 +278,8 @@ export function resolvePlacementProfile(profile={},latestMock=null){
     source,
     grades:source==='manual'&&hasManual?manualGrades:latestGrades,
     writing:Math.max(1,Math.min(6,Math.round(Number(profile?.writing)||4))),
-    gender:cleanGender(profile?.gender),
-    targetSchoolId:String(profile?.targetSchoolId||'banqiao'),
+    gender:cleanGender(profile?.gender,'male'),
+    targetSchoolId:String(profile?.targetSchoolId||'hsnu-m'),
     preferencePoints:pickAllowed(profile?.preferencePoints,[36,35,34,33,32]),
     balancedPoints:pickAllowed(profile?.balancedPoints,[0,6,12,18,24]),
     servicePoints:pickAllowed(profile?.servicePoints,[0,4,8,12])
@@ -219,15 +302,18 @@ export function buildPlacementModel({
   const score=calculateExamPlacementScore(resolved.grades,resolved.writing);
   const totalScore=calculateTotalAdmissionScore(score,resolved);
   const target=score.complete
-    ? targetSchoolAnalysis(score.examScore,resolved.grades,resolved.targetSchoolId,adaptiveWeights,schools)
-    : null;
+    ? targetSchoolAnalysis(score.examScore,resolved.grades,resolved.targetSchoolId,adaptiveWeights,schools,resolved.writing)
+    : targetSchoolAnalysis(0,resolved.grades,resolved.targetSchoolId,adaptiveWeights,schools,resolved.writing);
   return {
     profile:resolved,
     score,
     totalScore,
+    marks:analyzeCapGradeMarks(resolved.grades),
+    tieBreak:analyzeTieBreakOrder(resolved.grades,resolved.writing),
     bands:score.complete?buildPlacementBands(score.examScore,resolved.gender,schools):{challenge:[],match:[],safe:[]},
-    target,
-    sevenDayPlan:target?buildTargetSevenDayPlan(target,adaptiveSkills,today):[],
+    target:score.complete?target:null,
+    previewTarget:target,
+    sevenDayPlan:score.complete&&target?buildTargetSevenDayPlan(target,adaptiveSkills,today):[],
     schools:availableSchools
   };
 }

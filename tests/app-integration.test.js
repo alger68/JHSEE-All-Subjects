@@ -140,7 +140,7 @@ it('loads the full production bundle in three requests and resumes an existing s
     expect(requests).toHaveLength(3);
     expect(requests.some(url=>url.endsWith('/question-packs/bundle-test.json'))).toBe(true);
     await go('#/exam-center');
-    expect(document.body.textContent).toContain('692 題原創練習');
+    expect(document.body.textContent).toContain('722 題原創練習');
   }finally{vi.unstubAllEnvs();}
 });
 
@@ -1582,4 +1582,29 @@ it('keeps placement one tap away inside More',async()=>{
   expect(document.querySelector('.jh-section-nav a[href="#/placement"]')).toBeNull();
   await go('#/profile');
   expect(document.querySelector('a[href="#/placement"]')?.textContent).toBeTruthy();
+  expect(document.querySelector('a[href="#/notes"]')?.textContent).toBeTruthy();
+});
+
+it('renders 5A++ study notes, supports keyword search, and launches A++ high-difficulty practice',async()=>{
+  window.history.replaceState(null,'','#/notes/math');
+  await boot();
+  expect(document.body.textContent).toContain('五科 A++ 衝刺重點筆記');
+  expect(document.body.textContent).toContain('數學科：重點筆記與 A++ 準備方向');
+
+  const search=document.querySelector('#notes-search');
+  expect(search).not.toBeNull();
+  search.value='浮力';
+  search.dispatchEvent(new Event('input',{bubbles:true}));
+  expect(document.body.textContent).toContain('搜尋結果');
+
+  const clearBtn=document.querySelector('[data-action="clear-notes-search"]');
+  expect(clearBtn).not.toBeNull();
+  clearBtn.click();
+
+  const aplusBtn=document.querySelector('[data-action="start-aplus-practice"]');
+  expect(aplusBtn).not.toBeNull();
+  aplusBtn.click();
+  expect(window.location.hash).toBe('#/exam');
+  const session=JSON.parse(localStorage.getItem(key)).activeExam;
+  expect(session.title).toContain('A++ 決勝難題特訓');
 });

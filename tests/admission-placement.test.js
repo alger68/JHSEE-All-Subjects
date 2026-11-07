@@ -87,6 +87,18 @@ describe('admission placement',()=>{
     expect(plan[6].phase).toBe('週末驗收');
   });
 
+  it('uses latest mock grades by default and defaults to hsnu-m and male when profile is empty',()=>{
+    const model=buildPlacementModel({
+      latestMock:{grades:{chinese:'A++',english:'A+',math:'A++',science:'A+',social:'A+'}},
+      profile:{source:'latest-mock',grades:{},writing:5}
+    });
+    expect(model.profile.gender).toBe('male');
+    expect(model.profile.targetSchoolId).toBe('hsnu-m');
+    expect(model.target.school.id).toBe('hsnu-m');
+    expect(model.marks.summaryLabel).toBe('5A7+');
+    expect(model.tieBreak.subjects.map(r=>r.subject)).toEqual(['chinese','math','english','social','science']);
+  });
+
   it('uses latest mock grades by default but preserves writing and target preferences',()=>{
     const model=buildPlacementModel({
       latestMock:{grades:{chinese:'A',english:'B',math:'A+',science:'A',social:'B++'}},

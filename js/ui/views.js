@@ -39,8 +39,8 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
     </section>
     <details class="home-extra study-guide"><summary>讀書怎麼安排？看 4 步簡單做</summary>
       <ol class="study-steps">
-        <li><strong>先找弱點與目標</strong><p>做一次歷屆題或模考，從<a href="#/analysis">作答分析</a>找出最需要加強的科目與題型，再決定本週重點。</p></li>
-        <li><strong>排本週的 2～3 科</strong><p>弱科多排一點時間，強科維持練習；基礎期先弄懂觀念，考前逐漸增加限時題與訂正。可從<a href="#/exam-center">官方試卷</a>檢查進度。</p></li>
+        <li><strong>先找弱點與目標</strong><p>做一次歷屆題或模考，從<a href="#/analysis">作答分析</a>與<a href="#/placement">師大附中（男）升學落點</a>找出最需要加強的科目與題型，再決定本週重點。</p></li>
+        <li><strong>排本週的 2～3 科</strong><p>弱科多排一點時間，強科維持練習；搭配<a href="#/notes">五科 A++ 重點筆記</a>掌握必考公式與鑑別破口，再從<a href="#/exam-center">官方試卷</a>檢查進度。</p></li>
         <li><strong>今天只列 3 件具體任務</strong><p>例如完成今日 10 題、讀 15～20 個英文單字、訂正 1 組錯題。專注約 50 分鐘後起身休息，保持規律睡眠。</p></li>
         <li><strong>寫完要訂正</strong><p>記下錯因、重做同觀念題；用<a href="#/revenge">錯題複習</a>確認真的學會，再調整下週安排。</p></li>
       </ol>
@@ -53,7 +53,7 @@ export function renderLobby({ player, countdown, quest, wrongCount, subjectProgr
       return `<a class="world-card jh-card world-${id}" href="#/world/${id}" style="--subject:${item.color}"><span class="world-icon">${item.icon}</span><div><small>${item.name}</small><h3>${item.world}</h3><p>${stats?`題庫 ${stats.total} 題・本機紀錄已練 ${stats.practiced} 題`:item.levels[0]+'等待挑戰'}</p></div><span class="world-score">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</span></a>`;
     }).join('')}</section></details>
     <details class="home-extra"><summary>查看每日任務、升學落點與模考日程</summary>
-    <section class="dashboard-grid"><article class="quest-card jh-card"><div><span class="eyebrow">TODAY</span><h2>今日任務</h2></div><strong>${quest.complete} / ${quest.total}</strong><div class="progress"><i style="width:${quest.total ? (quest.complete / quest.total) * 100 : 0}%"></i></div><ul class="quest-list">${questLabels.map((label, index) => `<li class="${questItems[index] ? 'done' : ''}"><span>${questItems[index] ? '✓' : '○'}</span>${label}</li>`).join('')}</ul><p>完成 5 項任務，開啟每日寶箱。Boss 挑戰可自行安排，無須每日完成。</p>${quest.complete === quest.total && !quest.chestClaimed ? '<button data-action="claim-chest">🎁 開啟寶箱</button>' : ''}</article><a class="revenge-card placement-entry jh-card" href="#/placement"><span>🎯</span><div><small>ADMISSION PLACEMENT</small><h2>基北區升學落點</h2><p>從最新模考帶入，查看學校區間與目標高中差距。</p></div></a></section>
+    <section class="dashboard-grid"><article class="quest-card jh-card"><div><span class="eyebrow">TODAY</span><h2>今日任務</h2></div><strong>${quest.complete} / ${quest.total}</strong><div class="progress"><i style="width:${quest.total ? (quest.complete / quest.total) * 100 : 0}%"></i></div><ul class="quest-list">${questLabels.map((label, index) => `<li class="${questItems[index] ? 'done' : ''}"><span>${questItems[index] ? '✓' : '○'}</span>${label}</li>`).join('')}</ul><p>完成 5 項任務，開啟每日寶箱。Boss 挑戰可自行安排，無須每日完成。</p>${quest.complete === quest.total && !quest.chestClaimed ? '<button data-action="claim-chest">🎁 開啟寶箱</button>' : ''}</article><a class="revenge-card placement-entry jh-card" href="#/placement"><span>🎯</span><div><small>ADMISSION PLACEMENT</small><h2>基北區升學落點（附中男）</h2><p>預設鎖定師大附中（男），查看 33.6 穩取／32.8 達標線、單科比序順位與各科 A++ 容錯題數。</p></div></a><a class="revenge-card notes-entry jh-card" href="#/notes"><span>📘</span><div><small>5A++ SPRINT NOTES</small><h2>五科 A++ 重點筆記</h2><p>收錄五科 A++ 必考觀念、公式表格、解題破口與關鍵字搜尋。</p></div></a></section>
     ${renderMockCalendar()}</details>
     ${nav('home')}
   </div>`;
@@ -63,7 +63,7 @@ export function renderWorld({ subject, levelProgress: progress = {}, levelPoolSi
   const item = SUBJECTS[subject] ?? SUBJECTS.math;
   return `<div class="app-shell world-page" style="--subject:${item.color}">
     <header class="page-header"><a href="#/" aria-label="回首頁">←</a><div><span class="eyebrow">${item.name} WORLD</span><h1>${item.icon} ${item.world}</h1></div><span></span></header>
-    <section class="world-banner"><span class="monster-orb">${item.monster}</span><div><p>目前區域</p><h2>${item.levels[0]}</h2><span>每關含本站原創會考導向題；完成關卡後解鎖下一關</span></div></section>
+    <section class="world-banner"><span class="monster-orb">${item.monster}</span><div><p>目前區域</p><h2>${item.levels[0]}</h2><span>每關含本站原創會考導向題；完成關卡後解鎖下一關。<a class="text-link" href="#/notes/${subject}">📘 查看${item.name} A++ 重點筆記 →</a></span></div></section>
     <section class="practice-panel"><label for="adventure-round-size">新回合題數</label><select id="adventure-round-size"><option value="10" ${roundSize===10?'selected':''}>10 題・完整練習</option><option value="5" ${roundSize===5?'selected':''}>5 題・快速練習</option></select><p>優先抽本機作答紀錄中未練過的題目；練完後再從最久未做的題目複習。答對六成解鎖下一關。</p>${activeRoundSize?`<p>尚未完成的回合有 ${activeRoundSize} 題；新題數會套用到下一回。</p>`:''}</section>
     <ol class="level-path">
       ${item.levels.map((level, index) => {
@@ -145,7 +145,7 @@ export function renderProfile({ player, aiUsage={count:0,limit:12}, cycleCount=0
   const used=Number(aiUsage.count??0),limit=Number(aiUsage.limit??12);
   return `<div class="app-shell"><header class="page-header"><a href="#/">←</a><div><span class="eyebrow">MORE</span><h1>更多學習工具</h1></div><span></span></header>
   <section class="profile-card jh-card"><span class="avatar">🧑‍🚀</span><h2>${escapeHtml(player.name)}</h2><strong>LV.${player.level}</strong><dl><div><dt>累積 EXP</dt><dd>${player.exp}</dd></div><div><dt>金幣</dt><dd>${player.coins}</dd></div><div><dt>總答題</dt><dd>${player.totalAnswered}</dd></div><div><dt>擊敗 Boss</dt><dd>${player.bossesDefeated}</dd></div></dl></section>
-  <nav class="more-links" aria-label="更多學習工具"><a class="jh-card" href="#/placement">🎯 升學落點 →</a><a class="jh-card" href="#/analysis">📊 能力分析 →</a><a class="jh-card" href="#/world/math">🗺️ 單科闖關 →</a></nav>
+  <nav class="more-links" aria-label="更多學習工具"><a class="jh-card" href="#/placement">🎯 升學落點（師大附中男） →</a><a class="jh-card" href="#/notes">📘 5A++ 重點筆記 →</a><a class="jh-card" href="#/analysis">📊 能力分析 →</a><a class="jh-card" href="#/world/math">🗺️ 單科闖關 →</a></nav>
   <details class="profile-advanced"><summary>進階設定、重新診斷與資料管理</summary>
   <section class="practice-panel"><span class="eyebrow">AI BUDGET</span><h2>今日 AI 題目額度</h2><p>已使用 ${used} / ${limit} 題。超過上限後會自動改用本地題庫，不會中斷練習。</p><label>每日 AI 題目上限<select id="ai-daily-limit">${[0,6,12,20,30,50].map(value=>`<option value="${value}" ${value===limit?'selected':''}>${value===0?'停用 AI':value+' 題'}</option>`).join('')}</select></label></section>
   <section class="practice-panel"><span class="eyebrow">BACKUP</span><h2>學習資料備份／還原</h2><p>重置或更換裝置前，建議先下載 JSON 備份。還原會覆蓋目前這台裝置的學習資料。</p><button class="secondary-button" data-action="export-backup">下載備份</button><button class="secondary-button" data-action="import-backup">選擇備份還原</button><input id="backup-file-input" type="file" accept="application/json,.json" hidden></section>

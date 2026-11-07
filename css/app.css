@@ -934,3 +934,143 @@ body.focus-mode .question-card .choice[aria-pressed="true"] b {
 .more-links a:hover{border-color:var(--jh-primary)}
 .source-chip{color:var(--jh-primary);font-size:.85rem;font-weight:800}
 @media(max-width:899px){.jh-mobile-nav{grid-template-columns:repeat(4,1fr)}}
+
+/* 5A++ Study Notes & HSNU Radar */
+.notes-entry { border-color:rgba(99,230,226,.35); }
+.notes-toolbar { display:grid; gap:14px; }
+.notes-tabs {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:8px;
+}
+.note-tab {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border:1px solid var(--jh-border,var(--line));
+  border-radius:14px;
+  background:var(--jh-surface-muted,rgba(255,255,255,.04));
+  color:var(--jh-text,#fff);
+  text-decoration:none;
+  font-size:.9rem;
+  transition:border-color .15s,background .15s;
+}
+.note-tab.active,
+.note-tab[aria-selected="true"] {
+  border-color:var(--subject,var(--jh-primary,#2b7a78));
+  background:color-mix(in srgb,var(--subject,var(--jh-primary,#2b7a78)) 12%,var(--jh-surface,#fff));
+  font-weight:800;
+}
+.notes-search-row { display:grid; gap:6px; }
+.notes-search-row label { font-size:.82rem; font-weight:700; color:var(--jh-muted,var(--muted)); }
+.notes-search-row input {
+  width:100%;
+  min-height:44px;
+  padding:0 14px;
+  border:1px solid var(--jh-border,#bfcbc7);
+  border-radius:12px;
+  font-size:.95rem;
+}
+.note-sections-stack { display:grid; gap:16px; margin-top:16px; }
+.note-section-card { padding:20px; }
+.note-section-header {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+.note-markdown-body h3 {
+  margin:16px 0 8px;
+  color:var(--jh-text,#1f2a44);
+  font-size:1.05rem;
+}
+.note-markdown-body p {
+  margin:8px 0;
+  line-height:1.68;
+}
+.note-list {
+  margin:8px 0 12px;
+  padding-left:20px;
+  display:grid;
+  gap:8px;
+  line-height:1.65;
+}
+.note-list li.note-subitem {
+  margin-left:18px;
+  list-style-type:circle;
+}
+.note-inline-tip {
+  margin-top:4px;
+  padding:6px 10px;
+  border-left:3px solid var(--jh-primary,#2b7a78);
+  background:var(--jh-surface-muted,#f4f7fb);
+  border-radius:6px;
+  font-size:.88rem;
+}
+.note-table-wrap {
+  margin:12px 0;
+  overflow-x:auto;
+}
+.note-table-wrap table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:.88rem;
+}
+.note-table-wrap th,
+.note-table-wrap td {
+  padding:10px 12px;
+  border:1px solid var(--jh-border,#d8e2ec);
+  text-align:left;
+  vertical-align:top;
+  line-height:1.55;
+}
+.note-table-wrap th {
+  background:var(--jh-surface-muted,#f4f7fb);
+  font-weight:800;
+}
+.note-code {
+  margin:10px 0;
+  padding:12px 14px;
+  border-radius:12px;
+  background:#1e293b;
+  color:#f8fafc;
+  overflow-x:auto;
+  font-size:.85rem;
+  line-height:1.55;
+}
+.note-formula {
+  margin:8px 0;
+  padding:8px 12px;
+  border-radius:10px;
+  background:var(--jh-surface-muted,#f4f7fb);
+  overflow-x:auto;
+}
+.math-inline {
+  padding:2px 6px;
+  border-radius:6px;
+  background:color-mix(in srgb,var(--jh-primary,#2b7a78) 10%,transparent);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:.9em;
+}
+.note-practice-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.note-practice-actions .primary-button,
+.note-practice-actions .secondary-button {
+  width:auto;
+  margin:0;
+}
+.hsnu-radar-panel article.achieved {
+  border:1.5px solid var(--jh-success,#16a34a);
+}
+@media (max-width:620px) {
+  .note-practice-actions .primary-button,
+  .note-practice-actions .secondary-button {
+    width:100%;
+  }
+}

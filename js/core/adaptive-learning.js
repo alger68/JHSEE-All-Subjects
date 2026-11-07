@@ -365,6 +365,18 @@ function variationForm(profile,sourceQuestion){
 export function generationBrief(profile, sourceQuestion = null) {
   const mode = practiceMode(profile);
   const preferredForm=variationForm(profile,sourceQuestion);
+  const targetDiff = targetDifficulty(profile, sourceQuestion?.difficulty ?? 3);
+  const requirements = [
+    '保持相同核心能力，但改用不同情境與表面形式',
+    `本輪優先使用「${preferredForm}」作為刺激形式；同批其他題要再換不同形式`,
+    '不得只替換人名、數字或關鍵名詞',
+    '選項必須只有一個最佳答案，錯誤選項要對應合理迷思',
+    '提供答案、解析、核心能力與錯因標籤',
+    mode === 'diagnostic' ? '優先拆解底層能力，產生3至5題短診斷組' : '產生可用於近遷移與會考情境練習的變形題'
+  ];
+  if (targetDiff >= 4) {
+    requirements.push('針對 A++ 精熟高分鑑別：結合跨步推論、圖表轉譯或常見觀念陷阱設計誘答選項');
+  }
   return {
     subject: profile?.subject ?? sourceQuestion?.subject ?? 'unknown',
     domain: profile?.domain ?? sourceQuestion?.examProfile?.domain ?? sourceQuestion?.domain ?? '一般',
@@ -374,15 +386,8 @@ export function generationBrief(profile, sourceQuestion = null) {
     priority: profile?.priorityScore ?? 40,
     consecutiveWrong: profile?.consecutiveWrong ?? 0,
     practiceMode: mode,
-    targetDifficulty: targetDifficulty(profile, sourceQuestion?.difficulty ?? 3),
-    requirements: [
-      '保持相同核心能力，但改用不同情境與表面形式',
-      `本輪優先使用「${preferredForm}」作為刺激形式；同批其他題要再換不同形式`,
-      '不得只替換人名、數字或關鍵名詞',
-      '選項必須只有一個最佳答案，錯誤選項要對應合理迷思',
-      '提供答案、解析、核心能力與錯因標籤',
-      mode === 'diagnostic' ? '優先拆解底層能力，產生3至5題短診斷組' : '產生可用於近遷移與會考情境練習的變形題'
-    ]
+    targetDifficulty: targetDiff,
+    requirements
   };
 }
 

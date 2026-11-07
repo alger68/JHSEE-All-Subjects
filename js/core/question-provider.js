@@ -57,6 +57,7 @@ export function createQuestionProvider({registry,generateAi=null}={}){
     if(criteria.subject&&criteria.subject!=='all'&&question.subject!==criteria.subject)return false;
     if(criteria.examAligned!==undefined&&criteria.examAligned!==null&&question.examAligned!==criteria.examAligned)return false;
     if(Number.isFinite(Number(criteria.maxGrade))&&Number(question.grade??9)>Number(criteria.maxGrade))return false;
+    if(Number.isFinite(Number(criteria.minDifficulty))&&Number(question.difficulty??1)<Number(criteria.minDifficulty))return false;
     if(criteria.questionType&&question.questionType!==criteria.questionType)return false;
     if(criteria.topic&&!repairTopicMatchesQuestion(question,criteria.topic))return false;
     return true;

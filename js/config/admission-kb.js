@@ -6,6 +6,7 @@ export const KB_ADMISSION_RULE={
   totalMax:108,
   subjectPoints:{'A++':7,'A+':6,'A':5,'B++':4,'B+':3,'B':2,'C':1},
   writingPoints:{6:1,5:0.8,4:0.6,3:0.4,2:0.2,1:0.1},
+  tieBreakSubjectOrder:['chinese','math','english','social','science'],
   sourceUrl:'https://ttk.entry.edu.tw/NoExamImitate_TP/NoExamImitate/Apps/Page/Public/News.aspx?SEQNO=9',
   note:'116 學年度正式簡章尚需以當年度公告為準；本頁先使用 115 基北區規則作規劃參考。'
 };
@@ -16,6 +17,68 @@ export const KB_PLACEMENT_SOURCE={
   sourceUrl:'https://blog.ehanlin.com.tw/score-of-junior-high-school-students-exam',
   note:'落點區間為公開整理資料，不是官方錄取保證；每年會受題目難度、招生名額、志願分布與超額比序影響。'
 };
+
+export const SUBJECT_ERROR_TOLERANCE={
+  chinese:{
+    total:'42 題單選',
+    A:'錯 6～7 題內',
+    'A+':'錯 4～5 題內',
+    'A++':'錯 0～2 題內',
+    keyPoint:'單科比序第 1 順位；文言文斷句主詞切換、白話雙文本細節比對'
+  },
+  math:{
+    total:'選擇 25 題 (85%)＋非選 2 題 (15%)',
+    A:'選擇錯 4 題內＋非選 4 分（加權約 76+）',
+    'A+':'選擇錯 2 題內＋非選 5 分（加權約 85+）',
+    'A++':'選擇錯 0～1 題＋非選 5～6 分（加權約 93+）',
+    keyPoint:'單科比序第 2 順位；幾何三心與相似形複合題、非選第 2 題證明'
+  },
+  english:{
+    total:'閱讀 43 題 (80%)＋聽力 21 題 (20%)',
+    A:'聽力錯 2 題內、閱讀錯 4～5 題內（加權約 90+）',
+    'A+':'聽力全對、閱讀錯 2～3 題內（加權約 95+）',
+    'A++':'聽力全對、閱讀錯 0～1 題內（加權約 98+）',
+    keyPoint:'單科比序第 3 順位；題組後段長文推論、時態與子句混合題'
+  },
+  social:{
+    total:'54 題單選',
+    A:'錯 6～8 題內',
+    'A+':'錯 4～5 題內',
+    'A++':'錯 0～3 題內',
+    keyPoint:'單科比序第 4 順位；跨歷地公題組、陌生史料與氣候統計圖表轉譯'
+  },
+  science:{
+    total:'50 題單選',
+    A:'錯 6～7 題內',
+    'A+':'錯 4～5 題內',
+    'A++':'錯 0～2 題內',
+    keyPoint:'單科比序第 5 順位；實驗變因設計、理化浮力電功率與地科立體空間'
+  }
+};
+
+export const HSNU_MALE_STRATEGIES=[
+  {
+    id:'safe-336',
+    title:'穩取安全線（33.6 分｜5A8+）',
+    badge:'免比單科順位',
+    combo:'3 科 A++ ＋ 2 科 A+ ＋ 寫作 4 級分（0.6 分）',
+    desc:'即使寫作維持 4 級分，只要五科拿到 5A 且累積 8 個「+」（33 分），總分 33.6 分即可穩取師大附中男生名額。'
+  },
+  {
+    id:'match-328',
+    title:'常態錄取線（32.8 分｜5A7+）',
+    badge:'主力達標配方',
+    combo:'2 科 A++ ＋ 3 科 A+（或 3A++ 1A+ 1A）＋ 寫作 5 級分（0.8 分）',
+    desc:'五科拿 32 分（5A7+）搭配寫作 5 級分（0.8 分）達 32.8 分，直接跨過 32.6 分同分比序群。'
+  },
+  {
+    id:'tiebreak-326',
+    title:'壓線決戰線（32.6 分｜5A7+ 同分比序）',
+    badge:'國數 A++ 決勝',
+    combo:'5A7+（32 分）＋ 寫作 4 級分（0.6 分）',
+    desc:'32.6 分常進入附中男生最後名額同分超額比序，依序比「國文 → 數學 → 英語 → 社會 → 自然」，國文與數學衝上 A++ 最具優勢。'
+  }
+];
 
 export const KB_SCHOOLS=[
   {id:'jianguo',name:'建國中學',region:'臺北市',gender:'male',low:34.6,high:34.8},

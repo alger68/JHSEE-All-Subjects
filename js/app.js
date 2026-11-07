@@ -26,6 +26,7 @@ import { applyResetMode, aiAllowance, recordAiUsage, buildSevenDayTrend, buildPa
 import { buildMockWarRoom, buildMockAdjustedDiagnostic, normalizeMockExamRecord, normalizeMockErrorImport, buildSevenDayRepairPlan, repairTopicMatchesQuestion, recordRepairProgress, applyRepairProgress, buildCoverageReport } from './core/cap-war-room.js';
 import { buildPlacementModel } from './core/admission-placement.js';
 import { renderAdmissionPlacement } from './ui/admission-view.js';
+import { renderStudyNotes } from './ui/notes-view.js';
 import { createRouter } from './router.js';
 import { isFocusMode } from './ui/focus-mode.js';
 import { renderAppShell } from './ui/app-shell.js';
@@ -46,6 +47,7 @@ let feedback = null;
 let questionMap = new Map();
 let toastTimer;
 let aiRemediationInFlight = false;
+let notesSearchQuery = '';
 
 const currentDiagnostic=()=>buildMockAdjustedDiagnostic(PERSONAL_DIAGNOSTIC,state.mockExamRecords??[]);
 const currentMockWarRoom=()=>buildMockWarRoom(state.mockExamRecords??[],PERSONAL_DIAGNOSTIC.subjectWeights);
@@ -367,6 +369,8 @@ function routes() {
       });
       return renderAdmissionPlacement({model,latestMock:room.latest});
     },
+    '#/notes': () => renderStudyNotes({ activeNoteId: 'overview', searchQuery: notesSearchQuery }),
+    '#/notes/:noteId': ({ noteId }) => renderStudyNotes({ activeNoteId: noteId, searchQuery: notesSearchQuery }),
     '#/paper/:paperId': ({paperId}) => renderPaperSetup(OFFICIAL_PAPERS.find(p=>p.id===paperId)),
     '#/exam-results': () => renderReport(state.lastExamResult),
     '#/exam-results/:reportId': ({reportId}) => renderReport(state.examReports.find(r=>r.sessionId===reportId))
@@ -910,8 +914,33 @@ function practiceFilters(){
   const criteria={maxGrade:grade};
   if(subject!=='all')criteria.subject=subject;
   if(type)criteria.questionType=type;
-  if(focus!=='all')criteria.examAligned=focus!=='basic';
+  if(focus==='aplus'){
+    criteria.examAligned=true;
+    criteria.minDifficulty=4;
+  } else if(focus!=='all') {
+    criteria.examAligned=focus!=='basic';
+  }
   return {subject,grade,type,focus,criteria};
+}
+
+function startAplusPractice(subject='all',count=10){
+  const validSubject=SUBJECTS[subject]?subject:'all';
+  const wanted=Math.max(1,Math.min(15,Math.round(Number(count)||10)));
+  state.adaptiveSkills=refreshPriorities(state.adaptiveSkills,taipeiDate());
+  state.adaptiveSubjectWeights=calculateSubjectWeights(state.adaptiveSkills,state.adaptiveSubjectWeights,currentDiagnostic());
+  const criteria={examAligned:true,maxGrade:9,minDifficulty:4};
+  if(validSubject!=='all')criteria.subject=validSubject;
+  const result=provider.getPracticeSet(criteria,practiceProviderContext({count:wanted,shuffle:true}));
+  if(!result.questions.length){
+    showToast('目前沒有符合條件的 A++ 難題。');
+    return null;
+  }
+  const label=validSubject==='all'?'五科':SUBJECTS[validSubject].name;
+  return startSession(result.questions,{
+    title:`${label}・A++ 決勝難題特訓`,
+    kind:'practice',
+    durationMinutes:Math.max(15,Math.round(result.questions.length*2.2))
+  });
 }
 
 function practiceSelection(shuffle=false) {
@@ -1097,6 +1126,13 @@ app.addEventListener('click', async (event) => {
     const count=Math.max(1,Math.min(15,Number(control.dataset.count)||10));
     startPlacementPractice(subject,count);
   }
+  if (action === 'start-aplus-practice') {
+    startAplusPractice(String(control.dataset.subject||'all'),10);
+  }
+  if (action === 'clear-notes-search') {
+    notesSearchQuery='';
+    renderRoute(false);
+  }
   if (action === 'start-official-repair') {
     startOfficialRepair(control.dataset.subject);
   }
@@ -1200,7 +1236,7 @@ app.addEventListener('click', async (event) => {
       showToast(warnings[0]);
     }
 
-    const focusLabel=focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
+    const focusLabel=focus==='aplus'?'A++ 決勝難題':focus==='basic'?'基礎補強':focus==='all'?'全部原創':'會考導向';
     const started=startSession(pool,{
       title:`${subject==='all'?'五科':SUBJECTS[subject].name}・${grade===7?'國一':grade===8?'國一至國二':'全範圍'}${type?`・${type}`:''}・${focusLabel}${aiPlanned?'＋AI弱點':''}練習`,
       kind:'practice',
@@ -1285,12 +1321,23 @@ app.addEventListener('toggle',(event)=>{
 },true);
 
 app.addEventListener('input',(event)=>{
+  if(event.target.id==='notes-search') {
+    notesSearchQuery=event.target.value;
+    const pos=event.target.selectionStart??notesSearchQuery.length;
+    renderRoute(false);
+    const input=app.querySelector('#notes-search');
+    if(input){
+      input.focus({preventScroll:true});
+      try{input.setSelectionRange(pos,pos);}catch{}
+    }
+    return;
+  }
   const id=event.target.dataset.examNote;
   if(id&&guardSession()) {state.activeExam.notes[id]=event.target.value.slice(0,20000);save();}
 });
 app.addEventListener('change',async(event)=>{
   if(event.target.matches('[data-placement-grade],#placement-writing,#placement-gender,#placement-target,#placement-preference-points,#placement-balanced-points,#placement-service-points')) {
-    const current=state.admissionProfile??{source:'latest-mock',grades:{},writing:4,gender:'all',targetSchoolId:'banqiao',preferencePoints:null,balancedPoints:null,servicePoints:null};
+    const current=state.admissionProfile??{source:'latest-mock',grades:{},writing:4,gender:'male',targetSchoolId:'hsnu-m',preferencePoints:null,balancedPoints:null,servicePoints:null};
     const latestGrades=currentMockWarRoom().latest?.grades??{};
     const grades=current.source==='latest-mock'
       ? {...latestGrades,...(current.grades??{})}
@@ -1307,8 +1354,8 @@ app.addEventListener('change',async(event)=>{
       source:event.target.matches('[data-placement-grade]')?'manual':current.source,
       grades,
       writing:event.target.id==='placement-writing'?Number(event.target.value):Number(current.writing??4),
-      gender:event.target.id==='placement-gender'?event.target.value:(current.gender??'all'),
-      targetSchoolId:event.target.id==='placement-target'?event.target.value:(current.targetSchoolId??'banqiao'),
+      gender:event.target.id==='placement-gender'?event.target.value:(current.gender??'male'),
+      targetSchoolId:event.target.id==='placement-target'?event.target.value:(current.targetSchoolId??'hsnu-m'),
       preferencePoints:nullableNumber('placement-preference-points',current.preferencePoints),
       balancedPoints:nullableNumber('placement-balanced-points',current.balancedPoints),
       servicePoints:nullableNumber('placement-service-points',current.servicePoints)

@@ -27,7 +27,9 @@
 - 作答與開始時間保存在目前瀏覽器，重新整理可續答；離開頁面也持續計時。交卷後才呈現核對答案。
 - 頂端及末題都有交卷按鈕；倒數只更新時間文字，不再每秒重繪整頁或捲回頂端。
 - 點「交卷」先進入站內檢查頁：顯示未答與不確定題號，可直接返回補答，再按「確認交卷」。此流程不使用瀏覽器原生確認視窗；檢查期間仍會計時與到時交卷。
-- 672 題原創練習（核心 222 題、增補 450 題）；題目會考導向分類含領域、題型、能力與本站核對依據。
+- 722 題原創練習（核心 222 題、增補 500 題）；題目會考導向分類含領域、題型、能力與本站核對依據，並支援「A++ 決勝難題（難度 4–5）」特訓篩選。
+- 五科 A++ 衝刺重點筆記中心（`#/notes`、`#/notes/:subject`）：整合總覽讀書計畫與國、英、數、自、社五科 A++ 必考觀念、公式對照表、跨科關鍵字搜尋與一鍵難題特訓。
+- 基北區升學落點分析（`#/placement`）：預設鎖定「師大附中（男）」(`hsnu-m`) 與男生篩選，提供附中男三大達標配方（33.6 分 `5A8+` 穩取線、32.8 分 `5A7+` 主力線、32.6 分同分比序突圍線）、基北區單科比序順位（國→數→英→社→自）及各科 A++ 容錯題數標準。
 - 原創短練習可依科目、年級範圍與題型篩選；保留首次／重做與提示使用紀錄。
 - 原創短練習預設使用已核對的會考導向題；可另選基礎補強或全部原創題。篩選時立即顯示符合題數，沒有符合題目時提示調整條件。
 - 錯題、猜對及使用提示的題目納入複習；可自行記錄錯因。同一天反覆答對不重複增加熟練度，再答錯仍會降低熟練度。
@@ -94,13 +96,13 @@ Vercel 環境變數請依 `.env.example` 設定：
 
 ## Current content milestone
 
-As of 2026-09-30, the All Subjects bank contains **672 original questions**:
+The All Subjects bank contains **722 original questions**:
 
-- Chinese: 138
-- English: 130
-- Math: 129
-- Science: 140
-- Social: 135
+- Chinese: 144
+- English: 156
+- Math: 135
+- Science: 146
+- Social: 141
 
 The three-year curriculum blueprint contains **60 skill nodes**, all currently meeting the project's internal minimum depth target (8–12 questions per skill). Supplemental content is loaded through `public/question-packs/manifest.json`.
 

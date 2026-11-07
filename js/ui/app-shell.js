@@ -7,7 +7,7 @@ const APPS = [
 function activeSection(route) {
   if (route === '#/revenge') return 'review';
   if (route.startsWith('#/exam') || route.startsWith('#/paper/')) return 'exam';
-  if (route === '#/placement') return 'more';
+  if (route === '#/placement' || route.startsWith('#/notes')) return 'more';
   if (route === '#/analysis' || route === '#/profile' || route === '#/results') return 'more';
   return 'practice';
 }
